@@ -3,6 +3,8 @@
 Sito statico che raccoglie in un unico calendario cronologico tutte le partite
 della società, tra campionati FIPAV e ASI, con le classifiche dei gironi.
 
+**Sito online:** https://kozmoshadow.github.io/astrovolley-calendario/
+
 ## Come funziona
 
 - `importer/import_schedule.py` interroga l'API pubblica usata da Spike Volley,
@@ -11,6 +13,22 @@ della società, tra campionati FIPAV e ASI, con le classifiche dei gironi.
 - Le competizioni non gestite da FIPAV (es. ASI) si inseriscono a mano in
   `data/manual.json`.
 - Il risultato è un unico file `site/data/schedule.json`, letto dal sito in `site/`.
+
+## Aggiornamento automatico
+
+- `.github/workflows/update-schedule.yml` rigenera i dati ogni giorno alle 06:00 UTC
+  e committa le differenze. Per forzarlo: Actions → "Aggiorna calendario" → Run workflow.
+- `.github/workflows/deploy-pages.yml` pubblica il sito su GitHub Pages ad ogni push su `main`.
+
+## Modificare i contenuti
+
+| Cosa | Dove |
+| --- | --- |
+| Colori del sito | `site/styles.css`, blocco `:root` in cima (`--accent`, `--accent-soft`) |
+| Logo | `site/assets/logo.jpg` |
+| Competizioni ASI (a mano) | `data/manual.json` |
+| Società / comitato / stagione | `config.json` |
+| Logica di importazione | `importer/import_schedule.py` |
 
 ## Configurazione
 
