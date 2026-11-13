@@ -100,8 +100,13 @@ function parseMatches(tableHtml, base) {
     let impianto = "";
     let parziali = "";
     if (cells.length >= 7) {
-      const info = /title="(IMPIANTO DI GARA:[\s\S]*?)"/i.exec(cells[6]);
-      if (info) ({ palestra, impianto, parziali } = parseImpianto(info[1]));
+      // La cella info ha due title: lo stato gara ("da disputare ...") e
+      // l'impianto, che e' l'unico con <b>palestra</b>. Il prefisso
+      // "IMPIANTO DI GARA:" compare solo per le gare giocate, quindi non si
+      // puo' cercare quello: le gare future hanno l'impianto senza prefisso.
+      const titles = matchAll(cells[6], /title="([\s\S]*?)"/gi).map((m) => m[1]);
+      const impiantoTitle = titles.find((t) => /<b>|<p>/i.test(decodeEntities(t)));
+      if (impiantoTitle) ({ palestra, impianto, parziali } = parseImpianto(impiantoTitle));
     }
     matches.push({
       data,

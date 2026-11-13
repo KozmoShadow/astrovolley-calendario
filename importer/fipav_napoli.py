@@ -60,6 +60,28 @@ def fetch(url: str, timeout: int = 40) -> str:
         return resp.read().decode("utf-8", errors="replace")
 
 
+def fetch_bytes(url: str, timeout: int = 40) -> tuple[bytes, str]:
+    """Scarica un file binario (logo). Restituisce (contenuto, content-type).
+
+    Serve un Accept da immagine, altrimenti il sito risponde 406. Senza header
+    sec-fetch-* il sito serve il logo reale; il browser, che li manda sempre,
+    riceve invece un placeholder 100x100 identico per tutti.
+    """
+    headers = {**HEADERS, "Accept": "image/avif,image/webp,image/*,*/*;q=0.8"}
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return resp.read(), resp.headers.get("Content-Type", "")
+
+
+def logo_local_name(url: str) -> str:
+    """Da un URL logo FIPAV ricava il nome file locale, es. 5690.jpg."""
+    m = re.search(r"/img/(\d+)/Loghi/[^/]+\.(jpe?g|png|gif)", url, re.I)
+    if not m:
+        return ""
+    ext = m.group(2).lower()
+    return f"{m.group(1)}.{ext}"
+
+
 # ---------------------------------------------------------------- utilità HTML
 
 
@@ -163,9 +185,14 @@ def parse_matches(table_html: str, base: str) -> list[dict]:
             risultato = ""
         palestra = impianto = parziali = ""
         if len(cells) >= 7:
-            info = re.search(r'title="(IMPIANTO DI GARA:.*?)"', cells[6], re.S)
-            if info:
-                palestra, impianto, parziali = _parse_impianto(info.group(1))
+            # La cella info ha due title: lo stato gara ("da disputare ...") e
+            # l'impianto, l'unico con <b>palestra</b>. Il prefisso
+            # "IMPIANTO DI GARA:" compare solo per le gare giocate, quindi le
+            # gare future vanno riconosciute dal markup, non dal prefisso.
+            for title in re.findall(r'title="(.*?)"', cells[6], re.S):
+                if re.search(r"<b>|<p>", html.unescape(title), re.I):
+                    palestra, impianto, parziali = _parse_impianto(title)
+                    break
         matches.append(
             {
                 "data": data,

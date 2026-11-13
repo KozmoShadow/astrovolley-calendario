@@ -41,6 +41,14 @@ function escapeHtml(s) {
 
 const escapeAttr = (s) => (s ? escapeHtml(s) : "");
 
+// Il sito FIPAV blocca l'hotlink dei loghi: al browser serve un placeholder
+// identico per tutti. I loghi veri vengono scaricati dall'importer in
+// assets/loghi/; qui riscriviamo gli URL FIPAV verso quei file locali.
+function logoUrl(url) {
+  const m = /\/img\/(\d+)\/Loghi\/[^/]+\.(jpe?g|png|gif)/i.exec(url || "");
+  return m ? `assets/loghi/${m[1]}.${m[2].toLowerCase()}` : url || "";
+}
+
 function allMatches() {
   const rows = [];
   for (const comp of state.competitions) {
@@ -211,8 +219,8 @@ function openMatchModal(m) {
     : "";
   const loghi = [m.logo_casa, m.logo_trasferta].some(Boolean)
     ? `<div class="detail-logos">
-         <img src="${escapeAttr(m.logo_casa)}" alt="" loading="lazy" onerror="this.remove()" />
-         <img src="${escapeAttr(m.logo_trasferta)}" alt="" loading="lazy" onerror="this.remove()" />
+         <img src="${escapeAttr(logoUrl(m.logo_casa))}" alt="" loading="lazy" onerror="this.remove()" />
+         <img src="${escapeAttr(logoUrl(m.logo_trasferta))}" alt="" loading="lazy" onerror="this.remove()" />
        </div>`
     : "";
   const fonte = (m._comp.fonte || "manuale").toLowerCase();

@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-13T16:23:11+00:00",
+  "generato_il": "2026-11-13T17:32:12+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -32,8 +32,8 @@
           "parziali": "25-15 26-24 25-23",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg"
+          "logo_casa": "assets/loghi/752.jpg",
+          "logo_trasferta": "assets/loghi/772.jpg"
         },
         {
           "fonte": "fipav",
@@ -48,8 +48,8 @@
           "parziali": "12-25 26-24 12-25 17-25",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg"
+          "logo_casa": "assets/loghi/1159.jpg",
+          "logo_trasferta": "assets/loghi/1186.jpg"
         },
         {
           "fonte": "fipav",
@@ -64,8 +64,8 @@
           "parziali": "13-25 22-25 20-25",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg"
+          "logo_casa": "assets/loghi/4199.jpg",
+          "logo_trasferta": "assets/loghi/5690.jpg"
         },
         {
           "fonte": "fipav",
@@ -78,10 +78,10 @@
           "trasferta": "VOLLEY WORD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg"
+          "palestra": "PALESTRA SMS RADICE",
+          "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "logo_casa": "assets/loghi/772.jpg",
+          "logo_trasferta": "assets/loghi/1159.jpg"
         },
         {
           "fonte": "fipav",
@@ -94,10 +94,10 @@
           "trasferta": "CALVIZZANO VOLLEY BLU",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg"
+          "palestra": "PALESTRA I.C. \"V. DE SICA\"",
+          "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "logo_casa": "assets/loghi/1186.jpg",
+          "logo_trasferta": "assets/loghi/4199.jpg"
         },
         {
           "fonte": "fipav",
@@ -110,10 +110,10 @@
           "trasferta": "VICTORIA MARANO APD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG"
+          "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
+          "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "logo_casa": "assets/loghi/5690.jpg",
+          "logo_trasferta": "assets/loghi/752.jpg"
         },
         {
           "fonte": "fipav",
@@ -126,10 +126,10 @@
           "trasferta": "ASD VOLLEY VOLLA",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg"
+          "palestra": "PALASPORT PALAMARANO",
+          "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "logo_casa": "assets/loghi/752.jpg",
+          "logo_trasferta": "assets/loghi/1186.jpg"
         },
         {
           "fonte": "fipav",
@@ -142,10 +142,10 @@
           "trasferta": "CALVIZZANO VOLLEY BLU",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg"
+          "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
+          "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "logo_casa": "assets/loghi/1159.jpg",
+          "logo_trasferta": "assets/loghi/4199.jpg"
         },
         {
           "fonte": "fipav",
@@ -158,10 +158,10 @@
           "trasferta": "MINERVA MEDICA FLYER",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg"
+          "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
+          "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "logo_casa": "assets/loghi/5690.jpg",
+          "logo_trasferta": "assets/loghi/772.jpg"
         },
         {
           "fonte": "fipav",
@@ -174,10 +174,10 @@
           "trasferta": "VICTORIA MARANO APD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG"
+          "palestra": "PALA RAFFAELLA",
+          "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "logo_casa": "assets/loghi/4199.jpg",
+          "logo_trasferta": "assets/loghi/752.jpg"
         },
         {
           "fonte": "fipav",
@@ -190,10 +190,10 @@
           "trasferta": "ASD VOLLEY VOLLA",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg"
+          "palestra": "PALESTRA SMS RADICE",
+          "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "logo_casa": "assets/loghi/772.jpg",
+          "logo_trasferta": "assets/loghi/1186.jpg"
         },
         {
           "fonte": "fipav",
@@ -206,10 +206,10 @@
           "trasferta": "ASD ASTROVOLLEY",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg"
+          "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
+          "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "logo_casa": "assets/loghi/1159.jpg",
+          "logo_trasferta": "assets/loghi/5690.jpg"
         },
         {
           "fonte": "fipav",
@@ -222,10 +222,10 @@
           "trasferta": "VOLLEY WORD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg"
+          "palestra": "PALASPORT PALAMARANO",
+          "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "logo_casa": "assets/loghi/752.jpg",
+          "logo_trasferta": "assets/loghi/1159.jpg"
         },
         {
           "fonte": "fipav",
@@ -238,10 +238,10 @@
           "trasferta": "ASD ASTROVOLLEY",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg"
+          "palestra": "PALESTRA I.C. \"V. DE SICA\"",
+          "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "logo_casa": "assets/loghi/1186.jpg",
+          "logo_trasferta": "assets/loghi/5690.jpg"
         },
         {
           "fonte": "fipav",
@@ -254,10 +254,10 @@
           "trasferta": "CALVIZZANO VOLLEY BLU",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg"
+          "palestra": "PALESTRA SMS RADICE",
+          "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "logo_casa": "assets/loghi/772.jpg",
+          "logo_trasferta": "assets/loghi/4199.jpg"
         },
         {
           "fonte": "fipav",
@@ -270,10 +270,10 @@
           "trasferta": "VICTORIA MARANO APD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG"
+          "palestra": "PALESTRA SMS RADICE",
+          "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "logo_casa": "assets/loghi/772.jpg",
+          "logo_trasferta": "assets/loghi/752.jpg"
         },
         {
           "fonte": "fipav",
@@ -286,10 +286,10 @@
           "trasferta": "VOLLEY WORD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg"
+          "palestra": "PALESTRA I.C. \"V. DE SICA\"",
+          "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "logo_casa": "assets/loghi/1186.jpg",
+          "logo_trasferta": "assets/loghi/1159.jpg"
         },
         {
           "fonte": "fipav",
@@ -302,10 +302,10 @@
           "trasferta": "CALVIZZANO VOLLEY BLU",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg"
+          "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
+          "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "logo_casa": "assets/loghi/5690.jpg",
+          "logo_trasferta": "assets/loghi/4199.jpg"
         },
         {
           "fonte": "fipav",
@@ -318,10 +318,10 @@
           "trasferta": "MINERVA MEDICA FLYER",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg"
+          "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
+          "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "logo_casa": "assets/loghi/1159.jpg",
+          "logo_trasferta": "assets/loghi/772.jpg"
         },
         {
           "fonte": "fipav",
@@ -334,10 +334,10 @@
           "trasferta": "ASD VOLLEY VOLLA",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg"
+          "palestra": "PALA RAFFAELLA",
+          "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "logo_casa": "assets/loghi/4199.jpg",
+          "logo_trasferta": "assets/loghi/1186.jpg"
         },
         {
           "fonte": "fipav",
@@ -350,10 +350,10 @@
           "trasferta": "ASD ASTROVOLLEY",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg"
+          "palestra": "PALASPORT PALAMARANO",
+          "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "logo_casa": "assets/loghi/752.jpg",
+          "logo_trasferta": "assets/loghi/5690.jpg"
         },
         {
           "fonte": "fipav",
@@ -366,10 +366,10 @@
           "trasferta": "VICTORIA MARANO APD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG"
+          "palestra": "PALESTRA I.C. \"V. DE SICA\"",
+          "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "logo_casa": "assets/loghi/1186.jpg",
+          "logo_trasferta": "assets/loghi/752.jpg"
         },
         {
           "fonte": "fipav",
@@ -382,10 +382,10 @@
           "trasferta": "VOLLEY WORD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg"
+          "palestra": "PALA RAFFAELLA",
+          "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "logo_casa": "assets/loghi/4199.jpg",
+          "logo_trasferta": "assets/loghi/1159.jpg"
         },
         {
           "fonte": "fipav",
@@ -398,10 +398,10 @@
           "trasferta": "ASD ASTROVOLLEY",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg"
+          "palestra": "PALESTRA SMS RADICE",
+          "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "logo_casa": "assets/loghi/772.jpg",
+          "logo_trasferta": "assets/loghi/5690.jpg"
         },
         {
           "fonte": "fipav",
@@ -414,10 +414,10 @@
           "trasferta": "CALVIZZANO VOLLEY BLU",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg"
+          "palestra": "PALASPORT PALAMARANO",
+          "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "logo_casa": "assets/loghi/752.jpg",
+          "logo_trasferta": "assets/loghi/4199.jpg"
         },
         {
           "fonte": "fipav",
@@ -430,10 +430,10 @@
           "trasferta": "MINERVA MEDICA FLYER",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg"
+          "palestra": "PALESTRA I.C. \"V. DE SICA\"",
+          "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "logo_casa": "assets/loghi/1186.jpg",
+          "logo_trasferta": "assets/loghi/772.jpg"
         },
         {
           "fonte": "fipav",
@@ -446,10 +446,10 @@
           "trasferta": "VOLLEY WORD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg"
+          "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
+          "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "logo_casa": "assets/loghi/5690.jpg",
+          "logo_trasferta": "assets/loghi/1159.jpg"
         },
         {
           "fonte": "fipav",
@@ -462,10 +462,10 @@
           "trasferta": "VICTORIA MARANO APD",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/1159/Loghi/LogoS1159.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/752/Loghi/LogoS752.JPG"
+          "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
+          "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "logo_casa": "assets/loghi/1159.jpg",
+          "logo_trasferta": "assets/loghi/752.jpg"
         },
         {
           "fonte": "fipav",
@@ -478,10 +478,10 @@
           "trasferta": "ASD VOLLEY VOLLA",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/5690/Loghi/LogoS5690.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/1186/Loghi/LogoS1186.jpg"
+          "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
+          "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "logo_casa": "assets/loghi/5690.jpg",
+          "logo_trasferta": "assets/loghi/1186.jpg"
         },
         {
           "fonte": "fipav",
@@ -494,10 +494,10 @@
           "trasferta": "MINERVA MEDICA FLYER",
           "risultato": "",
           "parziali": "",
-          "palestra": "",
-          "impianto": "",
-          "logo_casa": "https://www.fipavnapoli.it/mngArea/Societa/img/4199/Loghi/LogoS4199.jpg",
-          "logo_trasferta": "https://www.fipavnapoli.it/mngArea/Societa/img/772/Loghi/LogoS772.jpg"
+          "palestra": "PALA RAFFAELLA",
+          "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "logo_casa": "assets/loghi/4199.jpg",
+          "logo_trasferta": "assets/loghi/772.jpg"
         }
       ],
       "standings": [
