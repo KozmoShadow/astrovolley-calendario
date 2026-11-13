@@ -5,9 +5,9 @@
   --line: #26344f;
   --text: #eaf0fb;
   --muted: #93a3c0;
-  --accent: #ff6b2c;
-  --accent-soft: #ff8f5a;
-  --on-accent: #1a0d05;
+  --accent: #7b4fb5;
+  --accent-soft: #a37fd4;
+  --on-accent: #ffffff;
   --fipav: #2f7dd1;
   --asi: #23b26d;
   --radius: 14px;
@@ -24,7 +24,7 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, .brand-mark, .tagline {
+h1, h2, .tagline {
   font-family: "Plus Jakarta Sans", "Inter", sans-serif;
 }
 
@@ -35,7 +35,7 @@ h1, h2, .brand-mark, .tagline {
 
 .hero {
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(135deg, rgba(255, 107, 44, 0.14), rgba(47, 125, 209, 0.12));
+  background: linear-gradient(135deg, rgba(123, 79, 181, 0.22), rgba(163, 127, 212, 0.12));
 }
 
 .hero-inner {
@@ -47,8 +47,13 @@ h1, h2, .brand-mark, .tagline {
 .brand { display: flex; align-items: center; gap: 16px; }
 
 .brand-mark {
-  font-size: 38px;
-  filter: drop-shadow(0 4px 10px rgba(255, 107, 44, 0.45));
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow: 0 4px 14px rgba(123, 79, 181, 0.5);
 }
 
 .brand h1 { margin: 0; font-size: 30px; letter-spacing: -0.02em; }
