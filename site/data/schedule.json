@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-13T17:32:12+00:00",
+  "generato_il": "2026-11-13T17:43:43+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -32,6 +32,7 @@
           "parziali": "25-15 26-24 25-23",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
           "logo_casa": "assets/loghi/752.jpg",
           "logo_trasferta": "assets/loghi/772.jpg"
         },
@@ -48,6 +49,7 @@
           "parziali": "12-25 26-24 12-25 17-25",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
           "logo_casa": "assets/loghi/1159.jpg",
           "logo_trasferta": "assets/loghi/1186.jpg"
         },
@@ -64,6 +66,7 @@
           "parziali": "13-25 22-25 20-25",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
           "logo_casa": "assets/loghi/4199.jpg",
           "logo_trasferta": "assets/loghi/5690.jpg"
         },
@@ -80,6 +83,7 @@
           "parziali": "",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
           "logo_casa": "assets/loghi/772.jpg",
           "logo_trasferta": "assets/loghi/1159.jpg"
         },
@@ -96,6 +100,7 @@
           "parziali": "",
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
           "logo_casa": "assets/loghi/1186.jpg",
           "logo_trasferta": "assets/loghi/4199.jpg"
         },
@@ -112,6 +117,7 @@
           "parziali": "",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
           "logo_casa": "assets/loghi/5690.jpg",
           "logo_trasferta": "assets/loghi/752.jpg"
         },
@@ -128,6 +134,7 @@
           "parziali": "",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
           "logo_casa": "assets/loghi/752.jpg",
           "logo_trasferta": "assets/loghi/1186.jpg"
         },
@@ -144,6 +151,7 @@
           "parziali": "",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
           "logo_casa": "assets/loghi/1159.jpg",
           "logo_trasferta": "assets/loghi/4199.jpg"
         },
@@ -160,6 +168,7 @@
           "parziali": "",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
           "logo_casa": "assets/loghi/5690.jpg",
           "logo_trasferta": "assets/loghi/772.jpg"
         },
@@ -176,6 +185,7 @@
           "parziali": "",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
           "logo_casa": "assets/loghi/4199.jpg",
           "logo_trasferta": "assets/loghi/752.jpg"
         },
@@ -192,6 +202,7 @@
           "parziali": "",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
           "logo_casa": "assets/loghi/772.jpg",
           "logo_trasferta": "assets/loghi/1186.jpg"
         },
@@ -208,6 +219,7 @@
           "parziali": "",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
           "logo_casa": "assets/loghi/1159.jpg",
           "logo_trasferta": "assets/loghi/5690.jpg"
         },
@@ -224,6 +236,7 @@
           "parziali": "",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
           "logo_casa": "assets/loghi/752.jpg",
           "logo_trasferta": "assets/loghi/1159.jpg"
         },
@@ -240,6 +253,7 @@
           "parziali": "",
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
           "logo_casa": "assets/loghi/1186.jpg",
           "logo_trasferta": "assets/loghi/5690.jpg"
         },
@@ -256,6 +270,7 @@
           "parziali": "",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
           "logo_casa": "assets/loghi/772.jpg",
           "logo_trasferta": "assets/loghi/4199.jpg"
         },
@@ -272,6 +287,7 @@
           "parziali": "",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
           "logo_casa": "assets/loghi/772.jpg",
           "logo_trasferta": "assets/loghi/752.jpg"
         },
@@ -288,6 +304,7 @@
           "parziali": "",
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
           "logo_casa": "assets/loghi/1186.jpg",
           "logo_trasferta": "assets/loghi/1159.jpg"
         },
@@ -304,6 +321,7 @@
           "parziali": "",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
           "logo_casa": "assets/loghi/5690.jpg",
           "logo_trasferta": "assets/loghi/4199.jpg"
         },
@@ -320,6 +338,7 @@
           "parziali": "",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
           "logo_casa": "assets/loghi/1159.jpg",
           "logo_trasferta": "assets/loghi/772.jpg"
         },
@@ -336,6 +355,7 @@
           "parziali": "",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
           "logo_casa": "assets/loghi/4199.jpg",
           "logo_trasferta": "assets/loghi/1186.jpg"
         },
@@ -352,6 +372,7 @@
           "parziali": "",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
           "logo_casa": "assets/loghi/752.jpg",
           "logo_trasferta": "assets/loghi/5690.jpg"
         },
@@ -368,6 +389,7 @@
           "parziali": "",
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
           "logo_casa": "assets/loghi/1186.jpg",
           "logo_trasferta": "assets/loghi/752.jpg"
         },
@@ -384,6 +406,7 @@
           "parziali": "",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
           "logo_casa": "assets/loghi/4199.jpg",
           "logo_trasferta": "assets/loghi/1159.jpg"
         },
@@ -400,6 +423,7 @@
           "parziali": "",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
+          "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
           "logo_casa": "assets/loghi/772.jpg",
           "logo_trasferta": "assets/loghi/5690.jpg"
         },
@@ -416,6 +440,7 @@
           "parziali": "",
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
+          "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
           "logo_casa": "assets/loghi/752.jpg",
           "logo_trasferta": "assets/loghi/4199.jpg"
         },
@@ -432,6 +457,7 @@
           "parziali": "",
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
+          "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
           "logo_casa": "assets/loghi/1186.jpg",
           "logo_trasferta": "assets/loghi/772.jpg"
         },
@@ -448,6 +474,7 @@
           "parziali": "",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
           "logo_casa": "assets/loghi/5690.jpg",
           "logo_trasferta": "assets/loghi/1159.jpg"
         },
@@ -464,6 +491,7 @@
           "parziali": "",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
+          "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
           "logo_casa": "assets/loghi/1159.jpg",
           "logo_trasferta": "assets/loghi/752.jpg"
         },
@@ -480,6 +508,7 @@
           "parziali": "",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
+          "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
           "logo_casa": "assets/loghi/5690.jpg",
           "logo_trasferta": "assets/loghi/1186.jpg"
         },
@@ -496,6 +525,7 @@
           "parziali": "",
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
+          "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
           "logo_casa": "assets/loghi/4199.jpg",
           "logo_trasferta": "assets/loghi/772.jpg"
         }
@@ -587,6 +617,7 @@
           "risultato": "",
           "parziali": "",
           "palestra": "",
+          "indirizzo": "",
           "logo_casa": null,
           "logo_trasferta": null
         }

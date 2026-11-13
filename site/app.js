@@ -1,4 +1,4 @@
-import { fetchLiveFipav } from "./fipav-live.js";
+import { fetchLiveFipav, fetchLiveFipavMobile } from "./fipav-live.js";
 
 const OUR_PATTERN = "astro";
 const DATA_URL = "data/schedule.json";
@@ -29,6 +29,8 @@ function parseDate(value) {
 }
 
 const fmtDay = (d) => dayFmt.format(d);
+const shortDayFmt = new Intl.DateTimeFormat("it-IT", { weekday: "short", day: "2-digit", month: "short" });
+const fmtShortDay = (d) => shortDayFmt.format(d);
 const fmtTime = (d) => d.toTimeString().slice(0, 5);
 const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
 const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
@@ -47,6 +49,14 @@ const escapeAttr = (s) => (s ? escapeHtml(s) : "");
 function logoUrl(url) {
   const m = /\/img\/(\d+)\/Loghi\/[^/]+\.(jpe?g|png|gif)/i.exec(url || "");
   return m ? `assets/loghi/${m[1]}.${m[2].toLowerCase()}` : url || "";
+}
+
+// Link a Google Maps per le indicazioni: si preferisce quello fornito da FIPAV
+// (che ha le coordinate esatte), altrimenti si cerca palestra + indirizzo.
+function mapsUrl(m) {
+  if (m.mappa) return m.mappa;
+  const q = [m.palestra, m.indirizzo].filter(Boolean).join(", ") || m.impianto || "";
+  return q ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` : "";
 }
 
 function allMatches() {
@@ -145,41 +155,22 @@ function renderViewFilter() {
   }
 }
 
-function renderList() {
-  const box = $("#calendar");
-  const rows = visibleMatches();
-  $("#list-title").textContent =
-    state.view === "ours"
-      ? "Le nostre partite"
-      : state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
-
-  if (!rows.length) {
-    box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
-    return;
-  }
-
-  let html = "";
-  let currentDay = "";
-  rows.forEach((m, idx) => {
-    const d = parseDate(m.data);
-    const dayKey = d ? fmtDay(d) : "Data da definire";
-    if (dayKey !== currentDay) {
-      html += `<div class="day-label">${escapeHtml(dayKey)}</div>`;
-      currentDay = dayKey;
-    }
-    const ours = matchIsOurs(m);
-    const time = d ? fmtTime(d) : "--:--";
-    const parts = (m.risultato || "").split(/\s*[-–]\s*/);
-    const hasScore = parts.length === 2;
-    const result = m.risultato
-      ? `<span class="result">${escapeHtml(m.risultato)}</span>`
-      : `<span class="vs">vs</span>`;
-    const scoreCasa = hasScore ? `<span class="team-score score-casa">${escapeHtml(parts[0])}</span>` : "";
-    const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
-    const metaParts = [];
-    if (m.campionato) metaParts.push(escapeHtml(m.campionato));
-    const fonte = (m._comp.fonte || "manuale").toLowerCase();
-    html += `
+function matchCard(m, idx, opts = {}) {
+  const d = parseDate(m.data);
+  const ours = matchIsOurs(m);
+  const time = d ? fmtTime(d) : "--:--";
+  const parts = (m.risultato || "").split(/\s*[-–]\s*/);
+  const hasScore = parts.length === 2;
+  const result = m.risultato
+    ? `<span class="result">${escapeHtml(m.risultato)}</span>`
+    : `<span class="vs">vs</span>`;
+  const scoreCasa = hasScore ? `<span class="team-score score-casa">${escapeHtml(parts[0])}</span>` : "";
+  const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
+  const metaParts = [];
+  if (opts.showDate && d) metaParts.push(escapeHtml(fmtDay(d)));
+  else if (m.campionato) metaParts.push(escapeHtml(m.campionato));
+  const fonte = (m._comp.fonte || "manuale").toLowerCase();
+  return `
       <article class="match ${ours ? "is-ours" : ""}" data-idx="${idx}" tabindex="0" role="button"
                aria-label="Dettagli partita">
         <div class="match-time">${time}</div>
@@ -195,7 +186,54 @@ function renderList() {
         </div>
         <span class="badge ${fonte}">${escapeHtml(m._comp.categoria || fonte)}</span>
       </article>`;
+}
+
+// Raggruppa le partite: per giornata quando si guarda un singolo campionato
+// (cosi' le gare della stessa giornata finiscono nello stesso riquadro),
+// altrimenti per data. L'indice resta quello di `rows`, per la scheda dettagli.
+function groupRows(rows) {
+  const byRound = state.view !== "ours" && rows.length > 0 && rows.every((r) => r.giornata);
+  const groups = [];
+  const index = new Map();
+  rows.forEach((m, idx) => {
+    const d = parseDate(m.data);
+    const key = byRound ? `g${m.giornata}` : d ? `d${d.toDateString()}` : "nd";
+    let g = index.get(key);
+    if (!g) {
+      g = {
+        key,
+        label: byRound ? `Giornata ${m.giornata}` : d ? fmtDay(d) : "Data da definire",
+        items: [],
+      };
+      index.set(key, g);
+      groups.push(g);
+    }
+    g.items.push({ m, idx });
   });
+  return { groups, byRound };
+}
+
+function renderList() {
+  const box = $("#calendar");
+  const rows = visibleMatches();
+  $("#list-title").textContent =
+    state.view === "ours"
+      ? "Le nostre partite"
+      : state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
+
+  if (!rows.length) {
+    box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
+    return;
+  }
+
+  const { groups, byRound } = groupRows(rows);
+  let html = "";
+  for (const g of groups) {
+    const cards = g.items.map(({ m, idx }) => matchCard(m, idx, { showDate: byRound })).join("");
+    html += byRound
+      ? `<section class="round"><div class="round-head">${escapeHtml(g.label)}</div>${cards}</section>`
+      : `<div class="day-label">${escapeHtml(g.label)}</div>${cards}`;
+  }
   box.innerHTML = html;
   state.rows = rows;
   box.querySelectorAll(".match").forEach((el) =>
@@ -217,12 +255,24 @@ function openMatchModal(m) {
         .map((s) => `<span class="set-chip">${escapeHtml(s)}</span>`)
         .join("")}</div>`
     : "";
-  const loghi = [m.logo_casa, m.logo_trasferta].some(Boolean)
-    ? `<div class="detail-logos">
-         <img src="${escapeAttr(logoUrl(m.logo_casa))}" alt="" loading="lazy" onerror="this.remove()" />
-         <img src="${escapeAttr(logoUrl(m.logo_trasferta))}" alt="" loading="lazy" onerror="this.remove()" />
-       </div>`
+  const logoCasa = m.logo_casa
+    ? `<img src="${escapeAttr(logoUrl(m.logo_casa))}" alt="" loading="lazy" onerror="this.remove()" />`
     : "";
+  const logoTrasf = m.logo_trasferta
+    ? `<img src="${escapeAttr(logoUrl(m.logo_trasferta))}" alt="" loading="lazy" onerror="this.remove()" />`
+    : "";
+  const indirizzo = (m.indirizzo || "").trim();
+  const maps = mapsUrl(m);
+  const rigaMappa =
+    indirizzo && maps
+      ? `<div class="detail-row"><span class="detail-label">Indirizzo</span><span class="detail-value"><a class="maps-link" href="${escapeAttr(
+          maps
+        )}" target="_blank" rel="noopener">${escapeHtml(indirizzo)}</a></span></div>`
+      : indirizzo
+      ? `<div class="detail-row"><span class="detail-label">Indirizzo</span><span class="detail-value">${escapeHtml(
+          indirizzo
+        )}</span></div>`
+      : "";
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   $("#modal-content").innerHTML = `
     <p class="modal-kicker">${escapeHtml(m._comp.titolo || m.campionato || "")}${
@@ -230,21 +280,22 @@ function openMatchModal(m) {
     }</p>
     <div class="detail-score">
       <div class="detail-team">
+        ${logoCasa}
         <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
       </div>
       <div class="detail-result">${m.risultato ? escapeHtml(m.risultato) : "vs"}</div>
       <div class="detail-team">
+        ${logoTrasf}
         <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
       </div>
     </div>
     ${setChips}
-    ${loghi}
     <div class="detail-list">
       ${riga("Data", quando)}
       ${riga("Campionato", m.campionato || m.girone)}
       ${riga("Girone", m.girone && m.girone !== m.campionato ? m.girone : "")}
       ${riga("Palestra", m.palestra)}
-      ${riga("Impianto", m.impianto)}
+      ${rigaMappa}
       ${riga("Fonte", m._comp.fonte === "fipav" ? "FIPAV (ufficiale)" : m._comp.fonte)}
     </div>
     <span class="badge ${fonte} modal-badge">${escapeHtml(m._comp.categoria || fonte)}</span>
@@ -342,6 +393,15 @@ function fmtRelative(d) {
 // Sostituisce le competizioni FIPAV con quelle lette dal vivo, tenendo
 // invariate le competizioni non-FIPAV (es. ASI da data/manual.json).
 function mergeLive(liveComps) {
+  // I loghi non sono nella pagina mobile: si recuperano dallo snapshot
+  // abbinando la partita per campionato + giornata + squadre.
+  const loghiSnapshot = new Map();
+  for (const c of state.competitions) {
+    for (const m of c.matches || []) {
+      const key = `${c.campionato_id}|${m.giornata}|${m.casa}|${m.trasferta}`;
+      if (m.logo_casa || m.logo_trasferta) loghiSnapshot.set(key, m);
+    }
+  }
   const nonFipav = state.competitions.filter((c) => (c.fonte || "").toLowerCase() !== "fipav");
   const fipav = liveComps.map((comp) => ({
     id: comp.campionato_id ? `fipav-${comp.campionato_id}` : `fipav-${comp.titolo}`,
@@ -349,13 +409,20 @@ function mergeLive(liveComps) {
     fonte: "fipav",
     categoria: "FIPAV",
     campionato_id: comp.campionato_id,
-    matches: comp.matches.map((m) => ({
-      ...m,
-      fonte: "fipav",
-      campionato_id: comp.campionato_id,
-      campionato: comp.titolo,
-      girone: comp.titolo,
-    })),
+    matches: comp.matches.map((m) => {
+      const old = loghiSnapshot.get(`${comp.campionato_id}|${m.giornata}|${m.casa}|${m.trasferta}`);
+      return {
+        ...m,
+        fonte: "fipav",
+        campionato_id: comp.campionato_id,
+        campionato: comp.titolo,
+        girone: comp.titolo,
+        logo_casa: m.logo_casa || (old ? old.logo_casa : ""),
+        logo_trasferta: m.logo_trasferta || (old ? old.logo_trasferta : ""),
+        indirizzo: m.indirizzo || (old ? old.indirizzo : ""),
+        mappa: m.mappa || (old ? old.mappa : ""),
+      };
+    }),
     standings: comp.standings || [],
   }));
   state.competitions = fipav.concat(nonFipav);
@@ -410,22 +477,34 @@ async function init() {
     }
   });
 
-  // Opzione C: prova a leggere i dati freschi da FIPAV nel browser.
-  // Se riesce, sostituisce la parte FIPAV; altrimenti resta lo snapshot.
+  // Prova a leggere i dati freschi da FIPAV nel browser. Da PC si legge la
+  // pagina desktop; da telefono FIPAV reindirizza (302) e il browser non puo'
+  // cambiare User-Agent, quindi si ripiega sulla versione /mobile/, che ha
+  // CORS aperto. Se anche questa fallisce, resta lo snapshot.
   if (state.data.live && state.data.live.base_url) {
+    const cids = state.competitions
+      .filter((c) => (c.fonte || "").toLowerCase() === "fipav" && c.campionato_id)
+      .map((c) => ({ campionato_id: c.campionato_id, titolo: c.titolo }));
+    let liveComps = [];
     try {
-      const liveComps = await fetchLiveFipav(state.data.live);
-      if (liveComps.length) {
-        mergeLive(liveComps);
-        state.live = true;
-        renderHeader();
-        renderViewFilter();
-        renderList();
-        renderStandings();
+      liveComps = await fetchLiveFipav(state.data.live);
+    } catch {
+      liveComps = [];
+    }
+    if (!liveComps.length) {
+      try {
+        liveComps = await fetchLiveFipavMobile(state.data.live, cids);
+      } catch (err) {
+        state.liveError = err;
       }
-    } catch (err) {
-      state.liveError = err;
-      state.live = false;
+    }
+    if (liveComps.length) {
+      mergeLive(liveComps);
+      state.live = true;
+      renderHeader();
+      renderViewFilter();
+      renderList();
+      renderStandings();
     }
   }
 }

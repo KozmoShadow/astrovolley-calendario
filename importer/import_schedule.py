@@ -82,6 +82,7 @@ def normalize_match(gara: dict, campionato: dict, fonte: str) -> dict:
         "risultato": (gara.get("risultato") or "").strip(),
         "parziali": (gara.get("parziali") or "").strip(),
         "palestra": (gara.get("palestra") or "").strip(),
+        "indirizzo": (gara.get("indirizzo") or "").strip(),
         "logo_casa": gara.get("logo1"),
         "logo_trasferta": gara.get("logo2"),
     }
@@ -197,6 +198,7 @@ def load_manual(path: Path) -> list[dict]:
                         "risultato": m.get("risultato", ""),
                         "parziali": m.get("parziali", ""),
                         "palestra": m.get("palestra", ""),
+                        "indirizzo": m.get("indirizzo", ""),
                         "logo_casa": None,
                         "logo_trasferta": None,
                     }

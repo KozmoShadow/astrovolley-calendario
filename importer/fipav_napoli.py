@@ -126,10 +126,14 @@ def parse_fipav_date(value: str) -> str:
     return stamp
 
 
-def _parse_impianto(title_attr: str) -> tuple[str, str, str]:
-    """Dal title dell'icona info estrae (palestra, impianto completo, parziali)."""
+def _parse_impianto(title_attr: str) -> tuple[str, str, str, str]:
+    """Dal title dell'icona info estrae (palestra, impianto, indirizzo, parziali).
+
+    L'impianto e' palestra + citta' + via. Per l'indirizzo si prendono le righe
+    dopo la palestra e si mette la via prima della citta' ("VIA X, CITTA' NA").
+    """
     if not title_attr:
-        return "", "", ""
+        return "", "", "", ""
     txt = html.unescape(title_attr)
     name = ""
     m = re.search(r"<b>(.*?)</b>", txt, re.S | re.I)
@@ -138,8 +142,15 @@ def _parse_impianto(title_attr: str) -> tuple[str, str, str]:
     # impianto completo: tutto il testo fino a "PARZIALI" o "Arbitro"
     full = re.split(r"PARZIALI:|Arbitro designato", txt)[0]
     full = _strip_tags(re.sub(r"IMPIANTO DI GARA:", "", full))
+
+    corpo = re.split(r"PARZIALI:|Arbitro designato", re.sub(r"IMPIANTO DI GARA:", "", txt))[0]
+    corpo = re.sub(r"<b>.*?</b>", "", corpo, flags=re.S | re.I)
+    righe = [_strip_tags(p) for p in re.split(r"<br\s*/?>", corpo)]
+    righe = [r for r in righe if r]
+    indirizzo = ", ".join(reversed(righe)) if len(righe) >= 2 else (righe[0] if righe else "")
+
     parziali = re.findall(r'class="parziali">([^<]*)</span>', txt)
-    return name, full, " ".join(p.strip() for p in parziali if p.strip())
+    return name, full, indirizzo, " ".join(p.strip() for p in parziali if p.strip())
 
 
 def _team_from_cell(cell: str, base: str) -> tuple[str, str]:
@@ -183,7 +194,7 @@ def parse_matches(table_html: str, base: str) -> list[dict]:
         risultato = _strip_tags(cells[5])
         if risultato in ("-", ""):
             risultato = ""
-        palestra = impianto = parziali = ""
+        palestra = impianto = indirizzo = parziali = ""
         if len(cells) >= 7:
             # La cella info ha due title: lo stato gara ("da disputare ...") e
             # l'impianto, l'unico con <b>palestra</b>. Il prefisso
@@ -191,7 +202,7 @@ def parse_matches(table_html: str, base: str) -> list[dict]:
             # gare future vanno riconosciute dal markup, non dal prefisso.
             for title in re.findall(r'title="(.*?)"', cells[6], re.S):
                 if re.search(r"<b>|<p>", html.unescape(title), re.I):
-                    palestra, impianto, parziali = _parse_impianto(title)
+                    palestra, impianto, indirizzo, parziali = _parse_impianto(title)
                     break
         matches.append(
             {
@@ -203,6 +214,7 @@ def parse_matches(table_html: str, base: str) -> list[dict]:
                 "parziali": parziali,
                 "palestra": palestra,
                 "impianto": impianto,
+                "indirizzo": indirizzo,
                 "logo_casa": logo_casa,
                 "logo_trasferta": logo_trasf,
             }
