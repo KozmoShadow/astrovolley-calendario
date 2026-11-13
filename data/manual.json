@@ -1,0 +1,25 @@
+{
+  "_istruzioni": "Qui inserisci a mano i campionati non coperti da FIPAV/Spike (es. ASI). Ogni competizione ha 'matches' e 'standings'. Per le partite usa data 'YYYY-MM-DD HH:MM', risultato '' se non ancora giocata. Per la classifica compila punti, pg (partite giocate), pv/pp (vittorie/perse), sf/ss (set fatti/subiti).",
+  "competitions": [
+    {
+      "id": "asi-open-misto-elite",
+      "titolo": "Open Misto Elite ASI",
+      "fonte": "asi",
+      "categoria": "Open Misto",
+      "matches": [
+        { "data": "2026-11-20 21:00", "casa": "ASD ASTROVOLLEY", "trasferta": "Esempio Avversaria", "risultato": "", "parziali": "", "palestra": "" }
+      ],
+      "standings": [
+        { "squadra": "ASD ASTROVOLLEY", "punti": 0, "pg": 0, "pv": 0, "pp": 0, "sf": 0, "ss": 0 }
+      ]
+    },
+    {
+      "id": "asi-open-misto-promozionale",
+      "titolo": "Open Misto Promozionale ASI",
+      "fonte": "asi",
+      "categoria": "Open Misto",
+      "matches": [],
+      "standings": []
+    }
+  ]
+}

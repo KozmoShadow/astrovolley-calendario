@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASD Astrovolley — Calendario e Classifiche</title>
+  <meta name="description" content="Calendario unico di tutte le partite dell'ASD Astrovolley: campionati FIPAV e ASI, in ordine cronologico, con classifiche dei gironi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">🏐</span>
+        <div>
+          <h1 id="societa">ASD Astrovolley</h1>
+          <p class="season">Stagione <span id="stagione">—</span></p>
+        </div>
+      </div>
+      <p class="tagline">Tutte le partite della società, in un unico calendario.</p>
+      <p class="updated">Aggiornato il <span id="updated">—</span></p>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Filtri">
+      <div class="filter-group" id="competition-filter"></div>
+      <label class="search">
+        <span class="sr-only">Cerca squadra o campionato</span>
+        <input id="search" type="search" placeholder="Cerca squadra, campionato o palestra…" />
+      </label>
+    </section>
+
+    <section class="panel">
+      <h2>Calendario</h2>
+      <div id="calendar" class="calendar" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Classifiche</h2>
+      <div id="standings" class="standings"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Dati FIPAV via Spike Volley · Competizioni ASI inserite manualmente · Le classifiche ufficiali fanno fede solo sui comunicati federali.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

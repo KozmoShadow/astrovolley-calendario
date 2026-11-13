@@ -1,0 +1,12 @@
+{
+  "societa": "ASD ASTROVOLLEY",
+  "stagione_anno": 2026,
+  "stagione_testo": "2026/27",
+  "match_pattern": "astro",
+  "comitati": [
+    { "nome": "C.T. NAPOLI", "id": "99912" }
+  ],
+  "max_workers": 10,
+  "output": "site/data/schedule.json",
+  "manual": "data/manual.json"
+}
