@@ -297,16 +297,32 @@ function renderHeader() {
   $("#societa").textContent = state.data.societa || "Calendario";
   $("#stagione").textContent = state.data.stagione || "—";
   const gen = parseDate((state.data.generato_il || "").replace("T", " ").slice(0, 19));
-  const quando = gen ? `${fmtDay(gen)} ${fmtTime(gen)}` : "—";
   const el = $("#updated");
   if (state.live) {
     el.innerHTML = `Risultati aggiornati <strong>adesso</strong> da FIPAV`;
     el.classList.add("is-live");
+  } else if (gen) {
+    el.textContent = `Dati FIPAV aggiornati ${fmtRelative(gen)}`;
+    el.title = `Ultimo aggiornamento automatico: ${fmtDay(gen)} ${fmtTime(gen)}`;
+    el.classList.remove("is-live");
   } else {
-    el.textContent = `Dati aggiornati: ${quando}`;
+    el.textContent = "Aggiornamento automatico in corso";
     el.classList.remove("is-live");
   }
   document.title = `${state.data.societa || "Calendario"} — Calendario e Classifiche`;
+}
+
+// Tempo relativo in italiano, per rendere evidente quanto sono freschi i dati.
+function fmtRelative(d) {
+  const min = Math.round((Date.now() - d.getTime()) / 60000);
+  if (min < 1) return "adesso";
+  if (min === 1) return "1 minuto fa";
+  if (min < 60) return `${min} minuti fa`;
+  const ore = Math.round(min / 60);
+  if (ore === 1) return "1 ora fa";
+  if (ore < 24) return `${ore} ore fa`;
+  const gg = Math.round(ore / 24);
+  return gg === 1 ? "ieri" : `${gg} giorni fa`;
 }
 
 // Sostituisce le competizioni FIPAV con quelle lette dal vivo, tenendo
