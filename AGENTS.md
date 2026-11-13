@@ -11,9 +11,13 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
 
 ## Struttura
 - `config.json` — società, comitati, stagione, pattern di match
-- `data/manual.json` — competizioni ASI inserite a mano
+- `data/manual.json` — competizioni extra inserite a mano (oggi vuoto)
+- `data/asi/` — campionati ASI: `<id>.calendario.json` (dal PDF) + `<id>.risultati.json` (a mano)
 - `importer/import_schedule.py` — genera `site/data/schedule.json`
+- `importer/asi_pdf.py` — estrae il calendario ASI dal PDF (richiede `pdfplumber`)
 - `site/` — frontend statico (index.html, styles.css, app.js, assets/, data/)
+- `site/admin/` — pagina admin protetta (vedi sotto)
+- `worker/` — funzione serverless opzionale per l'accesso OAuth
 - `site/assets/logo.jpg` — logo società (scaricato da FIPAV Napoli)
 
 ## Fonti dati
@@ -28,7 +32,33 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
   - Export Excel: `esporta-risultati.aspx`.
 - **Spike Volley**: solo fallback se FIPAV non risponde (`importer/import_schedule.py`,
   funzione `scan_spike_fallback`). Più lento e meno preciso.
-- **ASI**: non presente su FIPAV, gestito manualmente in `data/manual.json`.
+- **ASI**: non presente su FIPAV. Il calendario arriva in un PDF (testo, tabella a
+  colonne fisse: N. Gara, Data, Ora, Palestra/Impianto, Squadra Casa, Squadra Ospite,
+  Giorno, raggruppato per GIORNATA). `importer/asi_pdf.py` lo estrae in
+  `data/asi/<id>.calendario.json`; il **N. Gara** (es. 3001) è la chiave stabile per
+  agganciare i risultati in `data/asi/<id>.risultati.json`. `load_asi()` nell'importer
+  fonde i due file e **calcola la classifica** (3-0/3-1 → 3 pt, 3-2 → 2, 2-3 → 1;
+  ordinamento punti → quoziente set → quoziente punti). I due file sono separati
+  apposta: ricaricare il PDF non cancella i risultati.
+  - Il PDF **non** va mai committato: contiene email/cellulari dei referenti (`*.pdf`
+    in `.gitignore`).
+  - Entrambe le squadre del club (Astrovolley Cercola e Astrovolley Portici) sono "nostre".
+
+## Pagina admin (`site/admin/`)
+Pubblica su Pages, non linkata dal sito e `noindex`. Serve a caricare i PDF e inserire
+i risultati. **Scrivere richiede un token GitHub valido**: la sicurezza sta nei permessi
+del repo, non nel nascondere la pagina.
+- **Token personale** (fine-grained, Contents: read & write): si incolla e resta in
+  `localStorage`. Nessuna configurazione.
+- **OAuth** ("Accedi con GitHub"): richiede il worker in `worker/` (Cloudflare). GitHub
+  non espone l'endpoint OAuth con CORS e il `client_secret` non deve stare nella pagina,
+  quindi lo scambio va fatto lì. Imposta `OAUTH_WORKER_URL` in `site/admin/admin.js`.
+- Il parsing PDF usa **pdf.js** (vendored in `site/admin/vendor/`, niente CDN) e replica
+  `importer/asi_pdf.py`: stesse x di colonna ricavate dall'intestazione, stessa tolleranza
+  di 2pt, il giorno è l'ultima parola dopo la squadra ospite.
+- L'admin scrive via API GitHub (`contents/`, base64). `update-schedule.yml` ha un trigger
+  `push` su `data/asi/**` e `data/manual.json`, così i risultati entrano subito in
+  `schedule.json` (niente `[skip ci]`, altrimenti Pages non ridistribuisce).
 
 ## Refresh live nel browser (opzione C)
 - `site/fipav-live.js` replica in JS il parser Python e legge FIPAV **direttamente dal
@@ -68,3 +98,15 @@ ma copre solo 12 regioni e **non include la Campania** → non utilizzabile per 
 ## TODO noti
 - Scheda dettaglio partita al click (parziali, indirizzo, logo).
 - Nuova sezione del sito (richiesta dall'utente, da definire).
+
+## Comandi utili
+```bash
+# rigenera i dati del sito
+python3 importer/import_schedule.py
+# calendario ASI dal PDF (richiede: pip install pdfplumber)
+python3 importer/asi_pdf.py "CALENDARIO.pdf" --id asi-open-misto-promozionale \
+  --titolo "Open Misto Promozionale ASI" \
+  --out data/asi/asi-open-misto-promozionale.calendario.json
+# sito in locale (app.js è un modulo ES: serve un server HTTP)
+python3 -m http.server 12000 --directory site
+```
