@@ -4,7 +4,7 @@ const DATA_URL = "data/schedule.json";
 const state = {
   data: null,
   competitions: [],
-  activeCompetition: "all",
+  view: "ours", // "ours" oppure l'id di una competizione
   query: "",
 };
 
@@ -19,67 +19,14 @@ const dayFmt = new Intl.DateTimeFormat("it-IT", {
 
 function parseDate(value) {
   if (!value) return null;
-  // "2026-11-12 21:30:00" -> Date locale
-  const iso = value.replace(" ", "T");
-  const d = new Date(iso);
+  const d = new Date(value.replace(" ", "T"));
   return isNaN(d) ? null : d;
 }
 
-function fmtDay(d) {
-  return dayFmt.format(d);
-}
-
-function fmtTime(d) {
-  return d.toTimeString().slice(0, 5);
-}
-
-function isOurs(name) {
-  return (name || "").toLowerCase().includes(OUR_PATTERN);
-}
-
-function matchIsOurs(m) {
-  return isOurs(m.casa) || isOurs(m.trasferta);
-}
-
-function allMatches() {
-  const rows = [];
-  for (const comp of state.competitions) {
-    for (const m of comp.matches) {
-      rows.push({ ...m, _comp: comp });
-    }
-  }
-  return rows;
-}
-
-function filteredMatches() {
-  const q = state.query.trim().toLowerCase();
-  return allMatches().filter((m) => {
-    if (state.activeCompetition !== "all" && m._comp.id !== state.activeCompetition) return false;
-    if (!q) return true;
-    const hay = [m.casa, m.trasferta, m.campionato, m.palestra].join(" ").toLowerCase();
-    return hay.includes(q);
-  });
-}
-
-function renderCompetitionFilter() {
-  const box = $("#competition-filter");
-  const chips = [{ id: "all", label: "Tutti i campionati", fonte: "" }, ...state.competitions];
-  box.innerHTML = chips
-    .map(
-      (c) =>
-        `<button class="chip" data-id="${c.id}" aria-pressed="${state.activeCompetition === c.id}">${escapeHtml(
-          c.label || c.titolo
-        )}</button>`
-    )
-    .join("");
-  box.querySelectorAll(".chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.activeCompetition = btn.dataset.id;
-      renderCompetitionFilter();
-      renderCalendar();
-    });
-  });
-}
+const fmtDay = (d) => dayFmt.format(d);
+const fmtTime = (d) => d.toTimeString().slice(0, 5);
+const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
+const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, (ch) =>
@@ -87,13 +34,65 @@ function escapeHtml(s) {
   );
 }
 
-function renderCalendar() {
+function allMatches() {
+  const rows = [];
+  for (const comp of state.competitions) {
+    for (const m of comp.matches) rows.push({ ...m, _comp: comp });
+  }
+  return rows;
+}
+
+function visibleMatches() {
+  const q = state.query.trim().toLowerCase();
+  let rows = allMatches();
+  if (state.view === "ours") {
+    rows = rows.filter(matchIsOurs);
+  } else {
+    rows = rows.filter((m) => m._comp.id === state.view);
+  }
+  if (q) {
+    rows = rows.filter((m) =>
+      [m.casa, m.trasferta, m.palestra, m.campionato].join(" ").toLowerCase().includes(q)
+    );
+  }
+  return rows.sort((a, b) => (a.data || "").localeCompare(b.data || ""));
+}
+
+function renderViewFilter() {
+  const box = $("#view-filter");
+  const items = [{ id: "ours", label: "Le nostre partite" }].concat(
+    state.competitions.map((c) => ({ id: c.id, label: c.titolo }))
+  );
+  box.innerHTML = items
+    .map(
+      (it) =>
+        `<button class="chip" data-id="${it.id}" aria-pressed="${state.view === it.id}">${escapeHtml(
+          it.label
+        )}</button>`
+    )
+    .join("");
+  box.querySelectorAll(".chip").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      state.view = btn.dataset.id;
+      renderViewFilter();
+      renderList();
+    })
+  );
+}
+
+function renderList() {
   const box = $("#calendar");
-  const rows = filteredMatches().sort((a, b) => (a.data || "").localeCompare(b.data || ""));
+  const rows = visibleMatches();
+  $("#list-title").textContent =
+    state.view === "ours"
+      ? "Le nostre partite"
+      : state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
+
   if (!rows.length) {
     box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
     return;
   }
+
   let html = "";
   let currentDay = "";
   for (const m of rows) {
@@ -105,14 +104,11 @@ function renderCalendar() {
     }
     const ours = matchIsOurs(m);
     const time = d ? fmtTime(d) : "--:--";
-    const casaOurs = isOurs(m.casa);
-    const trasOurs = isOurs(m.trasferta);
     const result = m.risultato
       ? `<span class="result">${escapeHtml(m.risultato)}</span>`
       : `<span class="vs">vs</span>`;
     const metaParts = [];
     if (m.campionato) metaParts.push(escapeHtml(m.campionato));
-    if (m.parziali) metaParts.push(`Parziali: ${escapeHtml(m.parziali)}`);
     if (m.palestra) metaParts.push(escapeHtml(m.palestra));
     const fonte = (m._comp.fonte || "manuale").toLowerCase();
     html += `
@@ -120,9 +116,9 @@ function renderCalendar() {
         <div class="match-time">${time}</div>
         <div class="match-body">
           <div class="teams">
-            <span class="team-name ${casaOurs ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+            <span class="team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
             ${result}
-            <span class="team-name ${trasOurs ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+            <span class="team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
           </div>
           <div class="meta">${metaParts.join(" · ")}</div>
         </div>
@@ -134,9 +130,7 @@ function renderCalendar() {
 
 function renderStandings() {
   const box = $("#standings");
-  const comps = state.competitions.filter(
-    (c) => c.standings && c.standings.length && (state.activeCompetition === "all" || c.id === state.activeCompetition)
-  );
+  const comps = state.competitions.filter((c) => c.standings && c.standings.length);
   if (!comps.length) {
     box.innerHTML = `<p class="empty">Nessuna classifica disponibile al momento.</p>`;
     return;
@@ -179,6 +173,17 @@ function renderHeader() {
   document.title = `${state.data.societa || "Calendario"} — Calendario e Classifiche`;
 }
 
+function setupStandingsToggle() {
+  const btn = $("#toggle-standings");
+  const panel = $("#standings-panel");
+  btn.addEventListener("click", () => {
+    const open = panel.hasAttribute("hidden");
+    if (open) panel.removeAttribute("hidden");
+    else panel.setAttribute("hidden", "");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+}
+
 async function init() {
   try {
     const res = await fetch(DATA_URL, { cache: "no-store" });
@@ -190,13 +195,14 @@ async function init() {
   }
   state.competitions = state.data.competitions || [];
   renderHeader();
-  renderCompetitionFilter();
-  renderCalendar();
+  setupStandingsToggle();
+  renderViewFilter();
+  renderList();
   renderStandings();
 
   $("#search").addEventListener("input", (e) => {
     state.query = e.target.value;
-    renderCalendar();
+    renderList();
   });
 }
 

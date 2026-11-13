@@ -26,22 +26,26 @@
   </header>
 
   <main>
-    <section class="controls" aria-label="Filtri">
-      <div class="filter-group" id="competition-filter"></div>
+    <div class="toolbar">
+      <button id="toggle-standings" class="btn-standings" aria-expanded="false" aria-controls="standings-panel">
+        Classifiche
+      </button>
       <label class="search">
-        <span class="sr-only">Cerca squadra o campionato</span>
-        <input id="search" type="search" placeholder="Cerca squadra, campionato o palestra…" />
+        <span class="sr-only">Cerca squadra o palestra</span>
+        <input id="search" type="search" placeholder="Cerca squadra o palestra…" />
       </label>
-    </section>
+    </div>
 
-    <section class="panel">
-      <h2>Calendario</h2>
-      <div id="calendar" class="calendar" aria-live="polite"></div>
-    </section>
-
-    <section class="panel">
+    <section id="standings-panel" class="panel standings-panel" hidden>
       <h2>Classifiche</h2>
       <div id="standings" class="standings"></div>
+    </section>
+
+    <nav class="chips" id="view-filter" aria-label="Vista"></nav>
+
+    <section class="panel">
+      <h2 id="list-title">Le nostre partite</h2>
+      <div id="calendar" class="calendar" aria-live="polite"></div>
     </section>
   </main>
 
