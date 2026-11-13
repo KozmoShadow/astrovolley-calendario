@@ -216,6 +216,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
   font-weight: 700; padding: 2px 8px; border-radius: 8px;
   background: rgba(47,125,209,.18); color: #bcd6f5; font-size: 13px;
 }
+.team-score { display: none; }
 .meta { margin-top: 4px; color: var(--muted); font-size: 12.5px; }
 
 .badge {
@@ -301,6 +302,29 @@ body.modal-open { overflow: hidden; }
   .brand h1 { font-size: 23px; }
   .match { grid-template-columns: 52px 1fr; }
   .match .badge { grid-column: 1 / -1; justify-self: start; }
+
+  /* Partite giocate: nomi impilati, punteggio a lato di ciascuno. */
+  .match .teams.is-played {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 2px;
+    font-size: 14px;
+  }
+  .teams.is-played .name-casa { grid-area: 1 / 1; }
+  .teams.is-played .score-casa { grid-area: 1 / 2; }
+  .teams.is-played .name-ospite { grid-area: 2 / 1; }
+  .teams.is-played .score-ospite { grid-area: 2 / 2; }
+  .teams.is-played .result { display: none; }
+  .match .team-score {
+    display: block;
+    text-align: right;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: #bcd6f5;
+    min-width: 1.2em;
+  }
 
   .toolbar { gap: 8px; flex-wrap: nowrap; }
   .btn-standings { flex: 0 0 auto; padding: 9px 12px; font-size: 13px; }

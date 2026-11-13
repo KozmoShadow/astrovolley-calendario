@@ -161,9 +161,13 @@ function renderList() {
     }
     const ours = matchIsOurs(m);
     const time = d ? fmtTime(d) : "--:--";
+    const parts = (m.risultato || "").split(/\s*[-–]\s*/);
+    const hasScore = parts.length === 2;
     const result = m.risultato
       ? `<span class="result">${escapeHtml(m.risultato)}</span>`
       : `<span class="vs">vs</span>`;
+    const scoreCasa = hasScore ? `<span class="team-score score-casa">${escapeHtml(parts[0])}</span>` : "";
+    const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
     const metaParts = [];
     if (m.campionato) metaParts.push(escapeHtml(m.campionato));
     const fonte = (m._comp.fonte || "manuale").toLowerCase();
@@ -172,10 +176,12 @@ function renderList() {
                aria-label="Dettagli partita">
         <div class="match-time">${time}</div>
         <div class="match-body">
-          <div class="teams">
-            <span class="team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+          <div class="teams ${hasScore ? "is-played" : "is-upcoming"}">
+            <span class="team-name name-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+            ${scoreCasa}
             ${result}
-            <span class="team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+            <span class="team-name name-ospite ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+            ${scoreOspite}
           </div>
           <div class="meta">${metaParts.join(" · ")}</div>
         </div>
