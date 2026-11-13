@@ -10,6 +10,12 @@ on:
     - cron: "*/15 8-23 * * *"
     # Una passata notturna di sicurezza.
     - cron: "0 6 * * *"
+  # Rigenera anche quando la pagina admin scrive i dati ASI: cosi' i risultati
+  # inseriti a mano entrano subito in schedule.json.
+  push:
+    paths:
+      - "data/asi/**"
+      - "data/manual.json"
   workflow_dispatch: {}
 
 permissions:
@@ -36,6 +42,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nessun cambiamento."
           else
-            git commit -m "Aggiorna calendario [skip ci]"
+            git commit -m "Aggiorna calendario"
             git push
           fi

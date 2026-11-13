@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Calendario ASD Astrovolley</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back" href="../">← Sito</a>
+      <h1>Gestione calendario</h1>
+      <div id="who" class="who"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Accesso -->
+    <section id="login-panel" class="card">
+      <h2>Accesso</h2>
+      <p class="muted">
+        Questa pagina serve a caricare i calendari ASI (dal PDF della federazione)
+        e a inserire i risultati delle partite. Nulla di quanto carichi qui viene
+        salvato in chiaro: i PDF restano nel tuo browser.
+      </p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-tab="oauth" role="tab">Accedi con GitHub</button>
+        <button class="tab" data-tab="pat" role="tab">Token personale</button>
+      </div>
+
+      <div id="tab-oauth" class="tab-panel">
+        <p class="muted">
+          Consigliato. Ogni dirigente accede con il proprio account GitHub.
+        </p>
+        <button id="btn-oauth" class="btn btn-primary">Accedi con GitHub</button>
+        <p id="oauth-note" class="muted small"></p>
+      </div>
+
+      <div id="tab-pat" class="tab-panel" hidden>
+        <p class="muted">
+          Incolla un <em>personal access token</em> (fine-grained) con permesso
+          <strong>Contents: read &amp; write</strong> su questo repository. Resta
+          solo in questo browser.
+        </p>
+        <div class="row">
+          <input id="pat-input" type="password" placeholder="github_pat_…" autocomplete="off" />
+          <button id="btn-pat" class="btn btn-primary">Entra</button>
+        </div>
+      </div>
+
+      <p id="login-error" class="error" hidden></p>
+    </section>
+
+    <!-- App -->
+    <section id="app" hidden>
+      <div class="toolbar">
+        <div id="repo-info" class="muted small"></div>
+        <button id="btn-logout" class="btn btn-ghost">Esci</button>
+      </div>
+
+      <div class="grid">
+        <!-- Campionati -->
+        <section class="card">
+          <h2>Campionati ASI</h2>
+          <p class="muted small">
+            Un calendario per campionato. Carica il PDF che ti invia la federazione:
+            le partite vengono estratte nel browser e salvate nel repository.
+          </p>
+          <ul id="comp-list" class="comp-list"></ul>
+
+          <details class="upload">
+            <summary>Aggiungi / aggiorna un campionato dal PDF</summary>
+            <div class="form">
+              <label>Nome file calendario <span class="muted small">(id, senza spazi)</span>
+                <input id="up-id" type="text" placeholder="asi-open-misto-promozionale" />
+              </label>
+              <label>Titolo mostrato sul sito
+                <input id="up-titolo" type="text" placeholder="Open Misto Promozionale ASI" />
+              </label>
+              <label>Categoria
+                <input id="up-categoria" type="text" value="Open Misto" />
+              </label>
+              <label>Comitato
+                <input id="up-comitato" type="text" value="ASI Napoli Centro" />
+              </label>
+              <label>PDF del calendario
+                <input id="up-pdf" type="file" accept="application/pdf" />
+              </label>
+              <button id="btn-upload" class="btn btn-primary">Estrai e salva il calendario</button>
+              <p id="upload-status" class="muted small"></p>
+            </div>
+          </details>
+        </section>
+
+        <!-- Risultati -->
+        <section class="card">
+          <h2>Risultati</h2>
+          <p class="muted small">
+            Inserisci punteggio e parziali dopo ogni partita. La classifica è
+            calcolata automaticamente.
+          </p>
+          <label class="inline">Campionato
+            <select id="sel-comp"></select>
+          </label>
+          <div id="matches" class="matches"></div>
+          <div class="sticky-save">
+            <button id="btn-save" class="btn btn-primary">Salva risultati</button>
+            <span id="save-status" class="muted small"></span>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
