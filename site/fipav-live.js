@@ -287,9 +287,13 @@ function parseMobileDetail(page) {
   if (anc) mappa = decodeEntities(anc[1]);
   if (impHtml) {
     const raw = impHtml.replace(/<img[^>]*>/gi, " ");
-    const righe = raw.split(/<br\s*\/?>/i).map(stripTags).filter(Boolean);
-    palestra = righe[0] || "";
-    indirizzo = righe.slice(1).join(", ");
+    const righe = raw.split(/<br\s*\/?>/i);
+    // La prima riga unisce palestra e citta'/provincia con uno spazio
+    // unificatore (&nbsp;); gli spazi normali fanno parte del nome.
+    const [nome, luogo] = (righe[0] || "").split(/&nbsp;|&#160;|\u00a0/i);
+    palestra = stripTags(nome || "");
+    const via = righe.slice(1).map(stripTags).filter(Boolean).join(", ");
+    indirizzo = [via, stripTags(luogo || "")].filter(Boolean).join(", ");
     impianto = stripTags(raw);
   }
   return { data, risultato, parziali, palestra, indirizzo, impianto, mappa };
