@@ -1,5 +1,10 @@
 {
-  "_istruzioni": "Risultati dell'Open Misto Promozionale ASI. La chiave e' il 'N. Gara' del calendario (3001-3056). Compila 'risultato' (es. '3 - 1') e 'parziali' (es. '25-20 22-25 25-18 25-19') dopo ogni partita; lascia vuoto se non ancora giocata. La classifica e' calcolata automaticamente dall'importer.",
+  "_istruzioni": "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
   "competizione": "asi-open-misto-promozionale",
-  "risultati": {}
+  "risultati": {
+    "3001": {
+      "risultato": "3 - 1",
+      "parziali": "25-20 22-25 25-18 25-19"
+    }
+  }
 }
