@@ -1,0 +1,540 @@
+{
+  "id": "asi-open-misto-promozionale",
+  "titolo": "Open Misto Promozionale ASI",
+  "fonte": "asi",
+  "categoria": "Open Misto",
+  "comitato": "ASI Napoli Centro",
+  "stagione": "2026/27",
+  "giornate": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14"
+  ],
+  "squadre": [
+    "Astrovolley Cercola",
+    "Astrovolley Portici",
+    "Indomita Sport Academy",
+    "La Fenice Poggiomarino",
+    "Minerva Medica Flyer",
+    "Nuova Rinascita",
+    "Suri Sport",
+    "Volley World"
+  ],
+  "matches": [
+    {
+      "gara": "3001",
+      "giornata": "1",
+      "data": "2026-12-03 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Suri Sport",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3002",
+      "giornata": "1",
+      "data": "2026-12-03 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3003",
+      "giornata": "1",
+      "data": "2026-12-06 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3004",
+      "giornata": "1",
+      "data": "2026-12-06 12:00",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Volley World",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3005",
+      "giornata": "2",
+      "data": "2026-12-09 21:45",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3006",
+      "giornata": "2",
+      "data": "2026-12-10 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3007",
+      "giornata": "2",
+      "data": "2026-12-10 21:30",
+      "casa": "Volley World",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3008",
+      "giornata": "2",
+      "data": "2026-12-11 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3009",
+      "giornata": "3",
+      "data": "2026-12-16 21:45",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3010",
+      "giornata": "3",
+      "data": "2026-12-17 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Suri Sport",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3011",
+      "giornata": "3",
+      "data": "2026-12-20 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Volley World",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3012",
+      "giornata": "3",
+      "data": "2026-12-20 12:00",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3013",
+      "giornata": "4",
+      "data": "2027-01-07 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3014",
+      "giornata": "4",
+      "data": "2027-01-07 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3015",
+      "giornata": "4",
+      "data": "2027-01-07 21:30",
+      "casa": "Volley World",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3016",
+      "giornata": "4",
+      "data": "2027-01-08 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3017",
+      "giornata": "5",
+      "data": "2027-01-17 18:00",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Suri Sport",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3018",
+      "giornata": "5",
+      "data": "2027-01-14 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3019",
+      "giornata": "5",
+      "data": "2027-01-14 21:30",
+      "casa": "Volley World",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3020",
+      "giornata": "5",
+      "data": "2027-01-17 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3021",
+      "giornata": "6",
+      "data": "2027-01-21 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3022",
+      "giornata": "6",
+      "data": "2027-01-21 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Volley World",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3023",
+      "giornata": "6",
+      "data": "2027-01-22 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3024",
+      "giornata": "6",
+      "data": "2027-01-24 12:00",
+      "casa": "Astrovolley Portici",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3025",
+      "giornata": "7",
+      "data": "2027-01-31 18:00",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3026",
+      "giornata": "7",
+      "data": "2027-01-28 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3027",
+      "giornata": "7",
+      "data": "2027-01-28 21:30",
+      "casa": "Volley World",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3028",
+      "giornata": "7",
+      "data": "2027-01-31 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3029",
+      "giornata": "8",
+      "data": "2027-02-03 21:45",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3030",
+      "giornata": "8",
+      "data": "2027-02-04 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3031",
+      "giornata": "8",
+      "data": "2027-02-04 21:30",
+      "casa": "Volley World",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3032",
+      "giornata": "8",
+      "data": "2027-02-05 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3033",
+      "giornata": "9",
+      "data": "2027-02-18 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3034",
+      "giornata": "9",
+      "data": "2027-02-18 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Volley World",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3035",
+      "giornata": "9",
+      "data": "2027-02-21 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3036",
+      "giornata": "9",
+      "data": "2027-02-21 12:00",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Suri Sport",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3037",
+      "giornata": "10",
+      "data": "2027-02-25 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3038",
+      "giornata": "10",
+      "data": "2027-02-25 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3039",
+      "giornata": "10",
+      "data": "2027-02-25 21:30",
+      "casa": "Volley World",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3040",
+      "giornata": "10",
+      "data": "2027-02-26 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3041",
+      "giornata": "11",
+      "data": "2027-03-03 21:45",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Volley World",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3042",
+      "giornata": "11",
+      "data": "2027-03-04 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3043",
+      "giornata": "11",
+      "data": "2027-03-07 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Suri Sport",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3044",
+      "giornata": "11",
+      "data": "2027-03-05 21:45",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3045",
+      "giornata": "12",
+      "data": "2027-03-18 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3046",
+      "giornata": "12",
+      "data": "2027-03-18 21:00",
+      "casa": "Suri Sport",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "IC 72 \"Palasciano\"",
+      "indirizzo": "Via Domenico Padula, 131, Napoli"
+    },
+    {
+      "gara": "3047",
+      "giornata": "12",
+      "data": "2027-03-19 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Volley World",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3048",
+      "giornata": "12",
+      "data": "2027-03-19 21:45",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Minerva Medica Flyer",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    },
+    {
+      "gara": "3049",
+      "giornata": "13",
+      "data": "2027-03-28 18:00",
+      "casa": "Astrovolley Cercola",
+      "trasferta": "Indomita Sport Academy",
+      "palestra": "IC \"Custra\"",
+      "indirizzo": "Via Modigliani, 1, Cercola"
+    },
+    {
+      "gara": "3050",
+      "giornata": "13",
+      "data": "2027-04-01 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "Nuova Rinascita",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3051",
+      "giornata": "13",
+      "data": "2027-04-01 21:30",
+      "casa": "Volley World",
+      "trasferta": "Suri Sport",
+      "palestra": "IIS \"Vittorio Emanuele II\"",
+      "indirizzo": "Via Corrado Barbagallo, 32, Napoli"
+    },
+    {
+      "gara": "3052",
+      "giornata": "13",
+      "data": "2027-04-04 11:30",
+      "casa": "La Fenice Poggiomarino",
+      "trasferta": "Astrovolley Portici",
+      "palestra": "IC \"De Filippo\"",
+      "indirizzo": "Via Nuova San Marzano, Poggiomarino"
+    },
+    {
+      "gara": "3053",
+      "giornata": "14",
+      "data": "2027-04-08 19:00",
+      "casa": "Indomita Sport Academy",
+      "trasferta": "Volley World",
+      "palestra": "IC \"G. Capuozzo\"",
+      "indirizzo": "Centro Direzionale, Is. G9, Napoli"
+    },
+    {
+      "gara": "3054",
+      "giornata": "14",
+      "data": "2027-04-08 21:00",
+      "casa": "Minerva Medica Flyer",
+      "trasferta": "La Fenice Poggiomarino",
+      "palestra": "SMS \"L. Radice\"",
+      "indirizzo": "Via Santa I, 8, Massa di Somma"
+    },
+    {
+      "gara": "3055",
+      "giornata": "14",
+      "data": "2027-04-09 21:00",
+      "casa": "Nuova Rinascita",
+      "trasferta": "Suri Sport",
+      "palestra": "IC 5 \"Amedeo Maiuri\"",
+      "indirizzo": "Via Marconi, 113, Ercolano"
+    },
+    {
+      "gara": "3056",
+      "giornata": "14",
+      "data": "2027-04-09 21:45",
+      "casa": "Astrovolley Portici",
+      "trasferta": "Astrovolley Cercola",
+      "palestra": "LS \"Filippo Silvestri\"",
+      "indirizzo": "Piazza San Pasquale, 1, Portici"
+    }
+  ]
+}

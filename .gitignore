@@ -3,3 +3,7 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+
+# PDF dei calendari ASI inviati dalla federazione: contengono dati personali
+# (email e cellulari dei referenti) e non vanno pubblicati.
+*.pdf

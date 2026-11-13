@@ -18,5 +18,6 @@
   ],
   "max_workers": 10,
   "output": "site/data/schedule.json",
-  "manual": "data/manual.json"
+  "manual": "data/manual.json",
+  "asi": "data/asi"
 }

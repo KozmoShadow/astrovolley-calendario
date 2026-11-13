@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures as futures
 import json
+import re
 import sys
 import urllib.request
 from datetime import datetime, timezone
@@ -221,6 +222,137 @@ def load_manual(path: Path) -> list[dict]:
     return out
 
 
+def _parse_set(risultato: str) -> tuple[int | None, int | None]:
+    m = re.match(r"\s*(\d+)\s*-\s*(\d+)\s*$", risultato or "")
+    if not m:
+        return None, None
+    return int(m.group(1)), int(m.group(2))
+
+
+def _punti_risultato(set_casa: int, set_ospite: int) -> tuple[int, int]:
+    """Punti per la classifica ASI: 3-0/3-1 -> 3-0; 3-2 -> 2-1; 2-3 -> 1-2."""
+    if set_casa == 3 and set_ospite <= 1:
+        return 3, 0
+    if set_casa == 3 and set_ospite == 2:
+        return 2, 1
+    if set_ospite == 3 and set_casa <= 1:
+        return 0, 3
+    if set_ospite == 3 and set_casa == 2:
+        return 1, 2
+    return 0, 0
+
+
+def _parziali_punti(parziali: str) -> tuple[int, int, int, int]:
+    """Da '25-20 22-25' ricava (set_fatti, set_subiti, punti_fatti, punti_subiti)."""
+    sf = ss = pf = ps = 0
+    for coppia in re.findall(r"(\d+)\s*-\s*(\d+)", parziali or ""):
+        a, b = int(coppia[0]), int(coppia[1])
+        pf += a
+        ps += b
+        if a > b:
+            sf += 1
+        elif b > a:
+            ss += 1
+    return sf, ss, pf, ps
+
+
+def _calcola_classifica(calendar: dict, risultati: dict) -> list[dict]:
+    """Classifica ASI calcolata dai risultati (tutte le partite, non solo le nostre)."""
+    stats: dict[str, dict] = {}
+
+    def riga(sq: str) -> dict:
+        return stats.setdefault(
+            sq,
+            {"squadra": sq, "punti": 0, "pg": 0, "pv": 0, "pp": 0,
+             "sf": 0, "ss": 0, "pf": 0, "ps": 0},
+        )
+
+    for m in calendar["matches"]:
+        r = risultati.get(m["gara"])
+        if not r:
+            continue
+        set_casa, set_ospite = _parse_set(r.get("risultato", ""))
+        if set_casa is None:
+            continue
+        casa, ospite = m["casa"], m["trasferta"]
+        pc, po = _punti_risultato(set_casa, set_ospite)
+        # set e punti dei singoli parziali se presenti, altrimenti dal punteggio
+        sf_c, ss_c, pf_c, ps_c = _parziali_punti(r.get("parziali", ""))
+        if sf_c + ss_c == 0:
+            sf_c, ss_c = set_casa, set_ospite
+
+        for sq, punti, vinto, sf, ss, pf, ps in (
+            (casa, pc, set_casa > set_ospite, sf_c, ss_c, pf_c, ps_c),
+            (ospite, po, set_ospite > set_casa, ss_c, sf_c, ps_c, pf_c),
+        ):
+            row = riga(sq)
+            row["punti"] += punti
+            row["pg"] += 1
+            row["pv" if vinto else "pp"] += 1
+            row["sf"] += sf
+            row["ss"] += ss
+            row["pf"] += pf
+            row["ps"] += ps
+
+    def qs(r: dict) -> float:
+        return r["sf"] / r["ss"] if r["ss"] else float(r["sf"])
+
+    def qp(r: dict) -> float:
+        return r["pf"] / r["ps"] if r["ps"] else float(r["pf"])
+
+    classifica = sorted(stats.values(), key=lambda r: (-r["punti"], -qs(r), -qp(r)))
+    return classifica
+
+
+def load_asi(asi_dir: Path) -> list[dict]:
+    """Competizioni ASI: calendario (dal PDF) + risultati (a mano) + classifica calcolata."""
+    if not asi_dir.exists():
+        return []
+    out: list[dict] = []
+    for cal_path in sorted(asi_dir.glob("*.calendario.json")):
+        calendar = json.loads(cal_path.read_text(encoding="utf-8"))
+        res_path = asi_dir / cal_path.name.replace(".calendario.json", ".risultati.json")
+        risultati = {}
+        if res_path.exists():
+            risultati = json.loads(res_path.read_text(encoding="utf-8")).get("risultati", {})
+
+        matches = []
+        for m in calendar.get("matches", []):
+            r = risultati.get(m["gara"], {})
+            matches.append(
+                {
+                    "fonte": "asi",
+                    "campionato_id": calendar["id"],
+                    "campionato": calendar.get("titolo", ""),
+                    "girone": calendar.get("titolo", ""),
+                    "giornata": m.get("giornata", ""),
+                    "data": m.get("data", ""),
+                    "casa": m.get("casa", ""),
+                    "trasferta": m.get("trasferta", ""),
+                    "risultato": (r.get("risultato") or "").strip(),
+                    "parziali": (r.get("parziali") or "").strip(),
+                    "palestra": m.get("palestra", ""),
+                    "indirizzo": m.get("indirizzo", ""),
+                    "gara": m.get("gara", ""),
+                    "logo_casa": None,
+                    "logo_trasferta": None,
+                }
+            )
+
+        out.append(
+            {
+                "id": calendar["id"],
+                "titolo": calendar.get("titolo", ""),
+                "fonte": "asi",
+                "categoria": calendar.get("categoria", "ASI"),
+                "comitato": calendar.get("comitato", ""),
+                "matches": matches,
+                "standings": _calcola_classifica(calendar, risultati),
+            }
+        )
+    return out
+
+
 def scan_spike_fallback(config: dict, pattern: str) -> list[dict]:
     """Fonte di riserva: scansiona i comitati su Spike Volley (piu' lento)."""
     anno = config["stagione_anno"]
@@ -266,6 +398,9 @@ def main() -> int:
 
     manual = load_manual(ROOT / config.get("manual", "data/manual.json"))
     competitions.extend(manual)
+
+    asi = load_asi(ROOT / config.get("asi", "data/asi"))
+    competitions.extend(asi)
 
     competitions.sort(key=lambda c: (c["fonte"] != "fipav", c["titolo"]))
 
