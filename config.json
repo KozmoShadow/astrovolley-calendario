@@ -3,6 +3,16 @@
   "stagione_anno": 2026,
   "stagione_testo": "2026/27",
   "match_pattern": "astro",
+  "fonte_primaria": "fipav_napoli",
+  "fipav_napoli": {
+    "base_url": "https://www.fipavnapoli.it",
+    "pid": "1141",
+    "stagione_id": "2400",
+    "comitato_id": "20",
+    "comitato_nome": "C.T. NAPOLI",
+    "societa_id": "5690",
+    "timeout": 40
+  },
   "comitati": [
     { "nome": "C.T. NAPOLI", "id": "99912" }
   ],

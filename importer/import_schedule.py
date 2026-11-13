@@ -1,9 +1,8 @@
-"""Importa calendari e classifiche della societa' dall'API pubblica di Spike Volley.
+"""Importa calendari e classifiche della societa'.
 
-Scansiona tutti i campionati dei comitati configurati, tiene solo quelli in cui
-compare la societa' (match_pattern nei nomi squadra), e produce un unico
-schedule.json usato dal sito. I campionati non gestiti da FIPAV (es. ASI)
-arrivano da data/manual.json.
+Fonte primaria: il sito ufficiale FIPAV Napoli (importer/fipav_napoli.py), piu'
+preciso e aggiornato. Se non risponde, si ripiega sul backend pubblico di Spike
+Volley. I campionati non gestiti da FIPAV (es. ASI) arrivano da data/manual.json.
 """
 
 from __future__ import annotations
@@ -15,6 +14,9 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import fipav_napoli  # noqa: E402
 
 BASE = "https://tuttoincodice.com/livescore/read"
 HEADERS = {
@@ -176,20 +178,48 @@ def load_manual(path: Path) -> list[dict]:
     return out
 
 
+def scan_spike_fallback(config: dict, pattern: str) -> list[dict]:
+    """Fonte di riserva: scansiona i comitati su Spike Volley (piu' lento)."""
+    anno = config["stagione_anno"]
+    workers = config.get("max_workers", 10)
+    competitions: list[dict] = []
+    for comitato in config.get("comitati", []):
+        print(f"[fallback] Scansione Spike {comitato['nome']}...", file=sys.stderr)
+        competitions.extend(scan_comitato(comitato, anno, pattern, workers))
+    return competitions
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Importa il calendario Astrovolley")
     parser.add_argument("--config", default=str(ROOT / "config.json"))
+    parser.add_argument(
+        "--fonte",
+        choices=["auto", "fipav_napoli", "spike"],
+        default="auto",
+        help="auto: FIPAV con fallback su Spike (default)",
+    )
     args = parser.parse_args()
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
     anno = config["stagione_anno"]
     pattern = config["match_pattern"].lower()
-    workers = config.get("max_workers", 10)
+
+    fonte = args.fonte
+    if fonte == "auto":
+        fonte = config.get("fonte_primaria", "fipav_napoli")
 
     competitions: list[dict] = []
-    for comitato in config["comitati"]:
-        print(f"Scansione {comitato['nome']} (id {comitato['id']})...", file=sys.stderr)
-        competitions.extend(scan_comitato(comitato, anno, pattern, workers))
+    if fonte == "fipav_napoli" and config.get("fipav_napoli"):
+        try:
+            print("Fonte primaria: FIPAV Napoli...", file=sys.stderr)
+            competitions = fipav_napoli.fetch_competitions(config["fipav_napoli"])
+            total = sum(len(c["matches"]) for c in competitions)
+            print(f"FIPAV Napoli: {len(competitions)} competizioni, {total} partite.", file=sys.stderr)
+        except Exception as exc:  # noqa: BLE001 - qualunque errore -> fallback
+            print(f"FIPAV Napoli non disponibile ({exc}); ripiego su Spike.", file=sys.stderr)
+            competitions = []
+    if not competitions:
+        competitions = scan_spike_fallback(config, pattern)
 
     manual = load_manual(ROOT / config.get("manual", "data/manual.json"))
     competitions.extend(manual)
@@ -200,6 +230,14 @@ def main() -> int:
         "societa": config["societa"],
         "stagione": config.get("stagione_testo", str(anno)),
         "generato_il": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "fonte_primaria": fonte,
+        "live": {
+            "base_url": config.get("fipav_napoli", {}).get("base_url", ""),
+            "pid": config.get("fipav_napoli", {}).get("pid", ""),
+            "stagione_id": config.get("fipav_napoli", {}).get("stagione_id", ""),
+            "comitato_id": config.get("fipav_napoli", {}).get("comitato_id", ""),
+            "societa_id": config.get("fipav_napoli", {}).get("societa_id", ""),
+        },
         "competitions": competitions,
     }
 

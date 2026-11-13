@@ -1,3 +1,5 @@
+import { fetchLiveFipav } from "./fipav-live.js";
+
 const OUR_PATTERN = "astro";
 const DATA_URL = "data/schedule.json";
 
@@ -6,6 +8,8 @@ const state = {
   competitions: [],
   view: "ours", // "ours" oppure l'id di una competizione
   query: "",
+  live: false, // true se i dati FIPAV sono stati letti dal vivo adesso
+  liveError: null,
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -169,8 +173,38 @@ function renderHeader() {
   $("#societa").textContent = state.data.societa || "Calendario";
   $("#stagione").textContent = state.data.stagione || "—";
   const gen = parseDate((state.data.generato_il || "").replace("T", " ").slice(0, 19));
-  $("#updated").textContent = gen ? `${fmtDay(gen)} ${fmtTime(gen)}` : "—";
+  const quando = gen ? `${fmtDay(gen)} ${fmtTime(gen)}` : "—";
+  const el = $("#updated");
+  if (state.live) {
+    el.innerHTML = `Risultati aggiornati <strong>adesso</strong> da FIPAV`;
+    el.classList.add("is-live");
+  } else {
+    el.textContent = `Ultima sincronizzazione: ${quando}`;
+    el.classList.remove("is-live");
+  }
   document.title = `${state.data.societa || "Calendario"} — Calendario e Classifiche`;
+}
+
+// Sostituisce le competizioni FIPAV con quelle lette dal vivo, tenendo
+// invariate le competizioni non-FIPAV (es. ASI da data/manual.json).
+function mergeLive(liveComps) {
+  const nonFipav = state.competitions.filter((c) => (c.fonte || "").toLowerCase() !== "fipav");
+  const fipav = liveComps.map((comp) => ({
+    id: comp.campionato_id ? `fipav-${comp.campionato_id}` : `fipav-${comp.titolo}`,
+    titolo: comp.titolo,
+    fonte: "fipav",
+    categoria: "FIPAV",
+    campionato_id: comp.campionato_id,
+    matches: comp.matches.map((m) => ({
+      ...m,
+      fonte: "fipav",
+      campionato_id: comp.campionato_id,
+      campionato: comp.titolo,
+      girone: comp.titolo,
+    })),
+    standings: comp.standings || [],
+  }));
+  state.competitions = fipav.concat(nonFipav);
 }
 
 function setupStandingsToggle() {
@@ -204,6 +238,25 @@ async function init() {
     state.query = e.target.value;
     renderList();
   });
+
+  // Opzione C: prova a leggere i dati freschi da FIPAV nel browser.
+  // Se riesce, sostituisce la parte FIPAV; altrimenti resta lo snapshot.
+  if (state.data.live && state.data.live.base_url) {
+    try {
+      const liveComps = await fetchLiveFipav(state.data.live);
+      if (liveComps.length) {
+        mergeLive(liveComps);
+        state.live = true;
+        renderHeader();
+        renderViewFilter();
+        renderList();
+        renderStandings();
+      }
+    } catch (err) {
+      state.liveError = err;
+      state.live = false;
+    }
+  }
 }
 
 init();

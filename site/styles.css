@@ -63,6 +63,18 @@ h1, h2, .tagline {
 .tagline { margin: 18px 0 0; color: #c8d4ea; font-size: 17px; }
 
 .updated { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+.updated.is-live { color: var(--text); }
+.updated.is-live::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--asi);
+  box-shadow: 0 0 0 4px rgba(35, 178, 109, 0.18);
+  vertical-align: middle;
+}
 
 main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 
