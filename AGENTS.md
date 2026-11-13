@@ -52,7 +52,7 @@ del repo, non nel nascondere la pagina.
   `localStorage`. Nessuna configurazione.
 - **OAuth** ("Accedi con GitHub"): richiede il worker in `worker/` (Cloudflare). GitHub
   non espone l'endpoint OAuth con CORS e il `client_secret` non deve stare nella pagina,
-  quindi lo scambio va fatto lì. Imposta `OAUTH_WORKER_URL` in `site/admin/admin.js`.
+  quindi lo scambio va fatto lì. Imposta `oauthWorkerUrl` in `site/admin/config.json` (nessun codice da toccare).
 - Il parsing PDF usa **pdf.js** (vendored in `site/admin/vendor/`, niente CDN) e replica
   `importer/asi_pdf.py`: stesse x di colonna ricavate dall'intestazione, stessa tolleranza
   di 2pt, il giorno è l'ultima parola dopo la squadra ospite.

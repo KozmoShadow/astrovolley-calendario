@@ -5,9 +5,10 @@ import * as pdfjs from "./vendor/pdf.min.mjs";
 // ---------------------------------------------------------------------------
 const REPO = { owner: "KozmoShadow", repo: "astrovolley-calendario", branch: "main" };
 const ASI_DIR = "data/asi";
-// URL della funzione serverless che scambia il codice OAuth (vedi worker/).
+// URL della funzione serverless che scambia il codice OAuth.
+// Si configura in site/admin/config.json (oauthWorkerUrl), senza toccare il codice.
 // Se vuota, l'accesso con GitHub e' disattivato e resta il token personale.
-const OAUTH_WORKER_URL = "";
+let OAUTH_WORKER_URL = "";
 
 const TOKEN_KEY = "astrovolley_admin_token";
 // path qui e' relativo alla radice del repo (es. "data/asi/x.json"):
@@ -110,12 +111,13 @@ async function enterApp(user) {
   await refreshComps();
 }
 
-// Callback OAuth: il worker rimanda a #token=...&login=...
+// Callback OAuth: il worker rimanda alla pagina con #token=...
 async function handleOAuthCallback() {
   const hash = new URLSearchParams(location.hash.slice(1));
   const token = hash.get("token");
   if (!token) return false;
   localStorage.setItem(TOKEN_KEY, token);
+  // Toglie il token dalla barra degli indirizzi (resta solo nel browser).
   history.replaceState(null, "", location.pathname);
   return true;
 }
@@ -392,6 +394,14 @@ function setupTabs() {
 
 async function boot() {
   setupTabs();
+
+  // Configurazione (worker OAuth) letta da un file, cosi' non serve toccare il codice.
+  try {
+    const cfg = await (await fetch("./config.json", { cache: "no-store" })).json();
+    OAUTH_WORKER_URL = (cfg.oauthWorkerUrl || "").trim().replace(/\/+$/, "");
+  } catch {
+    OAUTH_WORKER_URL = "";
+  }
 
   if (!OAUTH_WORKER_URL) {
     $("#btn-oauth").disabled = true;
