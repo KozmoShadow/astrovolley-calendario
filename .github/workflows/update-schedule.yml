@@ -2,7 +2,13 @@ name: Aggiorna calendario
 
 on:
   schedule:
-    # Ogni giorno alle 06:00 UTC (07:00/08:00 in Italia a seconda dell'ora legale)
+    # Snapshot rigenerato spesso: e' l'unico modo per avere dati freschi su
+    # telefono, dove il fetch dal vivo non e' possibile (FIPAV dirotta i
+    # browser mobili su una versione senza tabelle). Su PC il sito legge
+    # comunque FIPAV dal vivo ad ogni apertura.
+    # Ogni 15 minuti nella fascia gare (08:00-23:00 UTC).
+    - cron: "*/15 8-23 * * *"
+    # Una passata notturna di sicurezza.
     - cron: "0 6 * * *"
   workflow_dispatch: {}
 

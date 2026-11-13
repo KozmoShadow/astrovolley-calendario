@@ -10,6 +10,7 @@ const state = {
   query: "",
   live: false, // true se i dati FIPAV sono stati letti dal vivo adesso
   liveError: null,
+  rows: [], // partite attualmente mostrate (per la scheda dettagli)
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -38,6 +39,8 @@ function escapeHtml(s) {
   );
 }
 
+const escapeAttr = (s) => (s ? escapeHtml(s) : "");
+
 function allMatches() {
   const rows = [];
   for (const comp of state.competitions) {
@@ -62,26 +65,76 @@ function visibleMatches() {
   return rows.sort((a, b) => (a.data || "").localeCompare(b.data || ""));
 }
 
+function currentCompetition() {
+  return state.competitions.find((c) => c.id === state.view) || null;
+}
+
+function closeChampMenu() {
+  const menu = $("#champ-menu");
+  const toggle = $("#champ-toggle");
+  if (menu) menu.hidden = true;
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+}
+
 function renderViewFilter() {
   const box = $("#view-filter");
-  const items = [{ id: "ours", label: "Le nostre partite" }].concat(
-    state.competitions.map((c) => ({ id: c.id, label: c.titolo }))
-  );
-  box.innerHTML = items
-    .map(
-      (it) =>
-        `<button class="chip" data-id="${it.id}" aria-pressed="${state.view === it.id}">${escapeHtml(
-          it.label
-        )}</button>`
-    )
-    .join("");
-  box.querySelectorAll(".chip").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      state.view = btn.dataset.id;
-      renderViewFilter();
-      renderList();
-    })
-  );
+  const comps = state.competitions;
+  const selected = currentCompetition();
+
+  const oursActive = state.view === "ours";
+  let html = `<button class="chip" data-id="ours" aria-pressed="${oursActive}">Le nostre partite</button>`;
+
+  if (comps.length) {
+    const label = selected ? selected.titolo : "Campionati";
+    html += `
+      <div class="dropdown">
+        <button class="chip chip-dropdown ${selected ? "is-active" : ""}" id="champ-toggle"
+                aria-haspopup="true" aria-expanded="false">
+          <span class="chip-label">${escapeHtml(label)}</span>
+          <span class="caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="dropdown-menu" id="champ-menu" role="menu" hidden>
+          ${comps
+            .map(
+              (c) =>
+                `<button role="menuitem" class="dropdown-item ${
+                  state.view === c.id ? "is-active" : ""
+                }" data-id="${c.id}">${escapeHtml(c.titolo)}</button>`
+            )
+            .join("")}
+        </div>
+      </div>`;
+  }
+  box.innerHTML = html;
+
+  box.querySelector('[data-id="ours"]').addEventListener("click", () => {
+    state.view = "ours";
+    closeChampMenu();
+    renderViewFilter();
+    renderList();
+    renderStandings();
+  });
+
+  const toggle = $("#champ-toggle");
+  if (toggle) {
+    const menu = $("#champ-menu");
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = menu.hidden;
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.addEventListener("click", (e) => e.stopPropagation());
+    menu.querySelectorAll(".dropdown-item").forEach((item) =>
+      item.addEventListener("click", () => {
+        state.view = item.dataset.id;
+        closeChampMenu();
+        renderViewFilter();
+        renderList();
+        renderStandings();
+      })
+    );
+  }
 }
 
 function renderList() {
@@ -99,7 +152,7 @@ function renderList() {
 
   let html = "";
   let currentDay = "";
-  for (const m of rows) {
+  rows.forEach((m, idx) => {
     const d = parseDate(m.data);
     const dayKey = d ? fmtDay(d) : "Data da definire";
     if (dayKey !== currentDay) {
@@ -113,10 +166,10 @@ function renderList() {
       : `<span class="vs">vs</span>`;
     const metaParts = [];
     if (m.campionato) metaParts.push(escapeHtml(m.campionato));
-    if (m.palestra) metaParts.push(escapeHtml(m.palestra));
     const fonte = (m._comp.fonte || "manuale").toLowerCase();
     html += `
-      <article class="match ${ours ? "is-ours" : ""}">
+      <article class="match ${ours ? "is-ours" : ""}" data-idx="${idx}" tabindex="0" role="button"
+               aria-label="Dettagli partita">
         <div class="match-time">${time}</div>
         <div class="match-body">
           <div class="teams">
@@ -128,13 +181,84 @@ function renderList() {
         </div>
         <span class="badge ${fonte}">${escapeHtml(m._comp.categoria || fonte)}</span>
       </article>`;
-  }
+  });
   box.innerHTML = html;
+  state.rows = rows;
+  box.querySelectorAll(".match").forEach((el) =>
+    el.addEventListener("click", () => openMatchModal(state.rows[Number(el.dataset.idx)]))
+  );
+}
+
+function openMatchModal(m) {
+  if (!m) return;
+  const d = parseDate(m.data);
+  const quando = d ? `${fmtDay(d)} · ore ${fmtTime(d)}` : "Data da definire";
+  const riga = (label, val) =>
+    val ? `<div class="detail-row"><span class="detail-label">${label}</span><span class="detail-value">${escapeHtml(val)}</span></div>` : "";
+  const parziali = (m.parziali || "").trim();
+  const setChips = parziali
+    ? `<div class="set-chips">${parziali
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((s) => `<span class="set-chip">${escapeHtml(s)}</span>`)
+        .join("")}</div>`
+    : "";
+  const loghi = [m.logo_casa, m.logo_trasferta].some(Boolean)
+    ? `<div class="detail-logos">
+         <img src="${escapeAttr(m.logo_casa)}" alt="" loading="lazy" onerror="this.remove()" />
+         <img src="${escapeAttr(m.logo_trasferta)}" alt="" loading="lazy" onerror="this.remove()" />
+       </div>`
+    : "";
+  const fonte = (m._comp.fonte || "manuale").toLowerCase();
+  $("#modal-content").innerHTML = `
+    <p class="modal-kicker">${escapeHtml(m._comp.titolo || m.campionato || "")}${
+      m.giornata ? ` · Giornata ${escapeHtml(String(m.giornata))}` : ""
+    }</p>
+    <div class="detail-score">
+      <div class="detail-team">
+        <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+      </div>
+      <div class="detail-result">${m.risultato ? escapeHtml(m.risultato) : "vs"}</div>
+      <div class="detail-team">
+        <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+      </div>
+    </div>
+    ${setChips}
+    ${loghi}
+    <div class="detail-list">
+      ${riga("Data", quando)}
+      ${riga("Campionato", m.campionato || m.girone)}
+      ${riga("Girone", m.girone && m.girone !== m.campionato ? m.girone : "")}
+      ${riga("Palestra", m.palestra)}
+      ${riga("Impianto", m.impianto)}
+      ${riga("Fonte", m._comp.fonte === "fipav" ? "FIPAV (ufficiale)" : m._comp.fonte)}
+    </div>
+    <span class="badge ${fonte} modal-badge">${escapeHtml(m._comp.categoria || fonte)}</span>
+  `;
+  openModal();
+}
+
+function openModal() {
+  const modal = $("#match-modal");
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+  modal.querySelector(".modal-close").focus();
+}
+
+function closeModal() {
+  const modal = $("#match-modal");
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
 }
 
 function renderStandings() {
   const box = $("#standings");
-  const comps = state.competitions.filter((c) => c.standings && c.standings.length);
+  const comp = currentCompetition();
+  const comps = (comp ? [comp] : state.competitions).filter(
+    (c) => c.standings && c.standings.length
+  );
+  $("#standings-title").textContent = comp ? "Classifica" : "Classifiche";
   if (!comps.length) {
     box.innerHTML = `<p class="empty">Nessuna classifica disponibile al momento.</p>`;
     return;
@@ -179,7 +303,7 @@ function renderHeader() {
     el.innerHTML = `Risultati aggiornati <strong>adesso</strong> da FIPAV`;
     el.classList.add("is-live");
   } else {
-    el.textContent = `Ultima sincronizzazione: ${quando}`;
+    el.textContent = `Dati aggiornati: ${quando}`;
     el.classList.remove("is-live");
   }
   document.title = `${state.data.societa || "Calendario"} — Calendario e Classifiche`;
@@ -237,6 +361,23 @@ async function init() {
   $("#search").addEventListener("input", (e) => {
     state.query = e.target.value;
     renderList();
+  });
+
+  document.addEventListener("click", closeChampMenu);
+
+  // Scheda dettagli: chiusura con click fuori, tasto Chiudi o Esc.
+  const modal = $("#match-modal");
+  modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+  $("#calendar").addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const card = e.target.closest(".match");
+    if (card) {
+      e.preventDefault();
+      openMatchModal(state.rows[Number(card.dataset.idx)]);
+    }
   });
 
   // Opzione C: prova a leggere i dati freschi da FIPAV nel browser.

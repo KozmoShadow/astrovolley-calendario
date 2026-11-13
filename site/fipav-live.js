@@ -179,8 +179,15 @@ function championshipUrl(live, cid) {
   return `${live.base_url.replace(/\/$/, "")}/risultati-classifiche.aspx?${q}`;
 }
 
+// FIPAV rileva il dispositivo dallo User-Agent: ai telefoni risponde con un
+// redirect 302 verso /mobile/, che non contiene le tabelle. Il browser mobile
+// non puo' cambiare il proprio User-Agent, quindi questa pagina non e' leggibile
+// dal vivo da telefono. Si tenta comunque (per il desktop funziona) e in caso di
+// fallimento si usa lo snapshot. Le pagine /mobile/ non sono un'alternativa: non
+// riportano le date delle partite.
+
 // Scarica dal vivo calendario e classifiche di tutte le competizioni FIPAV.
-export async function fetchLiveFipav(live, timeoutMs = 12000) {
+export async function fetchLiveFipav(live, timeoutMs = 20000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -198,6 +205,7 @@ export async function fetchLiveFipav(live, timeoutMs = 12000) {
       const cid = cidMatch ? cidMatch[1] : "";
       competitions.push({ campionato_id: cid, titolo, matches: parseMatches(table, base) });
     }
+    if (!competitions.length) throw new Error("nessuna tabella partite (probabile redirect mobile)");
 
     // Per ogni campionato si scarica il girone completo (tutte le partite,
     // non solo le nostre) insieme alla classifica. In parallelo.

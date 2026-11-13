@@ -35,11 +35,24 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
   browser** ad ogni apertura della pagina (FIPAV manda `access-control-allow-origin: *`).
 - `site/app.js` (`init` → `fetchLiveFipav` → `mergeLive`): sostituisce solo le competizioni
   FIPAV con quelle fresche, mantiene intatte ASI/manuali. Se il live fallisce, resta lo
-  snapshot `site/data/schedule.json` (aggiornato dal cron giornaliero).
+  snapshot `site/data/schedule.json`.
 - L'header mostra "Risultati aggiornati adesso da FIPAV" (pallino verde) quando il live
-  riesce, altrimenti "Ultima sincronizzazione: <data snapshot>".
+  riesce, altrimenti "Dati aggiornati: <data snapshot>".
 - `app.js` è un **modulo ES** (`<script type="module">`), quindi `file://` non funziona:
   serve un server HTTP.
+
+## Limite importante: il live NON funziona da telefono
+FIPAV rileva il dispositivo dallo **User-Agent** e ai browser mobili risponde con un
+`302` verso `/mobile/`, che non contiene le tabelle (e la versione mobile non riporta
+nemmeno le date delle partite). Il browser mobile non può cambiare il proprio User-Agent,
+quindi dal telefono il fetch live fallisce sempre e si usa lo snapshot.
+- Conseguenza: lo snapshot deve essere fresco. Il cron in `update-schedule.yml` gira
+  **ogni 15 minuti** (08:00-23:00 UTC) + una passata notturna.
+- L'importer riscrive `schedule.json` **solo se i dati cambiano davvero**, così il cron
+  frequente non genera commit inutili e `generato_il` resta l'ora dell'ultimo
+  aggiornamento reale (è questo che il sito mostra come "Dati aggiornati: ...").
+- Non provare a "forzare" la versione desktop dal browser: è bloccato lato server.
+- Da PC il live funziona normalmente.
 
 ## Portale FIPAV ufficiale (per riferimento)
 `public.fipavonline.it` espone `app.fipavonline.it/api/v2/{commettees,calendar/.../...,tables/...}`,

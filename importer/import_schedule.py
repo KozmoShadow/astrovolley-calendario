@@ -243,6 +243,23 @@ def main() -> int:
 
     out_path = ROOT / config["output"]
     out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Riscrive il file solo se i dati sono cambiati davvero. Cosi' il cron
+    # frequente non genera commit inutili e "generato_il" resta l'ora
+    # dell'ultimo aggiornamento reale dei risultati.
+    previous = None
+    if out_path.exists():
+        try:
+            previous = json.loads(out_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001 - file corrotto: si riscrive
+            previous = None
+    if previous:
+        prev_cmp = {k: v for k, v in previous.items() if k != "generato_il"}
+        new_cmp = {k: v for k, v in output.items() if k != "generato_il"}
+        if prev_cmp == new_cmp:
+            print("Nessun cambiamento nei dati: file invariato.", file=sys.stderr)
+            return 0
+
     out_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
 
     total = sum(len(c["matches"]) for c in competitions)

@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -26,22 +28,22 @@
   </header>
 
   <main>
+    <nav class="chips" id="view-filter" aria-label="Vista"></nav>
+
     <div class="toolbar">
       <button id="toggle-standings" class="btn-standings" aria-expanded="false" aria-controls="standings-panel">
-        Classifiche
+        Classifica
       </button>
       <label class="search">
         <span class="sr-only">Cerca squadra o palestra</span>
-        <input id="search" type="search" placeholder="Cerca squadra o palestra…" />
+        <input id="search" type="search" placeholder="Cerca…" />
       </label>
     </div>
 
     <section id="standings-panel" class="panel standings-panel" hidden>
-      <h2>Classifiche</h2>
+      <h2 id="standings-title">Classifica</h2>
       <div id="standings" class="standings"></div>
     </section>
-
-    <nav class="chips" id="view-filter" aria-label="Vista"></nav>
 
     <section class="panel">
       <h2 id="list-title">Le nostre partite</h2>
@@ -52,6 +54,14 @@
   <footer>
     <p>Dati FIPAV Napoli (fonte ufficiale) · Competizioni ASI inserite manualmente · Le classifiche ufficiali fanno fede solo sui comunicati federali.</p>
   </footer>
+
+  <div id="match-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Dettagli partita">
+      <button class="modal-close" data-close aria-label="Chiudi">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
 
   <script type="module" src="app.js"></script>
 </body>
