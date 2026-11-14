@@ -21,7 +21,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = "./vendor/pdf.worker.min.mjs";
 // ---------------------------------------------------------------------------
 // Stato
 // ---------------------------------------------------------------------------
-const state = { token: "", user: null, comps: [], current: null };
+const state = {
+  token: "",
+  user: null,
+  comps: [],
+  current: null,
+  currentComp: null,
+  pending: {}, // modifiche ai risultati non ancora salvate
+  loghi: {}, // loghi squadre (URL) non ancora salvati
+  loghiDirty: 0,
+  modalGara: null,
+};
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -250,60 +260,346 @@ async function refreshComps() {
   }
 }
 
+// Stato locale delle modifiche non ancora salvate, per non fare un commit
+// a ogni partita: si compila la giornata e si salva una volta sola.
+//   state.pending[gara] = { risultato: "3 - 1", parziali: "25-20 ..." }
+//   state.loghi[squadra] = "https://..."
+function pendingOf(gara) {
+  return state.pending[gara] || { risultato: "", parziali: "" };
+}
+
+function setPending(gara, patch) {
+  const cur = pendingOf(gara);
+  const next = { ...cur, ...patch };
+  if (!next.risultato && !next.parziali) delete state.pending[gara];
+  else state.pending[gara] = next;
+  markDirty();
+}
+
+function markDirty() {
+  const n = Object.keys(state.pending).length + state.loghiDirty;
+  const el = $("#save-status");
+  if (el) el.textContent = n ? "Modifiche non salvate." : "";
+}
+
+function parseScore(s) {
+  const m = /^(\d+)\s*[-–]\s*(\d+)$/.exec((s || "").trim());
+  return m ? [Number(m[1]), Number(m[2])] : null;
+}
+
+// Quanti parziali servono: la somma dei set del risultato (3-1 -> 4).
+function setCount(risultato) {
+  const p = parseScore(risultato);
+  return p ? p[0] + p[1] : 0;
+}
+
+function logoOf(m, key) {
+  const url = (m[key] || "").trim();
+  if (!url) return "";
+  return url.startsWith("assets/") ? `../${url}` : url;
+}
+
 async function loadResults() {
   const id = $("#sel-comp").value;
   state.current = id;
   const comp = state.comps.find((c) => c.id === id);
   if (!comp) return;
-  const res = (await ghReadJson(`${ASI_DIR}/${id}.risultati.json`)) || { risultati: {} };
-  const risultati = res.risultati || {};
+  state.currentComp = comp;
 
-  $("#matches").innerHTML = comp.matches
-    .map((m) => {
-      const r = risultati[m.gara] || {};
-      const score = r.risultato || "";
-      const parz = r.parziali || "";
-      return `<div class="match-row" data-gara="${escapeHtml(m.gara)}">
-        <div class="gara">${escapeHtml(m.gara)}</div>
-        <div class="info">
-          <div class="teams">${escapeHtml(m.casa)} – ${escapeHtml(m.trasferta)}</div>
-          <div class="meta">G${escapeHtml(m.giornata)} · ${escapeHtml(m.data)} · ${escapeHtml(m.palestra)}</div>
-          <div class="fields">
-            <input class="score" placeholder="3 - 1" value="${escapeHtml(score)}" />
-            <input class="parz" placeholder="25-20 22-25 25-18 25-19" value="${escapeHtml(parz)}" />
-          </div>
-        </div>
-      </div>`;
-    })
-    .join("");
+  const res = (await ghReadJson(`${ASI_DIR}/${id}.risultati.json`)) || { risultati: {} };
+  state.pending = {};
+  for (const [gara, r] of Object.entries(res.risultati || {})) {
+    state.pending[gara] = { risultato: r.risultato || "", parziali: r.parziali || "" };
+  }
+
+  const sq = (await ghReadJson(`${ASI_DIR}/${id}.squadre.json`)) || { loghi: {} };
+  state.loghi = { ...(sq.loghi || {}) };
+  state.loghiDirty = 0;
+
+  renderMatchList();
+  renderLogoForm();
+  markDirty();
 }
 
-function collectResults() {
-  const out = {};
-  document.querySelectorAll(".match-row").forEach((row) => {
-    const score = row.querySelector(".score").value.trim();
-    const parz = row.querySelector(".parz").value.trim();
-    if (score || parz) out[row.dataset.gara] = { risultato: score, parziali: parz };
+function renderMatchList() {
+  const comp = state.currentComp;
+  if (!comp) return;
+  $("#matches").innerHTML = comp.matches
+    .map((m) => {
+      const p = pendingOf(m.gara);
+      const parts = (p.risultato || "").split(/\s*[-–]\s*/);
+      const hasScore = parts.length === 2;
+      const result = hasScore
+        ? `<span class="result">${escapeHtml(p.risultato)}</span>`
+        : `<span class="vs">vs</span>`;
+      return `<article class="match-row" data-gara="${escapeHtml(m.gara)}" tabindex="0" role="button" aria-label="Modifica partita">
+        <div class="gara">${escapeHtml(m.gara)}</div>
+        <div class="info">
+          <div class="teams ${hasScore ? "is-played" : ""}">
+            <span class="team-name">${escapeHtml(m.casa)}</span>
+            ${result}
+            <span class="team-name">${escapeHtml(m.trasferta)}</span>
+          </div>
+          <div class="meta">G${escapeHtml(String(m.giornata))} · ${escapeHtml(m.data)} · ${escapeHtml(m.palestra)}</div>
+          ${p.parziali ? `<div class="parz-preview">${escapeHtml(p.parziali)}</div>` : ""}
+        </div>
+      </article>`;
+    })
+    .join("");
+  $("#matches")
+    .querySelectorAll(".match-row")
+    .forEach((el) =>
+      el.addEventListener("click", () => openMatchModal(el.dataset.gara))
+    );
+}
+
+function renderLogoForm() {
+  const comp = state.currentComp;
+  if (!comp) return;
+  const squadre = [...new Set(comp.matches.flatMap((m) => [m.casa, m.trasferta]))].sort((a, b) =>
+    a.localeCompare(b, "it")
+  );
+  $("#logo-form").innerHTML = squadre
+    .map(
+      (sq) => `<label class="logo-row">
+        <span class="logo-name">${escapeHtml(sq)}</span>
+        <span class="logo-input">
+          <input type="url" data-squadra="${escapeHtml(sq)}" placeholder="https://…/logo.png"
+                 value="${escapeHtml(state.loghi[sq] || "")}" />
+          <img class="logo-preview" data-preview="${escapeHtml(sq)}"
+               src="${escapeAttr(state.loghi[sq] || "")}" alt=""
+               ${state.loghi[sq] ? "" : "hidden"} onerror="this.hidden=true" />
+        </span>
+      </label>`
+    )
+    .join("");
+  $("#logo-form")
+    .querySelectorAll("input[data-squadra]")
+    .forEach((inp) =>
+      inp.addEventListener("input", () => {
+        const sq = inp.dataset.squadra;
+        const url = inp.value.trim();
+        const prev = url.startsWith("assets/") ? `../${url}` : url;
+        const img = $(`[data-preview="${CSS.escape(sq)}"]`);
+        if (url) {
+          state.loghi[sq] = url;
+          if (img) {
+            img.src = prev;
+            img.hidden = false;
+          }
+        } else {
+          delete state.loghi[sq];
+          if (img) img.hidden = true;
+        }
+        state.loghiDirty = 1;
+        markDirty();
+      })
+    );
+}
+
+// Scheda dettaglio modificabile: stessa impostazione della scheda pubblica,
+// ma con i campi per punteggio e parziali.
+function openMatchModal(gara) {
+  const comp = state.currentComp;
+  const m = comp.matches.find((x) => x.gara === gara);
+  if (!m) return;
+  state.modalGara = gara;
+  renderModal();
+  const modal = $("#match-modal");
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+  modal.querySelector(".modal-close").focus();
+}
+
+function renderModal() {
+  const comp = state.currentComp;
+  const m = comp.matches.find((x) => x.gara === state.modalGara);
+  if (!m) return;
+  const p = pendingOf(m.gara);
+
+  const logoCasa = logoOf(m, "logo_casa")
+    ? `<img src="${escapeAttr(logoOf(m, "logo_casa"))}" alt="" onerror="this.remove()" />`
+    : "";
+  const logoTrasf = logoOf(m, "logo_trasferta")
+    ? `<img src="${escapeAttr(logoOf(m, "logo_trasferta"))}" alt="" onerror="this.remove()" />`
+    : "";
+
+  $("#modal-content").innerHTML = `
+    <p class="modal-kicker">${escapeHtml(comp.titolo)}${m.giornata ? ` · Giornata ${escapeHtml(String(m.giornata))}` : ""}</p>
+    <div class="detail-score">
+      <div class="detail-team">${logoCasa}<span class="detail-team-name">${escapeHtml(m.casa)}</span></div>
+      <div class="detail-result" id="score-slot"></div>
+      <div class="detail-team">${logoTrasf}<span class="detail-team-name">${escapeHtml(m.trasferta)}</span></div>
+    </div>
+    <div id="sets-edit" class="sets-edit"></div>
+    <div class="detail-list">
+      <div class="detail-row"><span class="detail-label">Data</span><span class="detail-value">${escapeHtml(m.data)}</span></div>
+      ${m.palestra ? `<div class="detail-row"><span class="detail-label">Palestra</span><span class="detail-value">${escapeHtml(m.palestra)}</span></div>` : ""}
+      ${m.indirizzo ? `<div class="detail-row"><span class="detail-label">Indirizzo</span><span class="detail-value">${escapeHtml(m.indirizzo)}</span></div>` : ""}
+      <div class="detail-row"><span class="detail-label">N. Gara</span><span class="detail-value">${escapeHtml(m.gara)}</span></div>
+    </div>
+    <p class="muted small modal-hint">
+      Le modifiche restano in sospeso: premi <strong>Salva</strong> nella pagina per registrarle.
+    </p>
+    <div class="modal-actions">
+      <button class="btn" id="btn-modal-close">Chiudi</button>
+    </div>
+  `;
+
+  renderScoreSlot();
+  renderSetsEdit();
+  $("#btn-modal-close").addEventListener("click", closeModal);
+}
+
+// Il punteggio si mostra come nella scheda pubblica; cliccandolo diventa
+// modificabile. Al termine si richiude da solo, cosi' non si cambia per sbaglio.
+function renderScoreSlot() {
+  const p = pendingOf(state.modalGara);
+  const slot = $("#score-slot");
+  if (p.risultato) {
+    slot.innerHTML = `<button class="score-btn is-set" title="Modifica il risultato">${escapeHtml(p.risultato)}</button>`;
+    slot.querySelector("button").addEventListener("click", showScoreInputs);
+  } else {
+    slot.innerHTML = `<button class="score-btn" title="Inserisci il risultato">vs</button>`;
+    slot.querySelector("button").addEventListener("click", showScoreInputs);
+  }
+}
+
+function showScoreInputs() {
+  const cur = pendingOf(state.modalGara);
+  const parts = (cur.risultato || "").split(/\s*[-–]\s*/);
+  const slot = $("#score-slot");
+  slot.innerHTML = `
+    <span class="score-inputs">
+      <input class="score-set" id="sc-a" inputmode="numeric" maxlength="1"
+             value="${escapeHtml(parts[0] || "")}" placeholder="3" />
+      <span class="score-dash">-</span>
+      <input class="score-set" id="sc-b" inputmode="numeric" maxlength="1"
+             value="${escapeHtml(parts[1] || "")}" placeholder="1" />
+    </span>`;
+  const a = $("#sc-a");
+  const b = $("#sc-b");
+
+  const apply = () => {
+    const va = a.value.replace(/\D/g, "");
+    const vb = b.value.replace(/\D/g, "");
+    const ris = va && vb ? `${va} - ${vb}` : "";
+    // Cambiando il punteggio i parziali gia' scritti restano; si tagliano solo
+    // quelli in eccesso o se ne aggiungono di vuoti in coda.
+    const tokens = (pendingOf(state.modalGara).parziali || "").trim().split(/\s+/).filter(Boolean);
+    const kept = ris ? tokens.slice(0, setCount(ris)).join(" ") : "";
+    setPending(state.modalGara, { risultato: ris, parziali: kept });
+    renderSetsEdit();
+  };
+  const commit = () => {
+    // Uscendo dal campo, il punteggio torna un'etichetta non modificabile.
+    renderScoreSlot();
+  };
+
+  [a, b].forEach((inp, i) => {
+    inp.addEventListener("input", () => {
+      apply();
+      if (i === 0 && a.value.length === 1) b.focus();
+    });
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") commit();
+      if (e.key === "Escape") commit();
+    });
+    inp.addEventListener("blur", () => {
+      setTimeout(() => {
+        if (!document.activeElement || !document.activeElement.classList.contains("score-set")) commit();
+      }, 120);
+    });
   });
-  return out;
+  a.focus();
+  a.select();
+}
+
+// Blocchi dei parziali: tanti quanti i set del risultato (3-1 -> 4). Cambiando
+// il punteggio i blocchi gia' scritti restano; si aggiunge o toglie in coda.
+function renderSetsEdit() {
+  const box = $("#sets-edit");
+  if (!box) return;
+  const p = pendingOf(state.modalGara);
+  const n = setCount(p.risultato);
+  const tokens = (p.parziali || "").trim().split(/\s+/).filter(Boolean);
+
+  if (!n) {
+    box.classList.add("is-empty");
+    box.innerHTML = `<span class="muted small">Inserisci il punteggio per generare i parziali.</span>`;
+    return;
+  }
+  box.classList.remove("is-empty");
+  box.innerHTML = Array.from({ length: n }, (_, i) => {
+    return `<input class="set-edit" data-set="${i}" inputmode="numeric"
+                   placeholder="25-20" value="${escapeHtml(tokens[i] || "")}" />`;
+  }).join("");
+  box.querySelectorAll(".set-edit").forEach((inp) =>
+    inp.addEventListener("input", () => {
+      const vals = Array.from({ length: n }, (_, i) => {
+        const el = $(`#sets-edit .set-edit[data-set="${i}"]`);
+        return el ? el.value.trim() : "";
+      });
+      setPending(state.modalGara, { parziali: vals.filter(Boolean).join(" ") });
+    })
+  );
+}
+
+function closeModal() {
+  const modal = $("#match-modal");
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+  state.modalGara = null;
+  // La scheda si chiude e torna non modificabile: per rimettere mano ai
+  // risultati bisogna riaprirla.
+  renderMatchList();
+  markDirty();
 }
 
 async function saveResults() {
   const id = state.current;
   const comp = state.comps.find((c) => c.id === id);
-  const payload = {
-    _istruzioni:
-      "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
-    competizione: id,
-    risultati: collectResults(),
-  };
   $("#save-status").textContent = "Salvataggio…";
   try {
+    // Un solo commit per i risultati dell'intera giornata compilata.
+    const risultati = {};
+    for (const [gara, r] of Object.entries(state.pending)) {
+      if (r.risultato || r.parziali) {
+        risultati[gara] = { risultato: r.risultato || "", parziali: r.parziali || "" };
+      }
+    }
     await ghPut(
       `${ASI_DIR}/${id}.risultati.json`,
-      JSON.stringify(payload, null, 2) + "\n",
+      JSON.stringify(
+        {
+          _istruzioni:
+            "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
+          competizione: id,
+          risultati,
+        },
+        null,
+        2
+      ) + "\n",
       `Risultati ${comp?.titolo || id}`
     );
+
+    // I loghi stanno in un file separato, cosi' rigenerare il calendario dal PDF
+    // non li cancella. Si scrive solo se qualcosa e' cambiato: un salvataggio di
+    // soli risultati non deve produrre un commit inutile.
+    if (state.loghiDirty) {
+      const loghi = {};
+      for (const [sq, url] of Object.entries(state.loghi)) {
+        if ((url || "").trim()) loghi[sq] = url.trim();
+      }
+      await ghPut(
+        `${ASI_DIR}/${id}.squadre.json`,
+        JSON.stringify({ competizione: id, loghi }, null, 2) + "\n",
+        `Loghi ${comp?.titolo || id}`
+      );
+      state.loghiDirty = 0;
+    }
+
     $("#save-status").textContent = "Salvato. Il sito si aggiorna in pochi minuti.";
   } catch (err) {
     $("#save-status").textContent = `Errore: ${err.message}`;
@@ -379,6 +675,8 @@ function escapeHtml(s) {
   );
 }
 
+const escapeAttr = (s) => (s ? escapeHtml(s) : "");
+
 // ---------------------------------------------------------------------------
 // Avvio
 // ---------------------------------------------------------------------------
@@ -430,6 +728,14 @@ async function boot() {
   $("#sel-comp").addEventListener("change", loadResults);
   $("#btn-save").addEventListener("click", saveResults);
   $("#btn-upload").addEventListener("click", uploadCalendar);
+
+  // Chiusura della scheda dettaglio: X, sfondo, tasto Esc.
+  $("#match-modal").querySelectorAll("[data-close]").forEach((el) =>
+    el.addEventListener("click", closeModal)
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
 
   // Sessione esistente?
   const oauth = await handleOAuthCallback();

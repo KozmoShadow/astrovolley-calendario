@@ -100,21 +100,42 @@
         <section class="card">
           <h2>Risultati</h2>
           <p class="muted small">
-            Inserisci punteggio e parziali dopo ogni partita. La classifica è
-            calcolata automaticamente.
+            Apri la scheda di una partita per inserire punteggio e parziali.
+            Le modifiche restano in sospeso finche' non premi <strong>Salva</strong>:
+            cosi' puoi compilare un'intera giornata e fare un solo salvataggio.
           </p>
           <label class="inline">Campionato
             <select id="sel-comp"></select>
           </label>
           <div id="matches" class="matches"></div>
           <div class="sticky-save">
-            <button id="btn-save" class="btn btn-primary">Salva risultati</button>
+            <button id="btn-save" class="btn btn-primary">Salva</button>
             <span id="save-status" class="muted small"></span>
           </div>
+        </section>
+
+        <!-- Loghi squadre -->
+        <section class="card">
+          <h2>Loghi squadre</h2>
+          <p class="muted small">
+            Incolla l'indirizzo (URL) del logo di ogni squadra. Il logo compare
+            nel calendario e nella scheda partita. Si salva con lo stesso pulsante
+            <strong>Salva</strong> dei risultati.
+          </p>
+          <div id="logo-form" class="logo-form"></div>
         </section>
       </div>
     </section>
   </main>
+
+  <!-- Scheda dettaglio partita (modificabile) -->
+  <div id="match-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Modifica partita">
+      <button class="modal-close" data-close aria-label="Chiudi">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
 
   <script type="module" src="admin.js"></script>
 </body>

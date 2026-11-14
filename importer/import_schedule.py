@@ -320,6 +320,13 @@ def load_asi(asi_dir: Path) -> list[dict]:
         if res_path.exists():
             risultati = json.loads(res_path.read_text(encoding="utf-8")).get("risultati", {})
 
+        # Loghi delle squadre: file separato dal calendario, perche' il calendario
+        # viene rigenerato dal PDF e perderebbe i loghi inseriti a mano.
+        logo_path = asi_dir / cal_path.name.replace(".calendario.json", ".squadre.json")
+        loghi = {}
+        if logo_path.exists():
+            loghi = json.loads(logo_path.read_text(encoding="utf-8")).get("loghi", {})
+
         matches = []
         for m in calendar.get("matches", []):
             r = risultati.get(m["gara"], {})
@@ -338,8 +345,8 @@ def load_asi(asi_dir: Path) -> list[dict]:
                     "palestra": m.get("palestra", ""),
                     "indirizzo": m.get("indirizzo", ""),
                     "gara": m.get("gara", ""),
-                    "logo_casa": None,
-                    "logo_trasferta": None,
+                    "logo_casa": (loghi.get(m.get("casa", "")) or "").strip() or None,
+                    "logo_trasferta": (loghi.get(m.get("trasferta", "")) or "").strip() or None,
                 }
             )
 
