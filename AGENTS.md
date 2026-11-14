@@ -103,6 +103,22 @@ Due trappole già risolte, da non reintrodurre:
 
 Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 
+## Sezione admin (site/admin/)
+- `admin.js` salva i risultati in `data/asi/<id>.risultati.json` e i loghi delle
+  squadre in `data/asi/<id>.squadre.json` (file separato: il calendario si
+  rigenera dal PDF e perderebbe i loghi).
+- I loghi sono URL (esterni oppure `assets/loghi/<nome>`); l'importer li collega
+  a `logo_casa`/`logo_trasferta`.
+- La modifica dei risultati avviene in una scheda che ricalca quella pubblica:
+  si clicca il "vs", si scrive il punteggio, e i blocchi dei parziali si
+  generano dal risultato (3-1 -> 4 blocchi). Cambiando punteggio i parziali
+  scritti restano; si taglia/aggiunge solo in coda.
+- Le modifiche stanno in `state.pending` finche' non si preme Salva: un solo
+  commit per l'intera giornata compilata. Il file loghi si scrive solo se
+  cambiato (`state.loghiDirty`).
+- `escapeAttr` e' definita in `admin.js` come in `app.js`; se manca, il form
+  loghi si rompe silenziosamente.
+
 ## Convenzioni
 - Tutti i colori del sito stanno nel blocco `:root` in cima a `site/styles.css`.
 - Il sito è senza dipendenze JS; non introdurre build step.
