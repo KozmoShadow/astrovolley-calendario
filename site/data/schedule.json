@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-13T19:04:22+00:00",
+  "generato_il": "2026-11-14T01:48:32+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -615,7 +615,7 @@
           "data": "2026-12-03 19:00",
           "casa": "Indomita Sport Academy",
           "trasferta": "Suri Sport",
-          "risultato": "",
+          "risultato": "l",
           "parziali": "",
           "palestra": "IC \"G. Capuozzo\"",
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
