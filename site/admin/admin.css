@@ -48,6 +48,8 @@ main { max-width: 1100px; margin: 0 auto; padding: 22px 20px 60px; }
 .card h2 { margin: 0 0 12px; font-size: 17px; }
 
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+.grid .col { display: grid; gap: 18px; align-content: start; }
+.grid .col .card { margin-bottom: 0; }
 @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
 
 .muted { color: var(--muted); }

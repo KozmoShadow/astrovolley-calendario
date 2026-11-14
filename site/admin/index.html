@@ -63,38 +63,51 @@
       </div>
 
       <div class="grid">
-        <!-- Campionati -->
-        <section class="card">
-          <h2>Campionati ASI</h2>
-          <p class="muted small">
-            Un calendario per campionato. Carica il PDF che ti invia la federazione:
-            le partite vengono estratte nel browser e salvate nel repository.
-          </p>
-          <ul id="comp-list" class="comp-list"></ul>
+        <div class="col">
+          <!-- Campionati -->
+          <section class="card">
+            <h2>Campionati ASI</h2>
+            <p class="muted small">
+              Un calendario per campionato. Carica il PDF che ti invia la federazione:
+              le partite vengono estratte nel browser e salvate nel repository.
+            </p>
+            <ul id="comp-list" class="comp-list"></ul>
 
-          <details class="upload">
-            <summary>Aggiungi / aggiorna un campionato dal PDF</summary>
-            <div class="form">
-              <label>Nome file calendario <span class="muted small">(id, senza spazi)</span>
-                <input id="up-id" type="text" placeholder="asi-open-misto-promozionale" />
-              </label>
-              <label>Titolo mostrato sul sito
-                <input id="up-titolo" type="text" placeholder="Open Misto Promozionale ASI" />
-              </label>
-              <label>Categoria
-                <input id="up-categoria" type="text" value="Open Misto" />
-              </label>
-              <label>Comitato
-                <input id="up-comitato" type="text" value="ASI Napoli Centro" />
-              </label>
-              <label>PDF del calendario
-                <input id="up-pdf" type="file" accept="application/pdf" />
-              </label>
-              <button id="btn-upload" class="btn btn-primary">Estrai e salva il calendario</button>
-              <p id="upload-status" class="muted small"></p>
-            </div>
-          </details>
-        </section>
+            <details class="upload">
+              <summary>Aggiungi / aggiorna un campionato dal PDF</summary>
+              <div class="form">
+                <label>Nome file calendario <span class="muted small">(id, senza spazi)</span>
+                  <input id="up-id" type="text" placeholder="asi-open-misto-promozionale" />
+                </label>
+                <label>Titolo mostrato sul sito
+                  <input id="up-titolo" type="text" placeholder="Open Misto Promozionale ASI" />
+                </label>
+                <label>Categoria
+                  <input id="up-categoria" type="text" value="Open Misto" />
+                </label>
+                <label>Comitato
+                  <input id="up-comitato" type="text" value="ASI Napoli Centro" />
+                </label>
+                <label>PDF del calendario
+                  <input id="up-pdf" type="file" accept="application/pdf" />
+                </label>
+                <button id="btn-upload" class="btn btn-primary">Estrai e salva il calendario</button>
+                <p id="upload-status" class="muted small"></p>
+              </div>
+            </details>
+          </section>
+
+          <!-- Loghi squadre -->
+          <section class="card">
+            <h2>Loghi squadre</h2>
+            <p class="muted small">
+              Incolla l'indirizzo (URL) del logo di ogni squadra. Il logo compare
+              nel calendario e nella scheda partita. Si salva con lo stesso pulsante
+              <strong>Salva</strong> dei risultati.
+            </p>
+            <div id="logo-form" class="logo-form"></div>
+          </section>
+        </div>
 
         <!-- Risultati -->
         <section class="card">
@@ -112,17 +125,6 @@
             <button id="btn-save" class="btn btn-primary">Salva</button>
             <span id="save-status" class="muted small"></span>
           </div>
-        </section>
-
-        <!-- Loghi squadre -->
-        <section class="card">
-          <h2>Loghi squadre</h2>
-          <p class="muted small">
-            Incolla l'indirizzo (URL) del logo di ogni squadra. Il logo compare
-            nel calendario e nella scheda partita. Si salva con lo stesso pulsante
-            <strong>Salva</strong> dei risultati.
-          </p>
-          <div id="logo-form" class="logo-form"></div>
         </section>
       </div>
     </section>
