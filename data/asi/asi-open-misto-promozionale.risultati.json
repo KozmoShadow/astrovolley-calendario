@@ -1,10 +1,5 @@
 {
-  "_istruzioni": "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
+  "istruzioni": "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
   "competizione": "asi-open-misto-promozionale",
-  "risultati": {
-    "3002": {
-      "risultato": "3 - 0",
-      "parziali": "25-15 25-18 25-20"
-    }
-  }
+  "risultati": {}
 }
