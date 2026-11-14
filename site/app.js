@@ -35,6 +35,16 @@ const fmtTime = (d) => d.toTimeString().slice(0, 5);
 const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
 const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 
+// Esito dal punto di vista dell'Astrovolley: vale anche giocando in trasferta.
+function esitoOf(m, parts) {
+  const a = Number(parts[0]);
+  const b = Number(parts[1]);
+  if (!Number.isFinite(a) || !Number.isFinite(b) || a === b) return "";
+  const nostri = isOurs(m.casa) ? a : b;
+  const loro = isOurs(m.casa) ? b : a;
+  return nostri > loro ? "esito-win" : "esito-loss";
+}
+
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, (ch) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])
@@ -166,12 +176,13 @@ function matchCard(m, idx, opts = {}) {
     : `<span class="vs">vs</span>`;
   const scoreCasa = hasScore ? `<span class="team-score score-casa">${escapeHtml(parts[0])}</span>` : "";
   const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
+  const esito = hasScore && ours ? esitoOf(m, parts) : "";
   const metaParts = [];
   if (opts.showDate && d) metaParts.push(escapeHtml(fmtDay(d)));
   else if (m.campionato) metaParts.push(escapeHtml(m.campionato));
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   return `
-      <article class="match ${ours ? "is-ours" : ""}" data-idx="${idx}" tabindex="0" role="button"
+      <article class="match ${ours ? "is-ours" : ""} ${esito}" data-idx="${idx}" tabindex="0" role="button"
                aria-label="Dettagli partita">
         <div class="match-time">${time}</div>
         <div class="match-body">

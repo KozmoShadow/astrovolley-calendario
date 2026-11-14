@@ -121,6 +121,9 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 
 ## Convenzioni
 - Tutti i colori del sito stanno nel blocco `:root` in cima a `site/styles.css`.
+- L'esito delle partite (`esito-win`/`esito-loss` in `site/app.js`) si applica
+  **solo alle partite dell'Astrovolley** e si calcola dal suo punto di vista,
+  quindi una vittoria in trasferta resta verde. Niente lettera V/P: solo colore.
 - Il sito è senza dipendenze JS; non introdurre build step.
 - L'importer usa solo la libreria standard di Python.
 - `site/data/schedule.json` è generato: in caso di conflitto git, rigenerarlo con
