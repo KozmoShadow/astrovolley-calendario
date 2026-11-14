@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-14T03:01:18+00:00",
+  "generato_il": "2026-11-14T03:05:36+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -621,7 +621,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3001",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -637,8 +637,8 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3002",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -654,7 +654,7 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3003",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
           "logo_trasferta": null
         },
         {
@@ -671,8 +671,8 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3004",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -688,8 +688,8 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3005",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -705,8 +705,8 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3006",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -722,8 +722,8 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3007",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -756,7 +756,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3009",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -773,8 +773,8 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3010",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -790,8 +790,8 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3011",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -807,7 +807,7 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3012",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -825,7 +825,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3013",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -841,8 +841,8 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3014",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -858,8 +858,8 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3015",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -876,7 +876,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3016",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -892,8 +892,8 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3017",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -909,8 +909,8 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3018",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -926,7 +926,7 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3019",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
           "logo_trasferta": null
         },
         {
@@ -943,7 +943,7 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3020",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
           "logo_trasferta": null
         },
         {
@@ -961,7 +961,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3021",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -977,8 +977,8 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3022",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -995,7 +995,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3023",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -1011,8 +1011,8 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3024",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -1028,8 +1028,8 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3025",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1045,7 +1045,7 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3026",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
           "logo_trasferta": null
         },
         {
@@ -1062,7 +1062,7 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3027",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
           "logo_trasferta": null
         },
         {
@@ -1079,8 +1079,8 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3028",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -1096,8 +1096,8 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3029",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -1113,7 +1113,7 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3030",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
           "logo_trasferta": null
         },
         {
@@ -1130,8 +1130,8 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3031",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1148,7 +1148,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3032",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -1181,8 +1181,8 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3034",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -1198,8 +1198,8 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3035",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1215,8 +1215,8 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3036",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -1233,7 +1233,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3037",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1249,8 +1249,8 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3038",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -1266,8 +1266,8 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3039",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -1284,7 +1284,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3040",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1300,8 +1300,8 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3041",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -1317,7 +1317,7 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3042",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
           "logo_trasferta": null
         },
         {
@@ -1334,8 +1334,8 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3043",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -1351,7 +1351,7 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3044",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1369,7 +1369,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3045",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -1385,8 +1385,8 @@
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "3046",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1403,7 +1403,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3047",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -1419,8 +1419,8 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3048",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF"
         },
         {
           "fonte": "asi",
@@ -1436,7 +1436,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "3049",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1453,7 +1453,7 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3050",
-          "logo_casa": null,
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
           "logo_trasferta": null
         },
         {
@@ -1470,8 +1470,8 @@
           "palestra": "IIS \"Vittorio Emanuele II\"",
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "3051",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -1487,8 +1487,8 @@
           "palestra": "IC \"De Filippo\"",
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "3052",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1505,7 +1505,7 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3053",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/365200781_243634421957686_216627772926751036_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GI2FxBU2BC2Pld0AADxxyM3PnQEDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ewkc3YEcVNMQ7kNvwGvN5XU&_nc_oc=Adrvzk6RMbcHnj9BfrqYLgOeyfyfyucmzXyQDLAVBVnSaEqy8jQxCN0ceUQM5jPgpg8&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRk_IExsKeRSm4O2-xQK5rYN6J-KkZvj29FyX2oxJCJCw&oe=6AFDAD75"
         },
         {
           "fonte": "asi",
@@ -1521,8 +1521,8 @@
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3054",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/38096944_2199060763705874_5268663689405267968_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ig_cache_key=GDBQRQISAqm7CNAHAAAAAAC2DR5JbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=JJKqFPXXk68Q7kNvwF9lTXQ&_nc_oc=AdrEO_jVrbqJdrzBEbcrd-zKUsjoP7TRkgkfbXN6Gj9Xru1msragQcOzV0_K8fJPfT0&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTKj4NtyxxYsFx32EuCqpopK_gaTzzA_87Ce78gLQ2eNw&oe=6AFDBCBF",
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
         },
         {
           "fonte": "asi",
@@ -1539,7 +1539,7 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "3055",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
         },
         {
           "fonte": "asi",
@@ -1555,8 +1555,8 @@
           "palestra": "LS \"Filippo Silvestri\"",
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "3056",
-          "logo_casa": null,
-          "logo_trasferta": null
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         }
       ],
       "standings": [
