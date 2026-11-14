@@ -268,6 +268,10 @@ def _calcola_classifica(calendar: dict, risultati: dict) -> list[dict]:
         )
 
     for m in calendar["matches"]:
+        # Ogni squadra del calendario compare in classifica da subito, anche a
+        # zero: cosi' la tabella esiste prima che si giochi.
+        riga(m["casa"])
+        riga(m["trasferta"])
         r = risultati.get(m["gara"])
         if not r:
             continue
