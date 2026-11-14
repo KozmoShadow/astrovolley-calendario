@@ -88,6 +88,21 @@ quindi dal telefono il fetch live fallisce sempre e si usa lo snapshot.
 `public.fipavonline.it` espone `app.fipavonline.it/api/v2/{commettees,calendar/.../...,tables/...}`,
 ma copre solo 12 regioni e **non include la Campania** → non utilizzabile per questo club.
 
+## Aggiornamento del sito dopo un salvataggio (importante)
+La catena è: admin salva `data/asi/*.risultati.json` → push → workflow "Aggiorna
+calendario" rigenera `site/data/schedule.json` → deploy GitHub Pages.
+
+Due trappole già risolte, da non reintrodurre:
+- Il push del bot usa `GITHUB_TOKEN`, che **non** fa partire altri workflow. Per
+  questo `update-schedule.yml` avvia il deploy con `gh workflow run
+  deploy-pages.yml` (richiede `actions: write` nei permessi). Senza questo, i
+  dati freschi non arrivavano mai sul sito.
+- La CDN di GitHub Pages serve i file con `cache-control: max-age=600`. Per
+  questo `app.js` fetcha `schedule.json` con `?v=<timestamp>`; senza, i risultati
+  nuovi restano invisibili fino a 10 minuti.
+
+Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
+
 ## Convenzioni
 - Tutti i colori del sito stanno nel blocco `:root` in cima a `site/styles.css`.
 - Il sito è senza dipendenze JS; non introdurre build step.
