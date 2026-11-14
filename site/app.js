@@ -441,7 +441,10 @@ function setupStandingsToggle() {
 
 async function init() {
   try {
-    const res = await fetch(DATA_URL, { cache: "no-store" });
+    // La CDN di GitHub Pages tiene schedule.json in cache fino a 10 minuti.
+    // Un parametro unico per caricamento la aggira: cosi' i risultati appena
+    // salvati si vedono subito, senza aspettare la scadenza.
+    const res = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     state.data = await res.json();
   } catch (err) {

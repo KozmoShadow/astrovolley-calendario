@@ -20,6 +20,11 @@ on:
 
 permissions:
   contents: write
+  actions: write # serve per avviare il deploy a fine ricalcolo
+
+concurrency:
+  group: aggiorna-calendario
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -35,6 +40,7 @@ jobs:
         run: python importer/import_schedule.py
 
       - name: Commit se ci sono cambiamenti
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -44,4 +50,13 @@ jobs:
           else
             git commit -m "Aggiorna calendario"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # Il push fatto con GITHUB_TOKEN non fa partire altri workflow, quindi il
+      # deploy va avviato a mano. Cosi' il sito pubblica sempre i dati freschi.
+      - name: Avvia il deploy del sito
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
