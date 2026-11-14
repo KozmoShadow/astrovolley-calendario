@@ -253,6 +253,7 @@ function matchCard(m, idx, opts = {}) {
   if (opts.showDate && d) metaParts.push(escapeHtml(fmtDay(d)));
   else if (m.campionato) metaParts.push(escapeHtml(m.campionato));
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
+  const ente = (m._comp.fonte || "manuale").toUpperCase();
   return `
       <article class="match ${ours ? "is-ours" : ""} ${esito}" data-idx="${idx}" tabindex="0" role="button"
                aria-label="Dettagli partita">
@@ -267,7 +268,7 @@ function matchCard(m, idx, opts = {}) {
           </div>
           <div class="meta">${metaParts.join(" · ")}</div>
         </div>
-        <span class="badge ${fonte}">${escapeHtml(m._comp.categoria || fonte)}</span>
+        <span class="badge ${fonte}">${escapeHtml(ente)}</span>
       </article>`;
 }
 
@@ -356,6 +357,7 @@ function openMatchModal(m) {
         )}</span></div>`
       : "";
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
+  const ente = (m._comp.fonte || "manuale").toUpperCase();
   $("#modal-content").innerHTML = `
     <p class="modal-kicker">${escapeHtml(m._comp.titolo || m.campionato || "")}${
       m.giornata ? ` · Giornata ${escapeHtml(String(m.giornata))}` : ""
@@ -380,7 +382,7 @@ function openMatchModal(m) {
       ${rigaMappa}
       ${riga("Fonte", m._comp.fonte === "fipav" ? "FIPAV (ufficiale)" : m._comp.fonte)}
     </div>
-    <span class="badge ${fonte} modal-badge">${escapeHtml(m._comp.categoria || fonte)}</span>
+    <span class="badge ${fonte} modal-badge">${escapeHtml(ente)}</span>
   `;
   openModal();
 }

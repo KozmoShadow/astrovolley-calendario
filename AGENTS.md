@@ -131,6 +131,14 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data
   (non per giornata).
 
+## Schede partita su telefono (site/styles.css, media <=640px)
+- Il badge dell'ente (FIPAV/ASI) sta **sotto l'orario**, nella colonna sinistra,
+  e `.match-body` occupa entrambe le righe. In fondo occupava una riga sua (scheda
+  piu' alta); in alto a destra si scontrerebbe col punteggio o allargherebbe la
+  scheda. Cosi' lo spazio liberato va nel respiro: `margin-top: 10px` su `.meta`.
+- Il badge mostra **l'ente** (`fonte`: FIPAV/ASI), non la `categoria` del
+  campionato: era un bug (il campionato ASI mostrava "Open Misto").
+
 ## Convenzioni
 - Tutti i colori del sito stanno nel blocco `:root` in cima a `site/styles.css`.
 - L'esito delle partite (`esito-win`/`esito-loss` in `site/app.js`) si applica
