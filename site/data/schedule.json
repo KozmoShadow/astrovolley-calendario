@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-14T02:36:17+00:00",
+  "generato_il": "2026-11-14T02:37:06+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -615,8 +615,8 @@
           "data": "2026-12-03 19:00",
           "casa": "Indomita Sport Academy",
           "trasferta": "Suri Sport",
-          "risultato": "3 - 0",
-          "parziali": "25-20 25-21 25-12",
+          "risultato": "",
+          "parziali": "",
           "palestra": "IC \"G. Capuozzo\"",
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "3001",
@@ -1562,25 +1562,25 @@
       "standings": [
         {
           "squadra": "Indomita Sport Academy",
-          "punti": 3,
-          "pg": 1,
-          "pv": 1,
+          "punti": 0,
+          "pg": 0,
+          "pv": 0,
           "pp": 0,
-          "sf": 3,
+          "sf": 0,
           "ss": 0,
-          "pf": 75,
-          "ps": 53
+          "pf": 0,
+          "ps": 0
         },
         {
           "squadra": "Suri Sport",
           "punti": 0,
-          "pg": 1,
+          "pg": 0,
           "pv": 0,
-          "pp": 1,
+          "pp": 0,
           "sf": 0,
-          "ss": 3,
-          "pf": 53,
-          "ps": 75
+          "ss": 0,
+          "pf": 0,
+          "ps": 0
         },
         {
           "squadra": "Minerva Medica Flyer",
