@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-14T02:15:34+00:00",
+  "generato_il": "2026-11-14T02:22:13+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -632,8 +632,8 @@
           "data": "2026-12-03 21:00",
           "casa": "Minerva Medica Flyer",
           "trasferta": "Astrovolley Cercola",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-15 25-18 25-20",
           "palestra": "SMS \"L. Radice\"",
           "indirizzo": "Via Santa I, 8, Massa di Somma",
           "gara": "3002",
@@ -1559,7 +1559,30 @@
           "logo_trasferta": null
         }
       ],
-      "standings": []
+      "standings": [
+        {
+          "squadra": "Minerva Medica Flyer",
+          "punti": 3,
+          "pg": 1,
+          "pv": 1,
+          "pp": 0,
+          "sf": 3,
+          "ss": 0,
+          "pf": 75,
+          "ps": 53
+        },
+        {
+          "squadra": "Astrovolley Cercola",
+          "punti": 0,
+          "pg": 1,
+          "pv": 0,
+          "pp": 1,
+          "sf": 0,
+          "ss": 3,
+          "pf": 53,
+          "ps": 75
+        }
+      ]
     }
   ]
 }
