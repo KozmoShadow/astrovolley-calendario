@@ -15,7 +15,7 @@ tutto questo: vedi il README principale.
 2. Compila:
    - **Application name**: `Astrovolley Admin`
    - **Homepage URL**: `https://kozmoshadow.github.io/astrovolley-calendario/`
-   - **Authorization callback URL**: metti un segnaposto per ora, es.
+   - **Redirect URIs** (in alcune versioni si chiama *Authorization callback URL*): metti un segnaposto per ora, es.
      `https://astrovolley-oauth.workers.dev/callback`
      (lo correggerai al passo 3, quando avrai l'URL vero del worker)
 3. **Register application**.
@@ -50,7 +50,7 @@ tutto questo: vedi il README principale.
 
 ## Passo 3 — Collega i due pezzi
 
-1. Su GitHub, torna nella OAuth App (passo 1) → **Authorization callback URL** e
+1. Su GitHub, torna nella OAuth App (passo 1) → **Redirect URIs** e
    metti l'URL del worker **+ `/callback`**:
    `https://astrovolley-oauth.<qualcosa>.workers.dev/callback`
    → **Update application**.
