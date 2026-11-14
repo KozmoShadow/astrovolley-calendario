@@ -6,7 +6,8 @@ const DATA_URL = "data/schedule.json";
 const state = {
   data: null,
   competitions: [],
-  view: "ours", // "ours" oppure l'id di una competizione
+  view: "ours", // "ours" | "week" | id di una competizione
+  team: "", // "" = tutte le nostre squadre, altrimenti il nome di una squadra
   query: "",
   live: false, // true se i dati FIPAV sono stati letti dal vivo adesso
   liveError: null,
@@ -77,13 +78,60 @@ function allMatches() {
   return rows;
 }
 
+// Le nostre squadre, ricavate dalle partite: ogni nome che contiene "astro".
+function ourTeams() {
+  const set = new Map();
+  for (const m of allMatches()) {
+    for (const name of [m.casa, m.trasferta]) {
+      if (isOurs(name) && !set.has(name)) set.set(name, 0);
+    }
+  }
+  for (const m of allMatches()) {
+    for (const name of [m.casa, m.trasferta]) {
+      if (set.has(name)) set.set(name, set.get(name) + 1);
+    }
+  }
+  return [...set.entries()].map(([nome, partite]) => ({ nome, partite })).sort((a, b) => a.nome.localeCompare(b.nome));
+}
+
+// Il campionato a cui appartiene una nostra squadra (per mostrarlo nel filtro).
+function teamCompetition(nome) {
+  for (const c of state.competitions) {
+    if (c.matches.some((m) => m.casa === nome || m.trasferta === nome)) {
+      return c.titolo;
+    }
+  }
+  return "";
+}
+
+// "Questa settimana" = da oggi a domenica prossima (7 giorni).
+function weekRange() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const end = new Date(start);
+  end.setDate(end.getDate() + 7);
+  return { start, end };
+}
+
+function inWeek(m, range) {
+  const d = parseDate(m.data);
+  return d && d >= range.start && d < range.end;
+}
+
 function visibleMatches() {
   const q = state.query.trim().toLowerCase();
   let rows = allMatches();
-  if (state.view === "ours") {
+  if (state.view === "week") {
+    const range = weekRange();
+    rows = rows.filter((m) => matchIsOurs(m) && inWeek(m, range));
+  } else if (state.view === "ours") {
     rows = rows.filter(matchIsOurs);
   } else {
     rows = rows.filter((m) => m._comp.id === state.view);
+  }
+  // Il filtro per squadra vale solo quando si guardano le nostre partite.
+  if (state.team && (state.view === "ours" || state.view === "week")) {
+    rows = rows.filter((m) => m.casa === state.team || m.trasferta === state.team);
   }
   if (q) {
     rows = rows.filter((m) =>
@@ -97,72 +145,96 @@ function currentCompetition() {
   return state.competitions.find((c) => c.id === state.view) || null;
 }
 
-function closeChampMenu() {
-  const menu = $("#champ-menu");
-  const toggle = $("#champ-toggle");
-  if (menu) menu.hidden = true;
+function viewLabel() {
+  if (state.view === "week") return "Questa settimana";
+  if (state.view === "ours") return "Le nostre partite";
+  return state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
+}
+
+function closeFilters() {
+  const panel = $("#filters-panel");
+  const toggle = $("#filters-toggle");
+  if (panel) panel.hidden = true;
   if (toggle) toggle.setAttribute("aria-expanded", "false");
+}
+
+// Cambia vista e ridisegna tutto. Scegliendo un campionato il filtro per
+// squadra si azzera, perche' le squadre appartengono a "Le nostre partite".
+function applyView(view, team) {
+  state.view = view;
+  state.team = view === "ours" || view === "week" ? team || "" : "";
+  closeFilters();
+  renderViewFilter();
+  renderList();
+  renderStandings();
 }
 
 function renderViewFilter() {
   const box = $("#view-filter");
   const comps = state.competitions;
-  const selected = currentCompetition();
+  const isChamp = state.view !== "ours" && state.view !== "week";
+  const teams = ourTeams();
+  const filtriActive = state.team || isChamp;
 
-  const oursActive = state.view === "ours";
-  let html = `<button class="chip" data-id="ours" aria-pressed="${oursActive}">Le nostre partite</button>`;
+  let html = `<span class="chip chip-current" aria-current="true">${escapeHtml(viewLabel())}</span>
+    <button class="chip chip-dropdown ${filtriActive ? "is-active" : ""}" id="filters-toggle"
+            aria-haspopup="true" aria-expanded="false">
+      Filtri${state.team ? ` · 1` : ""}
+      <span class="caret" aria-hidden="true">▾</span>
+    </button>
+    <div class="dropdown-menu filters-panel" id="filters-panel" role="menu" hidden>`;
 
-  if (comps.length) {
-    const label = selected ? selected.titolo : "Campionati";
-    html += `
-      <div class="dropdown">
-        <button class="chip chip-dropdown ${selected ? "is-active" : ""}" id="champ-toggle"
-                aria-haspopup="true" aria-expanded="false">
-          <span class="chip-label">${escapeHtml(label)}</span>
-          <span class="caret" aria-hidden="true">▾</span>
-        </button>
-        <div class="dropdown-menu" id="champ-menu" role="menu" hidden>
-          ${comps
-            .map(
-              (c) =>
-                `<button role="menuitem" class="dropdown-item ${
-                  state.view === c.id ? "is-active" : ""
-                }" data-id="${c.id}">${escapeHtml(c.titolo)}</button>`
-            )
-            .join("")}
-        </div>
-      </div>`;
+  // Vista
+  html += `<div class="filter-group"><div class="filter-head">Vista</div>
+    <button role="menuitem" class="dropdown-item ${state.view === "ours" ? "is-active" : ""}" data-view="ours">
+      Le nostre partite</button>
+    <button role="menuitem" class="dropdown-item ${state.view === "week" ? "is-active" : ""}" data-view="week">
+      Questa settimana</button></div>`;
+
+  // Squadra: compare solo per "Le nostre partite" e "Questa settimana".
+  if (!isChamp) {
+    html += `<div class="filter-group"><div class="filter-head">Squadra</div>
+      <button role="menuitem" class="dropdown-item ${!state.team ? "is-active" : ""}" data-team="">
+        Tutte le nostre</button>`;
+    for (const t of teams) {
+      const comp = teamCompetition(t.nome);
+      html += `<button role="menuitem" class="dropdown-item ${state.team === t.nome ? "is-active" : ""}" data-team="${escapeAttr(t.nome)}">
+        <span class="filter-team">${escapeHtml(t.nome)}</span>
+        <span class="filter-sub">${escapeHtml(comp)} · ${t.partite} partite</span></button>`;
+    }
+    html += `</div>`;
   }
+
+  // Campionato
+  if (comps.length) {
+    html += `<div class="filter-group"><div class="filter-head">Campionato</div>
+      <button role="menuitem" class="dropdown-item ${!isChamp ? "is-active" : ""}" data-view="ours">
+        Tutti i campionati</button>`;
+    for (const c of comps) {
+      html += `<button role="menuitem" class="dropdown-item ${state.view === c.id ? "is-active" : ""}" data-view="${escapeAttr(c.id)}">
+        ${escapeHtml(c.titolo)}</button>`;
+    }
+    html += `</div>`;
+  }
+
+  html += `</div>`;
   box.innerHTML = html;
 
-  box.querySelector('[data-id="ours"]').addEventListener("click", () => {
-    state.view = "ours";
-    closeChampMenu();
-    renderViewFilter();
-    renderList();
-    renderStandings();
+  const toggle = $("#filters-toggle");
+  const panel = $("#filters-panel");
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = panel.hidden;
+    panel.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
   });
-
-  const toggle = $("#champ-toggle");
-  if (toggle) {
-    const menu = $("#champ-menu");
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const open = menu.hidden;
-      menu.hidden = !open;
-      toggle.setAttribute("aria-expanded", String(open));
-    });
-    menu.addEventListener("click", (e) => e.stopPropagation());
-    menu.querySelectorAll(".dropdown-item").forEach((item) =>
-      item.addEventListener("click", () => {
-        state.view = item.dataset.id;
-        closeChampMenu();
-        renderViewFilter();
-        renderList();
-        renderStandings();
-      })
-    );
-  }
+  panel.addEventListener("click", (e) => e.stopPropagation());
+  panel.querySelectorAll(".dropdown-item").forEach((item) =>
+    item.addEventListener("click", () => {
+      if (item.dataset.team !== undefined) applyView(state.view === "week" ? "week" : "ours", item.dataset.team);
+      else applyView(item.dataset.view, "");
+    })
+  );
 }
 
 function matchCard(m, idx, opts = {}) {
@@ -203,7 +275,7 @@ function matchCard(m, idx, opts = {}) {
 // (cosi' le gare della stessa giornata finiscono nello stesso riquadro),
 // altrimenti per data. L'indice resta quello di `rows`, per la scheda dettagli.
 function groupRows(rows) {
-  const byRound = state.view !== "ours" && rows.length > 0 && rows.every((r) => r.giornata);
+  const byRound = state.view !== "ours" && state.view !== "week" && rows.length > 0 && rows.every((r) => r.giornata);
   const groups = [];
   const index = new Map();
   rows.forEach((m, idx) => {
@@ -227,10 +299,9 @@ function groupRows(rows) {
 function renderList() {
   const box = $("#calendar");
   const rows = visibleMatches();
-  $("#list-title").textContent =
-    state.view === "ours"
-      ? "Le nostre partite"
-      : state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
+  let title = viewLabel();
+  if (state.team) title += ` — ${state.team}`;
+  $("#list-title").textContent = title;
 
   if (!rows.length) {
     box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
@@ -330,7 +401,12 @@ function closeModal() {
 
 function renderStandings() {
   const box = $("#standings");
-  const comp = currentCompetition();
+  let comp = currentCompetition();
+  if (!comp && state.team) {
+    comp = state.competitions.find((c) =>
+      c.matches.some((m) => m.casa === state.team || m.trasferta === state.team)
+    ) || null;
+  }
   const comps = (comp ? [comp] : state.competitions).filter(
     (c) => c.standings && c.standings.length
   );
@@ -474,7 +550,7 @@ async function init() {
     renderList();
   });
 
-  document.addEventListener("click", closeChampMenu);
+  document.addEventListener("click", closeFilters);
 
   // Scheda dettagli: chiusura con click fuori, tasto Chiudi o Esc.
   const modal = $("#match-modal");

@@ -119,6 +119,18 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - `escapeAttr` e' definita in `admin.js` come in `app.js`; se manca, il form
   loghi si rompe silenziosamente.
 
+## Filtri del calendario (site/app.js)
+- La barra in alto mostra **due chip**: l'etichetta della vista attiva
+  (`.chip-current`, sola indicazione) e il bottone **Filtri** che apre
+  `#filters-panel`. Cosi' il numero di chip resta fisso anche con molte squadre.
+- Il pannello ha tre gruppi: **Vista** (`ours` / `week`), **Squadra**, **Campionato**.
+  Il gruppo Squadra compare solo per "Le nostre partite" e "Questa settimana":
+  scegliendo un campionato si azzera (`applyView`).
+- `state.team` filtra per una nostra squadra; `ourTeams()` le ricava dalle partite
+  (ogni nome che contiene "astro"), quindi non serve una lista a mano.
+- La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data
+  (non per giornata).
+
 ## Convenzioni
 - Tutti i colori del sito stanno nel blocco `:root` in cima a `site/styles.css`.
 - L'esito delle partite (`esito-win`/`esito-loss` in `site/app.js`) si applica
