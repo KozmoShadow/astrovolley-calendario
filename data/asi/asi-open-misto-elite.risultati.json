@@ -1,5 +1,22 @@
 {
-  "_istruzioni": "Risultati indicizzati per N. Gara.",
+  "_istruzioni": "Risultati indicizzati per N. Gara. Compila 'risultato' (es. '3 - 1') e 'parziali' dopo ogni partita. La classifica e' calcolata automaticamente.",
   "competizione": "asi-open-misto-elite",
-  "risultati": {}
+  "risultati": {
+    "2": {
+      "risultato": "0 - 3",
+      "parziali": "16-25 19-25 11-25"
+    },
+    "3": {
+      "risultato": "3 - 0",
+      "parziali": "25-18 25-22 25-23"
+    },
+    "5": {
+      "risultato": "0 - 3",
+      "parziali": "22-25 10-25 21-25"
+    },
+    "6": {
+      "risultato": "3 - 0",
+      "parziali": "25-5 25-21 25-16"
+    }
+  }
 }
