@@ -122,6 +122,19 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - Le modifiche stanno in `state.pending` finche' non si preme Salva: un solo
   commit per l'intera giornata compilata. Il file loghi si scrive solo se
   cambiato (`state.loghiDirty`).
+- **Non contare `state.pending` per l'avviso "Modifiche non salvate"**: al
+  caricamento `state.pending` contiene anche i risultati gia' salvati, quindi
+  contarne le chiavi fa comparire l'avviso appena si apre la pagina (con
+  l'Open Misto Elite, che ha risultati, succedeva sempre). L'avviso usa il
+  flag `state.dirty`, alzato solo da `setPending`/input loghi e azzerato al
+  caricamento (`loadResults`) e dopo un salvataggio riuscito.
+- La lista partite e' **raggruppata per giornata** (`renderMatchList` costruisce
+  una `.giornata` per giornata, con intestazione `.giornata-head` sticky e
+  contatore). Le gare senza giornata vanno in fondo. Ogni riga non ripete piu'
+  "G<n>": la giornata sta nell'intestazione della sezione.
+- **Overflow orizzontale su mobile**: `.grid` usa `minmax(0, 1fr)` e
+  `label.inline select` ha `max-width: 100%`. Senza, la select del campionato
+  (larga quanto il titolo piu' lungo) allarga la pagina oltre lo schermo.
 - `escapeAttr` e' definita in `admin.js` come in `app.js`; se manca, il form
   loghi si rompe silenziosamente.
 
