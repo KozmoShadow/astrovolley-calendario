@@ -178,7 +178,7 @@ async function parsePdf(file) {
       giornata = text.split(/\s+/)[1] || "";
       continue;
     }
-    if (!anchors || !/^\d{4}\s/.test(text)) continue;
+    if (!anchors || !/^\d+\s+\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}\b/.test(text)) continue;
 
     const tol = 2;
     const left = line.filter((i) => i.x < anchors.casa - tol).map((i) => i.t).join(" ");
@@ -191,10 +191,17 @@ async function parsePdf(file) {
       .map((i) => i.t)
       .join(" ");
 
-    const nums = /^(\d{4})\s+(\d{2}\/\d{2}\/\d{4})\s+(\d{2}:\d{2})\s+(.*)$/.exec(left);
+    const nums = /^(\d+)\s+(\d{2}\/\d{2}\/\d{4})\s+(\d{2}:\d{2})\s+(.*)$/.exec(left);
     if (!nums) continue;
     const impianto = nums[4];
-    const dash = impianto.indexOf(" - ");
+    // Il separatore palestra/indirizzo e' il primo " - " fuori dalle virgolette:
+    // alcune palestre hanno un trattino nel nome (es. SMS "Illuminato - Cirino").
+    let dash = -1;
+    let depth = 0;
+    for (let i = 0; i < impianto.length - 2; i++) {
+      if (impianto[i] === '"') depth ^= 1;
+      else if (depth === 0 && impianto.slice(i, i + 3) === " - ") { dash = i; break; }
+    }
     const palestra = dash >= 0 ? impianto.slice(0, dash).trim() : impianto.trim();
     const indirizzo = dash >= 0 ? impianto.slice(dash + 3).trim() : "";
 

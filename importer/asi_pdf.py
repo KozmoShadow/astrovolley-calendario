@@ -4,6 +4,9 @@ Il PDF e' testo (non una scansione) con una tabella a colonne fisse:
 N. Gara | Data | Ora | Palestra / Impianto | Squadra Casa | Squadra Ospite | Giorno,
 con le partite raggruppate per GIORNATA.
 
+Il "N. Gara" puo' avere un numero di cifre variabile (es. 1 oppure 3001): dipende
+dal campionato, non e' fisso a 4.
+
 L'output e' un file calendario (data/asi/<id>.calendario.json) con le partite e
 il "N. Gara", usato come chiave per agganciare i risultati inseriti a mano.
 
@@ -54,10 +57,18 @@ def _column_anchors(header_words: list[dict]) -> tuple[float, float]:
 
 
 def _split_impianto(value: str) -> tuple[str, str]:
-    """'PALESTRA - Via X, Citta' NA' -> (palestra, indirizzo)."""
-    pal, sep, ind = value.partition(" - ")
-    if sep:
-        return pal.strip(), ind.strip()
+    """'PALESTRA - Via X, Citta' NA' -> (palestra, indirizzo).
+
+    Il separatore e' il primo " - " **fuori dalle virgolette**: alcune palestre
+    hanno un trattino nel nome (es. SMS "Illuminato - Cirino").
+    """
+    depth = 0
+    for i in range(len(value) - 2):
+        ch = value[i]
+        if ch == '"':
+            depth ^= 1
+        elif depth == 0 and value[i : i + 3] == " - ":
+            return value[:i].strip(), value[i + 3 :].strip()
     return value.strip(), ""
 
 
@@ -96,7 +107,9 @@ def parse_pdf(path: Path) -> dict:
                 if text.upper().startswith("GIORNATA"):
                     giornata = text.split()[1] if len(text.split()) > 1 else ""
                     continue
-                if anchors is None or not re.match(r"^\d{4}\s", text):
+                if anchors is None or not re.match(
+                    r"^\d+\s+\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}\b", text
+                ):
                     continue
 
                 # Ogni riga gara: N. Gara, Data, Ora, <palestra + squadre>,

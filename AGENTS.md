@@ -56,6 +56,12 @@ del repo, non nel nascondere la pagina.
 - Il parsing PDF usa **pdf.js** (vendored in `site/admin/vendor/`, niente CDN) e replica
   `importer/asi_pdf.py`: stesse x di colonna ricavate dall'intestazione, stessa tolleranza
   di 2pt, il giorno è l'ultima parola dopo la squadra ospite.
+- Il **N. Gara** può avere un numero di cifre variabile (es. `1` in Open Misto Élite,
+  `3001` in Open Misto Promozionale): non va mai dato per scontato a 4 cifre. La riga
+  gara si riconosce da `^\d+ <data> <ora>`.
+- Il separatore palestra/indirizzo è il **primo " - " fuori dalle virgolette**: alcune
+  palestre hanno un trattino nel nome (es. `SMS "Illuminato - Cirino"`). Vale per
+  entrambi i parser.
 - L'admin scrive via API GitHub (`contents/`, base64). `update-schedule.yml` ha un trigger
   `push` su `data/asi/**` e `data/manual.json`, così i risultati entrano subito in
   `schedule.json` (niente `[skip ci]`, altrimenti Pages non ridistribuisce).
