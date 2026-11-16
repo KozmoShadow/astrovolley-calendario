@@ -27,9 +27,10 @@ const state = {
   comps: [],
   current: null,
   currentComp: null,
-  pending: {}, // modifiche ai risultati non ancora salvate
-  loghi: {}, // loghi squadre (URL) non ancora salvati
-  loghiDirty: 0,
+  pending: {}, // risultati correnti (caricati dal file + modifiche locali)
+  loghi: {}, // loghi squadre (URL) correnti
+  loghiDirty: 0, // i loghi sono stati modificati e vanno riscritti
+  dirty: false, // l'utente ha modificato qualcosa non ancora salvato
   modalGara: null,
 };
 
@@ -280,13 +281,15 @@ function setPending(gara, patch) {
   const next = { ...cur, ...patch };
   if (!next.risultato && !next.parziali) delete state.pending[gara];
   else state.pending[gara] = next;
+  state.dirty = true;
   markDirty();
 }
 
+// Mostra l'avviso solo se l'utente ha davvero modificato qualcosa: i risultati
+// caricati dal file restano in state.pending, ma non contano come modifiche.
 function markDirty() {
-  const n = Object.keys(state.pending).length + state.loghiDirty;
   const el = $("#save-status");
-  if (el) el.textContent = n ? "Modifiche non salvate." : "";
+  if (el) el.textContent = state.dirty ? "Modifiche non salvate." : "";
 }
 
 function parseScore(s) {
@@ -322,6 +325,7 @@ async function loadResults() {
   const sq = (await ghReadJson(`${ASI_DIR}/${id}.squadre.json`)) || { loghi: {} };
   state.loghi = { ...(sq.loghi || {}) };
   state.loghiDirty = 0;
+  state.dirty = false;
 
   renderMatchList();
   renderLogoForm();
@@ -428,6 +432,7 @@ function renderLogoForm() {
           if (img) img.hidden = true;
         }
         state.loghiDirty = 1;
+        state.dirty = true;
         markDirty();
       })
     );
@@ -636,6 +641,7 @@ async function saveResults() {
       state.loghiDirty = 0;
     }
 
+    state.dirty = false;
     $("#save-status").textContent = "Salvato. Il sito si aggiorna in pochi minuti.";
   } catch (err) {
     $("#save-status").textContent = `Errore: ${err.message}`;
