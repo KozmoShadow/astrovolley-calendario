@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-16T11:06:09+00:00",
+  "generato_il": "2026-11-16T11:10:18+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -632,8 +632,8 @@
           "data": "2026-11-04 21:00",
           "casa": "Ziosta Suri Sport",
           "trasferta": "Oplontis",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "16-25 19-25 11-25",
           "palestra": "IC 72 \"Palasciano\"",
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "2",
@@ -649,8 +649,8 @@
           "data": "2026-11-05 21:30",
           "casa": "Volley Mugnano Thunder",
           "trasferta": "Libertas Sorrento",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-18 25-22 25-23",
           "palestra": "SMS \"Illuminato - Cirino\"",
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "3",
@@ -683,12 +683,12 @@
           "data": "2026-11-08 18:00",
           "casa": "ASD Astrovolley",
           "trasferta": "Volley Pimonte",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "22-25 10-25 21-25",
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "5",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -700,8 +700,8 @@
           "data": "2026-11-08 21:00",
           "casa": "Volley Meta",
           "trasferta": "La Fenice",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-5 25-21 25-16",
           "palestra": "Tendostruttura \"Carlo Sassi\"",
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "6",
@@ -808,7 +808,7 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "12",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -892,7 +892,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "17",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -944,7 +944,7 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "20",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1096,7 +1096,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "29",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1199,7 +1199,7 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "35",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1317,7 +1317,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "42",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1369,7 +1369,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "45",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1521,7 +1521,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "54",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1573,7 +1573,7 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "57",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1725,7 +1725,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "66",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1811,7 +1811,7 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "71",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -1912,7 +1912,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "77",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -1998,7 +1998,7 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "82",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -2116,7 +2116,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "89",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -2151,7 +2151,7 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "91",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -2320,7 +2320,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "101",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -2389,7 +2389,7 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so Vittorio Emanuele, Napoli",
           "gara": "105",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -2541,7 +2541,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "114",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -2644,7 +2644,7 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "120",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -2745,7 +2745,7 @@
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "126",
-          "logo_casa": null,
+          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
           "logo_trasferta": null
         },
         {
@@ -2797,7 +2797,7 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "129",
           "logo_casa": null,
-          "logo_trasferta": null
+          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
         },
         {
           "fonte": "asi",
@@ -2853,6 +2853,94 @@
       ],
       "standings": [
         {
+          "squadra": "Volley Meta",
+          "punti": 3,
+          "pg": 1,
+          "pv": 1,
+          "pp": 0,
+          "sf": 3,
+          "ss": 0,
+          "pf": 75,
+          "ps": 42
+        },
+        {
+          "squadra": "Oplontis",
+          "punti": 3,
+          "pg": 1,
+          "pv": 1,
+          "pp": 0,
+          "sf": 3,
+          "ss": 0,
+          "pf": 75,
+          "ps": 46
+        },
+        {
+          "squadra": "Volley Pimonte",
+          "punti": 3,
+          "pg": 1,
+          "pv": 1,
+          "pp": 0,
+          "sf": 3,
+          "ss": 0,
+          "pf": 75,
+          "ps": 53
+        },
+        {
+          "squadra": "Volley Mugnano Thunder",
+          "punti": 3,
+          "pg": 1,
+          "pv": 1,
+          "pp": 0,
+          "sf": 3,
+          "ss": 0,
+          "pf": 75,
+          "ps": 63
+        },
+        {
+          "squadra": "Libertas Sorrento",
+          "punti": 0,
+          "pg": 1,
+          "pv": 0,
+          "pp": 1,
+          "sf": 0,
+          "ss": 3,
+          "pf": 63,
+          "ps": 75
+        },
+        {
+          "squadra": "ASD Astrovolley",
+          "punti": 0,
+          "pg": 1,
+          "pv": 0,
+          "pp": 1,
+          "sf": 0,
+          "ss": 3,
+          "pf": 53,
+          "ps": 75
+        },
+        {
+          "squadra": "Ziosta Suri Sport",
+          "punti": 0,
+          "pg": 1,
+          "pv": 0,
+          "pp": 1,
+          "sf": 0,
+          "ss": 3,
+          "pf": 46,
+          "ps": 75
+        },
+        {
+          "squadra": "La Fenice",
+          "punti": 0,
+          "pg": 1,
+          "pv": 0,
+          "pp": 1,
+          "sf": 0,
+          "ss": 3,
+          "pf": 42,
+          "ps": 75
+        },
+        {
           "squadra": "Smile Team",
           "punti": 0,
           "pg": 0,
@@ -2875,50 +2963,6 @@
           "ps": 0
         },
         {
-          "squadra": "Ziosta Suri Sport",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "Oplontis",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "Volley Mugnano Thunder",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "Libertas Sorrento",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
           "squadra": "CS Volley FQL",
           "punti": 0,
           "pg": 0,
@@ -2931,50 +2975,6 @@
         },
         {
           "squadra": "Kleos Volley",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "ASD Astrovolley",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "Volley Pimonte",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "Volley Meta",
-          "punti": 0,
-          "pg": 0,
-          "pv": 0,
-          "pp": 0,
-          "sf": 0,
-          "ss": 0,
-          "pf": 0,
-          "ps": 0
-        },
-        {
-          "squadra": "La Fenice",
           "punti": 0,
           "pg": 0,
           "pv": 0,
