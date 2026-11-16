@@ -328,18 +328,14 @@ async function loadResults() {
   markDirty();
 }
 
-function renderMatchList() {
-  const comp = state.currentComp;
-  if (!comp) return;
-  $("#matches").innerHTML = comp.matches
-    .map((m) => {
-      const p = pendingOf(m.gara);
-      const parts = (p.risultato || "").split(/\s*[-–]\s*/);
-      const hasScore = parts.length === 2;
-      const result = hasScore
-        ? `<span class="result">${escapeHtml(p.risultato)}</span>`
-        : `<span class="vs">vs</span>`;
-      return `<article class="match-row" data-gara="${escapeHtml(m.gara)}" tabindex="0" role="button" aria-label="Modifica partita">
+function matchRowHtml(m) {
+  const p = pendingOf(m.gara);
+  const parts = (p.risultato || "").split(/\s*[-–]\s*/);
+  const hasScore = parts.length === 2;
+  const result = hasScore
+    ? `<span class="result">${escapeHtml(p.risultato)}</span>`
+    : `<span class="vs">vs</span>`;
+  return `<article class="match-row" data-gara="${escapeHtml(m.gara)}" tabindex="0" role="button" aria-label="Modifica partita">
         <div class="gara">${escapeHtml(m.gara)}</div>
         <div class="info">
           <div class="teams ${hasScore ? "is-played" : ""}">
@@ -347,17 +343,50 @@ function renderMatchList() {
             ${result}
             <span class="team-name">${escapeHtml(m.trasferta)}</span>
           </div>
-          <div class="meta">G${escapeHtml(String(m.giornata))} · ${escapeHtml(m.data)} · ${escapeHtml(m.palestra)}</div>
+          <div class="meta">${escapeHtml(m.data)} · ${escapeHtml(m.palestra)}</div>
           ${p.parziali ? `<div class="parz-preview">${escapeHtml(p.parziali)}</div>` : ""}
         </div>
       </article>`;
+}
+
+function renderMatchList() {
+  const comp = state.currentComp;
+  if (!comp) return;
+  const byGiornata = new Map();
+  for (const m of comp.matches) {
+    const g = String(m.giornata ?? "").trim() || "—";
+    if (!byGiornata.has(g)) byGiornata.set(g, []);
+    byGiornata.get(g).push(m);
+  }
+  const keys = [...byGiornata.keys()].sort((a, b) => {
+    if (a === "—") return 1;
+    if (b === "—") return -1;
+    const na = Number(a);
+    const nb = Number(b);
+    const fa = Number.isFinite(na);
+    const fb = Number.isFinite(nb);
+    if (fa && fb) return na - nb;
+    if (fa) return -1;
+    if (fb) return 1;
+    return a.localeCompare(b);
+  });
+  const list = $("#matches");
+  const prevScroll = list.scrollTop;
+  list.innerHTML = keys
+    .map((g) => {
+      const rows = byGiornata.get(g);
+      const label = g === "—" ? "Gare senza giornata" : `Giornata ${escapeHtml(g)}`;
+      const n = rows.length;
+      return `<section class="giornata">
+        <h3 class="giornata-head">${label}<span class="giornata-count">${n} ${n === 1 ? "partita" : "partite"}</span></h3>
+        <div class="giornata-matches">${rows.map(matchRowHtml).join("")}</div>
+      </section>`;
     })
     .join("");
-  $("#matches")
-    .querySelectorAll(".match-row")
-    .forEach((el) =>
-      el.addEventListener("click", () => openMatchModal(el.dataset.gara))
-    );
+  list.querySelectorAll(".match-row").forEach((el) =>
+    el.addEventListener("click", () => openMatchModal(el.dataset.gara))
+  );
+  list.scrollTop = prevScroll;
 }
 
 function renderLogoForm() {
