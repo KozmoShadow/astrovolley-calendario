@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-16T11:45:06+00:00",
+  "generato_il": "2026-11-17T22:57:12+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -79,8 +79,8 @@
           "giornata": "2",
           "casa": "MINERVA MEDICA FLYER",
           "trasferta": "VOLLEY WORD",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-14 25-19 28-26",
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
@@ -113,8 +113,8 @@
           "giornata": "2",
           "casa": "ASD ASTROVOLLEY",
           "trasferta": "VICTORIA MARANO APD",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "14-25 20-25 26-28",
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
@@ -532,26 +532,15 @@
       ],
       "standings": [
         {
-          "squadra": "ASD ASTROVOLLEY",
-          "punti": 3,
-          "pg": 1,
-          "pv": 1,
-          "pp": 0,
-          "sf": 3,
-          "ss": 0,
-          "pf": 75,
-          "ps": 55
-        },
-        {
           "squadra": "VICTORIA MARANO APD",
-          "punti": 3,
-          "pg": 1,
-          "pv": 1,
+          "punti": 6,
+          "pg": 2,
+          "pv": 2,
           "pp": 0,
-          "sf": 3,
+          "sf": 6,
           "ss": 0,
-          "pf": 76,
-          "ps": 62
+          "pf": 154,
+          "ps": 122
         },
         {
           "squadra": "ASD VOLLEY VOLLA",
@@ -565,26 +554,37 @@
           "ps": 67
         },
         {
-          "squadra": "VOLLEY WORD",
-          "punti": 0,
-          "pg": 1,
-          "pv": 0,
+          "squadra": "MINERVA MEDICA FLYER",
+          "punti": 3,
+          "pg": 2,
+          "pv": 1,
           "pp": 1,
-          "sf": 1,
+          "sf": 3,
           "ss": 3,
-          "pf": 67,
-          "ps": 99
+          "pf": 140,
+          "ps": 135
         },
         {
-          "squadra": "MINERVA MEDICA FLYER",
-          "punti": 0,
-          "pg": 1,
-          "pv": 0,
+          "squadra": "ASD ASTROVOLLEY",
+          "punti": 3,
+          "pg": 2,
+          "pv": 1,
           "pp": 1,
-          "sf": 0,
+          "sf": 3,
           "ss": 3,
-          "pf": 62,
-          "ps": 76
+          "pf": 135,
+          "ps": 133
+        },
+        {
+          "squadra": "VOLLEY WORD",
+          "punti": 0,
+          "pg": 2,
+          "pv": 0,
+          "pp": 2,
+          "sf": 1,
+          "ss": 6,
+          "pf": 126,
+          "ps": 177
         },
         {
           "squadra": "CALVIZZANO VOLLEY BLU",
