@@ -3,25 +3,25 @@
   "squadre": [
     {
       "slug": "under-19-eccellenza",
-      "nome": "Under 19 Eccellenza",
+      "nome": "Under 19",
       "campionato": "under 19",
       "nomi": ["ASD ASTROVOLLEY"]
     },
     {
       "slug": "open-misto-elite",
-      "nome": "Open Misto Élite",
+      "nome": "Misto Dirigenziale",
       "campionato": "elite",
       "nomi": ["ASD Astrovolley"]
     },
     {
       "slug": "open-misto-cercola",
-      "nome": "Open Misto Cercola",
+      "nome": "Misto Cercola",
       "campionato": "promozionale",
       "nomi": ["Astrovolley Cercola"]
     },
     {
       "slug": "open-misto-portici",
-      "nome": "Open Misto Portici",
+      "nome": "Misto Portici",
       "campionato": "promozionale",
       "nomi": ["Astrovolley Portici"]
     }
