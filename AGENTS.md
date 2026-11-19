@@ -163,7 +163,12 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   `?vista=<id-campionato>` apre un campionato.
 - Gli slug sono in `site/data/squadre.json` e **non vanno cambiati** una volta
   diffusi: i link gia' incollati smetterebbero di funzionare. Per cambiare il
-  nome mostrato si modifica `nome`, non `slug`.
+  nome mostrato si modifica `nome`, non `slug`. (Slug attuali: `under-19`,
+  `misto-dirigenziale`, `misto-cercola`, `misto-portici`.)
+- **Non confondere lo slug della squadra con l'id del campionato**: `?vista=`
+  usa l'id (`asi-open-misto-elite`, `fipav-94273`), che e' anche il nome dei
+  file in `data/asi/`. Rinominare quello significa rinominare i file e
+  riscrivere i riferimenti in `schedule.json`.
 - Cambiare filtro aggiorna l'indirizzo (`syncUrl`, `pushState`), quindi il tasto
   Indietro del browser annulla il filtro invece di uscire dal sito; `popstate`
   rilegge i parametri.

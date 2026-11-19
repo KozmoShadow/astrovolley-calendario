@@ -2,25 +2,25 @@
   "_istruzioni": "Squadre del club, per i link diretti (?squadra=<slug>). 'nomi' elenca i modi in cui la squadra compare nei calendari: FIPAV e ASI scrivono i nomi in modo diverso, e la stessa squadra puo' comparire con grafie diverse. 'campionato' serve a distinguere due squadre che hanno lo stesso nome in campionati diversi (es. il nome della societa' in Under 19 e in Open Misto): e' un pezzo del titolo del campionato, senza distinzione fra maiuscole e accenti. Lo 'slug' e' quello che finisce nel link e non deve cambiare, altrimenti i link gia' diffusi smettono di funzionare.",
   "squadre": [
     {
-      "slug": "under-19-eccellenza",
+      "slug": "under-19",
       "nome": "Under 19",
       "campionato": "under 19",
       "nomi": ["ASD ASTROVOLLEY"]
     },
     {
-      "slug": "open-misto-elite",
+      "slug": "misto-dirigenziale",
       "nome": "Misto Dirigenziale",
       "campionato": "elite",
       "nomi": ["ASD Astrovolley"]
     },
     {
-      "slug": "open-misto-cercola",
+      "slug": "misto-cercola",
       "nome": "Misto Cercola",
       "campionato": "promozionale",
       "nomi": ["Astrovolley Cercola"]
     },
     {
-      "slug": "open-misto-portici",
+      "slug": "misto-portici",
       "nome": "Misto Portici",
       "campionato": "promozionale",
       "nomi": ["Astrovolley Portici"]
