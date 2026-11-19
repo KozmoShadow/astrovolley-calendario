@@ -16,6 +16,7 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
 - `importer/import_schedule.py` — genera `site/data/schedule.json`
 - `importer/asi_pdf.py` — estrae il calendario ASI dal PDF (richiede `pdfplumber`)
 - `site/` — frontend statico (index.html, styles.css, app.js, assets/, data/)
+- `site/data/squadre.json` — squadre del club: slug per i link diretti e nomi usati nei calendari
 - `site/admin/` — pagina admin protetta (vedi sotto)
 - `worker/` — funzione serverless opzionale per l'accesso OAuth
 - `site/assets/logo.jpg` — logo società (scaricato da FIPAV Napoli)
@@ -145,10 +146,34 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - Il pannello ha tre gruppi: **Vista** (`ours` / `week`), **Squadra**, **Campionato**.
   Il gruppo Squadra compare solo per "Le nostre partite" e "Questa settimana":
   scegliendo un campionato si azzera (`applyView`).
-- `state.team` filtra per una nostra squadra; `ourTeams()` le ricava dalle partite
-  (ogni nome che contiene "astro"), quindi non serve una lista a mano.
+- `state.team` contiene lo **slug** di una squadra, non il nome: cosi' due
+  squadre omonime in campionati diversi restano distinguibili e il link non
+  cambia se FIPAV/ASI riscrivono il nome.
+- `ourTeams()` parte da `site/data/squadre.json` (slug, nome mostrato, `nomi`
+  accettati, `campionato` come filtro) e aggiunge i nomi che contengono "astro"
+  ma non sono in configurazione, con slug `auto-*`: una squadra nuova compare
+  lo stesso, anche prima che qualcuno la aggiunga al file.
 - La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data
   (non per giornata).
+
+## Link diretti a una squadra (`?squadra=`, `?vista=`)
+- `?squadra=<slug>` apre il sito gia' filtrato su quella squadra, con
+  "Le nostre partite" selezionato: e' il link da mettere nei gruppi.
+  `?squadra=<slug>&vista=week` apre la stessa squadra su "Questa settimana".
+  `?vista=<id-campionato>` apre un campionato.
+- Gli slug sono in `site/data/squadre.json` e **non vanno cambiati** una volta
+  diffusi: i link gia' incollati smetterebbero di funzionare. Per cambiare il
+  nome mostrato si modifica `nome`, non `slug`.
+- Cambiare filtro aggiorna l'indirizzo (`syncUrl`, `pushState`), quindi il tasto
+  Indietro del browser annulla il filtro invece di uscire dal sito; `popstate`
+  rilegge i parametri.
+- Uno slug sconosciuto non e' un errore: si apre il calendario normale. Se
+  `squadre.json` manca o e' rotto, il sito funziona con i nomi "astro".
+- `nomi` accetta tutte le grafie con cui la stessa squadra compare nei
+  calendari. Il confronto ignora maiuscole, accenti e spazi (`normName`).
+- **`ASD ASTROVOLLEY` (Under 19) e `ASD Astrovolley` (Open Misto Elite) sono due
+  squadre diverse**, non due grafie della stessa: e' per questo che ogni voce
+  dichiara il proprio `campionato`.
 
 ## Schede partita su telefono (site/styles.css, media <=640px)
 - Il badge dell'ente (FIPAV/ASI) sta **sotto l'orario**, nella colonna sinistra,

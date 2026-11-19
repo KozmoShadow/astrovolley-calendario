@@ -2,10 +2,12 @@ import { fetchLiveFipav, fetchLiveFipavMobile } from "./fipav-live.js";
 
 const OUR_PATTERN = "astro";
 const DATA_URL = "data/schedule.json";
+const SQUADRE_URL = "data/squadre.json";
 
 const state = {
   data: null,
   competitions: [],
+  squadre: [], // configurazione delle squadre (data/squadre.json)
   view: "ours", // "ours" | "week" | id di una competizione
   team: "", // "" = tutte le nostre squadre, altrimenti il nome di una squadra
   query: "",
@@ -78,30 +80,117 @@ function allMatches() {
   return rows;
 }
 
-// Le nostre squadre, ricavate dalle partite: ogni nome che contiene "astro".
-function ourTeams() {
-  const set = new Map();
-  for (const m of allMatches()) {
-    for (const name of [m.casa, m.trasferta]) {
-      if (isOurs(name) && !set.has(name)) set.set(name, 0);
-    }
-  }
-  for (const m of allMatches()) {
-    for (const name of [m.casa, m.trasferta]) {
-      if (set.has(name)) set.set(name, set.get(name) + 1);
-    }
-  }
-  return [...set.entries()].map(([nome, partite]) => ({ nome, partite })).sort((a, b) => a.nome.localeCompare(b.nome));
+// Confronto fra nomi: maiuscole, accenti e spazi non contano. Serve perche'
+// FIPAV e ASI scrivono lo stesso nome in modi diversi ("ASD ASTROVOLLEY").
+function normName(s) {
+  return (s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-// Il campionato a cui appartiene una nostra squadra (per mostrarlo nel filtro).
-function teamCompetition(nome) {
-  for (const c of state.competitions) {
-    if (c.matches.some((m) => m.casa === nome || m.trasferta === nome)) {
-      return c.titolo;
+function slugify(s) {
+  return normName(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function teamConfig(slug) {
+  return (state.squadre || []).find((t) => t.slug === slug) || null;
+}
+
+// Una partita appartiene a una squadra se una delle due squadre in campo ha un
+// nome elencato in configurazione. Se la squadra dichiara un campionato, la
+// partita deve stare in un campionato con quel testo nel titolo: cosi' due
+// squadre omonime in campionati diversi restano distinte.
+function matchBelongsToTeam(m, cfg) {
+  if (!cfg) return false;
+  const casa = normName(m.casa);
+  const trasferta = normName(m.trasferta);
+  const nomi = (cfg.nomi || []).map(normName);
+  if (!nomi.includes(casa) && !nomi.includes(trasferta)) return false;
+  if (!cfg.campionato) return true;
+  const titolo = normName(m._comp?.titolo || m.campionato || "");
+  return titolo.includes(normName(cfg.campionato));
+}
+
+// Le squadre del club, prese da data/squadre.json. Una squadra compare solo se
+// ha almeno una partita nei calendari, cosi' il filtro non mostra voci vuote.
+// I nomi che contengono "astro" ma non sono in configurazione restano
+// selezionabili lo stesso: meglio un'etichetta in piu' che una squadra che
+// sparisce dal filtro senza che nessuno se ne accorga.
+function ourTeams() {
+  const rows = allMatches();
+  const out = [];
+  const coperti = new Set();
+
+  for (const cfg of state.squadre || []) {
+    const partite = rows.filter((m) => matchBelongsToTeam(m, cfg));
+    if (!partite.length) continue;
+    (cfg.nomi || []).forEach((n) => coperti.add(normName(n)));
+    out.push({
+      slug: cfg.slug,
+      nome: cfg.nome || cfg.slug,
+      partite: partite.length,
+      comp: competitionLabelOf(partite),
+    });
+  }
+
+  const extra = new Map();
+  for (const m of rows) {
+    for (const name of [m.casa, m.trasferta]) {
+      if (!isOurs(name) || coperti.has(normName(name))) continue;
+      extra.set(name, (extra.get(name) || 0) + 1);
     }
   }
-  return "";
+  for (const [nome, partite] of extra) {
+    out.push({
+      slug: uniqueSlug(`auto-${slugify(nome)}`, out),
+      nome,
+      partite,
+      comp: competitionLabelOf(rows.filter((m) => m.casa === nome || m.trasferta === nome)),
+      auto: true,
+    });
+  }
+
+  return out.sort((a, b) => a.nome.localeCompare(b.nome, "it"));
+}
+
+// Due nomi diversi possono ridursi allo stesso slug ("ASD ASTROVOLLEY" e
+// "ASD Astrovolley"): senza un suffisso il link non distinguerebbe le due.
+function uniqueSlug(base, usati) {
+  const presi = new Set(usati.map((t) => t.slug));
+  if (!presi.has(base)) return base;
+  let i = 2;
+  while (presi.has(`${base}-${i}`)) i++;
+  return `${base}-${i}`;
+}
+
+function competitionLabelOf(rows) {
+  const titoli = [...new Set(rows.map((m) => m._comp?.titolo).filter(Boolean))];
+  return titoli.join(" · ");
+}
+
+// Una squadra "automatica" (nome non in configurazione) si filtra per nome
+// esatto; le altre passano dalla configurazione.
+function teamMatcher(slug) {
+  const cfg = teamConfig(slug);
+  if (cfg) return (m) => matchBelongsToTeam(m, cfg);
+  const t = ourTeams().find((x) => x.slug === slug);
+  if (!t) return () => false;
+  const nome = normName(t.nome);
+  return (m) => normName(m.casa) === nome || normName(m.trasferta) === nome;
+}
+
+function teamName(slug) {
+  if (!slug) return "";
+  const t = ourTeams().find((x) => x.slug === slug);
+  return t ? t.nome : "";
+}
+
+// Alias storico: il campionato di una squadra ora e' dentro ourTeams().
+function teamCompetition(slug) {
+  return ourTeams().find((t) => t.slug === slug)?.comp || "";
 }
 
 // "Questa settimana" = da oggi a domenica prossima (7 giorni).
@@ -131,7 +220,8 @@ function visibleMatches() {
   }
   // Il filtro per squadra vale solo quando si guardano le nostre partite.
   if (state.team && (state.view === "ours" || state.view === "week")) {
-    rows = rows.filter((m) => m.casa === state.team || m.trasferta === state.team);
+    const match = teamMatcher(state.team);
+    rows = rows.filter(match);
   }
   if (q) {
     rows = rows.filter((m) =>
@@ -160,13 +250,51 @@ function closeFilters() {
 
 // Cambia vista e ridisegna tutto. Scegliendo un campionato il filtro per
 // squadra si azzera, perche' le squadre appartengono a "Le nostre partite".
-function applyView(view, team) {
+function applyView(view, team, opts = {}) {
   state.view = view;
   state.team = view === "ours" || view === "week" ? team || "" : "";
   closeFilters();
   renderViewFilter();
   renderList();
   renderStandings();
+  if (!opts.fromUrl) syncUrl();
+}
+
+// L'indirizzo rispecchia i filtri, cosi' il link si puo' copiare e incollare
+// (es. nei gruppi delle squadre) e riapre la stessa vista. I cambi fatti
+// dall'utente finiscono nella cronologia: il tasto Indietro annulla il filtro
+// invece di uscire dal sito.
+function syncUrl(opts = {}) {
+  if (!window.history?.pushState) return;
+  const params = new URLSearchParams();
+  if (state.view !== "ours") params.set("vista", state.view);
+  if (state.team) params.set("squadra", state.team);
+  const qs = params.toString();
+  const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
+  if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
+  if (opts.replace) window.history.replaceState(null, "", url);
+  else window.history.pushState(null, "", url);
+}
+
+// All'apertura i filtri arrivano dall'indirizzo. Uno slug sconosciuto non deve
+// rompere la pagina: si apre il calendario normale.
+function applyUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  const team = (params.get("squadra") || "").trim();
+  const vista = (params.get("vista") || "").trim();
+  const valida = team && ourTeams().some((t) => t.slug === team);
+
+  if (valida) {
+    state.view = vista === "week" ? "week" : "ours";
+    state.team = team;
+    return true;
+  }
+  if (vista && (vista === "week" || state.competitions.some((c) => c.id === vista))) {
+    state.view = vista;
+    state.team = "";
+    return true;
+  }
+  return false;
 }
 
 function renderViewFilter() {
@@ -197,10 +325,9 @@ function renderViewFilter() {
       <button role="menuitem" class="dropdown-item ${!state.team ? "is-active" : ""}" data-team="">
         Tutte le nostre</button>`;
     for (const t of teams) {
-      const comp = teamCompetition(t.nome);
-      html += `<button role="menuitem" class="dropdown-item ${state.team === t.nome ? "is-active" : ""}" data-team="${escapeAttr(t.nome)}">
+      html += `<button role="menuitem" class="dropdown-item ${state.team === t.slug ? "is-active" : ""}" data-team="${escapeAttr(t.slug)}">
         <span class="filter-team">${escapeHtml(t.nome)}</span>
-        <span class="filter-sub">${escapeHtml(comp)} · ${t.partite} partite</span></button>`;
+        <span class="filter-sub">${escapeHtml(t.comp)} · ${t.partite} partite</span></button>`;
     }
     html += `</div>`;
   }
@@ -301,7 +428,8 @@ function renderList() {
   const box = $("#calendar");
   const rows = visibleMatches();
   let title = viewLabel();
-  if (state.team) title += ` — ${state.team}`;
+  const tn = teamName(state.team);
+  if (tn) title += ` — ${tn}`;
   $("#list-title").textContent = title;
 
   if (!rows.length) {
@@ -405,9 +533,8 @@ function renderStandings() {
   const box = $("#standings");
   let comp = currentCompetition();
   if (!comp && state.team) {
-    comp = state.competitions.find((c) =>
-      c.matches.some((m) => m.casa === state.team || m.trasferta === state.team)
-    ) || null;
+    const match = teamMatcher(state.team);
+    comp = state.competitions.find((c) => c.matches.some(match)) || null;
   }
   const comps = (comp ? [comp] : state.competitions).filter(
     (c) => c.standings && c.standings.length
@@ -541,11 +668,36 @@ async function init() {
     return;
   }
   state.competitions = state.data.competitions || [];
+
+  // Configurazione delle squadre (nomi e slug per i link diretti). Se il file
+  // manca o e' rotto il sito funziona lo stesso: si ricade sui nomi "astro".
+  try {
+    const resSq = await fetch(`${SQUADRE_URL}?v=${Date.now()}`, { cache: "no-store" });
+    if (resSq.ok) {
+      const cfg = await resSq.json();
+      state.squadre = Array.isArray(cfg.squadre) ? cfg.squadre : [];
+    }
+  } catch {
+    state.squadre = [];
+  }
+
+  // I filtri possono arrivare dall'indirizzo (?squadra=..., ?vista=...).
+  const daUrl = applyUrlState();
+
   renderHeader();
   setupStandingsToggle();
   renderViewFilter();
   renderList();
   renderStandings();
+  if (daUrl) syncUrl({ replace: true });
+  window.addEventListener("popstate", () => {
+    state.view = "ours";
+    state.team = "";
+    applyUrlState();
+    renderViewFilter();
+    renderList();
+    renderStandings();
+  });
 
   $("#search").addEventListener("input", (e) => {
     state.query = e.target.value;
