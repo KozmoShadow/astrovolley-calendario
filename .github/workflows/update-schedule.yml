@@ -39,6 +39,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Installa Pillow
+        # Serve all'importer per ridimensionare i loghi e convertirli in WebP.
+        run: python -m pip install --quiet --disable-pip-version-check Pillow
+
       - name: Scarica i campionati ASI
         # Se l'API ASI non risponde, l'importer continua con i file gia' in
         # repo: un errore qui non deve fermare l'aggiornamento FIPAV.

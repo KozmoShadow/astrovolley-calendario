@@ -58,8 +58,29 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
   - Il PDF **non** va mai committato: contiene email/cellulari dei referenti (`*.pdf`
     in `.gitignore`).
   - `data/asi/<id>.squadre.json` contiene i loghi scelti a mano: l'importer lo legge e li
-    fa vincere su quelli dell'API (alcuni sono file locali in `site/assets/loghi`).
+    usa solo dove l'API non ne ha uno.
   - Entrambe le squadre del club (Astrovolley Cercola e Astrovolley Portici) sono "nostre".
+
+## Loghi delle squadre
+
+I loghi si servono sempre da GitHub Pages, mai dai portali: FIPAV blocca l'hotlink
+(risponde con un placeholder identico per tutti) e ASI serve originali fino a 1,2 MB
+per un'immagine che nella scheda si vede a 46px. Entrambi gli importer li scaricano,
+li ridimensionano a 512px e li salvano in WebP (`importer/loghi.py`), che mantiene la
+trasparenza a una frazione del peso di un PNG.
+
+- `site/assets/loghi/fipav/<id>.webp` — nome = id societa' FIPAV.
+- `site/assets/loghi/asi/squadra-<id>.webp` — nome = id squadra dell'API ASI.
+- Gli id sono stabili, i nomi delle squadre no: non usare i nomi come nome file.
+
+FIPAV: le pagine delle gare linkano la miniatura `LogoS` da 50px. Sullo stesso
+percorso esiste `LogoB`, l'originale caricato dalla societa' (fino a 1000x1200): si
+prova quella e si ripiega sulla miniatura, perche' non tutte le societa' la hanno.
+
+Precedenza: il file locale vince sempre. In `app.js` `logoUrl()` riscrive gli URL
+FIPAV verso `assets/loghi/fipav/`, e `mergeLiveAsi` mette i loghi dello snapshot
+prima di quelli del live. L'URL remoto resta solo come riserva per una squadra nuova,
+che non ha ancora il file.
 
 ## Pagina admin (`site/admin/`)
 Pubblica su Pages, non linkata dal sito e `noindex`. Serve a caricare i PDF e inserire
@@ -146,8 +167,8 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - `admin.js` salva i risultati in `data/asi/<id>.risultati.json` e i loghi delle
   squadre in `data/asi/<id>.squadre.json` (file separato: il calendario si
   rigenera dal PDF e perderebbe i loghi).
-- I loghi sono URL (esterni oppure `assets/loghi/<nome>`); l'importer li collega
-  a `logo_casa`/`logo_trasferta`.
+- I loghi sono URL (esterni oppure locali); l'importer li collega a
+  `logo_casa`/`logo_trasferta`.
 - La modifica dei risultati avviene in una scheda che ricalca quella pubblica:
   si clicca il "vs", si scrive il punteggio, e i blocchi dei parziali si
   generano dal risultato (3-1 -> 4 blocchi). Cambiando punteggio i parziali

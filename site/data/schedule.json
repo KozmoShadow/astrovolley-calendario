@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-20T01:35:39+00:00",
+  "generato_il": "2026-11-20T12:55:12+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -47,8 +47,8 @@
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
           "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
-          "logo_casa": "assets/loghi/752.jpg",
-          "logo_trasferta": "assets/loghi/772.jpg"
+          "logo_casa": "assets/loghi/fipav/752.webp",
+          "logo_trasferta": "assets/loghi/fipav/772.webp"
         },
         {
           "fonte": "fipav",
@@ -64,8 +64,8 @@
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
-          "logo_casa": "assets/loghi/1159.jpg",
-          "logo_trasferta": "assets/loghi/1186.jpg"
+          "logo_casa": "assets/loghi/fipav/1159.webp",
+          "logo_trasferta": "assets/loghi/fipav/1186.webp"
         },
         {
           "fonte": "fipav",
@@ -81,8 +81,8 @@
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
           "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
-          "logo_casa": "assets/loghi/4199.jpg",
-          "logo_trasferta": "assets/loghi/5690.jpg"
+          "logo_casa": "assets/loghi/fipav/4199.webp",
+          "logo_trasferta": "assets/loghi/fipav/5690.webp"
         },
         {
           "fonte": "fipav",
@@ -98,8 +98,8 @@
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
-          "logo_casa": "assets/loghi/772.jpg",
-          "logo_trasferta": "assets/loghi/1159.jpg"
+          "logo_casa": "assets/loghi/fipav/772.webp",
+          "logo_trasferta": "assets/loghi/fipav/1159.webp"
         },
         {
           "fonte": "fipav",
@@ -115,8 +115,8 @@
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
           "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
-          "logo_casa": "assets/loghi/1186.jpg",
-          "logo_trasferta": "assets/loghi/4199.jpg"
+          "logo_casa": "assets/loghi/fipav/1186.webp",
+          "logo_trasferta": "assets/loghi/fipav/4199.webp"
         },
         {
           "fonte": "fipav",
@@ -132,8 +132,8 @@
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
-          "logo_casa": "assets/loghi/5690.jpg",
-          "logo_trasferta": "assets/loghi/752.jpg"
+          "logo_casa": "assets/loghi/fipav/5690.webp",
+          "logo_trasferta": "assets/loghi/fipav/752.webp"
         },
         {
           "fonte": "fipav",
@@ -149,8 +149,8 @@
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
           "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
-          "logo_casa": "assets/loghi/752.jpg",
-          "logo_trasferta": "assets/loghi/1186.jpg"
+          "logo_casa": "assets/loghi/fipav/752.webp",
+          "logo_trasferta": "assets/loghi/fipav/1186.webp"
         },
         {
           "fonte": "fipav",
@@ -166,8 +166,8 @@
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
-          "logo_casa": "assets/loghi/1159.jpg",
-          "logo_trasferta": "assets/loghi/4199.jpg"
+          "logo_casa": "assets/loghi/fipav/1159.webp",
+          "logo_trasferta": "assets/loghi/fipav/4199.webp"
         },
         {
           "fonte": "fipav",
@@ -183,8 +183,8 @@
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
-          "logo_casa": "assets/loghi/5690.jpg",
-          "logo_trasferta": "assets/loghi/772.jpg"
+          "logo_casa": "assets/loghi/fipav/5690.webp",
+          "logo_trasferta": "assets/loghi/fipav/772.webp"
         },
         {
           "fonte": "fipav",
@@ -200,8 +200,8 @@
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
           "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
-          "logo_casa": "assets/loghi/4199.jpg",
-          "logo_trasferta": "assets/loghi/752.jpg"
+          "logo_casa": "assets/loghi/fipav/4199.webp",
+          "logo_trasferta": "assets/loghi/fipav/752.webp"
         },
         {
           "fonte": "fipav",
@@ -217,8 +217,8 @@
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
-          "logo_casa": "assets/loghi/772.jpg",
-          "logo_trasferta": "assets/loghi/1186.jpg"
+          "logo_casa": "assets/loghi/fipav/772.webp",
+          "logo_trasferta": "assets/loghi/fipav/1186.webp"
         },
         {
           "fonte": "fipav",
@@ -234,8 +234,8 @@
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
-          "logo_casa": "assets/loghi/1159.jpg",
-          "logo_trasferta": "assets/loghi/5690.jpg"
+          "logo_casa": "assets/loghi/fipav/1159.webp",
+          "logo_trasferta": "assets/loghi/fipav/5690.webp"
         },
         {
           "fonte": "fipav",
@@ -251,8 +251,8 @@
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
           "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
-          "logo_casa": "assets/loghi/752.jpg",
-          "logo_trasferta": "assets/loghi/1159.jpg"
+          "logo_casa": "assets/loghi/fipav/752.webp",
+          "logo_trasferta": "assets/loghi/fipav/1159.webp"
         },
         {
           "fonte": "fipav",
@@ -268,8 +268,8 @@
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
           "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
-          "logo_casa": "assets/loghi/1186.jpg",
-          "logo_trasferta": "assets/loghi/5690.jpg"
+          "logo_casa": "assets/loghi/fipav/1186.webp",
+          "logo_trasferta": "assets/loghi/fipav/5690.webp"
         },
         {
           "fonte": "fipav",
@@ -285,8 +285,8 @@
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
-          "logo_casa": "assets/loghi/772.jpg",
-          "logo_trasferta": "assets/loghi/4199.jpg"
+          "logo_casa": "assets/loghi/fipav/772.webp",
+          "logo_trasferta": "assets/loghi/fipav/4199.webp"
         },
         {
           "fonte": "fipav",
@@ -302,8 +302,8 @@
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
-          "logo_casa": "assets/loghi/772.jpg",
-          "logo_trasferta": "assets/loghi/752.jpg"
+          "logo_casa": "assets/loghi/fipav/772.webp",
+          "logo_trasferta": "assets/loghi/fipav/752.webp"
         },
         {
           "fonte": "fipav",
@@ -319,8 +319,8 @@
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
           "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
-          "logo_casa": "assets/loghi/1186.jpg",
-          "logo_trasferta": "assets/loghi/1159.jpg"
+          "logo_casa": "assets/loghi/fipav/1186.webp",
+          "logo_trasferta": "assets/loghi/fipav/1159.webp"
         },
         {
           "fonte": "fipav",
@@ -336,8 +336,8 @@
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
-          "logo_casa": "assets/loghi/5690.jpg",
-          "logo_trasferta": "assets/loghi/4199.jpg"
+          "logo_casa": "assets/loghi/fipav/5690.webp",
+          "logo_trasferta": "assets/loghi/fipav/4199.webp"
         },
         {
           "fonte": "fipav",
@@ -353,8 +353,8 @@
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
-          "logo_casa": "assets/loghi/1159.jpg",
-          "logo_trasferta": "assets/loghi/772.jpg"
+          "logo_casa": "assets/loghi/fipav/1159.webp",
+          "logo_trasferta": "assets/loghi/fipav/772.webp"
         },
         {
           "fonte": "fipav",
@@ -370,8 +370,8 @@
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
           "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
-          "logo_casa": "assets/loghi/4199.jpg",
-          "logo_trasferta": "assets/loghi/1186.jpg"
+          "logo_casa": "assets/loghi/fipav/4199.webp",
+          "logo_trasferta": "assets/loghi/fipav/1186.webp"
         },
         {
           "fonte": "fipav",
@@ -387,8 +387,8 @@
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
           "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
-          "logo_casa": "assets/loghi/752.jpg",
-          "logo_trasferta": "assets/loghi/5690.jpg"
+          "logo_casa": "assets/loghi/fipav/752.webp",
+          "logo_trasferta": "assets/loghi/fipav/5690.webp"
         },
         {
           "fonte": "fipav",
@@ -404,8 +404,8 @@
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
           "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
-          "logo_casa": "assets/loghi/1186.jpg",
-          "logo_trasferta": "assets/loghi/752.jpg"
+          "logo_casa": "assets/loghi/fipav/1186.webp",
+          "logo_trasferta": "assets/loghi/fipav/752.webp"
         },
         {
           "fonte": "fipav",
@@ -421,8 +421,8 @@
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
           "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
-          "logo_casa": "assets/loghi/4199.jpg",
-          "logo_trasferta": "assets/loghi/1159.jpg"
+          "logo_casa": "assets/loghi/fipav/4199.webp",
+          "logo_trasferta": "assets/loghi/fipav/1159.webp"
         },
         {
           "fonte": "fipav",
@@ -438,8 +438,8 @@
           "palestra": "PALESTRA SMS RADICE",
           "impianto": "PALESTRA SMS RADICE MASSA DI SOMMA NA VIA SANTA 1",
           "indirizzo": "VIA SANTA 1, MASSA DI SOMMA NA",
-          "logo_casa": "assets/loghi/772.jpg",
-          "logo_trasferta": "assets/loghi/5690.jpg"
+          "logo_casa": "assets/loghi/fipav/772.webp",
+          "logo_trasferta": "assets/loghi/fipav/5690.webp"
         },
         {
           "fonte": "fipav",
@@ -455,8 +455,8 @@
           "palestra": "PALASPORT PALAMARANO",
           "impianto": "PALASPORT PALAMARANO MARANO DI NAPOLI NA VIA FALCONE",
           "indirizzo": "VIA FALCONE, MARANO DI NAPOLI NA",
-          "logo_casa": "assets/loghi/752.jpg",
-          "logo_trasferta": "assets/loghi/4199.jpg"
+          "logo_casa": "assets/loghi/fipav/752.webp",
+          "logo_trasferta": "assets/loghi/fipav/4199.webp"
         },
         {
           "fonte": "fipav",
@@ -472,8 +472,8 @@
           "palestra": "PALESTRA I.C. \"V. DE SICA\"",
           "impianto": "PALESTRA I.C. \"V. DE SICA\" VOLLA NA VIA FILICHITO INCROCIO VIA MONTEOLIVETO",
           "indirizzo": "VIA FILICHITO INCROCIO VIA MONTEOLIVETO, VOLLA NA",
-          "logo_casa": "assets/loghi/1186.jpg",
-          "logo_trasferta": "assets/loghi/772.jpg"
+          "logo_casa": "assets/loghi/fipav/1186.webp",
+          "logo_trasferta": "assets/loghi/fipav/772.webp"
         },
         {
           "fonte": "fipav",
@@ -489,8 +489,8 @@
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
-          "logo_casa": "assets/loghi/5690.jpg",
-          "logo_trasferta": "assets/loghi/1159.jpg"
+          "logo_casa": "assets/loghi/fipav/5690.webp",
+          "logo_trasferta": "assets/loghi/fipav/1159.webp"
         },
         {
           "fonte": "fipav",
@@ -506,8 +506,8 @@
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
-          "logo_casa": "assets/loghi/1159.jpg",
-          "logo_trasferta": "assets/loghi/752.jpg"
+          "logo_casa": "assets/loghi/fipav/1159.webp",
+          "logo_trasferta": "assets/loghi/fipav/752.webp"
         },
         {
           "fonte": "fipav",
@@ -523,8 +523,8 @@
           "palestra": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI",
           "impianto": "LICEO SCIENTIFICO STATALE FILIPPO SILVESTRI PORTICI PORTICI NA PIAZZA SAN PASQUALE 1",
           "indirizzo": "PIAZZA SAN PASQUALE 1, PORTICI PORTICI NA",
-          "logo_casa": "assets/loghi/5690.jpg",
-          "logo_trasferta": "assets/loghi/1186.jpg"
+          "logo_casa": "assets/loghi/fipav/5690.webp",
+          "logo_trasferta": "assets/loghi/fipav/1186.webp"
         },
         {
           "fonte": "fipav",
@@ -540,8 +540,8 @@
           "palestra": "PALA RAFFAELLA",
           "impianto": "PALA RAFFAELLA CALVIZZANO NA VIA CADUTI DI SUPERGA, 1",
           "indirizzo": "VIA CADUTI DI SUPERGA, 1, CALVIZZANO NA",
-          "logo_casa": "assets/loghi/4199.jpg",
-          "logo_trasferta": "assets/loghi/772.jpg"
+          "logo_casa": "assets/loghi/fipav/4199.webp",
+          "logo_trasferta": "assets/loghi/fipav/772.webp"
         }
       ],
       "standings": [
@@ -636,8 +636,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "966",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -654,8 +654,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "967",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -672,8 +672,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "968",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -690,8 +690,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "970",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -708,8 +708,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "971",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -726,8 +726,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "972",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -744,8 +744,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "973",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -762,8 +762,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "969",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -780,8 +780,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "974",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -798,8 +798,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "975",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -816,8 +816,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "976",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -834,8 +834,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "977",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -852,8 +852,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "978",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -870,8 +870,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "979",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -888,8 +888,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "980",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -906,8 +906,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "981",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -924,8 +924,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "983",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -942,8 +942,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "984",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -960,8 +960,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "985",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -978,8 +978,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "982",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -996,8 +996,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "986",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -1014,8 +1014,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "987",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -1032,8 +1032,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "988",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1050,8 +1050,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "989",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -1068,8 +1068,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "991",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -1086,8 +1086,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "992",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -1104,8 +1104,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "993",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1122,8 +1122,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "990",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -1140,8 +1140,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "994",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1158,8 +1158,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "995",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -1176,8 +1176,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "996",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -1194,8 +1194,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "997",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -1212,8 +1212,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "998",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -1230,8 +1230,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "999",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1248,8 +1248,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1000",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -1266,8 +1266,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1001",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -1284,8 +1284,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1002",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -1302,8 +1302,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "1003",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1320,8 +1320,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "1004",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -1338,8 +1338,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1005",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -1356,8 +1356,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "1006",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -1374,8 +1374,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1007",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -1392,8 +1392,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1009",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -1410,8 +1410,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1008",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -1428,8 +1428,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1010",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -1446,8 +1446,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "1011",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-190.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         },
         {
           "fonte": "asi",
@@ -1464,8 +1464,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1012",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -1482,8 +1482,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1013",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-204.webp"
         },
         {
           "fonte": "asi",
@@ -1500,8 +1500,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "1014",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
+          "logo_casa": "assets/loghi/asi/squadra-187.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-189.webp"
         },
         {
           "fonte": "asi",
@@ -1518,8 +1518,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1015",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-188.webp"
         },
         {
           "fonte": "asi",
@@ -1536,8 +1536,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "1016",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-191.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -1554,8 +1554,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1017",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-185.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-186.webp"
         },
         {
           "fonte": "asi",
@@ -1572,8 +1572,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1018",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
+          "logo_casa": "assets/loghi/asi/squadra-189.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-191.webp"
         },
         {
           "fonte": "asi",
@@ -1590,8 +1590,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1019",
           "stato": "cancelled",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-204.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-185.webp"
         },
         {
           "fonte": "asi",
@@ -1608,8 +1608,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1020",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-188.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-190.webp"
         },
         {
           "fonte": "asi",
@@ -1626,8 +1626,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1021",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-186.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-187.webp"
         }
       ],
       "standings": [
@@ -1744,8 +1744,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "795",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -1762,8 +1762,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "797",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -1780,8 +1780,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "798",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -1798,8 +1798,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "799",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -1816,8 +1816,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "800",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -1834,8 +1834,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "801",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -1852,8 +1852,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "804",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -1870,8 +1870,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "802",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -1888,8 +1888,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "803",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -1906,8 +1906,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "805",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -1924,8 +1924,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "796",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -1942,8 +1942,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "806",
           "stato": "completed",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -1960,8 +1960,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "808",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -1978,8 +1978,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "809",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -1996,8 +1996,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "810",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -2014,8 +2014,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "811",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -2032,8 +2032,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "813",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -2050,8 +2050,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "807",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -2068,8 +2068,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "814",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2086,8 +2086,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "815",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -2104,8 +2104,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "817",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2122,8 +2122,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "816",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2140,8 +2140,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "812",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -2158,8 +2158,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "818",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -2176,8 +2176,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "820",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -2194,8 +2194,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "819",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -2212,8 +2212,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "823",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2230,8 +2230,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "822",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -2248,8 +2248,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "827",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2266,8 +2266,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "821",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -2284,8 +2284,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "826",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -2302,8 +2302,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "829",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -2320,8 +2320,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "828",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2338,8 +2338,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "824",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -2356,8 +2356,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "830",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -2374,8 +2374,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "831",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2392,8 +2392,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "794",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -2410,8 +2410,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "832",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -2428,8 +2428,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "833",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2446,8 +2446,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "834",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -2464,8 +2464,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "835",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -2482,8 +2482,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "836",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -2500,8 +2500,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "839",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2518,8 +2518,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "840",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -2536,8 +2536,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "838",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -2554,8 +2554,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "837",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -2572,8 +2572,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "841",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -2590,8 +2590,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "842",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -2608,8 +2608,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "843",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -2626,8 +2626,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "845",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2644,8 +2644,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "844",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -2662,8 +2662,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "847",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2680,8 +2680,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "846",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2698,8 +2698,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "850",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -2716,8 +2716,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "849",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -2734,8 +2734,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "848",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -2752,8 +2752,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "852",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -2770,8 +2770,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "851",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -2788,8 +2788,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "853",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -2806,8 +2806,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "854",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -2824,8 +2824,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "855",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2842,8 +2842,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "856",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2860,8 +2860,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "857",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -2878,8 +2878,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "858",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2896,8 +2896,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "859",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -2914,8 +2914,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "860",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -2932,8 +2932,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "861",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -2950,8 +2950,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "862",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -2968,8 +2968,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "864",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -2986,8 +2986,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "863",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -3004,8 +3004,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "865",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -3022,8 +3022,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "868",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -3040,8 +3040,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "866",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -3058,8 +3058,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "867",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -3076,8 +3076,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "869",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3094,8 +3094,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "870",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -3112,8 +3112,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "871",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -3130,8 +3130,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "872",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -3148,8 +3148,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "873",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -3166,8 +3166,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "877",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -3184,8 +3184,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "874",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -3202,8 +3202,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "875",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -3220,8 +3220,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "876",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -3238,8 +3238,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "825",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3256,8 +3256,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "879",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -3274,8 +3274,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "878",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -3292,8 +3292,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "880",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -3310,8 +3310,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "881",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3328,8 +3328,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "882",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -3346,8 +3346,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "884",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -3364,8 +3364,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "885",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -3382,8 +3382,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "886",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -3400,8 +3400,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "887",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -3418,8 +3418,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "889",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -3436,8 +3436,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "888",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3454,8 +3454,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "883",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -3472,8 +3472,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "891",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -3490,8 +3490,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "892",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -3508,8 +3508,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "890",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -3526,8 +3526,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "893",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -3544,8 +3544,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "894",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -3562,8 +3562,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "896",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3580,8 +3580,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "897",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -3598,8 +3598,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "898",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -3616,8 +3616,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "900",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -3634,8 +3634,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "899",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -3652,8 +3652,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "901",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -3670,8 +3670,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "902",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -3688,8 +3688,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "904",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -3706,8 +3706,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "905",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -3724,8 +3724,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "903",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -3742,8 +3742,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "906",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -3760,8 +3760,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "907",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -3778,8 +3778,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "895",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -3796,8 +3796,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "908",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -3814,8 +3814,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "909",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
         {
           "fonte": "asi",
@@ -3832,8 +3832,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "910",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-153.webp"
         },
         {
           "fonte": "asi",
@@ -3850,8 +3850,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "912",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-152.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -3868,8 +3868,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "911",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -3886,8 +3886,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "913",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -3904,8 +3904,8 @@
           "indirizzo": "Via Capuozzo, Torre Annunziata",
           "gara": "914",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-148.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -3922,8 +3922,8 @@
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "915",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
+          "logo_casa": "assets/loghi/asi/squadra-169.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-147.webp"
         },
         {
           "fonte": "asi",
@@ -3940,8 +3940,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "917",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
         {
           "fonte": "asi",
@@ -3958,8 +3958,8 @@
           "indirizzo": "Via Gabriele D'Annunzio, 23, Castellammare di Stabia",
           "gara": "916",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
+          "logo_casa": "assets/loghi/asi/squadra-171.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-170.webp"
         },
         {
           "fonte": "asi",
@@ -3976,8 +3976,8 @@
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "918",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
         {
           "fonte": "asi",
@@ -3994,8 +3994,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "919",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
+          "logo_casa": "assets/loghi/asi/squadra-149.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
         {
           "fonte": "asi",
@@ -4012,8 +4012,8 @@
           "indirizzo": "Via Tiberio, 1, Pozzuoli",
           "gara": "922",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-159.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-146.webp"
         },
         {
           "fonte": "asi",
@@ -4030,8 +4030,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "920",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
+          "logo_casa": "assets/loghi/asi/squadra-170.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -4048,8 +4048,8 @@
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "921",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
+          "logo_casa": "assets/loghi/asi/squadra-147.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-148.webp"
         },
         {
           "fonte": "asi",
@@ -4066,8 +4066,8 @@
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "924",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
+          "logo_casa": "assets/loghi/asi/squadra-153.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
         {
           "fonte": "asi",
@@ -4084,8 +4084,8 @@
           "indirizzo": "Via Santo Spirito, 6, Pimonte",
           "gara": "923",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
+          "logo_casa": "assets/loghi/asi/squadra-156.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
         {
           "fonte": "asi",
@@ -4102,8 +4102,8 @@
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "925",
           "stato": "pending",
-          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
+          "logo_casa": "assets/loghi/asi/squadra-157.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         }
       ],
       "standings": [

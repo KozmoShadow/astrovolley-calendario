@@ -74,12 +74,30 @@ def fetch_bytes(url: str, timeout: int = 40) -> tuple[bytes, str]:
 
 
 def logo_local_name(url: str) -> str:
-    """Da un URL logo FIPAV ricava il nome file locale, es. 5690.jpg."""
-    m = re.search(r"/img/(\d+)/Loghi/[^/]+\.(jpe?g|png|gif)", url, re.I)
+    """Da un URL logo FIPAV ricava il nome file locale, es. 5690.webp.
+
+    Il numero nel percorso e' l'id della societa', stabile: usarlo come nome
+    evita file orfani quando una squadra cambia nome.
+    """
+    m = re.search(r"/img/(\d+)/Loghi/", url, re.I)
     if not m:
         return ""
-    ext = m.group(2).lower()
-    return f"{m.group(1)}.{ext}"
+    return f"{m.group(1)}.webp"
+
+
+def logo_grande_url(url: str) -> str:
+    """Risale alla versione grande del logo (LogoB) dall'URL della miniatura.
+
+    Nelle pagine delle gare FIPAV mette la miniatura da 50px (LogoS). La
+    versione grande esiste sullo stesso percorso, con lo stesso id societa':
+    cambiando LogoS in LogoB si ottiene l'originale, che arriva anche a
+    1000x1200. Non tutte le societa' ce l'hanno, quindi il chiamante deve
+    poter ripiegare sulla miniatura.
+    """
+    m = re.search(r"^(.*/img/\d+/Loghi/)(?:Logo[BS])?(\d+)\.(jpe?g|png|gif)$", url, re.I)
+    if not m:
+        return ""
+    return f"{m.group(1)}LogoB{m.group(2)}.jpg"
 
 
 # ---------------------------------------------------------------- utilità HTML

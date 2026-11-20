@@ -18,6 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fipav_napoli  # noqa: E402
+import loghi  # noqa: E402
 
 BASE = "https://tuttoincodice.com/livescore/read"
 HEADERS = {
@@ -140,6 +141,11 @@ def localize_logos(competitions: list[dict], assets_dir: Path) -> int:
     sito (header sec-fetch-site: cross-site, che ogni browser manda) risponde
     con un placeholder identico per tutti. Scaricandoli qui, lato server, si
     ottengono i loghi veri, che poi serviamo da GitHub Pages.
+
+    Le pagine delle gare linkano la miniatura da 50px (LogoS). Sullo stesso
+    percorso esiste la versione grande (LogoB), che e' l'originale caricato
+    dalla societa': si prova quella, e solo se manca si ripiega sulla
+    miniatura.
     """
     assets_dir.mkdir(parents=True, exist_ok=True)
     urls: dict[str, str] = {}
@@ -156,21 +162,19 @@ def localize_logos(competitions: list[dict], assets_dir: Path) -> int:
         dest = assets_dir / name
         if dest.exists():
             continue
-        try:
-            content, ctype = fipav_napoli.fetch_bytes(url)
-            if not ctype.startswith("image/"):
-                continue
-            dest.write_bytes(content)
+        grande = fipav_napoli.logo_grande_url(url)
+        if grande and loghi.salva(grande, dest):
             downloaded += 1
-        except Exception:  # noqa: BLE001 - un logo mancante non blocca l'import
             continue
+        if loghi.salva(url, dest):
+            downloaded += 1
 
     for comp in competitions:
         for m in comp.get("matches", []):
             for key in ("logo_casa", "logo_trasferta"):
                 name = fipav_napoli.logo_local_name((m.get(key) or "").strip())
                 if name and (assets_dir / name).exists():
-                    m[key] = f"assets/loghi/{name}"
+                    m[key] = f"assets/loghi/fipav/{name}"
     return downloaded
 
 
@@ -533,7 +537,7 @@ def main() -> int:
 
     # I loghi vanno scaricati lato server e serviti dal sito: il browser che li
     # chiede a FIPAV riceve solo un placeholder (hotlink protetto).
-    n_loghi = localize_logos(competitions, ROOT / "site/assets/loghi")
+    n_loghi = localize_logos(competitions, ROOT / "site/assets/loghi/fipav")
     if n_loghi:
         print(f"Scaricati {n_loghi} nuovi loghi.", file=sys.stderr)
 

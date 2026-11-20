@@ -34,6 +34,8 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import loghi  # noqa: E402
 
 API_BASE = "https://www.spikevolley.it/campionati/api/public.php"
 HEADERS = {
@@ -233,6 +235,50 @@ def _logo_url(path: str | None) -> str | None:
     return f"https://www.spikevolley.it/campionati/{path.lstrip('/')}"
 
 
+def localizza_loghi(comp: dict, partite: list[dict], assets_dir: Path) -> int:
+    """Scarica i loghi ASI in locale e riscrive i percorsi.
+
+    L'API serve gli originali, fino a 1,2 MB per un logo che nella scheda si
+    vede a 46px: scaricandoli una volta e ridimensionandoli il sito diventa
+    molto piu' leggero e non dipende piu' dal portale.
+
+    Il nome del file e' l'id squadra dell'API, stabile: il nome della squadra
+    cambia (e puo' contenere accenti o spazi), l'id no.
+    """
+    # id -> url, raccolti dalle partite: l'API non da' la classifica con i
+    # loghi in ogni risposta, ma ogni partita porta i due team con id e logo.
+    per_id: dict[str, str] = {}
+    for m in partite:
+        for id_key, logo_key in (("team1_id", "team1_logo"), ("team2_id", "team2_logo")):
+            tid = m.get(id_key)
+            url = _logo_url(m.get(logo_key))
+            if tid and url:
+                per_id.setdefault(str(tid), url)
+
+    scaricati = 0
+    for tid, url in per_id.items():
+        dest = assets_dir / f"squadra-{tid}.webp"
+        if dest.exists():
+            continue
+        if loghi.salva(url, dest):
+            scaricati += 1
+
+    # Riscrittura dei percorsi: si usa il file locale solo se esiste davvero,
+    # cosi' una squadra nuova (o un download fallito) resta sull'URL remoto
+    # invece di mostrare un'immagine rotta. Un logo messo a mano non si tocca.
+    for m, orig in zip(comp["matches"], partite):
+        for campo, id_key in (("logo_casa", "team1_id"), ("logo_trasferta", "team2_id")):
+            attuale = (m.get(campo) or "").strip()
+            if attuale and not attuale.startswith("http"):
+                continue
+            tid = orig.get(id_key)
+            if not tid:
+                continue
+            if (assets_dir / f"squadra-{tid}.webp").exists():
+                m[campo] = f"assets/loghi/asi/squadra-{tid}.webp"
+    return scaricati
+
+
 def _load_existing_loghi(asi_dir: Path, comp_id: str) -> dict:
     """Loghi inseriti a mano: l'API non li ha tutti, e non vanno persi."""
     path = asi_dir / f"{comp_id}.squadre.json"
@@ -288,9 +334,18 @@ def main() -> int:
 
         giocate = sum(1 for m in comp["matches"] if m["risultato"])
         annullate = sum(1 for m in comp["matches"] if m["stato"] == STATO_ANNULLATA)
+
+        # I loghi vanno in locale prima del salvataggio: cosi' i percorsi nel
+        # JSON puntano a file che esistono davvero. Le partite sono ordinate
+        # per data, quindi si riallineano per id gara prima di riscriverle.
+        by_gara = {str(m.get("id")): m for m in entry["partite"]}
+        ordinate = [by_gara.get(str(m["gara"]), {}) for m in comp["matches"]]
+        n_loghi = localizza_loghi(comp, ordinate, ROOT / "site/assets/loghi/asi")
+
         print(
             f"[asi] {comp['id']}: {len(comp['matches'])} partite "
-            f"({giocate} giocate, {annullate} annullate), {len(comp['giornate'])} giornate",
+            f"({giocate} giocate, {annullate} annullate), {len(comp['giornate'])} giornate, "
+            f"{n_loghi} loghi nuovi",
             file=sys.stderr,
         )
         if args.dry_run:

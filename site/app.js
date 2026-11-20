@@ -62,10 +62,16 @@ const escapeAttr = (s) => (s ? escapeHtml(s) : "");
 
 // Il sito FIPAV blocca l'hotlink dei loghi: al browser serve un placeholder
 // identico per tutti. I loghi veri vengono scaricati dall'importer in
-// assets/loghi/; qui riscriviamo gli URL FIPAV verso quei file locali.
+// assets/loghi/fipav/, gia' ridimensionati: qui riscriviamo gli URL FIPAV
+// verso quei file locali.
 function logoUrl(url) {
-  const m = /\/img\/(\d+)\/Loghi\/[^/]+\.(jpe?g|png|gif)/i.exec(url || "");
-  return m ? `assets/loghi/${m[1]}.${m[2].toLowerCase()}` : url || "";
+  // I loghi FIPAV si servono in locale: il portale blocca l'hotlink e le
+  // miniature sono da 50px. Il file scaricato dall'importer si chiama con
+  // l'id societa' (es. 5690.webp) ed e' gia' ottimizzato.
+  const m = /\/img\/(\d+)\/Loghi\//i.exec(url || "");
+  if (m) return `assets/loghi/fipav/${m[1]}.webp`;
+  // Gli altri percorsi (locali ASI, o URL remoti di riserva) passano invariati.
+  return url || "";
 }
 
 // Link a Google Maps per le indicazioni: si preferisce quello fornito da FIPAV
@@ -530,10 +536,8 @@ function closeModal() {
 }
 
 // ------------------------------------------------------- ingrandimento logo
-// Un logo da 50px in una scheda larga 46px sembra a posto, ma e' comunque
-// piccolo: qui lo si mostra alla sua risoluzione reale, senza ingrandirlo
-// oltre. Per i loghi FIPAV (50x50 nativi) significa vederlo nitido ma piccolo;
-// per quelli ASI, che arrivano a 2000px, si vede il dettaglio vero.
+// Un logo da 46px nella scheda e' troppo piccolo per riconoscere lo stemma:
+// qui lo si mostra alla sua risoluzione reale, senza ingrandirlo oltre.
 
 function openLogo(nome, src) {
   const box = $("#logo-lightbox");
@@ -904,8 +908,9 @@ function mergeLive(liveComps) {
 }
 
 // Sostituisce le competizioni ASI con quelle lette dal vivo. I loghi dello
-// snapshot vincono su quelli dell'API: alcuni sono file locali (assets/loghi)
-// che il sito serve da solo e che l'API non conosce.
+// snapshot vincono su quelli dell'API: sono file locali (assets/loghi) che il
+// sito serve da solo, piu' leggeri e indipendenti dal portale. L'URL remoto
+// resta solo come riserva per una squadra nuova, che non ha ancora il file.
 function mergeLiveAsi(liveComps) {
   const loghi = new Map();
   for (const c of state.competitions) {
@@ -931,8 +936,8 @@ function mergeLiveAsi(liveComps) {
         campionato_id: comp.id,
         campionato: comp.titolo,
         girone: comp.titolo,
-        logo_casa: m.logo_casa || (old && old.logo_casa) || "",
-        logo_trasferta: m.logo_trasferta || (old && old.logo_trasferta) || "",
+        logo_casa: (old && old.logo_casa) || m.logo_casa || "",
+        logo_trasferta: (old && old.logo_trasferta) || m.logo_trasferta || "",
       };
     }),
     standings: comp.standings || [],
