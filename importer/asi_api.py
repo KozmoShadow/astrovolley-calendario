@@ -276,13 +276,14 @@ def main() -> int:
         # smettono di funzionare. La mappa in config lo tiene stabile.
         comp_id = id_per_torneo.get(tid) or _slug(entry["campionato"]["name"])
         comp = build_competition(entry, comitato_nome, stagione, comp_id)
-        # I loghi inseriti a mano vincono su quelli dell'API: alcuni sono file
-        # locali (assets/loghi) che il sito serve da solo.
+        # Il logo dell'API e' quello ufficiale e ad alta risoluzione: vince.
+        # Quello messo a mano serve solo dove l'API non ne ha uno (o non lo ha
+        # per quella squadra), per non lasciare il posto vuoto.
         loghi = _load_existing_loghi(asi_dir, comp["id"])
         for m in comp["matches"]:
-            if loghi.get(m["casa"]):
+            if not m["logo_casa"] and loghi.get(m["casa"]):
                 m["logo_casa"] = loghi[m["casa"]]
-            if loghi.get(m["trasferta"]):
+            if not m["logo_trasferta"] and loghi.get(m["trasferta"]):
                 m["logo_trasferta"] = loghi[m["trasferta"]]
 
         giocate = sum(1 for m in comp["matches"] if m["risultato"])

@@ -883,8 +883,8 @@ function mergeLiveAsi(liveComps) {
         campionato_id: comp.id,
         campionato: comp.titolo,
         girone: comp.titolo,
-        logo_casa: (old && old.logo_casa) || m.logo_casa || "",
-        logo_trasferta: (old && old.logo_trasferta) || m.logo_trasferta || "",
+        logo_casa: m.logo_casa || (old && old.logo_casa) || "",
+        logo_trasferta: m.logo_trasferta || (old && old.logo_trasferta) || "",
       };
     }),
     standings: comp.standings || [],

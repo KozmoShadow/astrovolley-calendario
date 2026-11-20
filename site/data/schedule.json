@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-20T01:34:03+00:00",
+  "generato_il": "2026-11-20T01:35:39+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -636,8 +636,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "966",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -654,8 +654,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "967",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -672,8 +672,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "968",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -690,8 +690,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "970",
           "stato": "cancelled",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -708,8 +708,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "971",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -726,8 +726,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "972",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -744,8 +744,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "973",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -762,8 +762,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "969",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -780,8 +780,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "974",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -798,8 +798,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "975",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -816,8 +816,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "976",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -834,8 +834,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "977",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -852,8 +852,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "978",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -870,8 +870,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "979",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -888,8 +888,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "980",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -906,8 +906,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "981",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -924,8 +924,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "983",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -942,8 +942,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "984",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -960,8 +960,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "985",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -978,8 +978,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "982",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -996,8 +996,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "986",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1014,8 +1014,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "987",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -1032,8 +1032,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "988",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1050,8 +1050,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "989",
           "stato": "cancelled",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -1068,8 +1068,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "991",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -1086,8 +1086,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "992",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -1104,8 +1104,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "993",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1122,8 +1122,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "990",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1140,8 +1140,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "994",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1158,8 +1158,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "995",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -1176,8 +1176,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "996",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1194,8 +1194,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "997",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -1212,8 +1212,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "998",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -1230,8 +1230,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "999",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1248,8 +1248,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1000",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1266,8 +1266,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1001",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -1284,8 +1284,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1002",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1302,8 +1302,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "1003",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1320,8 +1320,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "1004",
           "stato": "cancelled",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -1338,8 +1338,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1005",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1356,8 +1356,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "1006",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -1374,8 +1374,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1007",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -1392,8 +1392,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1009",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -1410,8 +1410,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1008",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -1428,8 +1428,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1010",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -1446,8 +1446,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "1011",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1464,8 +1464,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1012",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -1482,8 +1482,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1013",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png"
         },
         {
           "fonte": "asi",
@@ -1500,8 +1500,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "1014",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png"
         },
         {
           "fonte": "asi",
@@ -1518,8 +1518,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1015",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png"
         },
         {
           "fonte": "asi",
@@ -1536,8 +1536,8 @@
           "indirizzo": "Via Corrado Barbagallo, 32, Napoli",
           "gara": "1016",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -1554,8 +1554,8 @@
           "indirizzo": "Via Nuova San Marzano, Poggiomarino",
           "gara": "1017",
           "stato": "cancelled",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1572,8 +1572,8 @@
           "indirizzo": "Centro Direzionale, Is. G9, Napoli",
           "gara": "1018",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.2885-19/474883135_581357608201229_5178236921263248512_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GD8kThwNbLndvRACAIBUtV4Ly9xHbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FXLjX4PRSMoQ7kNvwH8Uebd&_nc_oc=AdoUccy0VfRjFZeFzpjY-lleIJYcnXydDp7eo6s5rVNG5hTcRc4ttDdYtTypILZwjQs&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRnNMN_6SP_DLFwtRl__nHddXvCXt60qyJlzVWd0RKJqg&oe=6AFDAE3B",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/1159.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e9eb97cff8.17256141.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e507aade40.49724861.png"
         },
         {
           "fonte": "asi",
@@ -1590,8 +1590,8 @@
           "indirizzo": "Via Cavalli di Bronzo, 5, San Giorgio a Cremano",
           "gara": "1019",
           "stato": "cancelled",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/772.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/539126251_18504427876064108_222682887330016771_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=GOtpIiBsG1Parb1BAAMu3fznIBcDbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=01GwawCKrUwQ7kNvwE2Qqc1&_nc_oc=AdpeXpxORWmlGjLGk9VafJ2GBQ3NQ4q8euFdG0agMEI66hzaINxHXnUFKVzE-gccxjU&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=bSQEwrS75lM5afoPkRXIHw&_nc_ss=7b2a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQRNSHQjIzKUCW-Wy6oPSG4n7cvQf8Z-imvWx429iwaDag&oe=6AFDA824"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54eadfbfa0b2.22606062.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e2b877d1b8.53738763.jpg"
         },
         {
           "fonte": "asi",
@@ -1608,8 +1608,8 @@
           "indirizzo": "Via Marconi, 113, Ercolano",
           "gara": "1020",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/741637331_18136354180538308_7660855559585568979_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=GNN8NCzEn3ME625AANOYrOCK01BqbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BAOp7zee6Z4Q7kNvwHt0qzR&_nc_oc=AdoRagrG4o4zaJu5fzFEcu8-8Ghm4fy91Wdu--FhUoTgVW6K2Gu_UsrE-7qYgelA4wQ&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=2EXoghFDK7ss8m4WZuIL5w&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQQs0Cm7V-nL4HN3Kb8YcrpKzfwm-Ae5SeL0Zykkp8MpQ&oe=6AFD8F24",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54ec5ee71a87.63827358.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -1626,8 +1626,8 @@
           "indirizzo": "Piazza San Pasquale, 1, Portici",
           "gara": "1021",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         }
       ],
       "standings": [
@@ -1744,7 +1744,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "795",
           "stato": "completed",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
         },
         {
@@ -1780,7 +1780,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "798",
           "stato": "completed",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
         },
         {
@@ -1853,7 +1853,7 @@
           "gara": "804",
           "stato": "completed",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -1907,7 +1907,7 @@
           "gara": "805",
           "stato": "completed",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -1942,7 +1942,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "806",
           "stato": "completed",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
         },
         {
@@ -1996,7 +1996,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "810",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
         },
         {
@@ -2033,7 +2033,7 @@
           "gara": "813",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -2123,7 +2123,7 @@
           "gara": "816",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2213,7 +2213,7 @@
           "gara": "823",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2230,7 +2230,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "822",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png"
         },
         {
@@ -2248,7 +2248,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "827",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
         },
         {
@@ -2303,7 +2303,7 @@
           "gara": "829",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -2429,7 +2429,7 @@
           "gara": "833",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2464,7 +2464,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "835",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png"
         },
         {
@@ -2536,8 +2536,8 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "838",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -2662,7 +2662,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "847",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
         },
         {
@@ -2681,7 +2681,7 @@
           "gara": "846",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2699,7 +2699,7 @@
           "gara": "850",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -2716,7 +2716,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "849",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg"
         },
         {
@@ -2825,7 +2825,7 @@
           "gara": "855",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2896,7 +2896,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "859",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
         },
         {
@@ -2915,7 +2915,7 @@
           "gara": "860",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -2987,7 +2987,7 @@
           "gara": "863",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -3040,7 +3040,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "866",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
         },
         {
@@ -3094,7 +3094,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "870",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
         },
         {
@@ -3185,7 +3185,7 @@
           "gara": "874",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -3203,7 +3203,7 @@
           "gara": "875",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -3274,7 +3274,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "878",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7af107e0322.95470824.jpg"
         },
         {
@@ -3328,7 +3328,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "882",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
         },
         {
@@ -3347,7 +3347,7 @@
           "gara": "884",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e3e2677740.80156916.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -3382,7 +3382,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "886",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png"
         },
         {
@@ -3473,7 +3473,7 @@
           "gara": "891",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -3544,7 +3544,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "894",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9e6ce4b36.75353468.png"
         },
         {
@@ -3580,7 +3580,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "897",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png"
         },
         {
@@ -3599,7 +3599,7 @@
           "gara": "898",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e362c910a1.98997130.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -3760,8 +3760,8 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "907",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -3796,7 +3796,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "908",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e311ae5690.41434194.jpg"
         },
         {
@@ -3887,7 +3887,7 @@
           "gara": "913",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7ae43423f60.83066415.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
@@ -3959,7 +3959,7 @@
           "gara": "916",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e266aef647.53549040.jpg",
-          "logo_trasferta": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png"
         },
         {
           "fonte": "asi",
@@ -3994,7 +3994,7 @@
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "919",
           "stato": "pending",
-          "logo_casa": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7b616c9ac87.91690477.png"
         },
         {
@@ -4030,7 +4030,7 @@
           "indirizzo": "Via Domenico Padula, 131, Napoli",
           "gara": "920",
           "stato": "pending",
-          "logo_casa": "https://scontent-fco2-1.cdninstagram.com/v/t51.82787-19/581962398_17985773195914215_6075315678942154702_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=GJ4KsCLna1om9_U-AM5Pte1r209UbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42MTEuQzMifQ%3D%3D&_nc_ohc=z2zbfapybsoQ7kNvwHolMYi&_nc_oc=AdqEML99HHKq7-JS5Z0CMYdmFam_ERK0jxPa3nfZyNUJD1eoJ3Tfxl4ClbhVIwTa-0g&_nc_zt=24&_nc_ht=scontent-fco2-1.cdninstagram.com&_nc_gid=cLGOpAVlbxqP16RdXT9kmw&_nc_ss=7b6a8&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSKDn3wU-OdpWlSO7Stve80sp_IE_993gg3rhqAQWWkUw&oe=6AFDA8C2",
+          "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e7f8d042b5.43554079.png",
           "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e29ae08dd4.65734680.png"
         },
         {
@@ -4067,7 +4067,7 @@
           "gara": "924",
           "stato": "pending",
           "logo_casa": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6ac7a9ac06d892.64844759.png",
-          "logo_trasferta": "https://kozmoshadow.github.io/astrovolley-calendario/assets/loghi/5690.jpg"
+          "logo_trasferta": "https://www.spikevolley.it/campionati/uploads/teams_c/team_6a54e1cc4bcd49.34583179.png"
         },
         {
           "fonte": "asi",
