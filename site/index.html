@@ -80,15 +80,21 @@
          Vive sullo stesso indirizzo (?vista=calendario), cosi' il link si
          puo' condividere e il tasto Indietro torna alla vista squadra. -->
     <section id="vista-calendario" hidden aria-labelledby="cal-titolo">
-      <button id="torna-squadra" class="back-btn" type="button">← Squadra</button>
-      <h2 id="cal-titolo" class="page-title">Calendario</h2>
-
-      <div class="cal-summary">
+      <div class="cal-head">
         <img class="cal-club-logo" src="assets/logo.webp" alt="" width="44" height="44" />
-        <div class="cal-summary-body">
-          <h3 id="cal-team" class="cal-team">—</h3>
+        <div class="cal-head-text">
+          <h2 id="cal-titolo" class="page-title">Calendario</h2>
           <p id="cal-comp" class="cal-comp">—</p>
         </div>
+        <button id="vai-classifica" class="classifica-btn" type="button">
+          <svg class="coppa-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+               fill="none" stroke="currentColor" stroke-width="1.7"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/>
+            <path d="M17 5h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 5H4.5a2.5 2.5 0 0 0 0 5H7"/>
+          </svg>
+          Classifica
+        </button>
       </div>
 
       <div class="cal-progress">
@@ -100,12 +106,6 @@
              aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-      </div>
-
-      <div class="filter-pills" role="group" aria-label="Filtra le partite">
-        <button class="pill" type="button" data-filtro="tutte">Tutte</button>
-        <button class="pill" type="button" data-filtro="disputate">Disputate</button>
-        <button class="pill" type="button" data-filtro="da-disputare">Da disputare</button>
       </div>
 
       <div id="calendar" class="calendario" aria-live="polite"></div>

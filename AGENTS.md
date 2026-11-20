@@ -279,8 +279,7 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   "Le nostre partite" selezionato: e' il link da mettere nei gruppi.
   `?squadra=<slug>&vista=week` apre la stessa squadra su "Questa settimana".
   `?campionato=<id-campionato>` apre il pannello su quel campionato.
-  `?vista=calendario` apre direttamente la vista Calendario (solo partite),
-  con `&filtro=disputate` o `&filtro=tutte` per scegliere il gruppo.
+  `?vista=calendario` apre direttamente la vista Calendario (solo partite, tutte).
 - Gli slug sono in `site/data/squadre.json` e **non vanno cambiati** una volta
   diffusi: i link gia' incollati smetterebbero di funzionare. Per cambiare il
   nome mostrato si modifica `nome`, non `slug`. (Slug attuali: `under-19`,
@@ -304,27 +303,37 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - La sezione **non e' una pagina a parte**: e' una vista della stessa pagina.
   `#vista-squadra` (classifica + giornata in corso) e `#vista-calendario` stanno
   entrambe nel documento; `mostraVistaCalendario(on)` nasconde l'una e mostra
-  l'altra. Cosi' il tasto Indietro non ricarica nulla e la classifica e' gia'
-  pronta quando si torna.
-- Il pulsante **Tutte le partite** (`#all-matches`, dentro la testata della
-  giornata) apre la vista; **← Squadra** (`#torna-squadra`) la chiude.
-- Struttura, come il riferimento: `.cal-summary` (logo, squadra, campionato),
-  `.cal-progress` (barra + `N/M`), `.filter-pills`, poi `.fixture-row`.
-- Il filtro di partenza e' **`da-disputare`**: chi apre il calendario vuole le
-  prossime partite, non l'archivio. `state.filtro` vale
-  `tutte` / `disputate` / `da-disputare` e finisce nell'indirizzo solo se
-  diverso da quello di partenza, cosi' i link restano corti.
-- **Disputata** = ha un `risultato` e non e' `cancelled`. Le annullate non
-  stanno in nessuno dei due gruppi: non si sono giocate e non si giocheranno.
-  Non reintrodurre il conteggio delle annullate fra le "da disputare".
-- `visibleMatches()` e' la stessa funzione della vista squadra: il calendario
-  non puo' mostrare partite diverse da quelle della classifica.
-- La riga mostra: giornata + data breve, `vs`/`@`, logo e nome dell'avversario,
-  poi risultato (o orario) con lo stato. `.next-match` evidenzia la prossima
-  partita da giocare (`prossimaPartita`), con la stessa tolleranza di 6 ore di
-  `defaultRound`.
+  l'altra. Cosi' il tasto Indietro non ricarica nulla.
+- **Si entra dalla card della home**, non dal tasto Classifica: la card intera
+  porta al calendario (`?squadra=<slug>&vista=calendario`), il tasto Classifica
+  dentro la card porta alla classifica. `showCalendar(slug, vista)` prende
+  `"calendario"` o `"classifica"`; il vecchio parametro booleano non esiste piu'.
+- Dentro la vista il tasto **Classifica** (con la coppa, lo stesso simbolo delle
+  card) riporta a classifica e giornata. Sta a destra del titolo, sulla stessa
+  riga: `.cal-head` e' un flex con logo, blocco testo (`flex: 1`) e tasto.
+- **Il titolo e' il nome della squadra**, non "Calendario". Il sottotitolo e' il
+  campionato. Senza squadra scelta il tasto Classifica e' nascosto (`hidden`):
+  non ci sarebbe una classifica da aprire.
+- **Non ci sono filtri**: la vista mostra sempre tutte le partite della squadra.
+  Le pillole "tutte/disputate/da disputare" sono state rimosse insieme a
+  `state.filtro`, `righeCalendario` e `filtroCalendario`. Restano solo la barra
+  di avanzamento e i conteggi nel testo.
+- Struttura: `.cal-head` (logo, titolo, tasto), `.cal-progress` (barra + `N/M`),
+  poi `.fixture-row`.
+- La riga mostra: giornata + data breve, **icona casa/trasferta** (`ICONA_CASA` /
+  `ICONA_TRASFERTA`, in `app.js`), `vs`, logo e nome dell'avversario, poi
+  risultato (o orario) con lo stato. Le icone sono `aria-hidden` con un
+  `sr-only` che dice "In casa"/"In trasferta"; l'`aria-label` della riga
+  ripete il luogo, perche' il testo visibile da solo non lo direbbe.
+- Casa e trasferta si distinguono **anche dal colore** (viola in casa, grigio
+  fuori): a 14px il tetto e il pullman si somigliano.
+- `.next-match` evidenzia la prossima partita da giocare (`prossimaPartita`),
+  con la stessa tolleranza di 6 ore di `defaultRound`.
 - `state.calRows` tiene le righe mostrate: la scheda dettagli si apre con
   quell'indice, non con quello di un'altra lista.
+- **`eDisputata` / `eAnnullata` / `MESI_BREVI` stanno in `app.js` e servono al
+  calendario.** Se si tocca il blocco del calendario, controllare che restino:
+  cancellandole la pagina si svuota con "eDisputata is not defined".
 
 ## Schede partita su telefono (site/styles.css, media <=640px)
 - Il badge dell'ente (FIPAV/ASI) sta **sotto l'orario**, nella colonna sinistra,

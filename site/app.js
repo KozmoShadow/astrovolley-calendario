@@ -17,7 +17,6 @@ const state = {
   liveError: null,
   panelRows: [], // partite mostrate nella giornata del pannello (indici separati)
   calendario: false, // true = vista "Calendario" (solo partite, senza classifica)
-  filtro: "da-disputare", // filtro della vista calendario: tutte|disputate|da-disputare
   calRows: [], // partite mostrate nella vista calendario (per la scheda dettagli)
 };
 
@@ -286,12 +285,7 @@ function syncUrl(opts = {}) {
   const params = new URLSearchParams();
   if (state.team) params.set("squadra", state.team);
   if (state.panel) params.set("campionato", state.panel);
-  if (state.calendario) {
-    params.set("vista", "calendario");
-    // Il filtro si scrive solo se non e' quello di partenza: l'indirizzo
-    // resta corto quando mostra le prossime partite.
-    if (state.filtro !== "da-disputare") params.set("filtro", state.filtro);
-  }
+  if (state.calendario) params.set("vista", "calendario");
   const qs = params.toString();
   const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
   if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
@@ -309,8 +303,6 @@ function applyUrlState() {
 
   state.team = team && ourTeams().some((t) => t.slug === team) ? team : "";
   state.calendario = vista === "calendario";
-  const filtro = (params.get("filtro") || "").trim();
-  if (["tutte", "disputate", "da-disputare"].includes(filtro)) state.filtro = filtro;
   // I vecchi link usavano ?vista=<id campionato> per aprire un campionato:
   // ora il campionato e' un pannello, quindi si accetta anche quella forma.
   const legacy = vista && !["week", "ours", "calendario"].includes(vista) ? vista : "";
@@ -388,24 +380,12 @@ function roundMatchCard(m, idx) {
    cosa si vede, e l'indirizzo (?vista=calendario) la rende condivisibile.
    --------------------------------------------------------------------------- */
 
-const FILTRI = ["tutte", "disputate", "da-disputare"];
 const MESI_BREVI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
 
 // Annullata e disputata si escludono: una gara saltata non si e' giocata e non
 // si giochera', quindi non sta in nessuno dei due gruppi.
 const eAnnullata = (m) => (m.stato || "") === "cancelled";
 const eDisputata = (m) => !eAnnullata(m) && Boolean((m.risultato || "").trim());
-
-function filtroCalendario() {
-  return FILTRI.includes(state.filtro) ? state.filtro : "da-disputare";
-}
-
-function righeCalendario(rows) {
-  const f = filtroCalendario();
-  if (f === "disputate") return rows.filter(eDisputata);
-  if (f === "da-disputare") return rows.filter((m) => !eDisputata(m) && !eAnnullata(m));
-  return rows;
-}
 
 // La prossima partita da giocare: la prima senza risultato con data non
 // ancora passata. Serve solo a evidenziare una riga.
@@ -419,6 +399,19 @@ function prossimaPartita(rows) {
     }) || null
   );
 }
+
+// Casa e trasferta come icone, non come "vs"/"@": il simbolo si legge a colpo
+// d'occhio anche a 12px, la chiocciola no.
+const ICONA_CASA = `<svg class="ha-icon" viewBox="0 0 24 24" width="14" height="14"
+  aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 10.5 12 4l8 6.5"/><path d="M6 10v9h12v-9"/></svg>`;
+
+const ICONA_TRASFERTA = `<svg class="ha-icon" viewBox="0 0 24 24" width="14" height="14"
+  aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 17h18"/><path d="M5 17V8h7l3 4h4v5"/>
+  <path d="M9 17a2 2 0 1 0 4 0"/><path d="M6 17a2 2 0 1 0 4 0"/></svg>`;
 
 function fixtureRow(m, idx, prossimaKey) {
   const d = parseDate(m.data);
@@ -446,13 +439,18 @@ function fixtureRow(m, idx, prossimaKey) {
   return `
     <article class="fixture-row ${esito} ${eProssima ? "next-match" : ""} ${annullata ? "is-cancelled" : ""}"
              data-idx="${idx}" tabindex="0" role="button"
-             aria-label="Dettagli partita: ${escapeAttr(titolaNome(avversario))}">
+             aria-label="${inCasa ? "In casa" : "In trasferta"} contro ${escapeAttr(titolaNome(avversario))}: dettagli partita">
       <div class="round-col">
         <div class="round-num">${escapeHtml(String(m.giornata || "—"))}</div>
         <div class="round-date">${d ? `${String(d.getDate()).padStart(2, "0")} ${MESI_BREVI[d.getMonth()]}` : "—"}</div>
       </div>
-      <div class="ha-tag" title="${inCasa ? "In casa" : "In trasferta"}">${inCasa ? "vs" : "@"}</div>
+      <div class="ha-tag ${inCasa ? "in-casa" : "in-trasferta"}"
+           title="${inCasa ? "In casa" : "In trasferta"}">
+        ${inCasa ? ICONA_CASA : ICONA_TRASFERTA}
+        <span class="sr-only">${inCasa ? "In casa" : "In trasferta"}</span>
+      </div>
       <div class="opp-col">
+        <span class="vs-label" aria-hidden="true">vs</span>
         ${badge}
         <span class="opp-name">${escapeHtml(titolaNome(avversario) || "—")}</span>
         ${eProssima ? `<span class="next-badge">Prossima</span>` : ""}
@@ -478,22 +476,6 @@ function renderRiepilogoCalendario(rows) {
     bar.setAttribute("aria-valuenow", String(perc));
     bar.setAttribute("aria-valuetext", `${giocate} partite disputate su ${tot}`);
   }
-
-  // Le pillole portano il conteggio: un filtro vuoto si vede senza aprirlo.
-  document.querySelectorAll(".pill[data-filtro]").forEach((b) => {
-    const f = b.dataset.filtro;
-    const n = f === "disputate" ? giocate : f === "da-disputare" ? daGiocare : tot;
-    let c = b.querySelector(".pill-count");
-    if (!c) {
-      c = document.createElement("span");
-      c.className = "pill-count";
-      b.appendChild(c);
-    }
-    c.textContent = String(n);
-    const attivo = f === filtroCalendario();
-    b.classList.toggle("active", attivo);
-    b.setAttribute("aria-pressed", String(attivo));
-  });
 }
 
 function renderCalendario() {
@@ -501,40 +483,35 @@ function renderCalendario() {
   if (!box) return;
   const tutte = visibleMatches();
 
-  const team = $("#cal-team");
-  if (team) team.textContent = titolaNome(teamName(state.team)) || "Astrovolley";
-
-  // Senza squadra scelta non c'e' una scheda a cui tornare: il pulsante
-  // riporta alle card.
-  const indietro = $("#torna-squadra");
-  if (indietro) indietro.textContent = state.team ? "← Squadra" : "← Squadre";
-  // Senza squadra scelta la vista raccoglie tutte le nostre partite: il
-  // sottotitolo lo dice, invece di mostrare un campionato a caso.
+  // Il titolo e' la squadra, non "Calendario": si sa subito di chi sono le
+  // partite, e la classifica resta a un tocco.
+  const titolo = $("#cal-titolo");
+  if (titolo) {
+    titolo.textContent =
+      titolaNome(teamName(state.team)) || "Tutte le squadre";
+  }
   const comp = $("#cal-comp");
   if (comp) {
     comp.textContent = state.team
       ? titolaNome(teamCompetition(state.team)) || "—"
-      : "Tutte le squadre";
+      : "FIPAV e ASI, in ordine di data";
   }
+  // Senza squadra non c'e' una classifica da aprire: il tasto non serve.
+  const vai = $("#vai-classifica");
+  if (vai) vai.hidden = !state.team;
 
   renderRiepilogoCalendario(tutte);
 
-  const rows = righeCalendario(tutte);
-  if (!rows.length) {
-    const messaggi = {
-      tutte: "Nessuna partita in calendario.",
-      disputate: "Nessuna partita disputata finora.",
-      "da-disputare": "Nessuna partita da giocare: il calendario e' completo.",
-    };
-    box.innerHTML = `<p class="empty">${messaggi[filtroCalendario()]}</p>`;
+  if (!tutte.length) {
+    box.innerHTML = `<p class="empty">Nessuna partita in calendario.</p>`;
     state.calRows = [];
     return;
   }
 
   const prossima = prossimaPartita(tutte);
   const chiave = prossima ? matchKey(prossima) : "";
-  box.innerHTML = rows.map((m, i) => fixtureRow(m, i, chiave)).join("");
-  state.calRows = rows;
+  box.innerHTML = tutte.map((m, i) => fixtureRow(m, i, chiave)).join("");
+  state.calRows = tutte;
   box.querySelectorAll(".fixture-row").forEach((el) =>
     el.addEventListener("click", () => openMatchModal(state.calRows[Number(el.dataset.idx)]))
   );
@@ -1310,7 +1287,7 @@ function teamCardHtml(t, i) {
   // ::after: cosi' il click vale su tutta la superficie ma resta un solo
   // elemento da tastiera, e la prossima partita puo' stare sopra di lui.
   return `<article class="team-card ${tema}" data-slug="${escapeAttr(t.slug)}">
-    <a class="card-link" href="?squadra=${escapeAttr(t.slug)}" data-action="calendario" data-slug="${escapeAttr(t.slug)}">
+    <a class="card-link" href="?squadra=${escapeAttr(t.slug)}&vista=calendario" data-action="calendario" data-slug="${escapeAttr(t.slug)}">
       <span class="sr-only">Calendario di ${escapeHtml(titolaNome(t.nome))}</span>
     </a>
     <div class="team-head">
@@ -1327,7 +1304,7 @@ function teamCardHtml(t, i) {
       </div>
       <div class="v-sep" aria-hidden="true"></div>
       <div class="team-actions">
-        <button class="action-item" data-action="riepilogo" data-slug="${escapeAttr(t.slug)}" aria-label="Classifica di ${escapeAttr(titolaNome(t.nome))}">
+        <a class="action-item" href="?squadra=${escapeAttr(t.slug)}" data-action="classifica" data-slug="${escapeAttr(t.slug)}" aria-label="Classifica di ${escapeAttr(titolaNome(t.nome))}">
           <span class="action-box" aria-hidden="true">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M17 5h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 5H4.5a2.5 2.5 0 0 0 0 5H7"/></svg>
           </span>
@@ -1356,8 +1333,10 @@ function renderLanding() {
       e.preventDefault();
       e.stopPropagation();
       const slug = el.dataset.slug;
-      if (el.dataset.action === "calendario") showCalendar(slug, false);
-      else showCalendar(slug, true);
+      // La card porta al calendario, il tasto Classifica alla classifica.
+      const vista = el.dataset.action === "calendario" ? "calendario" : "classifica";
+      showCalendar(slug, vista);
+      syncUrl();
     })
   );
 
@@ -1388,15 +1367,17 @@ function showLanding(opts = {}) {
   if (!opts.fromUrl) syncUrl();
 }
 
-function showCalendar(slug, riepilogo) {
+// Apre la scheda di una squadra. `vista` sceglie cosa si vede: "classifica"
+// (classifica + giornata in corso) oppure "calendario" (solo le partite).
+function showCalendar(slug, vista = "classifica") {
   $("#landing")?.setAttribute("hidden", "");
   $("#calendar-view")?.removeAttribute("hidden");
   $("#back-to-landing")?.removeAttribute("hidden");
   document.body.classList.remove("on-landing");
-  // Classifica e giornata sono sempre visibili. state.panel resta quello
-  // scelto (o quello della squadra): azzerarlo qui farebbe cadere un link
-  // ?campionato= sulla prima competizione.
+  // state.panel resta quello scelto (o quello della squadra): azzerarlo qui
+  // farebbe cadere un link ?campionato= sulla prima competizione.
   applyView("ours", slug || "");
+  mostraVistaCalendario(vista === "calendario", { fromUrl: true });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1456,27 +1437,11 @@ async function init() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // "Squadra": dalla vista Calendario si torna a classifica e giornata.
-  $("#torna-squadra")?.addEventListener("click", () => {
-    if (!state.team) {
-      state.panel = "";
-      state.round = null;
-      state.calendario = false;
-      showLanding();
-      return;
-    }
+  // "Classifica": dalla vista Calendario si torna a classifica e giornata.
+  $("#vai-classifica")?.addEventListener("click", () => {
     mostraVistaCalendario(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
-  // Pillole di filtro della vista Calendario.
-  document.querySelectorAll(".pill[data-filtro]").forEach((b) =>
-    b.addEventListener("click", () => {
-      state.filtro = b.dataset.filtro;
-      renderCalendario();
-      syncUrl();
-    })
-  );
 
   // Tastiera nella vista Calendario: Invio o spazio aprono la scheda.
   $("#calendar")?.addEventListener("keydown", (e) => {
@@ -1487,21 +1452,24 @@ async function init() {
     openMatchModal(state.calRows[Number(riga.dataset.idx)]);
   });
 
-  if (daUrl) showCalendar(state.team);
+  // La vista va letta prima di aprire la scheda: showCalendar la azzera.
+  const vuoleCalendario = state.calendario;
+  if (daUrl) showCalendar(state.team, vuoleCalendario ? "calendario" : "classifica");
   else showLanding({ fromUrl: true });
   // La vista richiesta dall'indirizzo si applica dopo il primo disegno: cosi'
   // la classifica e la giornata sono gia' pronte se si torna indietro.
-  if (state.calendario) mostraVistaCalendario(true, { fromUrl: true });
+  if (vuoleCalendario) mostraVistaCalendario(true, { fromUrl: true });
   if (daUrl) syncUrl({ replace: true });
   window.addEventListener("popstate", () => {
     state.team = "";
     state.panel = "";
     state.calendario = false;
     const conFiltri = applyUrlState();
+    const vuoleCal = state.calendario;
     // Indietro fino all'URL nudo riporta alle card.
-    if (conFiltri) showCalendar(state.team);
+    if (conFiltri) showCalendar(state.team, vuoleCal ? "calendario" : "classifica");
     else showLanding({ fromUrl: true });
-    mostraVistaCalendario(state.calendario, { fromUrl: true });
+    mostraVistaCalendario(vuoleCal, { fromUrl: true });
     syncUrl({ replace: true });
   });
 

@@ -227,6 +227,10 @@ footer { max-width: 1100px; margin: 0 auto; padding: 0 20px 40px; color: var(--m
 /* --- Scheda dettagli partita --- */
 body.modal-open { overflow: hidden; }
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
+/* L'attributo hidden deve vincere sui display espliciti: un .classifica-btn
+   con display:inline-flex resterebbe visibile anche con hidden. */
+[hidden] { display: none !important; }
+
 .modal[hidden] { display: none; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(6, 10, 20, .72); backdrop-filter: blur(2px); }
 .modal-card {
@@ -1224,35 +1228,17 @@ body.lightbox-open { overflow: hidden; }
 /* ===========================================================================
    Vista "Calendario" (stessa pagina, ?vista=calendario)
    Solo le partite: la classifica e la giornata in corso restano nel documento
-   ma nascoste. Struttura come il riferimento: riepilogo con barra, pillole di
-   filtro, poi una riga per partita.
+   ma nascoste. Struttura: intestazione con titolo e tasto Classifica, barra di
+   avanzamento, poi una riga per partita.
    =========================================================================== */
 
-.cal-summary {
+/* Intestazione: logo, nome della squadra e, a destra, il tasto Classifica.
+   Il nome e' il titolo della pagina, quindi non serve ripeterlo altrove. */
+.cal-head {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 15px 17px;
-  margin-bottom: 14px;
-  border: 1px solid rgba(123, 79, 181, .45);
-  border-radius: 18px;
-  background: linear-gradient(155deg, #1a2338, var(--surface));
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Alone decorativo: riprende il cerchio del riferimento, senza rubare spazio. */
-.cal-summary::before {
-  content: "";
-  position: absolute;
-  top: -70px;
-  right: -50px;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(123, 79, 181, .34), transparent 68%);
-  pointer-events: none;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .cal-club-logo {
@@ -1262,13 +1248,12 @@ body.lightbox-open { overflow: hidden; }
   flex: 0 0 auto;
 }
 
-.cal-summary-body { min-width: 0; }
+.cal-head-text { min-width: 0; flex: 1 1 auto; }
 
-.cal-team {
+.cal-head .page-title {
   margin: 0;
-  font-size: 16.5px;
-  font-weight: 800;
-  letter-spacing: .01em;
+  font-size: 21px;
+  line-height: 1.2;
 }
 
 .cal-comp {
@@ -1278,6 +1263,34 @@ body.lightbox-open { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: .05em;
 }
+
+/* Tasto Classifica: sta di fianco al titolo, non sotto. La coppa e' lo stesso
+   simbolo usato sulle card della home, cosi' il gesto si riconosce. */
+.classifica-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 9px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+
+.classifica-btn:hover {
+  border-color: var(--accent-soft);
+  background: rgba(123, 79, 181, .16);
+}
+
+.classifica-btn:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+.coppa-icon { color: var(--accent-soft); flex: 0 0 auto; }
 
 /* --- avanzamento --- */
 
@@ -1314,51 +1327,6 @@ body.lightbox-open { overflow: hidden; }
   background: linear-gradient(90deg, var(--accent), var(--accent-soft));
   transition: width .3s ease;
 }
-
-/* --- pillole di filtro --- */
-
-.filter-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--muted);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color .15s, color .15s, background .15s;
-}
-
-.pill:hover { border-color: var(--accent-soft); color: var(--text); }
-.pill:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
-
-.pill.active {
-  border-color: transparent;
-  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-  color: var(--on-accent);
-}
-
-.pill-count {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .1);
-  font-variant-numeric: tabular-nums;
-}
-
-.pill.active .pill-count { background: rgba(0, 0, 0, .2); }
 
 /* --- riga partita --- */
 
@@ -1429,9 +1397,24 @@ body.lightbox-open { overflow: hidden; }
   background: var(--surface-2);
   border: 1px solid var(--line);
   color: var(--muted);
+}
+
+/* Casa e trasferta si distinguono anche dal colore, non solo dal disegno:
+   a 14px il tetto e il pullman si somigliano. */
+.ha-tag.in-casa { color: var(--accent-soft); }
+.ha-tag.in-trasferta { color: var(--muted); }
+
+.ha-icon { display: block; }
+
+/* "vs" resta scritto: dice che l'avversario gioca contro di noi, mentre
+   l'icona a sinistra dice dove. */
+.vs-label {
+  flex: 0 0 auto;
+  color: var(--muted);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: .04em;
 }
 
 .opp-col {
@@ -1512,7 +1495,8 @@ body.lightbox-open { overflow: hidden; }
   .round-num { font-size: 13.5px; }
   .time-val { font-size: 12.5px; }
   .next-badge { display: none; }
-  .cal-summary { padding: 13px; gap: 11px; }
-  .cal-team { font-size: 15px; }
+  .cal-head { gap: 10px; margin-bottom: 13px; }
+  .cal-head .page-title { font-size: 18px; }
   .cal-club-logo { width: 38px; height: 38px; }
+  .classifica-btn { padding: 8px 12px; font-size: 12px; }
 }
