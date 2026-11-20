@@ -8,12 +8,14 @@ const state = {
   data: null,
   competitions: [],
   squadre: [], // configurazione delle squadre (data/squadre.json)
-  view: "ours", // "ours" | "week" | id di una competizione
-  team: "", // "" = tutte le nostre squadre, altrimenti il nome di una squadra
-  query: "",
+  view: "ours", // "ours" | "week"
+  team: "", // "" = tutte le nostre squadre, altrimenti lo slug di una squadra
+  panel: "", // id del campionato aperto nel pannello ("" = chiuso)
+  round: null, // giornata selezionata nel pannello
   live: false, // true se i dati FIPAV sono stati letti dal vivo adesso
   liveError: null,
-  rows: [], // partite attualmente mostrate (per la scheda dettagli)
+  rows: [], // partite attualmente mostrate nella lista (per la scheda dettagli)
+  panelRows: [], // partite mostrate nella giornata del pannello (indici separati)
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -208,37 +210,19 @@ function inWeek(m, range) {
 }
 
 function visibleMatches() {
-  const q = state.query.trim().toLowerCase();
   let rows = allMatches();
   if (state.view === "week") {
     const range = weekRange();
     rows = rows.filter((m) => matchIsOurs(m) && inWeek(m, range));
-  } else if (state.view === "ours") {
-    rows = rows.filter(matchIsOurs);
   } else {
-    rows = rows.filter((m) => m._comp.id === state.view);
+    rows = rows.filter(matchIsOurs);
   }
-  // Il filtro per squadra vale solo quando si guardano le nostre partite.
-  if (state.team && (state.view === "ours" || state.view === "week")) {
-    const match = teamMatcher(state.team);
-    rows = rows.filter(match);
-  }
-  if (q) {
-    rows = rows.filter((m) =>
-      [m.casa, m.trasferta, m.palestra, m.campionato].join(" ").toLowerCase().includes(q)
-    );
-  }
+  if (state.team) rows = rows.filter(teamMatcher(state.team));
   return rows.sort((a, b) => (a.data || "").localeCompare(b.data || ""));
 }
 
-function currentCompetition() {
-  return state.competitions.find((c) => c.id === state.view) || null;
-}
-
 function viewLabel() {
-  if (state.view === "week") return "Questa settimana";
-  if (state.view === "ours") return "Le nostre partite";
-  return state.competitions.find((c) => c.id === state.view)?.titolo || "Calendario";
+  return state.view === "week" ? "Questa settimana" : "Le nostre partite";
 }
 
 function closeFilters() {
@@ -248,27 +232,33 @@ function closeFilters() {
   if (toggle) toggle.setAttribute("aria-expanded", "false");
 }
 
-// Cambia vista e ridisegna tutto. Scegliendo un campionato il filtro per
-// squadra si azzera, perche' le squadre appartengono a "Le nostre partite".
+// Cambia vista e ridisegna tutto.
 function applyView(view, team, opts = {}) {
-  state.view = view;
-  state.team = view === "ours" || view === "week" ? team || "" : "";
+  state.view = view === "week" ? "week" : "ours";
+  state.team = team || "";
   closeFilters();
   renderViewFilter();
   renderList();
   renderStandings();
+  if (isPanelOpen()) renderChampionship();
   if (!opts.fromUrl) syncUrl();
 }
 
-// L'indirizzo rispecchia i filtri, cosi' il link si puo' copiare e incollare
-// (es. nei gruppi delle squadre) e riapre la stessa vista. I cambi fatti
-// dall'utente finiscono nella cronologia: il tasto Indietro annulla il filtro
-// invece di uscire dal sito.
+function isPanelOpen() {
+  const panel = $("#campionato-panel");
+  return Boolean(panel && !panel.hasAttribute("hidden"));
+}
+
+// L'indirizzo rispecchia filtri e pannello aperto, cosi' il link si puo'
+// copiare e incollare (es. nei gruppi delle squadre) e riapre la stessa vista.
+// I cambi fatti dall'utente finiscono nella cronologia: il tasto Indietro
+// annulla il filtro invece di uscire dal sito.
 function syncUrl(opts = {}) {
   if (!window.history?.pushState) return;
   const params = new URLSearchParams();
   if (state.view !== "ours") params.set("vista", state.view);
   if (state.team) params.set("squadra", state.team);
+  if (state.panel) params.set("campionato", state.panel);
   const qs = params.toString();
   const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
   if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
@@ -276,33 +266,29 @@ function syncUrl(opts = {}) {
   else window.history.pushState(null, "", url);
 }
 
-// All'apertura i filtri arrivano dall'indirizzo. Uno slug sconosciuto non deve
-// rompere la pagina: si apre il calendario normale.
+// All'apertura i filtri arrivano dall'indirizzo. Uno slug o un campionato
+// sconosciuto non devono rompere la pagina: si apre il calendario normale.
 function applyUrlState() {
   const params = new URLSearchParams(window.location.search);
   const team = (params.get("squadra") || "").trim();
   const vista = (params.get("vista") || "").trim();
-  const valida = team && ourTeams().some((t) => t.slug === team);
+  const campionato = (params.get("campionato") || "").trim();
 
-  if (valida) {
-    state.view = vista === "week" ? "week" : "ours";
-    state.team = team;
-    return true;
-  }
-  if (vista && (vista === "week" || state.competitions.some((c) => c.id === vista))) {
-    state.view = vista;
-    state.team = "";
-    return true;
-  }
-  return false;
+  state.view = vista === "week" ? "week" : "ours";
+  state.team = team && ourTeams().some((t) => t.slug === team) ? team : "";
+  // I vecchi link usavano ?vista=<id campionato> per aprire un campionato:
+  // ora il campionato e' un pannello, quindi si accetta anche quella forma.
+  const legacy = vista && vista !== "week" && vista !== "ours" ? vista : "";
+  const scelto = campionato || legacy;
+  state.panel = state.competitions.some((c) => c.id === scelto) ? scelto : "";
+  state.round = null;
+  return Boolean(state.team || state.panel);
 }
 
 function renderViewFilter() {
   const box = $("#view-filter");
-  const comps = state.competitions;
-  const isChamp = state.view !== "ours" && state.view !== "week";
   const teams = ourTeams();
-  const filtriActive = state.team || isChamp;
+  const filtriActive = Boolean(state.team);
 
   let html = `<span class="chip chip-current" aria-current="true">${escapeHtml(viewLabel())}</span>
     <button class="chip chip-dropdown ${filtriActive ? "is-active" : ""}" id="filters-toggle"
@@ -319,30 +305,16 @@ function renderViewFilter() {
     <button role="menuitem" class="dropdown-item ${state.view === "week" ? "is-active" : ""}" data-view="week">
       Questa settimana</button></div>`;
 
-  // Squadra: compare solo per "Le nostre partite" e "Questa settimana".
-  if (!isChamp) {
-    html += `<div class="filter-group"><div class="filter-head">Squadra</div>
-      <button role="menuitem" class="dropdown-item ${!state.team ? "is-active" : ""}" data-team="">
-        Tutte le nostre</button>`;
-    for (const t of teams) {
-      html += `<button role="menuitem" class="dropdown-item ${state.team === t.slug ? "is-active" : ""}" data-team="${escapeAttr(t.slug)}">
-        <span class="filter-team">${escapeHtml(t.nome)}</span>
-        <span class="filter-sub">${escapeHtml(t.comp)} · ${t.partite} partite</span></button>`;
-    }
-    html += `</div>`;
+  // Squadra
+  html += `<div class="filter-group"><div class="filter-head">Squadra</div>
+    <button role="menuitem" class="dropdown-item ${!state.team ? "is-active" : ""}" data-team="">
+      Tutte le nostre</button>`;
+  for (const t of teams) {
+    html += `<button role="menuitem" class="dropdown-item ${state.team === t.slug ? "is-active" : ""}" data-team="${escapeAttr(t.slug)}">
+      <span class="filter-team">${escapeHtml(t.nome)}</span>
+      <span class="filter-sub">${escapeHtml(t.comp)} · ${t.partite} partite</span></button>`;
   }
-
-  // Campionato
-  if (comps.length) {
-    html += `<div class="filter-group"><div class="filter-head">Campionato</div>
-      <button role="menuitem" class="dropdown-item ${!isChamp ? "is-active" : ""}" data-view="ours">
-        Tutti i campionati</button>`;
-    for (const c of comps) {
-      html += `<button role="menuitem" class="dropdown-item ${state.view === c.id ? "is-active" : ""}" data-view="${escapeAttr(c.id)}">
-        ${escapeHtml(c.titolo)}</button>`;
-    }
-    html += `</div>`;
-  }
+  html += `</div>`;
 
   html += `</div>`;
   box.innerHTML = html;
@@ -358,7 +330,7 @@ function renderViewFilter() {
   panel.addEventListener("click", (e) => e.stopPropagation());
   panel.querySelectorAll(".dropdown-item").forEach((item) =>
     item.addEventListener("click", () => {
-      if (item.dataset.team !== undefined) applyView(state.view === "week" ? "week" : "ours", item.dataset.team);
+      if (item.dataset.team !== undefined) applyView(state.view, item.dataset.team);
       else applyView(item.dataset.view, "");
     })
   );
@@ -399,29 +371,23 @@ function matchCard(m, idx, opts = {}) {
       </article>`;
 }
 
-// Raggruppa le partite: per giornata quando si guarda un singolo campionato
-// (cosi' le gare della stessa giornata finiscono nello stesso riquadro),
-// altrimenti per data. L'indice resta quello di `rows`, per la scheda dettagli.
+// Raggruppa le partite per data. L'indice resta quello di `rows`, per la
+// scheda dettagli.
 function groupRows(rows) {
-  const byRound = state.view !== "ours" && state.view !== "week" && rows.length > 0 && rows.every((r) => r.giornata);
   const groups = [];
   const index = new Map();
   rows.forEach((m, idx) => {
     const d = parseDate(m.data);
-    const key = byRound ? `g${m.giornata}` : d ? `d${d.toDateString()}` : "nd";
+    const key = d ? `d${d.toDateString()}` : "nd";
     let g = index.get(key);
     if (!g) {
-      g = {
-        key,
-        label: byRound ? `Giornata ${m.giornata}` : d ? fmtDay(d) : "Data da definire",
-        items: [],
-      };
+      g = { key, label: d ? fmtDay(d) : "Data da definire", items: [] };
       index.set(key, g);
       groups.push(g);
     }
     g.items.push({ m, idx });
   });
-  return { groups, byRound };
+  return groups;
 }
 
 function renderList() {
@@ -437,15 +403,13 @@ function renderList() {
     return;
   }
 
-  const { groups, byRound } = groupRows(rows);
-  let html = "";
-  for (const g of groups) {
-    const cards = g.items.map(({ m, idx }) => matchCard(m, idx, { showDate: byRound })).join("");
-    html += byRound
-      ? `<section class="round"><div class="round-head">${escapeHtml(g.label)}</div>${cards}</section>`
-      : `<div class="day-label">${escapeHtml(g.label)}</div>${cards}`;
-  }
-  box.innerHTML = html;
+  box.innerHTML = groupRows(rows)
+    .map(
+      (g) =>
+        `<div class="day-label">${escapeHtml(g.label)}</div>` +
+        g.items.map(({ m, idx }) => matchCard(m, idx)).join("")
+    )
+    .join("");
   state.rows = rows;
   box.querySelectorAll(".match").forEach((el) =>
     el.addEventListener("click", () => openMatchModal(state.rows[Number(el.dataset.idx)]))
@@ -529,9 +493,211 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
+// ---------------------------------------------------- pannello Campionato
+// Il campionato non e' piu' una vista che sostituisce la lista: la lista resta
+// sempre cronologica e il campionato si apre in un pannello, come la classifica.
+
+function competitionForTeam(slug) {
+  if (!slug) return null;
+  const match = teamMatcher(slug);
+  return state.competitions.find((c) => (c.matches || []).some(match)) || null;
+}
+
+function panelCompetition() {
+  return state.competitions.find((c) => c.id === state.panel) || null;
+}
+
+// Le giornate del campionato in ordine, ognuna con le sue partite. Le gare
+// senza numero di giornata restano fuori dal carosello ma non si perdono:
+// finiscono in coda, in un gruppo a parte.
+function roundsOf(comp) {
+  const byRound = new Map();
+  const senza = [];
+  // comp.matches non passa da allMatches(): _comp va agganciato qui, altrimenti
+  // la scheda non sa da quale campionato arriva la partita.
+  for (const m of (comp.matches || []).map((m) => ({ ...m, _comp: comp }))) {
+    const n = Number(m.giornata);
+    if (!m.giornata || !Number.isFinite(n)) {
+      senza.push(m);
+      continue;
+    }
+    if (!byRound.has(n)) byRound.set(n, []);
+    byRound.get(n).push(m);
+  }
+  const rounds = [...byRound.keys()]
+    .sort((a, b) => a - b)
+    .map((n) => ({
+      n,
+      matches: byRound.get(n).sort((a, b) => (a.data || "").localeCompare(b.data || "")),
+    }));
+  return { rounds, senza };
+}
+
+// All'apertura conviene la giornata della prossima partita da giocare: e' quella
+// che interessa a chi apre la pagina. Non basta "la prima giornata con una gara
+// senza risultato", perche' un rinvio in una giornata vecchia la farebbe
+// sembrare la piu' attuale. Se il campionato e' finito, si apre l'ultima.
+function defaultRound(rounds) {
+  const soglia = Date.now() - 6 * 3600 * 1000;
+  let migliore = null;
+  for (const r of rounds) {
+    for (const m of r.matches) {
+      if (m.risultato) continue;
+      const d = parseDate(m.data);
+      if (!d || d.getTime() < soglia) continue;
+      if (!migliore || d < migliore.data) migliore = { n: r.n, data: d };
+    }
+  }
+  if (migliore) return migliore.n;
+  const ultima = rounds[rounds.length - 1];
+  return ultima ? ultima.n : null;
+}
+
+function renderChampionship() {
+  const box = $("#campionato");
+  const comp = panelCompetition();
+  if (!box) return;
+
+  // Selettore di campionato: serve solo se ce n'e' piu' di uno.
+  let html = "";
+  if (state.competitions.length > 1) {
+    html += `<label class="champ-select">
+      <span class="sr-only">Campionato</span>
+      <select id="champ-picker">${state.competitions
+        .map(
+          (c) =>
+            `<option value="${escapeAttr(c.id)}" ${c.id === state.panel ? "selected" : ""}>${escapeHtml(
+              c.titolo
+            )}</option>`
+        )
+        .join("")}</select>
+    </label>`;
+  }
+
+  if (!comp) {
+    box.innerHTML = html + `<p class="empty">Nessun campionato disponibile.</p>`;
+    return;
+  }
+
+  const { rounds, senza } = roundsOf(comp);
+  if (!rounds.length && !senza.length) {
+    box.innerHTML = html + `<p class="empty">Nessuna partita in questo campionato.</p>`;
+    return;
+  }
+
+  if (state.round === null && rounds.length) state.round = defaultRound(rounds);
+  const corrente = rounds.find((r) => r.n === state.round) || rounds[0] || null;
+  const pos = corrente ? rounds.findIndex((r) => r.n === corrente.n) : -1;
+  const partite = (corrente ? corrente.matches : senza.slice()).sort((a, b) =>
+    (a.data || "").localeCompare(b.data || "")
+  );
+
+  if (rounds.length) {
+    html += `<div class="round-nav">
+      <button class="round-step" id="round-prev" aria-label="Giornata precedente" ${
+        pos <= 0 ? "disabled" : ""
+      }>‹</button>
+      <div class="round-current">
+        <span class="round-name">Giornata ${escapeHtml(String(corrente.n))}</span>
+        <span class="round-count">${pos + 1} di ${rounds.length} · ${partite.length} partite</span>
+      </div>
+      <button class="round-step" id="round-next" aria-label="Giornata successiva" ${
+        pos >= rounds.length - 1 ? "disabled" : ""
+      }>›</button>
+    </div>`;
+
+    html += `<div class="round-strip" role="tablist" aria-label="Giornate">${rounds
+      .map(
+        (r) =>
+          `<button role="tab" class="round-tab ${r.n === corrente.n ? "is-active" : ""}"
+             data-round="${r.n}" aria-selected="${r.n === corrente.n}">${escapeHtml(String(r.n))}</button>`
+      )
+      .join("")}</div>`;
+  }
+
+  html += `<div id="round-matches" class="round-matches" role="tabpanel"></div>`;
+  box.innerHTML = html;
+
+  // Le partite della giornata: stessa scheda della lista, cosi' il dettaglio
+  // si apre allo stesso modo. state.panelRows tiene gli indici di QUESTO
+  // contenitore, altrimenti si aprirebbe la partita sbagliata.
+  const list = $("#round-matches");
+  state.panelRows = partite;
+  list.innerHTML = partite.length
+    ? partite.map((m, i) => matchCard(m, i)).join("")
+    : `<p class="empty">Nessuna partita in questa giornata.</p>`;
+  list.querySelectorAll(".match").forEach((el) =>
+    el.addEventListener("click", () => openMatchModal(state.panelRows[Number(el.dataset.idx)]))
+  );
+
+  const picker = $("#champ-picker");
+  if (picker) {
+    picker.addEventListener("change", (e) => {
+      state.panel = e.target.value;
+      state.round = null;
+      renderChampionship();
+      renderStandings();
+      syncUrl();
+    });
+  }
+  const prev = $("#round-prev");
+  const next = $("#round-next");
+  if (prev) prev.addEventListener("click", () => goRound(pos - 1));
+  if (next) next.addEventListener("click", () => goRound(pos + 1));
+  box.querySelectorAll(".round-tab").forEach((tab) =>
+    tab.addEventListener("click", () => goRound(Number(tab.dataset.round), true))
+  );
+  // La giornata attiva deve restare visibile nella striscia, anche quando e'
+  // l'ultima e la striscia e' piu' larga dello schermo.
+  const attivo = box.querySelector(".round-tab.is-active");
+  if (attivo) {
+    const strip = attivo.parentElement;
+    const sinistra = attivo.offsetLeft - strip.clientWidth / 2 + attivo.clientWidth / 2;
+    strip.scrollLeft = Math.max(0, sinistra);
+  }
+}
+
+// Cambia giornata: `valore` e' l'indice (dalle frecce) o il numero (dai tab).
+function goRound(valore, eNumero = false) {
+  const comp = panelCompetition();
+  if (!comp) return;
+  const { rounds } = roundsOf(comp);
+  const i = eNumero ? rounds.findIndex((r) => r.n === Number(valore)) : Number(valore);
+  if (i < 0 || i >= rounds.length) return;
+  state.round = rounds[i].n;
+  renderChampionship();
+}
+
+// Apre o chiude il pannello. All'apertura sceglie un campionato sensato:
+// quello della squadra filtrata, altrimenti il primo.
+function togglePanel(open) {
+  const panel = $("#campionato-panel");
+  const btn = $("#toggle-campionato");
+  if (!panel || !btn) return;
+  const apri = open === undefined ? panel.hasAttribute("hidden") : open;
+  if (apri && !state.panel) {
+    const comp = competitionForTeam(state.team) || state.competitions[0];
+    state.panel = comp ? comp.id : "";
+    state.round = null;
+  }
+  if (apri) panel.removeAttribute("hidden");
+  else {
+    panel.setAttribute("hidden", "");
+    // Il campionato scelto non resta nell'indirizzo: il link non deve dire
+    // che il pannello e' aperto quando non lo e'.
+    state.panel = "";
+    state.round = null;
+  }
+  btn.setAttribute("aria-expanded", String(apri));
+  if (apri) renderChampionship();
+  syncUrl();
+}
+
 function renderStandings() {
   const box = $("#standings");
-  let comp = currentCompetition();
+  // Con un campionato aperto nel pannello si mostra la sua classifica; con una
+  // squadra selezionata, quella del campionato in cui gioca. Altrimenti tutte.
+  let comp = state.panel ? state.competitions.find((c) => c.id === state.panel) : null;
   if (!comp && state.team) {
     const match = teamMatcher(state.team);
     comp = state.competitions.find((c) => c.matches.some(match)) || null;
@@ -655,6 +821,10 @@ function setupStandingsToggle() {
   });
 }
 
+function setupCampionatoToggle() {
+  $("#toggle-campionato").addEventListener("click", () => togglePanel());
+}
+
 async function init() {
   try {
     // La CDN di GitHub Pages tiene schedule.json in cache fino a 10 minuti.
@@ -686,22 +856,23 @@ async function init() {
 
   renderHeader();
   setupStandingsToggle();
+  setupCampionatoToggle();
   renderViewFilter();
   renderList();
   renderStandings();
+  // Un link con ?campionato= apre direttamente il pannello.
+  if (state.panel) togglePanel(true);
   if (daUrl) syncUrl({ replace: true });
   window.addEventListener("popstate", () => {
     state.view = "ours";
     state.team = "";
+    state.panel = "";
     applyUrlState();
     renderViewFilter();
     renderList();
     renderStandings();
-  });
-
-  $("#search").addEventListener("input", (e) => {
-    state.query = e.target.value;
-    renderList();
+    togglePanel(Boolean(state.panel));
+    syncUrl({ replace: true });
   });
 
   document.addEventListener("click", closeFilters);
@@ -712,14 +883,17 @@ async function init() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
-  $("#calendar").addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const card = e.target.closest(".match");
-    if (card) {
+  // Invio o spazio aprono il dettaglio, sia nella lista sia nel pannello.
+  for (const contenitore of ["#calendar", "#campionato"]) {
+    $(contenitore).addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const card = e.target.closest(".match");
+      if (!card) return;
       e.preventDefault();
-      openMatchModal(state.rows[Number(card.dataset.idx)]);
-    }
-  });
+      const righe = card.closest("#round-matches") ? state.panelRows : state.rows;
+      openMatchModal(righe[Number(card.dataset.idx)]);
+    });
+  }
 
   // Prova a leggere i dati freschi da FIPAV nel browser. Da PC si legge la
   // pagina desktop; da telefono FIPAV reindirizza (302) e il browser non puo'
@@ -749,6 +923,7 @@ async function init() {
       renderViewFilter();
       renderList();
       renderStandings();
+      if (isPanelOpen()) renderChampionship();
     }
   }
 }

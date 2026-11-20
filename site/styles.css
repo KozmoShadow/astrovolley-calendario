@@ -206,18 +206,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 .filter-sub { display: block; font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; }
 .dropdown-item.is-active .filter-sub { color: var(--accent-soft); opacity: .85; }
 
-.search { margin-left: auto; }
-.search input {
-  width: 300px; max-width: 70vw;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 14px;
-}
-.search input::placeholder { color: var(--muted); }
-
 .panel {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -235,20 +223,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
   color: var(--accent-soft); margin: 22px 0 10px;
 }
 .day-label:first-child { margin-top: 0; }
-
-.round {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: rgba(255,255,255,.015);
-  padding: 12px 14px;
-  margin-bottom: 14px;
-}
-.round-head {
-  font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--accent-soft); margin: 0 0 10px;
-}
-.round .match { background: var(--surface-2); }
-.round .match:last-child { margin-bottom: 0; }
 
 .match {
   display: grid;
@@ -374,6 +348,84 @@ body.modal-open { overflow: hidden; }
 .match:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
 
 
+/* -------------------------------------------------- pannello Campionato */
+/* Il campionato si apre in un pannello, come la classifica: la lista delle
+   partite resta sempre cronologica sotto. La navigazione sta in una riga
+   (frecce + giornata corrente) e in una striscia di numeri scorrevole. */
+.champ-select { display: block; margin-bottom: 14px; }
+.champ-select select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.round-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.round-step {
+  flex: 0 0 auto;
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, opacity .15s;
+}
+.round-step:hover:not(:disabled) { border-color: var(--accent-soft); }
+.round-step:disabled { opacity: .35; cursor: default; }
+.round-current { min-width: 0; flex: 1 1 auto; }
+.round-name {
+  display: block;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.round-count { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+/* Striscia delle giornate: scorre in orizzontale, la giornata attiva resta
+   centrata (lo fa app.js dopo il render). */
+.round-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  margin-bottom: 12px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.round-tab {
+  flex: 0 0 auto;
+  min-width: 34px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
+}
+.round-tab:hover { border-color: var(--accent-soft); color: var(--text); }
+.round-tab.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  border-color: transparent;
+  color: var(--on-accent);
+}
+.round-matches .match { background: var(--surface-2); }
+.round-matches .match:last-child { margin-bottom: 0; }
+
+
 @media (max-width: 640px) {
   .brand h1 { font-size: 23px; }
   /* Su mobile il badge (ente) sta sotto l'orario, nella colonna di sinistra, e
@@ -415,10 +467,8 @@ body.modal-open { overflow: hidden; }
     min-width: 1.2em;
   }
 
-  .toolbar { gap: 8px; flex-wrap: nowrap; }
-  .btn-standings { flex: 0 0 auto; padding: 9px 12px; font-size: 13px; }
-  .search { margin-left: auto; min-width: 0; flex: 1 1 auto; }
-  .search input { width: 100%; max-width: 160px; padding: 9px 12px; font-size: 13px; }
+  .toolbar { gap: 8px; flex-wrap: wrap; }
+  .btn-standings { flex: 1 1 auto; padding: 9px 12px; font-size: 13px; }
 
   .chip { padding: 8px 12px; }
   .chip-dropdown .chip-label { max-width: 52vw; }

@@ -33,14 +33,18 @@
     <nav class="chips" id="view-filter" aria-label="Vista"></nav>
 
     <div class="toolbar">
+      <button id="toggle-campionato" class="btn-standings" aria-expanded="false" aria-controls="campionato-panel">
+        Campionato
+      </button>
       <button id="toggle-standings" class="btn-standings" aria-expanded="false" aria-controls="standings-panel">
         Classifica
       </button>
-      <label class="search">
-        <span class="sr-only">Cerca squadra o palestra</span>
-        <input id="search" type="search" placeholder="Cerca…" />
-      </label>
     </div>
+
+    <section id="campionato-panel" class="panel" hidden>
+      <h2>Campionato</h2>
+      <div id="campionato" class="campionato"></div>
+    </section>
 
     <section id="standings-panel" class="panel standings-panel" hidden>
       <h2 id="standings-title">Classifica</h2>

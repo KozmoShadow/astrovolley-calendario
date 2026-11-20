@@ -143,9 +143,9 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - La barra in alto mostra **due chip**: l'etichetta della vista attiva
   (`.chip-current`, sola indicazione) e il bottone **Filtri** che apre
   `#filters-panel`. Cosi' il numero di chip resta fisso anche con molte squadre.
-- Il pannello ha tre gruppi: **Vista** (`ours` / `week`), **Squadra**, **Campionato**.
-  Il gruppo Squadra compare solo per "Le nostre partite" e "Questa settimana":
-  scegliendo un campionato si azzera (`applyView`).
+- Il pannello ha due gruppi: **Vista** (`ours` / `week`) e **Squadra**.
+  Non c'e' piu' un gruppo Campionato ne' una barra di ricerca: il campionato ha
+  un pannello suo (vedi sotto) e la ricerca e' stata rimossa perche' inutile.
 - `state.team` contiene lo **slug** di una squadra, non il nome: cosi' due
   squadre omonime in campionati diversi restano distinguibili e il link non
   cambia se FIPAV/ASI riscrivono il nome.
@@ -153,19 +153,45 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   accettati, `campionato` come filtro) e aggiunge i nomi che contengono "astro"
   ma non sono in configurazione, con slug `auto-*`: una squadra nuova compare
   lo stesso, anche prima che qualcuno la aggiunga al file.
-- La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data
-  (non per giornata).
+- La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data.
+- `state.view` vale solo `ours` o `week`. Il campionato **non** e' piu' una vista:
+  la lista resta sempre cronologica e il campionato si apre in un pannello.
+
+## Pannello Campionato (carosello delle giornate)
+- Il pulsante **Campionato** (`#toggle-campionato`) apre `#campionato-panel`,
+  esattamente come **Classifica** apre il suo. La lista delle partite resta
+  sempre visibile sotto, cronologica: il pannello non la sostituisce.
+- Dentro: un `<select>` per scegliere il campionato (mostrato solo se ce n'e'
+  piu' di uno), le frecce `#round-prev`/`#round-next`, la riga
+  "Giornata N / N di M · K partite" e una striscia di tab numerate
+  (`.round-strip`, scorrevole in orizzontale) con le partite della giornata.
+- `state.panel` = id del campionato aperto (`""` = chiuso), `state.round` = numero
+  della giornata selezionata (`null` = non ancora scelta).
+- `defaultRound()` apre la giornata della **prossima partita da giocare** (la data
+  piu' vicina nel futuro senza risultato), non "la prima giornata incompleta":
+  un rinvio in una giornata vecchia farebbe altrimenti aprire quella. A
+  campionato finito apre l'ultima giornata.
+- `roundsOf(comp)` raggruppa per `giornata` e **aggancia `_comp`** a ogni
+  partita: `comp.matches` non passa da `allMatches()`, quindi senza questo
+  `matchCard` esplode leggendo `m._comp.fonte`.
+- Le partite del pannello hanno indici propri (`state.panelRows`): gli indici di
+  `state.rows` sono un'altra lista, e confonderli apre la partita sbagliata.
+- Un campionato senza numeri di giornata (es. un torneo inserito a mano) non ha
+  frecce ne' striscia: mostra tutte le sue partite in un unico elenco.
+- `?campionato=<id>` apre il sito con il pannello gia' aperto. Chiudendo il
+  pannello il parametro viene tolto dall'indirizzo. Il vecchio `?vista=<id>`
+  continua a funzionare e apre il pannello (compatibilita' con i link diffusi).
 
 ## Link diretti a una squadra (`?squadra=`, `?vista=`)
 - `?squadra=<slug>` apre il sito gia' filtrato su quella squadra, con
   "Le nostre partite" selezionato: e' il link da mettere nei gruppi.
   `?squadra=<slug>&vista=week` apre la stessa squadra su "Questa settimana".
-  `?vista=<id-campionato>` apre un campionato.
+  `?campionato=<id-campionato>` apre il pannello su quel campionato.
 - Gli slug sono in `site/data/squadre.json` e **non vanno cambiati** una volta
   diffusi: i link gia' incollati smetterebbero di funzionare. Per cambiare il
   nome mostrato si modifica `nome`, non `slug`. (Slug attuali: `under-19`,
   `misto-dirigenziale`, `misto-cercola`, `misto-portici`.)
-- **Non confondere lo slug della squadra con l'id del campionato**: `?vista=`
+- **Non confondere lo slug della squadra con l'id del campionato**: `?campionato=`
   usa l'id (`asi-open-misto-elite`, `fipav-94273`), che e' anche il nome dei
   file in `data/asi/`. Rinominare quello significa rinominare i file e
   riscrivere i riferimenti in `schedule.json`.
