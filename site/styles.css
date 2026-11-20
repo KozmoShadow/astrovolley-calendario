@@ -950,17 +950,11 @@ body.lightbox-open { overflow: hidden; }
   font-variant-numeric: tabular-nums;
 }
 
-/* --- Giornata in corso + tutte le partite, affiancate --- */
-
-.round-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-}
+/* --- Riquadro giornata in corso --- */
 
 .round-panel,
 .all-panel {
+  margin-bottom: 18px;
   min-width: 0;
   padding: 16px;
   border: 1px solid var(--line);
@@ -990,11 +984,60 @@ body.lightbox-open { overflow: hidden; }
 
 .cal-icon { color: var(--accent-soft); flex: 0 0 auto; }
 
+.all-matches-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+
+.all-matches-btn:hover { border-color: var(--accent-soft); }
+
+.all-matches-btn[aria-expanded="true"] {
+  background: rgba(123, 79, 181, .2);
+  border-color: var(--accent);
+}
+
+/* --- Striscia delle giornate --- */
+
+.round-viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.round-track {
+  display: flex;
+  align-items: flex-start;
+  transition: transform .34s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+
+.round-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.round-viewport:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
 /* Freccia, giornata al centro, freccia. */
 .round-nav {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 8px;
 }
@@ -1017,8 +1060,10 @@ body.lightbox-open { overflow: hidden; }
 .arrow-btn:hover:not(:disabled) { border-color: var(--accent-soft); }
 .arrow-btn:disabled { opacity: .3; cursor: default; }
 
+/* Larghezza del testo: la pillola non si allarga a prendersi la riga. */
 .round-pill {
-  padding: 8px 14px;
+  flex: 0 0 auto;
+  padding: 8px 16px;
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: rgba(123, 79, 181, .18);
@@ -1181,7 +1226,6 @@ body.lightbox-open { overflow: hidden; }
 .all-panel .day-label:first-child { margin-top: 0; }
 
 @media (max-width: 860px) {
-  .round-grid { grid-template-columns: minmax(0, 1fr); }
   .all-panel .calendar { max-height: none; }
 }
 

@@ -666,97 +666,190 @@ function renderChampionship() {
   }
 
   if (state.round === null && rounds.length) state.round = defaultRound(rounds);
-  const corrente = rounds.find((r) => r.n === state.round) || rounds[0] || null;
-  const pos = corrente ? rounds.findIndex((r) => r.n === corrente.n) : -1;
-  const partite = (corrente ? corrente.matches : senza.slice()).sort((a, b) =>
-    (a.data || "").localeCompare(b.data || "")
+  const pos = Math.max(0, rounds.findIndex((r) => r.n === state.round));
+
+  if (!rounds.length) {
+    // Campionato senza giornate numerate: niente carosello, solo le partite.
+    state.panelRows = senza.slice().sort((a, b) => (a.data || "").localeCompare(b.data || ""));
+    box.innerHTML = `<div id="round-matches" class="round-matches"></div>`;
+    renderRoundList($("#round-matches"), state.panelRows);
+    return;
+  }
+
+  // Ogni giornata e' una slide: la striscia si trascina di lato e le card
+  // seguono il dito, invece di saltare alla giornata dopo.
+  state.roundRows = new Map(
+    rounds.map((r) => [r.n, r.matches.slice().sort((a, b) => (a.data || "").localeCompare(b.data || ""))])
   );
 
-  // Freccia, giornata al centro, freccia. La pillola centrale mostra la
-  // giornata scelta; lo swipe (o il trascinamento) cambia giornata.
-  const nav = rounds.length
-    ? `<div class="round-nav">
-         <button class="arrow-btn" id="round-prev" aria-label="Giornata precedente" ${
-           pos <= 0 ? "disabled" : ""
-         }>&lsaquo;</button>
-         <div class="round-pill" id="round-pill" aria-live="polite">Giornata ${escapeHtml(
-           String(corrente.n)
-         )}</div>
-         <button class="arrow-btn" id="round-next" aria-label="Giornata successiva" ${
-           pos >= rounds.length - 1 ? "disabled" : ""
-         }>&rsaquo;</button>
-       </div>
-       <p class="swipe-hint">Scorri per cambiare giornata</p>
-       <div class="dots" aria-hidden="true">${rounds
-         .map((r) => `<span class="dot ${r.n === corrente.n ? "active" : ""}"></span>`)
-         .join("")}</div>`
-    : "";
+  const slides = rounds
+    .map(
+      (r) => `<div class="round-slide" data-round="${r.n}" role="group"
+                   aria-label="Giornata ${escapeHtml(String(r.n))}">
+                <div class="round-matches"></div>
+              </div>`
+    )
+    .join("");
 
-  box.innerHTML = `${nav}<div id="round-matches" class="round-matches"></div>`;
+  box.innerHTML = `
+    <div class="round-nav">
+      <button class="arrow-btn" id="round-prev" aria-label="Giornata precedente" ${
+        pos <= 0 ? "disabled" : ""
+      }>&lsaquo;</button>
+      <div class="round-pill" id="round-pill" aria-live="polite">Giornata ${escapeHtml(
+        String(rounds[pos].n)
+      )}</div>
+      <button class="arrow-btn" id="round-next" aria-label="Giornata successiva" ${
+        pos >= rounds.length - 1 ? "disabled" : ""
+      }>&rsaquo;</button>
+    </div>
+    <p class="swipe-hint">Scorri per cambiare giornata</p>
+    <div class="dots" aria-hidden="true">${rounds
+      .map((r, i) => `<span class="dot ${i === pos ? "active" : ""}"></span>`)
+      .join("")}</div>
+    <div class="round-viewport" id="round-viewport" tabindex="0"
+         aria-label="Giornate del campionato">
+      <div class="round-track" id="round-track"
+           style="transform: translateX(${-pos * 100}%)">${slides}</div>
+    </div>`;
 
-  const list = $("#round-matches");
-  state.panelRows = partite;
-  list.innerHTML = partite.length
-    ? partite.map((m, i) => roundMatchCard(m, i)).join("")
+  const track = $("#round-track");
+  const viewport = $("#round-viewport");
+  const els = [...track.children];
+
+  els.forEach((slide) => {
+    const rows = state.roundRows.get(Number(slide.dataset.round)) || [];
+    renderRoundList(slide.querySelector(".round-matches"), rows);
+  });
+
+  // Altezza = quella della giornata visibile, altrimenti la striscia
+  // prenderebbe l'altezza della giornata piu' lunga e lascerebbe un buco.
+  const adattaAltezza = (indice) => {
+    if (!viewport || !els[indice]) return;
+    viewport.style.height = `${els[indice].offsetHeight}px`;
+  };
+  adattaAltezza(pos);
+  window.addEventListener("resize", () => adattaAltezza(indiceCorrente()), { passive: true });
+
+  const indiceCorrente = () => Math.max(0, els.findIndex((e) => Number(e.dataset.round) === state.round));
+
+  const vaiA = (indice, anima = true) => {
+    const i = Math.max(0, Math.min(els.length - 1, indice));
+    const n = Number(els[i].dataset.round);
+    state.round = n;
+    track.style.transition = anima ? "transform .34s cubic-bezier(.22,.61,.36,1)" : "none";
+    track.style.transform = `translateX(${-i * 100}%)`;
+    adattaAltezza(i);
+    const pill = $("#round-pill");
+    if (pill) pill.textContent = `Giornata ${n}`;
+    box.querySelectorAll(".dot").forEach((d, k) => d.classList.toggle("active", k === i));
+    const prev = $("#round-prev");
+    const next = $("#round-next");
+    if (prev) prev.disabled = i <= 0;
+    if (next) next.disabled = i >= els.length - 1;
+  };
+
+  $("#round-prev")?.addEventListener("click", () => vaiA(indiceCorrente() - 1));
+  $("#round-next")?.addEventListener("click", () => vaiA(indiceCorrente() + 1));
+
+  setupRoundSwipe({ viewport, track, els, indiceCorrente, vaiA, adattaAltezza });
+}
+
+// Riempe un contenitore con le card della giornata; l'indice resta quello
+// della riga nella giornata, per la scheda dettagli.
+function renderRoundList(list, rows) {
+  if (!list) return;
+  list.innerHTML = rows.length
+    ? rows.map((m, i) => roundMatchCard(m, i)).join("")
     : `<p class="empty">Nessuna partita in questa giornata.</p>`;
   list.querySelectorAll(".round-match").forEach((el) =>
-    el.addEventListener("click", () => openMatchModal(state.panelRows[Number(el.dataset.idx)]))
+    el.addEventListener("click", () => openMatchModal(rows[Number(el.dataset.idx)]))
   );
-
-  const prev = $("#round-prev");
-  const next = $("#round-next");
-  if (prev) prev.addEventListener("click", () => goRound(pos - 1));
-  if (next) next.addEventListener("click", () => goRound(pos + 1));
-
-  setupSwipe(box, () => goRound(pos - 1), () => goRound(pos + 1));
 }
+// Trascinamento della striscia delle giornate: le card seguono il dito (o il
+// mouse) e, al rilascio, la giornata si aggancia a quella piu' vicina. Se il
+// gesto e' piu' verticale che orizzontale si lascia scorrere la pagina.
+function setupRoundSwipe({ viewport, track, els, indiceCorrente, vaiA }) {
+  if (!viewport || !track || !els.length) return;
 
-// Swipe orizzontale sulla sezione giornata: a sinistra la successiva, a destra
-// la precedente. Vale sia col dito sia col mouse. Una soglia minima evita che
-// uno scroll verticale venga letto come cambio giornata.
-function setupSwipe(el, onPrev, onNext) {
-  if (!el) return;
-  let x0 = null, y0 = null, attivo = false;
-  const SOGLIA = 48;
+  let partenza = null;
+  let indiceBase = 0;
+  let larghezza = 0;
 
-  el.addEventListener("touchstart", (e) => {
+  const applica = (dx, anima) => {
+    track.style.transition = anima ? "transform .34s cubic-bezier(.22,.61,.36,1)" : "none";
+    track.style.transform = `translateX(calc(${-indiceBase * 100}% + ${dx}px))`;
+  };
+
+  const inizio = (x, y) => {
+    indiceBase = indiceCorrente();
+    larghezza = viewport.clientWidth || 1;
+    partenza = { x, y, asse: null };
+    track.style.transition = "none";
+  };
+
+  const muovi = (x, y) => {
+    if (!partenza) return;
+    const dx = x - partenza.x;
+    const dy = y - partenza.y;
+    if (!partenza.asse) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      partenza.asse = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+    }
+    if (partenza.asse !== "x") return;
+    // Resistenza ai bordi: agli estremi la striscia si muove meno.
+    const aiBordo =
+      (indiceBase === 0 && dx > 0) || (indiceBase === els.length - 1 && dx < 0);
+    applica(aiBordo ? dx * 0.28 : dx, false);
+  };
+
+  const fine = (x, y) => {
+    if (!partenza) return;
+    const dx = x - partenza.x;
+    const asse = partenza.asse;
+    partenza = null;
+    if (asse !== "x") return;
+    // Un quinto di schermo, o un colpo deciso, basta per cambiare giornata.
+    const soglia = Math.max(48, larghezza * 0.2);
+    const verso = dx < 0 ? 1 : -1;
+    if (Math.abs(dx) > soglia) vaiA(indiceBase + verso);
+    else vaiA(indiceBase);
+  };
+
+  viewport.addEventListener("touchstart", (e) => {
     const t = e.touches[0];
-    x0 = t.clientX; y0 = t.clientY; attivo = true;
+    inizio(t.clientX, t.clientY);
   }, { passive: true });
 
-  el.addEventListener("touchend", (e) => {
-    if (!attivo || x0 === null) return;
+  viewport.addEventListener("touchmove", (e) => {
+    const t = e.touches[0];
+    muovi(t.clientX, t.clientY);
+    // Blocca lo scroll della pagina solo quando il gesto e' orizzontale.
+    if (partenza && partenza.asse === "x" && e.cancelable) e.preventDefault();
+  }, { passive: false });
+
+  viewport.addEventListener("touchend", (e) => {
     const t = e.changedTouches[0];
-    const dx = t.clientX - x0;
-    const dy = t.clientY - y0;
-    attivo = false;
-    // Solo se il gesto e' piu' orizzontale che verticale.
-    if (Math.abs(dx) < SOGLIA || Math.abs(dx) <= Math.abs(dy)) return;
-    if (dx < 0) onNext(); else onPrev();
+    fine(t.clientX, t.clientY);
   }, { passive: true });
 
-  el.addEventListener("pointerdown", (e) => {
+  viewport.addEventListener("pointerdown", (e) => {
     if (e.pointerType === "touch") return;
-    x0 = e.clientX; y0 = e.clientY; attivo = true;
+    inizio(e.clientX, e.clientY);
   });
-  el.addEventListener("pointerup", (e) => {
-    if (e.pointerType === "touch" || !attivo || x0 === null) return;
-    const dx = e.clientX - x0;
-    const dy = e.clientY - y0;
-    attivo = false;
-    if (Math.abs(dx) < SOGLIA || Math.abs(dx) <= Math.abs(dy)) return;
-    // Trascinare verso sinistra porta avanti, come su un carosello.
-    if (dx < 0) onNext(); else onPrev();
+  viewport.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    muovi(e.clientX, e.clientY);
   });
-}
-function goRound(valore, eNumero = false) {
-  const comp = panelCompetition();
-  if (!comp) return;
-  const { rounds } = roundsOf(comp);
-  const i = eNumero ? rounds.findIndex((r) => r.n === Number(valore)) : Number(valore);
-  if (i < 0 || i >= rounds.length) return;
-  state.round = rounds[i].n;
-  renderChampionship();
+  viewport.addEventListener("pointerup", (e) => {
+    if (e.pointerType === "touch") return;
+    fine(e.clientX, e.clientY);
+  });
+  viewport.addEventListener("pointercancel", () => {
+    partenza = null;
+    track.style.transition = "transform .34s cubic-bezier(.22,.61,.36,1)";
+    track.style.transform = `translateX(${-indiceCorrente() * 100}%)`;
+  });
 }
 
 // Non c'e' piu' un pannello da aprire: la giornata e' sempre visibile.
@@ -1267,6 +1360,16 @@ async function init() {
     showLanding();
   });
 
+  // "Tutte le partite": apre e chiude la lista cronologica sotto la giornata.
+  $("#all-matches")?.addEventListener("click", (e) => {
+    const panel = $("#all-matches-panel");
+    if (!panel) return;
+    const chiuso = panel.hasAttribute("hidden");
+    panel.toggleAttribute("hidden", !chiuso);
+    e.currentTarget.setAttribute("aria-expanded", String(chiuso));
+    if (chiuso) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
   if (daUrl) showCalendar(state.team);
   else showLanding({ fromUrl: true });
   if (daUrl) syncUrl({ replace: true });
@@ -1316,14 +1419,20 @@ async function init() {
     if (!lightbox.hidden) closeLogo();
     else closeModal();
   });
-  // Invio o spazio aprono il dettaglio, sia nella lista sia nel pannello.
+  // Invio o spazio aprono il dettaglio, sia nella lista sia nelle giornate.
   for (const contenitore of ["#calendar", "#campionato"]) {
     $(contenitore).addEventListener("keydown", (e) => {
       if (e.key !== "Enter" && e.key !== " ") return;
       const card = e.target.closest(".match, .round-match");
       if (!card) return;
       e.preventDefault();
-      const righe = card.closest("#round-matches") ? state.panelRows : state.rows;
+      // Ogni slide ha le sue righe: si risale alla giornata che la contiene.
+      const slide = card.closest(".round-slide");
+      const righe = slide
+        ? state.roundRows.get(Number(slide.dataset.round)) || []
+        : state.panelRows.length
+          ? state.panelRows
+          : state.rows;
       openMatchModal(righe[Number(card.dataset.idx)]);
     });
   }
