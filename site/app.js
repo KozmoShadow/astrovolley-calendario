@@ -262,8 +262,8 @@ function visibleMatches() {
   return rows.sort((a, b) => (a.data || "").localeCompare(b.data || ""));
 }
 
-// Apre una squadra e ridisegna la pagina. Non ci sono piu' filtri: la pagina
-// mostra sempre tutto quello che riguarda la squadra scelta.
+// Apre una squadra e ridisegna tutto: intestazione, classifica, giornata e
+// calendario. Il filtro del calendario vale solo dentro la vista calendario.
 function applyView(view, team, opts = {}) {
   state.team = team || "";
   renderTeamHead();
