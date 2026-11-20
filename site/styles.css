@@ -190,38 +190,14 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 /* Partita annullata: resta in elenco (chi cerca "quando gioco" deve vedere che
    e' saltata) ma in grigio, senza risultato e senza esito. Non entra in
    classifica: l'importer non le scrive un punteggio. */
-.match.is-cancelled {
-  opacity: .55;
-  border-left-color: rgba(147,163,192,.5);
-  background: rgba(147,163,192,.07);
-  box-shadow: none;
-}
-.match.is-cancelled .team-name,
-.match.is-cancelled .match-time,
-.match.is-cancelled .annullata {
+/* L'etichetta "annullata" sta in un riquadro suo: senza, e' testo nudo in mezzo
+   alla card. Vale per la giornata in corso e per la vista Calendario. */
+.annullata {
   font-size: 11px; font-weight: 700; letter-spacing: .06em;
   text-transform: uppercase; color: var(--muted);
   border: 1px dashed rgba(147,163,192,.55); border-radius: 999px;
   padding: 2px 8px;
-}
-.match-body { min-width: 0; }
-.teams { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; }
-/* Nomi normalizzati in maiuscolo. Nei dati la stessa squadra arriva scritta in
-   due modi ("Minerva Medica Flyer" e "MINERVA MEDICA FLYER"): cosi' diventano
-   identici. Il maiuscolo allunga i nomi di circa il 10%, quindi la dimensione
-   scende a 13.5px: a 15px i nomi lunghi andavano a capo e la scheda cresceva
-   di una riga. Il testo nei dati resta invariato: si torna indietro da qui. */
-.calendar .team-name { font-weight: 600; text-transform: uppercase; font-size: 13.5px; letter-spacing: .012em; }
-.team-name.ours { color: var(--accent-soft); }
-.vs { color: var(--muted); font-size: 13px; }
-.result {
-  font-weight: 700; padding: 2px 8px; border-radius: 8px;
-  background: rgba(47,125,209,.18); color: #bcd6f5; font-size: 13px;
-}
-.team-score { display: none; }
-.meta {
-  margin-top: 4px; color: var(--muted); font-size: 11px;
-  text-transform: uppercase; letter-spacing: .055em;
+  white-space: nowrap;
 }
 
 .badge {
@@ -952,8 +928,7 @@ body.lightbox-open { overflow: hidden; }
 
 /* --- Riquadro giornata in corso --- */
 
-.round-panel,
-.all-panel {
+.round-panel {
   margin-bottom: 18px;
   min-width: 0;
   padding: 16px;
@@ -1002,11 +977,6 @@ body.lightbox-open { overflow: hidden; }
 }
 
 .all-matches-btn:hover { border-color: var(--accent-soft); }
-
-.all-matches-btn[aria-expanded="true"] {
-  background: rgba(123, 79, 181, .2);
-  border-color: var(--accent);
-}
 
 /* --- Striscia delle giornate --- */
 
@@ -1121,8 +1091,25 @@ body.lightbox-open { overflow: hidden; }
 .round-match:last-child { margin-bottom: 0; }
 .round-match:hover { border-color: var(--accent-soft); }
 .round-match.is-ours { border-color: rgba(163, 127, 212, .55); }
-.round-match.esito-win { border-color: rgba(35, 178, 109, .6); }
-.round-match.esito-loss { border-color: rgba(224, 87, 106, .55); }
+/* Esito anche nella giornata in corso: tutto il riquadro prende la velatura
+   verde (vittoria) o rossa (sconfitta), che sfuma nel viola societario verso
+   destra. E' la stessa regola della lista e della vista Calendario. */
+.round-match.esito-win {
+  border-left: 5px solid var(--win);
+  border-color: rgba(35, 178, 109, .6);
+  background: linear-gradient(90deg, rgba(35, 178, 109, .34), rgba(35, 178, 109, .08) 42%, rgba(160, 96, 192, .3) 100%);
+}
+
+.round-match.esito-loss {
+  border-left: 5px solid var(--loss);
+  border-color: rgba(224, 87, 106, .6);
+  background: linear-gradient(90deg, rgba(224, 87, 106, .32), rgba(224, 87, 106, .08) 42%, rgba(160, 96, 192, .3) 100%);
+}
+
+/* La striscia delle giornate ha uno sfondo suo: senza questo la velatura
+   resterebbe coperta. */
+.round-slide .round-match.esito-win,
+.round-slide .round-match.esito-loss { background-color: transparent; }
 .round-match.is-cancelled { opacity: .7; }
 
 .rm-side {
@@ -1219,16 +1206,6 @@ body.lightbox-open { overflow: hidden; }
 
 .badge-star { margin-right: 4px; color: #f7b519; }
 
-/* --- Riquadro "tutte le partite" --- */
-
-.all-panel .calendar { max-height: 620px; overflow-y: auto; }
-.all-panel .match { background: var(--surface); }
-.all-panel .day-label:first-child { margin-top: 0; }
-
-@media (max-width: 860px) {
-  .all-panel .calendar { max-height: none; }
-}
-
 @media (max-width: 560px) {
   .table-head,
   .team-row { grid-template-columns: 30px minmax(0, 1fr) 30px 26px 26px 44px; padding: 9px 12px; }
@@ -1237,9 +1214,305 @@ body.lightbox-open { overflow: hidden; }
   .table-head { font-size: 9.5px; }
   .card-top { padding: 0 12px 11px; gap: 10px; }
   .club-logo { width: 38px; height: 38px; }
-  .round-panel, .all-panel { padding: 13px; }
+  .round-panel { padding: 13px; }
   .rm-team { font-size: 11.5px; }
   .rm-logo { width: 22px; height: 22px; }
   .cal { min-width: 46px; }
   .cal .g { font-size: 16px; }
+}
+
+/* ===========================================================================
+   Vista "Calendario" (stessa pagina, ?vista=calendario)
+   Solo le partite: la classifica e la giornata in corso restano nel documento
+   ma nascoste. Struttura come il riferimento: riepilogo con barra, pillole di
+   filtro, poi una riga per partita.
+   =========================================================================== */
+
+.cal-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 17px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(123, 79, 181, .45);
+  border-radius: 18px;
+  background: linear-gradient(155deg, #1a2338, var(--surface));
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Alone decorativo: riprende il cerchio del riferimento, senza rubare spazio. */
+.cal-summary::before {
+  content: "";
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123, 79, 181, .34), transparent 68%);
+  pointer-events: none;
+}
+
+.cal-club-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.cal-summary-body { min-width: 0; }
+
+.cal-team {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.cal-comp {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* --- avanzamento --- */
+
+.cal-progress { margin-bottom: 14px; }
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.progress-ratio {
+  color: var(--text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.progress-track {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  transition: width .3s ease;
+}
+
+/* --- pillole di filtro --- */
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+
+.pill:hover { border-color: var(--accent-soft); color: var(--text); }
+.pill:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+.pill.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: var(--on-accent);
+}
+
+.pill-count {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  font-variant-numeric: tabular-nums;
+}
+
+.pill.active .pill-count { background: rgba(0, 0, 0, .2); }
+
+/* --- riga partita --- */
+
+.calendario { display: flex; flex-direction: column; gap: 8px; }
+
+.fixture-row {
+  display: grid;
+  grid-template-columns: 54px 34px minmax(0, 1fr) 86px;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color .15s;
+}
+
+.fixture-row:hover { border-color: var(--accent-soft); }
+.fixture-row:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+/* Esito: verde se vinta, rosso se persa, sempre con la sfumatura viola
+   societaria verso destra. Stessa regola della giornata in corso. */
+.fixture-row.esito-win {
+  border-left: 5px solid var(--win);
+  border-color: rgba(35, 178, 109, .6);
+  background: linear-gradient(90deg, rgba(35, 178, 109, .34), rgba(35, 178, 109, .08) 42%, rgba(160, 96, 192, .3) 100%);
+}
+
+.fixture-row.esito-loss {
+  border-left: 5px solid var(--loss);
+  border-color: rgba(224, 87, 106, .6);
+  background: linear-gradient(90deg, rgba(224, 87, 106, .32), rgba(224, 87, 106, .08) 42%, rgba(160, 96, 192, .3) 100%);
+}
+
+.fixture-row.next-match {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 1px rgba(163, 127, 212, .3), 0 4px 18px rgba(123, 79, 181, .22);
+}
+
+.fixture-row.is-cancelled { opacity: .55; }
+.fixture-row.is-cancelled .opp-name { text-decoration: line-through; }
+
+.round-col { text-align: center; }
+
+.round-num {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.round-date {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.ha-tag {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.opp-col {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.mini-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.mini-badge {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.opp-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.next-badge {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(163, 127, 212, .22);
+  color: var(--accent-soft);
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.status-col { text-align: right; }
+
+.time-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.time-val.muted { color: var(--muted); }
+
+.status-label {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+@media (max-width: 560px) {
+  .fixture-row {
+    grid-template-columns: 42px 26px minmax(0, 1fr) 64px;
+    gap: 6px;
+    padding: 10px;
+  }
+  .ha-tag { width: 26px; height: 26px; font-size: 10px; }
+  .opp-name { font-size: 12.5px; }
+  .mini-logo, .mini-badge { width: 21px; height: 21px; }
+  .round-num { font-size: 13.5px; }
+  .time-val { font-size: 12.5px; }
+  .next-badge { display: none; }
+  .cal-summary { padding: 13px; gap: 11px; }
+  .cal-team { font-size: 15px; }
+  .cal-club-logo { width: 38px; height: 38px; }
 }

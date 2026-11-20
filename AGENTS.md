@@ -194,6 +194,21 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - `escapeAttr` e' definita in `admin.js` come in `app.js`; se manca, il form
   loghi si rompe silenziosamente.
 
+## Trappole gia' pagate (leggere prima di toccare le viste)
+- **Una sola lista di partite.** Fino alla vista Calendario esistevano due
+  elenchi: la lista cronologica (`renderList`, dentro `#calendar`) e la giornata
+  (`renderChampionship`). Il pannello "Tutte le partite" veniva ridisegnato da
+  `renderList` **anche** dopo `aggiornaDalVivo()`, e sovrascriveva la vista
+  nuova: il filtro contava 8 partite ma ne mostrava 0. Se aggiungi una vista,
+  assicurati che ogni `render*` che tocca `#calendar` disegni quella giusta.
+- **Il CSS legato a una classe morta non si vede.** `.annullata` era stilata solo
+  come `.match.is-cancelled .annullata`: rimossa `.match`, l'etichetta e'
+  diventata testo bianco 16px in mezzo alla card. Quando elimini una classe,
+  cerca le regole che la usano come **antenato**, non solo come selettore.
+- Le velature di esito sono due regole distinte (`.round-match`, `.fixture-row`)
+  con gli stessi valori: se ne cambi una, cambia l'altra. Verifica con
+  `getComputedStyle().backgroundImage` che siano identiche, non a occhio.
+
 ## Filtri del calendario (site/app.js)
 - La barra in alto mostra **due chip**: l'etichetta della vista attiva
   (`.chip-current`, sola indicazione) e il bottone **Filtri** che apre
@@ -264,6 +279,8 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   "Le nostre partite" selezionato: e' il link da mettere nei gruppi.
   `?squadra=<slug>&vista=week` apre la stessa squadra su "Questa settimana".
   `?campionato=<id-campionato>` apre il pannello su quel campionato.
+  `?vista=calendario` apre direttamente la vista Calendario (solo partite),
+  con `&filtro=disputate` o `&filtro=tutte` per scegliere il gruppo.
 - Gli slug sono in `site/data/squadre.json` e **non vanno cambiati** una volta
   diffusi: i link gia' incollati smetterebbero di funzionare. Per cambiare il
   nome mostrato si modifica `nome`, non `slug`. (Slug attuali: `under-19`,
@@ -283,6 +300,32 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   squadre diverse**, non due grafie della stessa: e' per questo che ogni voce
   dichiara il proprio `campionato`.
 
+## Vista "Calendario" (`?vista=calendario`)
+- La sezione **non e' una pagina a parte**: e' una vista della stessa pagina.
+  `#vista-squadra` (classifica + giornata in corso) e `#vista-calendario` stanno
+  entrambe nel documento; `mostraVistaCalendario(on)` nasconde l'una e mostra
+  l'altra. Cosi' il tasto Indietro non ricarica nulla e la classifica e' gia'
+  pronta quando si torna.
+- Il pulsante **Tutte le partite** (`#all-matches`, dentro la testata della
+  giornata) apre la vista; **← Squadra** (`#torna-squadra`) la chiude.
+- Struttura, come il riferimento: `.cal-summary` (logo, squadra, campionato),
+  `.cal-progress` (barra + `N/M`), `.filter-pills`, poi `.fixture-row`.
+- Il filtro di partenza e' **`da-disputare`**: chi apre il calendario vuole le
+  prossime partite, non l'archivio. `state.filtro` vale
+  `tutte` / `disputate` / `da-disputare` e finisce nell'indirizzo solo se
+  diverso da quello di partenza, cosi' i link restano corti.
+- **Disputata** = ha un `risultato` e non e' `cancelled`. Le annullate non
+  stanno in nessuno dei due gruppi: non si sono giocate e non si giocheranno.
+  Non reintrodurre il conteggio delle annullate fra le "da disputare".
+- `visibleMatches()` e' la stessa funzione della vista squadra: il calendario
+  non puo' mostrare partite diverse da quelle della classifica.
+- La riga mostra: giornata + data breve, `vs`/`@`, logo e nome dell'avversario,
+  poi risultato (o orario) con lo stato. `.next-match` evidenzia la prossima
+  partita da giocare (`prossimaPartita`), con la stessa tolleranza di 6 ore di
+  `defaultRound`.
+- `state.calRows` tiene le righe mostrate: la scheda dettagli si apre con
+  quell'indice, non con quello di un'altra lista.
+
 ## Schede partita su telefono (site/styles.css, media <=640px)
 - Il badge dell'ente (FIPAV/ASI) sta **sotto l'orario**, nella colonna sinistra,
   e `.match-body` occupa entrambe le righe. In fondo occupava una riga sua (scheda
@@ -296,6 +339,9 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - L'esito delle partite (`esito-win`/`esito-loss` in `site/app.js`) si applica
   **solo alle partite dell'Astrovolley** e si calcola dal suo punto di vista,
   quindi una vittoria in trasferta resta verde. Niente lettera V/P: solo colore.
+  La velatura copre **tutto il riquadro** (verde o rosso) e sfuma nel viola
+  societario verso destra; vale sia per la giornata in corso sia per la vista
+  Calendario, e le due regole CSS devono restare allineate.
 - Il sito è senza dipendenze JS; non introdurre build step.
 - L'importer usa solo la libreria standard di Python.
 - `site/data/schedule.json` è generato: in caso di conflitto git, rigenerarlo con
@@ -303,7 +349,7 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 
 ## TODO noti
 - Scheda dettaglio partita al click (parziali, indirizzo, logo).
-- Nuova sezione del sito (richiesta dall'utente, da definire).
+- Nessuno aperto.
 
 ## Comandi utili
 ```bash
