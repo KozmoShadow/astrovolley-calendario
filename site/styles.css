@@ -259,7 +259,12 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 .match-time { font-weight: 700; font-size: 15px; color: #dbe6fb; }
 .match-body { min-width: 0; }
 .teams { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; }
-.team-name { font-weight: 600; }
+/* Nomi normalizzati in maiuscolo. Nei dati la stessa squadra arriva scritta in
+   due modi ("Minerva Medica Flyer" e "MINERVA MEDICA FLYER"): cosi' diventano
+   identici. Il maiuscolo allunga i nomi di circa il 10%, quindi la dimensione
+   scende a 13.5px: a 15px i nomi lunghi andavano a capo e la scheda cresceva
+   di una riga. Il testo nei dati resta invariato: si torna indietro da qui. */
+.team-name { font-weight: 600; text-transform: uppercase; font-size: 13.5px; letter-spacing: .012em; }
 .team-name.ours { color: var(--accent-soft); }
 .vs { color: var(--muted); font-size: 13px; }
 .result {
@@ -267,7 +272,10 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
   background: rgba(47,125,209,.18); color: #bcd6f5; font-size: 13px;
 }
 .team-score { display: none; }
-.meta { margin-top: 4px; color: var(--muted); font-size: 12.5px; }
+.meta {
+  margin-top: 4px; color: var(--muted); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .055em;
+}
 
 .badge {
   font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
@@ -424,6 +432,42 @@ body.modal-open { overflow: hidden; }
 }
 .round-matches .match { background: var(--surface-2); }
 .round-matches .match:last-child { margin-bottom: 0; }
+
+/* Blocchetto calendario: mese+anno, giorno, ora. Sostituisce l'orario solo nel
+   pannello Campionato, dove le partite di una giornata cadono in giorni diversi. */
+.cal {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.cal .m {
+  width: 100%;
+  padding: 2px 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: var(--on-accent);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-align: center;
+  white-space: nowrap;
+}
+.cal .g {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.cal .t {
+  padding-bottom: 3px;
+  color: var(--muted);
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
 
 
 @media (max-width: 640px) {

@@ -336,10 +336,31 @@ function renderViewFilter() {
   );
 }
 
+// Blocchetto calendario per il pannello Campionato: mese e anno nella barretta,
+// giorno in grande, ora sotto. L'anno sta nella barretta perche' la stagione
+// scavalca il 31 dicembre: senza, "11/11" e "11/01" sarebbero indistinguibili.
+const MESI = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
+
+function whenBlock(d) {
+  if (!d) {
+    return `<div class="cal"><span class="m">—</span><span class="g">--</span><span class="t">--:--</span></div>`;
+  }
+  const giorno = String(d.getDate()).padStart(2, "0");
+  return `<div class="cal">
+            <span class="m" aria-hidden="true">${MESI[d.getMonth()]} ${String(d.getFullYear()).slice(2)}</span>
+            <span class="g" aria-hidden="true">${giorno}</span>
+            <span class="t" aria-hidden="true">${fmtTime(d)}</span>
+            <span class="sr-only">${escapeHtml(fmtDay(d))}, ore ${fmtTime(d)}</span>
+          </div>`;
+}
+
 function matchCard(m, idx, opts = {}) {
   const d = parseDate(m.data);
   const ours = matchIsOurs(m);
   const time = d ? fmtTime(d) : "--:--";
+  // Nel pannello Campionato la data serve: le partite di una giornata cadono in
+  // giorni diversi. Nella lista no, perche' il giorno e' gia' nell'intestazione.
+  const quando = opts.showDate ? whenBlock(d) : `<div class="match-time">${time}</div>`;
   const parts = (m.risultato || "").split(/\s*[-–]\s*/);
   const hasScore = parts.length === 2;
   const result = m.risultato
@@ -356,7 +377,7 @@ function matchCard(m, idx, opts = {}) {
   return `
       <article class="match ${ours ? "is-ours" : ""} ${esito}" data-idx="${idx}" tabindex="0" role="button"
                aria-label="Dettagli partita">
-        <div class="match-time">${time}</div>
+        ${quando}
         <div class="match-body">
           <div class="teams ${hasScore ? "is-played" : "is-upcoming"}">
             <span class="team-name name-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
@@ -624,7 +645,7 @@ function renderChampionship() {
   const list = $("#round-matches");
   state.panelRows = partite;
   list.innerHTML = partite.length
-    ? partite.map((m, i) => matchCard(m, i)).join("")
+    ? partite.map((m, i) => matchCard(m, i, { showDate: true })).join("")
     : `<p class="empty">Nessuna partita in questa giornata.</p>`;
   list.querySelectorAll(".match").forEach((el) =>
     el.addEventListener("click", () => openMatchModal(state.panelRows[Number(el.dataset.idx)]))

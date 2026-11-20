@@ -153,6 +153,15 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   accettati, `campionato` come filtro) e aggiunge i nomi che contengono "astro"
   ma non sono in configurazione, con slug `auto-*`: una squadra nuova compare
   lo stesso, anche prima che qualcuno la aggiunga al file.
+- I nomi delle squadre sono in **maiuscolo** via CSS (`text-transform`), non nei
+  dati: cosi' "Minerva Medica Flyer" e "MINERVA MEDICA FLYER", che nei dati sono
+  la stessa squadra scritta in due modi, diventano identici. Il testo nei JSON
+  resta invariato.
+- Il maiuscolo allunga i nomi di circa il 10%: per questo `.team-name` sta a
+  **13.5px** e non 15px. A 15px i nomi lunghi andavano a capo e la scheda
+  cresceva da 117 a 141px. A 13.5px tornano su una riga e la scheda e' piu'
+  bassa di prima (113px). A 360px restano 2 nomi su 116 che vanno a capo: se si
+  tocca la dimensione, ricontrollare a 360px, non solo a 390.
 - La vista `week` = da oggi a 7 giorni, solo partite nostre, raggruppate per data.
 - `state.view` vale solo `ours` o `week`. Il campionato **non** e' piu' una vista:
   la lista resta sempre cronologica e il campionato si apre in un pannello.
@@ -178,6 +187,19 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   `state.rows` sono un'altra lista, e confonderli apre la partita sbagliata.
 - Un campionato senza numeri di giornata (es. un torneo inserito a mano) non ha
   frecce ne' striscia: mostra tutte le sue partite in un unico elenco.
+- Le partite del pannello mostrano un **blocchetto calendario** (`whenBlock`)
+  invece del solo orario: mese+anno nella barretta, giorno in grande, ora sotto.
+  Serve perche' le partite di una giornata cadono in giorni diversi. Nella lista
+  principale il blocchetto non c'e': il giorno e' gia' nell'intestazione di data,
+  e ripeterlo sarebbe rumore. `matchCard(m, i, { showDate: true })` accende il
+  blocchetto.
+- L'anno sta **dentro la barretta del mese** (`NOV 26`), non sotto: la stagione
+  scavalca il 31 dicembre, quindi senza anno "11/11" e "11/01" sarebbero
+  indistinguibili. La barretta e' larga 58px su mobile e `SET 27` ne occupa 28:
+  c'e' margine.
+- Gli span visivi del blocchetto sono `aria-hidden`, con un `sr-only` che dice
+  "mar 17 nov 2026, ore 20:45": uno screen reader leggerebbe "NOV 26 17 20:45",
+  che e' incomprensibile.
 - `?campionato=<id>` apre il sito con il pannello gia' aperto. Chiudendo il
   pannello il parametro viene tolto dall'indirizzo. Il vecchio `?vista=<id>`
   continua a funzionare e apre il pannello (compatibilita' con i link diffusi).
