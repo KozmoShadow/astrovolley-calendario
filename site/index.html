@@ -43,38 +43,44 @@
     <div id="calendar-view">
     <button id="back-to-landing" class="back-btn" hidden>← Squadre</button>
 
-    <header class="page-head">
-      <h2 id="team-title" class="page-title">Classifica</h2>
-      <div class="page-chips">
-        <span id="team-comp" class="info-chip">—</span>
-        <span id="team-season" class="info-chip">—</span>
-      </div>
-    </header>
+    <h2 id="team-title" class="page-title">Classifica</h2>
 
-    <section class="panel standings-panel" aria-labelledby="standings-heading">
-      <div class="standings-card">
-        <div class="card-top">
-          <div>
-            <h3 id="standings-heading" class="card-title">Classifica</h3>
-            <p id="standings-sub" class="card-subtitle">—</p>
-          </div>
+    <!-- Niente pannello attorno: la card e' gia' un riquadro. -->
+    <section class="standings-card" aria-labelledby="standings-heading">
+      <div class="card-top">
+        <img class="club-logo" src="assets/logo.webp" alt="Logo ASD Astrovolley"
+             width="46" height="46" />
+        <div>
+          <h3 id="standings-heading" class="card-title">Classifica</h3>
+          <p id="standings-sub" class="card-subtitle">—</p>
+          <p class="card-comp"><span id="team-comp">—</span> · <span id="team-season">—</span></p>
         </div>
-        <div id="standings" class="standings"></div>
       </div>
+      <div id="standings" class="standings"></div>
     </section>
 
-    <section class="panel round-panel" aria-labelledby="round-heading">
-      <div class="round-header">
-        <h3 id="round-heading" class="round-title">Giornata in corso</h3>
-      </div>
-      <div id="campionato" class="campionato"></div>
-      <a id="all-matches" class="all-matches" href="#">Tutte le partite Astrovolley</a>
-    </section>
+    <!-- Giornata e "tutte le partite" affiancate, come nel riferimento. -->
+    <div class="round-grid">
+      <section class="round-panel" aria-labelledby="round-heading">
+        <div class="round-header">
+          <h3 id="round-heading" class="round-title">Giornata in corso</h3>
+        </div>
+        <div id="campionato" class="campionato"></div>
+      </section>
 
-    <section id="all-matches-panel" class="panel" hidden>
-      <h3 id="list-title" class="round-title">Le nostre partite</h3>
-      <div id="calendar" class="calendar" aria-live="polite"></div>
-    </section>
+      <section class="all-panel" aria-labelledby="all-heading">
+        <div class="round-header">
+          <h3 id="all-heading" class="round-title">
+            <svg class="cal-icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Tutte le partite
+          </h3>
+        </div>
+        <div id="calendar" class="calendar" aria-live="polite"></div>
+      </section>
+    </div>
     </div>
   </main>
 

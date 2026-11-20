@@ -39,6 +39,8 @@ const fmtDay = (d) => dayFmt.format(d);
 const shortDayFmt = new Intl.DateTimeFormat("it-IT", { weekday: "short", day: "2-digit", month: "short" });
 const fmtShortDay = (d) => shortDayFmt.format(d);
 const fmtTime = (d) => d.toTimeString().slice(0, 5);
+// Mese in tre lettere per la barretta del quadratino calendario.
+const MESI = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
 const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
 const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 
@@ -373,24 +375,49 @@ function roundMatchCard(m, idx) {
   const esito = hasScore && ours ? esitoOf(m, parts) : "";
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
-  const centro = d
-    ? `<span class="rm-date">${escapeHtml(fmtShortDay(d))}</span>
-       <span class="rm-time">${escapeHtml(fmtTime(d))}</span>`
-    : `<span class="rm-date">Data</span><span class="rm-time">--:--</span>`;
+
+  // Quadratino calendario come nella sezione Campionato del sito: mese e anno
+  // nella barretta, giorno in grande, ora sotto. La stagione scavalca il 31
+  // dicembre, quindi l'anno sta nella barretta.
+  const quando = d
+    ? `<div class="cal">
+         <span class="m" aria-hidden="true">${MESI[d.getMonth()]} ${String(d.getFullYear()).slice(2)}</span>
+         <span class="g" aria-hidden="true">${String(d.getDate()).padStart(2, "0")}</span>
+         <span class="t" aria-hidden="true">${fmtTime(d)}</span>
+         <span class="sr-only">${escapeHtml(fmtDay(d))}, ore ${fmtTime(d)}</span>
+       </div>`
+    : `<div class="cal"><span class="m">—</span><span class="g">--</span><span class="t">--:--</span></div>`;
+
+  const logoCasa = logoUrl(m.logo_casa);
+  const logoTrasf = logoUrl(m.logo_trasferta);
+  const logo = (url, nome) =>
+    url
+      ? `<img class="rm-logo" src="${escapeAttr(url)}" alt="" width="26" height="26" loading="lazy" onerror="this.remove()" />`
+      : "";
+
   const risultato = annullata
     ? `<span class="annullata">annullata</span>`
     : hasScore
       ? `<span class="rm-score">${escapeHtml(m.risultato)}</span>`
       : "";
+
   return `
     <article class="round-match ${ours ? "is-ours" : ""} ${esito} ${annullata ? "is-cancelled" : ""}"
              data-idx="${idx}" tabindex="0" role="button"
              aria-label="Dettagli partita${annullata ? " (annullata)" : ""}">
-      <span class="rm-team rm-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
-      <span class="rm-center">${centro}</span>
-      <span class="rm-team rm-ospite ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
-      <span class="rm-foot">
+      <div class="rm-side rm-casa">
+        ${logo(logoCasa, m.casa)}
+        <span class="rm-team ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
+      </div>
+      <div class="rm-center">
+        ${quando}
         ${risultato}
+      </div>
+      <div class="rm-side rm-ospite">
+        <span class="rm-team ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
+        ${logo(logoTrasf, m.trasferta)}
+      </div>
+      <span class="rm-foot">
         <span class="badge ${fonte}">${ours ? '<span class="badge-star" aria-hidden="true">★</span>' : ""}${escapeHtml(ente)}</span>
       </span>
     </article>`;
@@ -417,12 +444,11 @@ function groupRows(rows) {
 
 function renderList() {
   const box = $("#calendar");
+  if (!box) return;
   const rows = visibleMatches();
-  const tn = teamName(state.team);
-  $("#list-title").textContent = tn ? `Le nostre partite — ${titolaNome(tn)}` : "Le nostre partite";
 
   if (!rows.length) {
-    box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
+    box.innerHTML = `<p class="empty">Nessuna partita in calendario.</p>`;
     return;
   }
 
@@ -646,32 +672,27 @@ function renderChampionship() {
     (a.data || "").localeCompare(b.data || "")
   );
 
-  // Carosello: frecce ai lati e striscia scorrevole al centro. La striscia
-  // tiene tutte le giornate, quindi si trascina col dito su mobile.
-  let html = "";
-  if (rounds.length) {
-    html += `<div class="round-nav">
-      <button class="round-step" id="round-prev" aria-label="Giornata precedente" ${
-        pos <= 0 ? "disabled" : ""
-      }>‹</button>
-      <div class="round-carousel">
-        <div class="round-strip" id="round-strip" role="tablist" aria-label="Giornate">${rounds
-          .map(
-            (r) =>
-              `<button role="tab" class="round-tab ${r.n === corrente.n ? "is-active" : ""}"
-                 data-round="${r.n}" aria-selected="${r.n === corrente.n}">Giornata ${escapeHtml(String(r.n))}</button>`
-          )
-          .join("")}</div>
-      </div>
-      <button class="round-step" id="round-next" aria-label="Giornata successiva" ${
-        pos >= rounds.length - 1 ? "disabled" : ""
-      }>›</button>
-    </div>
-    <p class="round-hint">Scorri per cambiare giornata</p>`;
-  }
+  // Freccia, giornata al centro, freccia. La pillola centrale mostra la
+  // giornata scelta; lo swipe (o il trascinamento) cambia giornata.
+  const nav = rounds.length
+    ? `<div class="round-nav">
+         <button class="arrow-btn" id="round-prev" aria-label="Giornata precedente" ${
+           pos <= 0 ? "disabled" : ""
+         }>&lsaquo;</button>
+         <div class="round-pill" id="round-pill" aria-live="polite">Giornata ${escapeHtml(
+           String(corrente.n)
+         )}</div>
+         <button class="arrow-btn" id="round-next" aria-label="Giornata successiva" ${
+           pos >= rounds.length - 1 ? "disabled" : ""
+         }>&rsaquo;</button>
+       </div>
+       <p class="swipe-hint">Scorri per cambiare giornata</p>
+       <div class="dots" aria-hidden="true">${rounds
+         .map((r) => `<span class="dot ${r.n === corrente.n ? "active" : ""}"></span>`)
+         .join("")}</div>`
+    : "";
 
-  html += `<div id="round-matches" class="round-matches" role="tabpanel"></div>`;
-  box.innerHTML = html;
+  box.innerHTML = `${nav}<div id="round-matches" class="round-matches"></div>`;
 
   const list = $("#round-matches");
   state.panelRows = partite;
@@ -686,42 +707,48 @@ function renderChampionship() {
   const next = $("#round-next");
   if (prev) prev.addEventListener("click", () => goRound(pos - 1));
   if (next) next.addEventListener("click", () => goRound(pos + 1));
-  box.querySelectorAll(".round-tab").forEach((tab) =>
-    tab.addEventListener("click", () => goRound(Number(tab.dataset.round), true))
-  );
 
-  // Trascinamento orizzontale col mouse (col dito funziona da solo).
-  setupStripDrag($("#round-strip"));
-
-  // La giornata attiva resta al centro della striscia.
-  const attivo = box.querySelector(".round-tab.is-active");
-  if (attivo) {
-    const strip = attivo.parentElement;
-    strip.scrollLeft = Math.max(0, attivo.offsetLeft - strip.clientWidth / 2 + attivo.clientWidth / 2);
-  }
+  setupSwipe(box, () => goRound(pos - 1), () => goRound(pos + 1));
 }
 
-// Trascinare la striscia con il mouse, come su un carosello. Su touch non
-// serve: lo scorrimento nativo e' gia' quello giusto.
-function setupStripDrag(strip) {
-  if (!strip) return;
-  let giu = false, x = 0, scroll = 0;
-  strip.addEventListener("pointerdown", (e) => {
+// Swipe orizzontale sulla sezione giornata: a sinistra la successiva, a destra
+// la precedente. Vale sia col dito sia col mouse. Una soglia minima evita che
+// uno scroll verticale venga letto come cambio giornata.
+function setupSwipe(el, onPrev, onNext) {
+  if (!el) return;
+  let x0 = null, y0 = null, attivo = false;
+  const SOGLIA = 48;
+
+  el.addEventListener("touchstart", (e) => {
+    const t = e.touches[0];
+    x0 = t.clientX; y0 = t.clientY; attivo = true;
+  }, { passive: true });
+
+  el.addEventListener("touchend", (e) => {
+    if (!attivo || x0 === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - x0;
+    const dy = t.clientY - y0;
+    attivo = false;
+    // Solo se il gesto e' piu' orizzontale che verticale.
+    if (Math.abs(dx) < SOGLIA || Math.abs(dx) <= Math.abs(dy)) return;
+    if (dx < 0) onNext(); else onPrev();
+  }, { passive: true });
+
+  el.addEventListener("pointerdown", (e) => {
     if (e.pointerType === "touch") return;
-    giu = true; x = e.clientX; scroll = strip.scrollLeft;
-    strip.classList.add("is-dragging");
+    x0 = e.clientX; y0 = e.clientY; attivo = true;
   });
-  strip.addEventListener("pointermove", (e) => {
-    if (!giu) return;
-    strip.scrollLeft = scroll - (e.clientX - x);
+  el.addEventListener("pointerup", (e) => {
+    if (e.pointerType === "touch" || !attivo || x0 === null) return;
+    const dx = e.clientX - x0;
+    const dy = e.clientY - y0;
+    attivo = false;
+    if (Math.abs(dx) < SOGLIA || Math.abs(dx) <= Math.abs(dy)) return;
+    // Trascinare verso sinistra porta avanti, come su un carosello.
+    if (dx < 0) onNext(); else onPrev();
   });
-  const fine = () => { giu = false; strip.classList.remove("is-dragging"); };
-  strip.addEventListener("pointerup", fine);
-  strip.addEventListener("pointerleave", fine);
-  strip.addEventListener("pointercancel", fine);
 }
-
-// Cambia giornata: `valore` e' l'indice (dalle frecce) o il numero (dai tab).
 function goRound(valore, eNumero = false) {
   const comp = panelCompetition();
   if (!comp) return;
@@ -746,10 +773,12 @@ function togglePanel(open) {
 
 // Testata della pagina squadra: titolo, campionato e stagione come scritte
 // statiche nei riquadri (niente menu a tendina).
+// Il titolo della pagina e' sempre "Classifica": la squadra si riconosce dal
+// logo del club e dalla riga evidenziata in tabella. Sotto stanno campionato
+// e stagione.
 function renderTeamHead() {
-  const nome = teamName(state.team);
   const titolo = $("#team-title");
-  if (titolo) titolo.textContent = nome ? titolaNome(nome) : "Classifica";
+  if (titolo) titolo.textContent = "Classifica";
   const comp = $("#team-comp");
   if (comp) comp.textContent = titolaNome(teamCompetition(state.team) || "");
   const stag = $("#team-season");
@@ -1182,10 +1211,9 @@ function showCalendar(slug, riepilogo) {
   $("#calendar-view")?.removeAttribute("hidden");
   $("#back-to-landing")?.removeAttribute("hidden");
   document.body.classList.remove("on-landing");
-  // Classifica e giornata sono sempre visibili: nessun pannello da aprire.
-  // state.panel resta quello scelto (o quello della squadra): azzerarlo qui
-  // farebbe cadere un link ?campionato= sulla prima competizione.
-  $("#all-matches-panel")?.setAttribute("hidden", "");
+  // Classifica e giornata sono sempre visibili. state.panel resta quello
+  // scelto (o quello della squadra): azzerarlo qui farebbe cadere un link
+  // ?campionato= sulla prima competizione.
   applyView("ours", slug || "");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1237,21 +1265,6 @@ async function init() {
     // nostre" e si richiude la classifica, cosi' riaprendo una squadra non si
     // trova il filtro della precedente.
     showLanding();
-  });
-
-  // "Tutte le partite Astrovolley": apre la lista cronologica sotto la
-  // giornata, senza cambiare pagina.
-  $("#all-matches")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const panel = $("#all-matches-panel");
-    if (!panel) return;
-    const chiuso = panel.hasAttribute("hidden");
-    if (chiuso) panel.removeAttribute("hidden");
-    else panel.setAttribute("hidden", "");
-    e.currentTarget.textContent = chiuso
-      ? "Nascondi le partite Astrovolley"
-      : "Tutte le partite Astrovolley";
-    if (chiuso) panel.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   if (daUrl) showCalendar(state.team);
