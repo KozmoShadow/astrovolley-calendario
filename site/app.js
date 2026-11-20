@@ -1,4 +1,5 @@
 import { fetchLiveFipav, fetchLiveFipavMobile } from "./fipav-live.js";
+import { fetchLiveAsi } from "./asi-live.js";
 
 const OUR_PATTERN = "astro";
 const DATA_URL = "data/schedule.json";
@@ -12,7 +13,8 @@ const state = {
   team: "", // "" = tutte le nostre squadre, altrimenti lo slug di una squadra
   panel: "", // id del campionato aperto nel pannello ("" = chiuso)
   round: null, // giornata selezionata nel pannello
-  live: false, // true se i dati FIPAV sono stati letti dal vivo adesso
+  live: false, // true se almeno una fonte e' stata letta dal vivo adesso
+  liveFonti: {}, // fonte -> true se letta dal vivo, false se da snapshot
   liveError: null,
   rows: [], // partite attualmente mostrate nella lista (per la scheda dettagli)
   panelRows: [], // partite mostrate nella giornata del pannello (indici separati)
@@ -363,9 +365,12 @@ function matchCard(m, idx, opts = {}) {
   const quando = opts.showDate ? whenBlock(d) : `<div class="match-time">${time}</div>`;
   const parts = (m.risultato || "").split(/\s*[-–]\s*/);
   const hasScore = parts.length === 2;
-  const result = m.risultato
-    ? `<span class="result">${escapeHtml(m.risultato)}</span>`
-    : `<span class="vs">vs</span>`;
+  const annullata = (m.stato || "") === "cancelled";
+  const result = annullata
+    ? `<span class="annullata">annullata</span>`
+    : m.risultato
+      ? `<span class="result">${escapeHtml(m.risultato)}</span>`
+      : `<span class="vs">vs</span>`;
   const scoreCasa = hasScore ? `<span class="team-score score-casa">${escapeHtml(parts[0])}</span>` : "";
   const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
   const esito = hasScore && ours ? esitoOf(m, parts) : "";
@@ -375,8 +380,8 @@ function matchCard(m, idx, opts = {}) {
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
   return `
-      <article class="match ${ours ? "is-ours" : ""} ${esito}" data-idx="${idx}" tabindex="0" role="button"
-               aria-label="Dettagli partita">
+      <article class="match ${ours ? "is-ours" : ""} ${esito} ${annullata ? "is-cancelled" : ""}" data-idx="${idx}" tabindex="0" role="button"
+               aria-label="Dettagli partita${annullata ? " (annullata)" : ""}">
         ${quando}
         <div class="match-body">
           <div class="teams ${hasScore ? "is-played" : "is-upcoming"}">
@@ -480,7 +485,13 @@ function openMatchModal(m) {
         ${logoCasa}
         <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
       </div>
-      <div class="detail-result">${m.risultato ? escapeHtml(m.risultato) : "vs"}</div>
+      <div class="detail-result">${
+        (m.stato || "") === "cancelled"
+          ? `<span class="annullata">annullata</span>`
+          : m.risultato
+            ? escapeHtml(m.risultato)
+            : "vs"
+      }</div>
       <div class="detail-team">
         ${logoTrasf}
         <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
@@ -764,20 +775,33 @@ function renderStandings() {
 function renderHeader() {
   $("#societa").textContent = state.data.societa || "Calendario";
   $("#stagione").textContent = state.data.stagione || "—";
-  const gen = parseDate((state.data.generato_il || "").replace("T", " ").slice(0, 19));
-  const el = $("#updated");
-  if (state.live) {
-    el.innerHTML = `Risultati aggiornati <strong>adesso</strong> da FIPAV`;
-    el.classList.add("is-live");
-  } else if (gen) {
-    el.textContent = `Dati FIPAV aggiornati ${fmtRelative(gen)}`;
-    el.title = `Ultimo aggiornamento automatico: ${fmtDay(gen)} ${fmtTime(gen)}`;
-    el.classList.remove("is-live");
-  } else {
-    el.textContent = "Aggiornamento automatico in corso";
-    el.classList.remove("is-live");
+  // `generato_il` e' in UTC con il fuso (+00:00): va passato intero, altrimenti
+  // il browser lo legge come ora locale e in Italia il dato sembra vecchio di
+  // un'ora appena scritto.
+  const gen = parseDate(state.data.generato_il || "");
+  $("#updated").innerHTML = updatedHtml(gen);
+  if (gen) {
+    $("#updated").title = `Ultimo aggiornamento automatico: ${fmtDay(gen)} ${fmtTime(gen)}`;
   }
   document.title = `${state.data.societa || "Calendario"} — Calendario e Classifiche`;
+}
+
+// Riga di stato: un bollino per fonte, verde se i dati sono letti dal vivo,
+// rosso se si sta usando lo snapshot salvato. Le fonti che non hanno
+// competizioni in questo calendario non compaiono.
+function updatedHtml(gen) {
+  const fonti = new Set(state.competitions.map((c) => (c.fonte || "manuale").toLowerCase()));
+  const voci = [];
+  for (const [fonte, nome] of [["fipav", "FIPAV"], ["asi", "ASI"]]) {
+    if (!fonti.has(fonte)) continue;
+    const live = !!state.liveFonti[fonte];
+    voci.push(
+      `<span class="fonte ${live ? "is-live" : "is-offline"}">${nome} ${live ? "in diretta" : "da archivio"}</span>`
+    );
+  }
+  if (!voci.length) return gen ? `Dati aggiornati ${fmtRelative(gen)}` : "Aggiornamento automatico in corso";
+  const quando = gen ? ` · aggiornati ${fmtRelative(gen)}` : "";
+  return `${voci.join(" ")}${quando}`;
 }
 
 // Tempo relativo in italiano, per rendere evidente quanto sono freschi i dati.
@@ -829,6 +853,43 @@ function mergeLive(liveComps) {
     standings: comp.standings || [],
   }));
   state.competitions = fipav.concat(nonFipav);
+}
+
+// Sostituisce le competizioni ASI con quelle lette dal vivo. I loghi dello
+// snapshot vincono su quelli dell'API: alcuni sono file locali (assets/loghi)
+// che il sito serve da solo e che l'API non conosce.
+function mergeLiveAsi(liveComps) {
+  const loghi = new Map();
+  for (const c of state.competitions) {
+    if ((c.fonte || "").toLowerCase() !== "asi") continue;
+    for (const m of c.matches || []) {
+      if (m.logo_casa || m.logo_trasferta) {
+        loghi.set(`${m.casa}|${m.trasferta}`, m);
+      }
+    }
+  }
+  const altri = state.competitions.filter((c) => (c.fonte || "").toLowerCase() !== "asi");
+  const asi = liveComps.map((comp) => ({
+    id: comp.id,
+    titolo: comp.titolo,
+    fonte: "asi",
+    categoria: "ASI",
+    comitato: (state.competitions.find((c) => c.id === comp.id) || {}).comitato || "",
+    matches: comp.matches.map((m) => {
+      const old = loghi.get(`${m.casa}|${m.trasferta}`);
+      return {
+        ...m,
+        fonte: "asi",
+        campionato_id: comp.id,
+        campionato: comp.titolo,
+        girone: comp.titolo,
+        logo_casa: (old && old.logo_casa) || m.logo_casa || "",
+        logo_trasferta: (old && old.logo_trasferta) || m.logo_trasferta || "",
+      };
+    }),
+    standings: comp.standings || [],
+  }));
+  state.competitions = altri.concat(asi);
 }
 
 function setupStandingsToggle() {
@@ -920,7 +981,12 @@ async function init() {
   // pagina desktop; da telefono FIPAV reindirizza (302) e il browser non puo'
   // cambiare User-Agent, quindi si ripiega sulla versione /mobile/, che ha
   // CORS aperto. Se anche questa fallisce, resta lo snapshot.
-  if (state.data.live && state.data.live.base_url) {
+  const fontiPresenti = new Set(
+    state.competitions.map((c) => (c.fonte || "").toLowerCase())
+  );
+  let cambiato = false;
+
+  if (fontiPresenti.has("fipav") && state.data.live && state.data.live.base_url) {
     const cids = state.competitions
       .filter((c) => (c.fonte || "").toLowerCase() === "fipav" && c.campionato_id)
       .map((c) => ({ campionato_id: c.campionato_id, titolo: c.titolo }));
@@ -939,13 +1005,32 @@ async function init() {
     }
     if (liveComps.length) {
       mergeLive(liveComps);
+      state.liveFonti.fipav = true;
       state.live = true;
-      renderHeader();
-      renderViewFilter();
-      renderList();
-      renderStandings();
-      if (isPanelOpen()) renderChampionship();
+      cambiato = true;
+    } else {
+      state.liveFonti.fipav = false;
     }
+  }
+
+  if (fontiPresenti.has("asi")) {
+    const liveAsi = await fetchLiveAsi(state.data.asi || {});
+    if (liveAsi && liveAsi.length) {
+      mergeLiveAsi(liveAsi);
+      state.liveFonti.asi = true;
+      state.live = true;
+      cambiato = true;
+    } else {
+      state.liveFonti.asi = false;
+    }
+  }
+
+  if (cambiato || Object.keys(state.liveFonti).length) {
+    renderHeader();
+    renderViewFilter();
+    renderList();
+    renderStandings();
+    if (isPanelOpen()) renderChampionship();
   }
 }
 

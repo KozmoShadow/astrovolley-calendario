@@ -257,7 +257,11 @@ def _parziali_punti(parziali: str) -> tuple[int, int, int, int]:
 
 
 def _calcola_classifica(calendar: dict, risultati: dict) -> list[dict]:
-    """Classifica ASI calcolata dai risultati (tutte le partite, non solo le nostre)."""
+    """Classifica ASI calcolata dai risultati (tutte le partite, non solo le nostre).
+
+    Le partite annullate non hanno risultato, quindi non entrano qui: e' il
+    motivo per cui l'importer non scrive un punteggio per loro.
+    """
     stats: dict[str, dict] = {}
 
     def riga(sq: str) -> dict:
@@ -308,13 +312,112 @@ def _calcola_classifica(calendar: dict, risultati: dict) -> list[dict]:
     return classifica
 
 
+def _match_da_compito(comp: dict) -> list[dict]:
+    """Le partite di un file ASI (formato unico, scritto da `asi_api.py`)."""
+    matches = []
+    for m in comp.get("matches", []):
+        matches.append(
+            {
+                "fonte": "asi",
+                "campionato_id": comp["id"],
+                "campionato": comp.get("titolo", ""),
+                "girone": comp.get("titolo", ""),
+                "giornata": m.get("giornata", ""),
+                "data": m.get("data", ""),
+                "casa": m.get("casa", ""),
+                "trasferta": m.get("trasferta", ""),
+                "risultato": (m.get("risultato") or "").strip(),
+                "parziali": (m.get("parziali") or "").strip(),
+                "palestra": m.get("palestra", ""),
+                "indirizzo": m.get("indirizzo", ""),
+                "gara": m.get("gara", ""),
+                "stato": m.get("stato", ""),
+                "logo_casa": m.get("logo_casa") or None,
+                "logo_trasferta": m.get("logo_trasferta") or None,
+            }
+        )
+    return matches
+
+
+def _applica_risultati_manuali(matches: list[dict], path: Path) -> None:
+    """Sovrappone i risultati inseriti a mano dalla pagina admin.
+
+    L'API ASI e' la fonte principale, ma un risultato puo' non esserci ancora
+    (o arrivare in ritardo). Se il file `<id>.risultati.json` esiste, i suoi
+    valori vincono sull'API per le partite che non risultano annullate.
+    """
+    if not path.exists():
+        return
+    try:
+        inseriti = json.loads(path.read_text(encoding="utf-8")).get("risultati", {})
+    except Exception:  # noqa: BLE001 - file rotto: si tiene l'API
+        return
+    for m in matches:
+        r = inseriti.get(m["gara"]) or {}
+        if m.get("stato") == "cancelled":
+            continue
+        if (r.get("risultato") or "").strip():
+            m["risultato"] = r["risultato"].strip()
+        if (r.get("parziali") or "").strip():
+            m["parziali"] = r["parziali"].strip()
+
+
+def _risultati_di(matches: list[dict]) -> dict:
+    """Indice `gara -> {risultato, parziali}` per `_calcola_classifica`."""
+    return {
+        m["gara"]: {"risultato": m["risultato"], "parziali": m["parziali"]}
+        for m in matches
+        if m.get("gara") and m.get("risultato")
+    }
+
+
 def load_asi(asi_dir: Path) -> list[dict]:
-    """Competizioni ASI: calendario (dal PDF) + risultati (a mano) + classifica calcolata."""
+    """Competizioni ASI.
+
+    Due formati, per non rompere i dati gia' presenti:
+      <id>.json            file unico scritto da `asi_api.py` (API pubblica);
+      <id>.calendario.json + <id>.risultati.json   vecchio formato (PDF + a mano).
+
+    Se per lo stesso id esistono entrambi, vince il file unico.
+    """
     if not asi_dir.exists():
         return []
+
     out: list[dict] = []
+    visti: set[str] = set()
+
+    # 1. File unico (API): calendario, risultati e stato in un solo documento.
+    for path in sorted(asi_dir.glob("*.json")):
+        nome = path.name
+        if nome.endswith((".calendario.json", ".risultati.json", ".squadre.json")):
+            continue
+        comp = json.loads(path.read_text(encoding="utf-8"))
+        if not comp.get("matches"):
+            continue
+        matches = _match_da_compito(comp)
+        _applica_risultati_manuali(matches, asi_dir / f"{comp['id']}.risultati.json")
+        visti.add(comp["id"])
+        out.append(
+            {
+                "id": comp["id"],
+                "titolo": comp.get("titolo", ""),
+                "fonte": "asi",
+                "categoria": comp.get("categoria", "ASI"),
+                "comitato": comp.get("comitato", ""),
+                "tournament_id": comp.get("tournament_id", ""),
+                "matches": matches,
+                "standings": _calcola_classifica(
+                    {"matches": [{"casa": m["casa"], "trasferta": m["trasferta"], "gara": m["gara"]} for m in matches]},
+                    _risultati_di(matches),
+                ),
+            }
+        )
+
+    # 2. Vecchio formato: PDF + risultati inseriti a mano.
     for cal_path in sorted(asi_dir.glob("*.calendario.json")):
         calendar = json.loads(cal_path.read_text(encoding="utf-8"))
+        if calendar.get("id") in visti:
+            continue
         res_path = asi_dir / cal_path.name.replace(".calendario.json", ".risultati.json")
         risultati = {}
         if res_path.exists():
@@ -345,6 +448,7 @@ def load_asi(asi_dir: Path) -> list[dict]:
                     "palestra": m.get("palestra", ""),
                     "indirizzo": m.get("indirizzo", ""),
                     "gara": m.get("gara", ""),
+                    "stato": "completed" if (r.get("risultato") or "").strip() else "pending",
                     "logo_casa": (loghi.get(m.get("casa", "")) or "").strip() or None,
                     "logo_trasferta": (loghi.get(m.get("trasferta", "")) or "").strip() or None,
                 }
@@ -410,8 +514,20 @@ def main() -> int:
     manual = load_manual(ROOT / config.get("manual", "data/manual.json"))
     competitions.extend(manual)
 
-    asi = load_asi(ROOT / config.get("asi", "data/asi"))
+    asi_cfg = config.get("asi")
+    if isinstance(asi_cfg, dict):
+        asi_dir = ROOT / (asi_cfg.get("dir") or "data/asi")
+    else:
+        asi_dir = ROOT / (asi_cfg or "data/asi")
+    asi = load_asi(asi_dir)
     competitions.extend(asi)
+
+    # Tornei ASI da leggere dal vivo nel browser: id interno -> id API.
+    tornei_asi = [
+        {"id": c["id"], "tournament_id": c["tournament_id"], "titolo": c["titolo"]}
+        for c in asi
+        if c.get("tournament_id")
+    ]
 
     competitions.sort(key=lambda c: (c["fonte"] != "fipav", c["titolo"]))
 
@@ -433,6 +549,9 @@ def main() -> int:
             "comitato_id": config.get("fipav_napoli", {}).get("comitato_id", ""),
             "societa_id": config.get("fipav_napoli", {}).get("societa_id", ""),
         },
+        # Tornei ASI da leggere dal vivo nel browser. Solo gli id configurati:
+        # il sito non deve indovinare quali campionati sono suoi.
+        "asi": {"tornei": tornei_asi},
         "competitions": competitions,
     }
 

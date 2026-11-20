@@ -70,18 +70,27 @@ h1, h2, .tagline {
 .tagline { margin: 18px 0 0; color: #c8d4ea; font-size: 17px; }
 
 .updated { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
-.updated.is-live { color: var(--text); }
-.updated.is-live::before {
+/* Un bollino per fonte: verde se i dati sono letti dal vivo, rosso se si sta
+   mostrando lo snapshot. Cosi' si vede a colpo d'occhio quale fonte e' ferma. */
+.updated .fonte { color: var(--text); white-space: nowrap; }
+.updated .fonte::before {
   content: "";
   display: inline-block;
   width: 8px;
   height: 8px;
   margin-right: 6px;
   border-radius: 50%;
-  background: var(--asi);
-  box-shadow: 0 0 0 4px rgba(35, 178, 109, 0.18);
   vertical-align: middle;
 }
+.updated .fonte.is-live::before {
+  background: var(--asi);
+  box-shadow: 0 0 0 4px rgba(35, 178, 109, 0.18);
+}
+.updated .fonte.is-offline::before {
+  background: var(--loss);
+  box-shadow: 0 0 0 4px rgba(224, 87, 106, 0.18);
+}
+.updated .fonte + .fonte { margin-left: 10px; }
 
 main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 
@@ -257,6 +266,25 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
 .match.esito-loss .team-name.ours { color: #ffffff; }
 
 .match-time { font-weight: 700; font-size: 15px; color: #dbe6fb; }
+
+/* Partita annullata: resta in elenco (chi cerca "quando gioco" deve vedere che
+   e' saltata) ma in grigio, senza risultato e senza esito. Non entra in
+   classifica: l'importer non le scrive un punteggio. */
+.match.is-cancelled {
+  opacity: .55;
+  border-left-color: rgba(147,163,192,.5);
+  background: rgba(147,163,192,.07);
+  box-shadow: none;
+}
+.match.is-cancelled .team-name,
+.match.is-cancelled .match-time,
+.match.is-cancelled .cal { color: var(--muted); }
+.match.is-cancelled .annullata {
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px dashed rgba(147,163,192,.55); border-radius: 999px;
+  padding: 2px 8px;
+}
 .match-body { min-width: 0; }
 .teams { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; }
 /* Nomi normalizzati in maiuscolo. Nei dati la stessa squadra arriva scritta in

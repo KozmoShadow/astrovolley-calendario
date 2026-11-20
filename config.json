@@ -16,8 +16,17 @@
   "comitati": [
     { "nome": "C.T. NAPOLI", "id": "99912" }
   ],
+  "asi": {
+    "committee_id": "2",
+    "comitato_nome": "ASI Napoli",
+    "pattern_squadre": "astro",
+    "dir": "data/asi",
+    "id_per_torneo": {
+      "10_pool_19": "asi-open-misto-elite",
+      "14_pool_22": "asi-open-misto-promozionale"
+    }
+  },
   "max_workers": 10,
   "output": "site/data/schedule.json",
-  "manual": "data/manual.json",
-  "asi": "data/asi"
+  "manual": "data/manual.json"
 }

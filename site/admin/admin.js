@@ -28,6 +28,7 @@ const state = {
   current: null,
   currentComp: null,
   pending: {}, // risultati correnti (caricati dal file + modifiche locali)
+  base: {}, // valori come stavano nei file: al salvataggio si scrive solo il diff
   loghi: {}, // loghi squadre (URL) correnti
   loghiDirty: 0, // i loghi sono stati modificati e vanno riscritti
   dirty: false, // l'utente ha modificato qualcosa non ancora salvato
@@ -233,14 +234,18 @@ async function refreshComps() {
   listEl.innerHTML = `<li class="muted small">Carico…</li>`;
   const dir = await ghGet(`${ASI_DIR}?ref=${REPO.branch}`);
   const files = (dir || []).map((f) => f.name);
+  // Formato unico scritto da importer/asi_api.py: un solo `<id>.json` per
+  // campionato. I file `.squadre.json`/`.risultati.json` restano separati
+  // perche' li scrive questa pagina.
   const ids = files
-    .filter((f) => f.endsWith(".calendario.json"))
-    .map((f) => f.replace(".calendario.json", ""))
+    .filter((f) => f.endsWith(".json"))
+    .filter((f) => !/\.(squadre|risultati|calendario)\.json$/.test(f))
+    .map((f) => f.replace(/\.json$/, ""))
     .sort();
 
   state.comps = [];
   for (const id of ids) {
-    const cal = await ghReadJson(`${ASI_DIR}/${id}.calendario.json`);
+    const cal = await ghReadJson(`${ASI_DIR}/${id}.json`);
     if (cal) state.comps.push(cal);
   }
 
@@ -316,10 +321,25 @@ async function loadResults() {
   if (!comp) return;
   state.currentComp = comp;
 
-  const res = (await ghReadJson(`${ASI_DIR}/${id}.risultati.json`)) || { risultati: {} };
+  // I risultati stanno nel file unico (scritto dall'importer); il file
+  // `.risultati.json` contiene solo le correzioni fatte da questa pagina e,
+  // se c'e', vince sull'API. `state.base` e' la fotografia dei valori letti
+  // dal file unico: al salvataggio si scrive solo cio' che e' stato cambiato,
+  // altrimenti ogni salvataggio copierebbe dentro i risultati dell'API e
+  // produrrebbe un commit inutile a ogni aggiornamento.
   state.pending = {};
+  state.base = {};
+  for (const m of comp.matches || []) {
+    if (m.risultato || m.parziali) {
+      const v = { risultato: m.risultato || "", parziali: m.parziali || "" };
+      state.pending[m.gara] = { ...v };
+      state.base[m.gara] = v;
+    }
+  }
+  const res = (await ghReadJson(`${ASI_DIR}/${id}.risultati.json`)) || { risultati: {} };
   for (const [gara, r] of Object.entries(res.risultati || {})) {
     state.pending[gara] = { risultato: r.risultato || "", parziali: r.parziali || "" };
+    state.base[gara] = { risultato: r.risultato || "", parziali: r.parziali || "" };
   }
 
   const sq = (await ghReadJson(`${ASI_DIR}/${id}.squadre.json`)) || { loghi: {} };
@@ -603,10 +623,16 @@ async function saveResults() {
   const comp = state.comps.find((c) => c.id === id);
   $("#save-status").textContent = "Salvataggio…";
   try {
-    // Un solo commit per i risultati dell'intera giornata compilata.
+    // Un solo commit per i risultati dell'intera giornata compilata. Si
+    // scrivono solo le partite modificate rispetto ai file letti: cosi' i
+    // risultati che arrivano dall'API non finiscono nel file delle correzioni.
     const risultati = {};
     for (const [gara, r] of Object.entries(state.pending)) {
-      if (r.risultato || r.parziali) {
+      const b = state.base[gara] || { risultato: "", parziali: "" };
+      const cambiata =
+        (r.risultato || "") !== (b.risultato || "") ||
+        (r.parziali || "") !== (b.parziali || "");
+      if (cambiata && (r.risultato || r.parziali)) {
         risultati[gara] = { risultato: r.risultato || "", parziali: r.parziali || "" };
       }
     }

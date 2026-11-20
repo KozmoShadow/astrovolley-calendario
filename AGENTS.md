@@ -33,16 +33,32 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
   - Export Excel: `esporta-risultati.aspx`.
 - **Spike Volley**: solo fallback se FIPAV non risponde (`importer/import_schedule.py`,
   funzione `scan_spike_fallback`). Più lento e meno preciso.
-- **ASI**: non presente su FIPAV. Il calendario arriva in un PDF (testo, tabella a
-  colonne fisse: N. Gara, Data, Ora, Palestra/Impianto, Squadra Casa, Squadra Ospite,
-  Giorno, raggruppato per GIORNATA). `importer/asi_pdf.py` lo estrae in
-  `data/asi/<id>.calendario.json`; il **N. Gara** (es. 3001) è la chiave stabile per
-  agganciare i risultati in `data/asi/<id>.risultati.json`. `load_asi()` nell'importer
-  fonde i due file e **calcola la classifica** (3-0/3-1 → 3 pt, 3-2 → 2, 2-3 → 1;
-  ordinamento punti → quoziente set → quoziente punti). I due file sono separati
-  apposta: ricaricare il PDF non cancella i risultati.
+- **ASI**: non presente su FIPAV. Fonte principale: l'**API pubblica** di Spike Volley
+  (`https://www.spikevolley.it/campionati/api/public.php`), usata da `importer/asi_api.py`.
+  Nessun login, CORS aperto: funziona anche dal browser (vedi `site/asi-live.js`).
+  - `action=campionati&committee_id=<id>` → tornei del comitato; `action=partite&tournament_id=<id>`
+    → partite con risultato, parziali, palestra, data, **stato**; `action=classifica` →
+    classifica già calcolata (campi camelCase: `scorePoints`, `setsWon`, ...).
+  - Non esiste un filtro per società: si scaricano **tutti** i tornei del comitato e si
+    tengono quelli che contengono una squadra nostra (`pattern_squadre`). Come per FIPAV.
+  - Output: **un file per campionato**, `data/asi/<id>.json` (calendario + risultati +
+    stato + `tournament_id`). Gli id sono fissati in `config.json` → `asi.id_per_torneo`
+    perché finiscono nei link `?campionato=`: se cambiano, i link già diffusi si rompono.
+  - L'API è più aggiornata del PDF: le date cambiano quando una gara viene rinviata
+    (es. g1 CS Volley FQL–Kleos: 3/11 sul PDF, giocata il 17/11). Non è un errore.
+  - `config.json` → `asi`: `committee_id`, `comitato_nome`, `pattern_squadre`, `dir`,
+    `id_per_torneo`. Aggiungere un torneo = aggiungere una voce a `id_per_torneo`.
+  - **Partite annullate** (`status: cancelled`): restano in elenco ma in grigio, con badge
+    "annullata", e **non hanno risultato** (l'API le manda con 0-0, che non è un
+    risultato). Di conseguenza non entrano in classifica. `_calcola_classifica()` le salta
+    esplicitamente: non reintrodurre il conteggio degli 0-0.
+  - **Vecchio flusso PDF** (`importer/asi_pdf.py` → `<id>.calendario.json` +
+    `<id>.risultati.json`): resta supportato da `load_asi()` per i campionati caricati a
+    mano dalla pagina admin. Se per lo stesso id esiste il file unico, vince quello.
   - Il PDF **non** va mai committato: contiene email/cellulari dei referenti (`*.pdf`
     in `.gitignore`).
+  - `data/asi/<id>.squadre.json` contiene i loghi scelti a mano: l'importer lo legge e li
+    fa vincere su quelli dell'API (alcuni sono file locali in `site/assets/loghi`).
   - Entrambe le squadre del club (Astrovolley Cercola e Astrovolley Portici) sono "nostre".
 
 ## Pagina admin (`site/admin/`)
@@ -70,11 +86,20 @@ del repo, non nel nascondere la pagina.
 ## Refresh live nel browser (opzione C)
 - `site/fipav-live.js` replica in JS il parser Python e legge FIPAV **direttamente dal
   browser** ad ogni apertura della pagina (FIPAV manda `access-control-allow-origin: *`).
-- `site/app.js` (`init` → `fetchLiveFipav` → `mergeLive`): sostituisce solo le competizioni
-  FIPAV con quelle fresche, mantiene intatte ASI/manuali. Se il live fallisce, resta lo
-  snapshot `site/data/schedule.json`.
-- L'header mostra "Risultati aggiornati adesso da FIPAV" (pallino verde) quando il live
-  riesce, altrimenti "Dati aggiornati: <data snapshot>".
+- `site/asi-live.js` fa lo stesso per ASI, chiamando l'API pubblica
+  `spikevolley.it/campionati/api/public.php` (`action=partite&tournament_id=...`).
+  CORS aperto su qualunque origine: nessun proxy. I tornei da leggere sono in
+  `schedule.json` → `asi.tornei` (id interno + `tournament_id`), scritti dall'importer:
+  il sito non deve indovinare quali campionati sono suoi.
+- `site/app.js` (`init` → `fetchLiveFipav`/`fetchLiveAsi` → `mergeLive`/`mergeLiveAsi`):
+  sostituisce le competizioni di **quella** fonte, lascia intatte le altre. Se il live di
+  una fonte fallisce, per quella resta lo snapshot `site/data/schedule.json`.
+- L'header mostra **un bollino per fonte**: verde (`in diretta`) se letta dal vivo, rosso
+  (`da archivio`) se si sta usando lo snapshot. Le fonti senza competizioni nel calendario
+  non compaiono. `state.liveFonti[fonte]` tiene l'esito.
+- `generato_il` è UTC **con** il fuso (`+00:00`): va passato intero a `new Date()`.
+  Troncarlo (`.slice(0,19)`) lo fa leggere come ora locale e in Italia il dato sembra
+  vecchio di un'ora appena scritto.
 - `app.js` è un **modulo ES** (`<script type="module">`), quindi `file://` non funziona:
   serve un server HTTP.
 
@@ -83,8 +108,12 @@ FIPAV rileva il dispositivo dallo **User-Agent** e ai browser mobili risponde co
 `302` verso `/mobile/`, che non contiene le tabelle (e la versione mobile non riporta
 nemmeno le date delle partite). Il browser mobile non può cambiare il proprio User-Agent,
 quindi dal telefono il fetch live fallisce sempre e si usa lo snapshot.
-- Conseguenza: lo snapshot deve essere fresco. Il cron in `update-schedule.yml` gira
-  **ogni 15 minuti** (08:00-23:00 UTC) + una passata notturna.
+- Conseguenza: lo snapshot deve essere fresco. Il cron in `update-schedule.yml` chiede
+  ogni 10 minuti nella fascia 17-22 UTC (19-23 italiane, quando si gioca).
+- **Il cron di GitHub non è puntuale**: su un repo pubblico poco attivo le run arrivano
+  ogni 2-5 ore, non ogni 10 minuti (verificato sulle run reali). Non è un bug nostro e
+  non si può correggere dal workflow. Per questo il live nel browser è la fonte
+  principale e lo snapshot è solo la riserva (serve soprattutto da telefono).
 - L'importer riscrive `schedule.json` **solo se i dati cambiano davvero**, così il cron
   frequente non genera commit inutili e `generato_il` resta l'ora dell'ultimo
   aggiornamento reale (è questo che il sito mostra come "Dati aggiornati: ...").
@@ -97,7 +126,10 @@ ma copre solo 12 regioni e **non include la Campania** → non utilizzabile per 
 
 ## Aggiornamento del sito dopo un salvataggio (importante)
 La catena è: admin salva `data/asi/*.risultati.json` → push → workflow "Aggiorna
-calendario" rigenera `site/data/schedule.json` → deploy GitHub Pages.
+calendario" (che prima rilancia `importer/asi_api.py`, poi `import_schedule.py`)
+rigenera `site/data/schedule.json` → deploy GitHub Pages.
+`_applica_risultati_manuali()` fa vincere i risultati scritti a mano su quelli dell'API:
+l'API può essere in ritardo o non avere un dato corretto.
 
 Due trappole già risolte, da non reintrodurre:
 - Il push del bot usa `GITHUB_TOKEN`, che **non** fa partire altri workflow. Per

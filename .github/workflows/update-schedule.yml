@@ -2,14 +2,17 @@ name: Aggiorna calendario
 
 on:
   schedule:
-    # Snapshot rigenerato spesso: e' l'unico modo per avere dati freschi su
-    # telefono, dove il fetch dal vivo non e' possibile (FIPAV dirotta i
-    # browser mobili su una versione senza tabelle). Su PC il sito legge
-    # comunque FIPAV dal vivo ad ogni apertura.
-    # Ogni 15 minuti nella fascia gare (08:00-23:00 UTC).
-    - cron: "*/15 8-23 * * *"
-    # Una passata notturna di sicurezza.
-    - cron: "0 6 * * *"
+    # Solo nelle ore in cui si gioca: le partite finiscono tra le 19 e le 23
+    # italiane, che in UTC sono le 17-22 (18-23 d'inverno, 19-24 d'estate).
+    # Fuori da quella fascia il calendario non cambia, quindi girare di notte
+    # serve solo a consumare minuti.
+    #
+    # ATTENZIONE: GitHub non garantisce la puntualita' dei cron sui repo
+    # pubblici poco attivi. Nella pratica le run arrivano ogni 2-5 ore, non
+    # ogni 10 minuti. Il sito non dipende da questo: legge FIPAV e ASI dal vivo
+    # nel browser ad ogni apertura, e questo snapshot serve solo come riserva
+    # (soprattutto da telefono, dove FIPAV blocca il fetch).
+    - cron: "*/10 17-22 * * *"
   # Rigenera anche quando la pagina admin scrive i dati ASI: cosi' i risultati
   # inseriti a mano entrano subito in schedule.json.
   push:
@@ -36,6 +39,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Scarica i campionati ASI
+        # Se l'API ASI non risponde, l'importer continua con i file gia' in
+        # repo: un errore qui non deve fermare l'aggiornamento FIPAV.
+        continue-on-error: true
+        run: python importer/asi_api.py
+
       - name: Importa calendario e classifiche
         run: python importer/import_schedule.py
 
@@ -44,7 +53,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/data/schedule.json site/assets/loghi
+          git add site/data/schedule.json site/assets/loghi data/asi
           if git diff --cached --quiet; then
             echo "Nessun cambiamento."
           else
