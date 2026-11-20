@@ -30,6 +30,18 @@
   </header>
 
   <main>
+    <section id="landing" class="landing" hidden aria-label="Le nostre squadre">
+      <div class="landing-head">
+        <div>
+          <h2 class="landing-title">Tutte le squadre</h2>
+          <p class="landing-sub">Calendari, classifiche e prossimi appuntamenti</p>
+        </div>
+      </div>
+      <div id="landing-grid" class="landing-grid"></div>
+    </section>
+
+    <div id="calendar-view">
+    <button id="back-to-landing" class="back-btn" hidden>← Tutte le squadre</button>
     <nav class="chips" id="view-filter" aria-label="Vista"></nav>
 
     <div class="toolbar">
@@ -55,6 +67,7 @@
       <h2 id="list-title">Le nostre partite</h2>
       <div id="calendar" class="calendar" aria-live="polite"></div>
     </section>
+    </div>
   </main>
 
   <footer>

@@ -292,7 +292,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 26px 20px 60px; }
    identici. Il maiuscolo allunga i nomi di circa il 10%, quindi la dimensione
    scende a 13.5px: a 15px i nomi lunghi andavano a capo e la scheda cresceva
    di una riga. Il testo nei dati resta invariato: si torna indietro da qui. */
-.team-name { font-weight: 600; text-transform: uppercase; font-size: 13.5px; letter-spacing: .012em; }
+.calendar .team-name { font-weight: 600; text-transform: uppercase; font-size: 13.5px; letter-spacing: .012em; }
 .team-name.ours { color: var(--accent-soft); }
 .vs { color: var(--muted); font-size: 13px; }
 .result {
@@ -615,3 +615,373 @@ body.lightbox-open { overflow: hidden; }
   .lightbox-figure img { padding: 10px; border-radius: 12px; }
 }
 .lightbox-note { font-size: 12px; color: var(--muted, #93a3c0); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------------------
+   Landing: una card per squadra.
+   Desktop: griglia a 2 colonne che sale a 3 oltre 1100px, con le card alte
+   uguali (grid allunga gli item, flex interno spinge la prossima partita in
+   fondo). Mobile: una colonna sola, card piu' compatte.
+   --------------------------------------------------------------------------- */
+.landing { padding: 4px 0 8px; }
+
+.landing-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.landing-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+}
+
+.landing-sub {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Card ---------------------------------------------------------------- */
+.team-card {
+  --accent: #a060c0;
+  --accent-glow: rgba(160, 96, 192, 0.55);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, #1b2740 0%, #131c2e 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.team-card:hover,
+.team-card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+}
+
+/* Bagliore in alto a destra: da' profondita' senza rubare spazio al testo. */
+.team-card::before {
+  content: "";
+  position: absolute;
+  top: -35px;
+  right: -25px;
+  width: 190px;
+  height: 95px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  filter: blur(18px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.team-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  min-width: 0;
+}
+
+.team-logo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 4px;
+}
+
+.team-titles { min-width: 0; }
+
+.team-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  color: var(--text);
+  text-transform: none;
+}
+
+/* Link esteso: un solo <a> trasparente che copre l'intera card. Sta sopra i
+   contenuti (z-index 2) ma sotto i due bersagli propri (prossima partita e
+   pulsante Classifica, z-index 3). Il nome accessibile arriva dallo <span>
+   .sr-only, perche' il link non ha testo visibile. */
+.card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link:focus-visible {
+  outline: none;
+}
+
+.team-card:has(.card-link:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.team-comp {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Riga centrale: posizione + azioni -------------------------------- */
+/* z-index 3 perche' questa riga contiene un bersaglio proprio (Classifica).
+   pointer-events: none fa passare i click della zona vuota al link esteso
+   sotto; il pulsante li riprende con pointer-events: auto. Senza, l'intera
+   riga sarebbe un "buco" non cliccabile nella card. */
+.team-middle {
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.rank-label {
+  font-size: 11.5px;
+  letter-spacing: 0.2px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.rank-block {
+  text-align: center;
+  min-width: 0;
+}
+
+.rank-value {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.rank-value sup {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rank-total {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+.rank-empty {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.v-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--line);
+  flex-shrink: 0;
+}
+
+.team-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.action-item {
+  position: relative;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.action-box {
+  width: 46px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.action-item:hover .action-box,
+.action-item:focus-visible .action-box {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Prossima partita ------------------------------------------------- */
+/* z-index 3: sta sopra il link della card, altrimenti il click aprirebbe il
+   calendario invece della scheda della partita. */
+.next-match {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.next-match:hover,
+.next-match:focus-visible {
+  border-color: var(--accent);
+  background: rgba(0, 0, 0, 0.38);
+  outline: none;
+}
+
+.next-match:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.next-match.is-empty { cursor: default; }
+
+/* Icona casa/aereo: senza riquadro, solo il segno nel colore della card. */
+.venue-icon-wrap {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+}
+
+.venue-icon { display: block; }
+
+.match-info {
+  min-width: 0;
+  border-left: 2.5px solid var(--accent);
+  padding-left: 10px;
+}
+
+.match-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.match-details {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  /* L'avversario non si tronca: se il nome e' lungo va a capo. */
+  overflow-wrap: anywhere;
+}
+
+.match-venue {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* Varianti colore per squadra, tutte nella famiglia del viola del logo:
+   servono a distinguere le card fra loro senza introdurre colori estranei
+   all'identita' del club. */
+.theme-1 { --accent: #b98cf0; --accent-glow: rgba(185, 140, 240, 0.50); }
+.theme-2 { --accent: #a060c0; --accent-glow: rgba(160, 96, 192, 0.50); }
+.theme-3 { --accent: #8a4fc4; --accent-glow: rgba(138, 79, 196, 0.50); }
+.theme-4 { --accent: #c9a6f5; --accent-glow: rgba(201, 166, 245, 0.45); }
+
+/* Pulsante di ritorno dalla vista calendario ----------------------- */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.back-btn:hover,
+.back-btn:focus-visible {
+  border-color: var(--accent-soft);
+  background: var(--surface-2);
+}
+
+/* Due colonne da tablet in su: sotto i 720px le card piene restano leggibili. */
+@media (min-width: 720px) {
+  .landing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .landing-title { font-size: 30px; }
+}
+
+/* Tre colonne sui desktop larghi. Con 4 squadre l'ultima resta da sola:
+   non si allarga, resta della stessa misura delle altre. */
+@media (min-width: 1100px) {
+  .landing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+}
+
+@media (max-width: 560px) {
+  .landing-title { font-size: 22px; }
+  .team-card { padding: 14px; border-radius: 16px; }
+  .team-logo { width: 40px; height: 40px; }
+  .team-name { font-size: 15.5px; }
+  .team-actions { gap: 10px; }
+  .action-box { width: 44px; height: 44px; }
+}

@@ -101,6 +101,52 @@ function normName(s) {
     .trim();
 }
 
+// I nomi arrivano scritti in modi diversi ("ASD ASTROVOLLEY", "Astrovolley
+// Cercola", "MINERVA MEDICA FLYER"): in card si mostrano tutti con la prima
+// lettera maiuscola. Gli acronimi restano maiuscoli, le preposizioni restano
+// minuscole, e dopo apostrofo o virgolette la lettera torna maiuscola.
+const ACRONIMI = new Set(["ASD", "SSD", "AS", "US", "GS", "PD", "IC", "APD", "A", "B", "C", "D"]);
+const MINUSCOLE = new Set(["di", "del", "della", "dei", "degli", "delle", "da", "dal", "in", "con",
+  "su", "per", "e", "ed", "il", "lo", "la", "i", "gli", "le", "un", "una", "al", "alla", "dello", "dell"]);
+
+// Refusi presenti nei nomi ufficiali FIPAV. Si correggono solo a schermo: i
+// dati restano quelli federali, cosi' il confronto con la fonte regge e una
+// rigenerazione dell'importer non annulla la correzione.
+const REFUSI = [
+  [/\bfemmnile\b/gi, "Femminile"],
+  // "Femminile- Eccellenza": nei dati il trattino e' attaccato alla parola
+  // prima. Si distanzia per leggibilita', senza toccare i trattini interni.
+  [/\s*-\s*/g, " - "],
+];
+
+function correggiRefusi(s) {
+  return REFUSI.reduce((acc, [re, giusto]) => acc.replace(re, giusto), s || "");
+}
+
+function titolaNome(s) {
+  const testo = (s || "").trim();
+  if (!testo) return "";
+  let n = 0;
+  const composto = testo
+    .split(/(\s+|[-–/])/)
+    .map((pezzo) => {
+      if (!pezzo || /^\s+$/.test(pezzo) || /^[-–/]$/.test(pezzo)) return pezzo;
+      const primaParola = n === 0;
+      n++;
+      const apo = pezzo.match(/^([A-Za-zÀ-ÿ]+)(['’])(.*)$/);
+      if (apo && !primaParola && MINUSCOLE.has(apo[1].toLowerCase())) {
+        return apo[1].toLowerCase() + apo[2] +
+          apo[3].toLowerCase().replace(/^([a-zà-ÿ])/, (c) => c.toUpperCase());
+      }
+      const puro = pezzo.replace(/[().,"'’]/g, "");
+      if (ACRONIMI.has(puro.toUpperCase())) return pezzo.toUpperCase();
+      if (!primaParola && MINUSCOLE.has(puro.toLowerCase())) return pezzo.toLowerCase();
+      return pezzo.toLowerCase().replace(/(^|['’"(\[.])([a-zà-ÿ])/g, (_, p2, c) => p2 + c.toUpperCase());
+    })
+    .join("");
+  return correggiRefusi(composto);
+}
+
 function slugify(s) {
   return normName(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -320,7 +366,7 @@ function renderViewFilter() {
   for (const t of teams) {
     html += `<button role="menuitem" class="dropdown-item ${state.team === t.slug ? "is-active" : ""}" data-team="${escapeAttr(t.slug)}">
       <span class="filter-team">${escapeHtml(t.nome)}</span>
-      <span class="filter-sub">${escapeHtml(t.comp)} · ${t.partite} partite</span></button>`;
+      <span class="filter-sub">${escapeHtml(titolaNome(t.comp))} · ${t.partite} partite</span></button>`;
   }
   html += `</div>`;
 
@@ -382,7 +428,7 @@ function matchCard(m, idx, opts = {}) {
   const esito = hasScore && ours ? esitoOf(m, parts) : "";
   const metaParts = [];
   if (opts.showDate && d) metaParts.push(escapeHtml(fmtDay(d)));
-  else if (m.campionato) metaParts.push(escapeHtml(m.campionato));
+  else if (m.campionato) metaParts.push(escapeHtml(titolaNome(m.campionato)));
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
   return `
@@ -391,10 +437,10 @@ function matchCard(m, idx, opts = {}) {
         ${quando}
         <div class="match-body">
           <div class="teams ${hasScore ? "is-played" : "is-upcoming"}">
-            <span class="team-name name-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+            <span class="team-name name-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
             ${scoreCasa}
             ${result}
-            <span class="team-name name-ospite ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+            <span class="team-name name-ospite ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
             ${scoreOspite}
           </div>
           <div class="meta">${metaParts.join(" · ")}</div>
@@ -427,7 +473,7 @@ function renderList() {
   const rows = visibleMatches();
   let title = viewLabel();
   const tn = teamName(state.team);
-  if (tn) title += ` — ${tn}`;
+  if (tn) title += ` — ${titolaNome(tn)}`;
   $("#list-title").textContent = title;
 
   if (!rows.length) {
@@ -466,9 +512,9 @@ function openMatchModal(m) {
   // spesso molto piu' definita di quanto mostrato a 46px.
   const logoImg = (url, nome) =>
     url
-      ? `<img src="${escapeAttr(logoUrl(url))}" alt="Logo ${escapeAttr(nome || "")}" loading="lazy"
+      ? `<img src="${escapeAttr(logoUrl(url))}" alt="Logo ${escapeAttr(titolaNome(nome))}" loading="lazy"
            class="logo-zoom" role="button" tabindex="0"
-           data-logo="${escapeAttr(logoUrl(url))}" data-nome="${escapeAttr(nome || "")}" />`
+           data-logo="${escapeAttr(logoUrl(url))}" data-nome="${escapeAttr(titolaNome(nome))}" />`
       : "";
   const logoCasa = logoImg(m.logo_casa, m.casa);
   const logoTrasf = logoImg(m.logo_trasferta, m.trasferta);
@@ -487,13 +533,13 @@ function openMatchModal(m) {
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
   $("#modal-content").innerHTML = `
-    <p class="modal-kicker">${escapeHtml(m._comp.titolo || m.campionato || "")}${
+    <p class="modal-kicker">${escapeHtml(titolaNome(m._comp.titolo || m.campionato || ""))}${
       m.giornata ? ` · Giornata ${escapeHtml(String(m.giornata))}` : ""
     }</p>
     <div class="detail-score">
       <div class="detail-team">
         ${logoCasa}
-        <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(m.casa || "—")}</span>
+        <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
       </div>
       <div class="detail-result">${
         (m.stato || "") === "cancelled"
@@ -504,15 +550,15 @@ function openMatchModal(m) {
       }</div>
       <div class="detail-team">
         ${logoTrasf}
-        <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(m.trasferta || "—")}</span>
+        <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
       </div>
     </div>
     ${setChips}
     <div class="detail-list">
       ${riga("Data", quando)}
-      ${riga("Campionato", m.campionato || m.girone)}
-      ${riga("Girone", m.girone && m.girone !== m.campionato ? m.girone : "")}
-      ${riga("Palestra", m.palestra)}
+      ${riga("Campionato", titolaNome(m.campionato || m.girone))}
+      ${riga("Girone", m.girone && m.girone !== m.campionato ? titolaNome(m.girone) : "")}
+      ${riga("Palestra", titolaNome(m.palestra))}
       ${rigaMappa}
       ${riga("Fonte", m._comp.fonte === "fipav" ? "FIPAV (ufficiale)" : m._comp.fonte)}
     </div>
@@ -651,7 +697,7 @@ function renderChampionship() {
         .map(
           (c) =>
             `<option value="${escapeAttr(c.id)}" ${c.id === state.panel ? "selected" : ""}>${escapeHtml(
-              c.titolo
+              titolaNome(c.titolo)
             )}</option>`
         )
         .join("")}</select>
@@ -801,7 +847,7 @@ function renderStandings() {
           const ours = isOurs(s.squadra);
           return `<tr class="${ours ? "is-ours" : ""}">
             <td class="num">${i + 1}</td>
-            <td>${escapeHtml(s.squadra)}</td>
+            <td>${escapeHtml(titolaNome(s.squadra))}</td>
             <td class="num">${s.punti}</td>
             <td class="num">${s.pg}</td>
             <td class="num">${s.pv}-${s.pp}</td>
@@ -810,7 +856,7 @@ function renderStandings() {
         })
         .join("");
       return `<div class="standing-card">
-        <h3>${escapeHtml(c.titolo)}</h3>
+        <h3>${escapeHtml(titolaNome(c.titolo))}</h3>
         <table>
           <thead><tr>
             <th class="num">#</th><th>Squadra</th>
@@ -960,6 +1006,235 @@ function setupCampionatoToggle() {
   $("#toggle-campionato").addEventListener("click", () => togglePanel());
 }
 
+/* ---------------------------------------------------------------------------
+   Landing: una card per squadra.
+   I dati vengono dalle stesse funzioni della vista calendario (ourTeams,
+   teamMatcher, classifiche), quindi le card non possono divergere da quello
+   che si vede aprendo la squadra.
+   --------------------------------------------------------------------------- */
+
+// I temi si assegnano in ordine di apparizione e si ripetono: aggiungere una
+// squadra non richiede di toccare il codice, e il colore resta stabile finche'
+// l'ordine delle squadre in squadre.json non cambia.
+const TEMI = ["theme-1", "theme-2", "theme-3", "theme-4"];
+
+function teamLogo(slug) {
+  const match = teamMatcher(slug);
+  for (const m of allMatches()) {
+    if (!match(m)) continue;
+    const cfg = teamConfig(slug);
+    const nomi = (cfg?.nomi || []).map(normName);
+    const casa = normName(m.casa);
+    const trasferta = normName(m.trasferta);
+    // Si prende il logo del lato in cui gioca la nostra squadra: quello
+    // avversario sarebbe la maglia sbagliata.
+    if (nomi.includes(casa) && m.logo_casa) return m.logo_casa;
+    if (nomi.includes(trasferta) && m.logo_trasferta) return m.logo_trasferta;
+    if (m.logo_casa) return m.logo_casa;
+  }
+  return "";
+}
+
+// Posizione in classifica della squadra. Con due squadre dello stesso club
+// nello stesso girone (Promozionale) si cerca il nome esatto: "astro" da solo
+// prenderebbe la prima che capita.
+function teamRank(slug) {
+  const cfg = teamConfig(slug);
+  const nomi = (cfg?.nomi || []).map(normName);
+  const match = teamMatcher(slug);
+  const comps = state.competitions.filter((c) => c.matches.some(match));
+  for (const c of comps) {
+    const rows = c.standings || [];
+    const i = rows.findIndex((s) => nomi.includes(normName(s.squadra)));
+    if (i >= 0) return { pos: i + 1, tot: rows.length, punti: rows[i].punti };
+  }
+  return null;
+}
+
+// Prossima partita non ancora giocata, dalla piu' vicina nel tempo.
+function teamNextMatch(slug) {
+  const match = teamMatcher(slug);
+  const now = new Date();
+  const future = allMatches()
+    .filter(match)
+    .filter((m) => !m.annullata)
+    .map((m) => ({ m, d: parseDate(m.data) }))
+    .filter(({ d }) => d && d >= now)
+    .sort((a, b) => a.d - b.d);
+  return future.length ? future[0] : null;
+}
+
+// Icona del campo: casa per le partite in casa, aereo per le trasferte.
+// Sostituisce "vs"/"@" che erano ambigui da leggere a colpo d'occhio.
+function venueIcon(inCasa) {
+  if (inCasa) {
+    return `<svg class="venue-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+      aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>`;
+  }
+  return `<svg class="venue-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+    aria-hidden="true"><path d="M10.5 13.5 3 11V8.5l7.5 1V5a1.5 1.5 0 0 1 3 0v4.5l7.5-1V11l-7.5 2.5V18l2.5 1.5V21L12 20l-4 1v-1.5L10.5 18z"/></svg>`;
+}
+
+// Le partite vengono rilette dal vivo dopo il primo disegno e l'ordine
+// cambia: un indice salvato nel DOM non e' piu' affidabile. Si usa una chiave
+// fatta di data, squadre e campionato, che resta valida dopo il merge.
+function matchKey(m) {
+  return [m.data, m.casa, m.trasferta, m._comp?.id || m.campionato || ""].join("|");
+}
+
+// La prossima partita e' un bersaglio di click a se': sta dentro la card (che
+// porta al calendario) ma aprira' la scheda di quella singola partita.
+function nextMatchHtml(next, slug) {
+  if (!next) {
+    return `<div class="next-match is-empty">
+      <div class="match-info">
+        <div class="match-tag">Prossima partita</div>
+        <div class="match-details">Nessuna in calendario</div>
+      </div>
+    </div>`;
+  }
+  const { m, d } = next;
+  const inCasa = isOurs(m.casa);
+  const avversario = inCasa ? m.trasferta : m.casa;
+  const sede = m.palestra || m.impianto || "";
+  return `<div class="next-match" role="button" tabindex="0"
+    data-match-key="${escapeAttr(matchKey(m))}" data-slug="${escapeAttr(slug)}"
+    aria-label="Dettagli della prossima partita: ${escapeAttr(titolaNome(avversario))}">
+    <span class="venue-icon-wrap" aria-hidden="true">${venueIcon(inCasa)}</span>
+    <div class="match-info">
+      <div class="match-tag">Prossima partita</div>
+      <div class="match-details">${escapeHtml(titolaNome(avversario))}</div>
+      <div class="match-venue">${escapeHtml(fmtShortDay(d))} · ${fmtTime(d)}${sede ? ` · ${escapeHtml(titolaNome(sede))}` : ""}</div>
+    </div>
+  </div>`;
+}
+
+// Nella card il titolo del campionato va accorciato: e' lungo e su mobile
+// occupa due righe. Si tiene la parte prima del trattino e il girone, che e'
+// l'informazione che distingue due campionati omonimi.
+function shortComp(titolo) {
+  const t = (titolo || "").replace(/\s*-\s*/g, " - ");
+  const girone = t.match(/girone\s+([a-z0-9]+)/i);
+  const base = t.split(/\s+-\s+/)[0].replace(/\s+/g, " ").trim();
+  if (!girone) return base;
+  const g = girone[1];
+  const etichetta = g.length > 1 ? g.charAt(0).toUpperCase() + g.slice(1).toLowerCase() : g.toUpperCase();
+  return `${base} · Girone ${etichetta}`;
+}
+
+function teamCardHtml(t, i) {
+  const tema = TEMI[i % TEMI.length];
+  const rank = teamRank(t.slug);
+  const next = teamNextMatch(t.slug);
+  const logo = teamLogo(t.slug);
+  // "3a posizione" si legge meglio del solo "3a"; il totale resta piccolo
+  // accanto, perche' 3a su 8 non e' come 3a su 20.
+  const rankHtml = rank
+    ? `<div class="rank-value">${rank.pos}<sup>a</sup> posizione</div>
+       <div class="rank-total">su ${rank.tot} squadre</div>`
+    : `<div class="rank-empty">—</div>`;
+  // La card intera porta al calendario. Il link e' vuoto e copre la card con
+  // ::after: cosi' il click vale su tutta la superficie ma resta un solo
+  // elemento da tastiera, e la prossima partita puo' stare sopra di lui.
+  return `<article class="team-card ${tema}" data-slug="${escapeAttr(t.slug)}">
+    <a class="card-link" href="?squadra=${escapeAttr(t.slug)}" data-action="calendario" data-slug="${escapeAttr(t.slug)}">
+      <span class="sr-only">Calendario di ${escapeHtml(titolaNome(t.nome))}</span>
+    </a>
+    <div class="team-head">
+      ${logo ? `<img class="team-logo" src="${escapeAttr(logo)}" alt="" width="46" height="46" loading="lazy" />` : ""}
+      <div class="team-titles">
+        <h3 class="team-name">${escapeHtml(titolaNome(t.nome))}</h3>
+        <p class="team-comp">${escapeHtml(titolaNome(shortComp(t.comp)))}</p>
+      </div>
+    </div>
+    <div class="team-middle">
+      <div class="rank-block">
+        <div class="rank-label">Classifica</div>
+        ${rankHtml}
+      </div>
+      <div class="v-sep" aria-hidden="true"></div>
+      <div class="team-actions">
+        <button class="action-item" data-action="riepilogo" data-slug="${escapeAttr(t.slug)}" aria-label="Classifica di ${escapeAttr(titolaNome(t.nome))}">
+          <span class="action-box" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M17 5h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 5H4.5a2.5 2.5 0 0 0 0 5H7"/></svg>
+          </span>
+          Classifica
+        </button>
+      </div>
+    </div>
+    ${nextMatchHtml(next, t.slug)}
+  </article>`;
+}
+
+function renderLanding() {
+  const box = $("#landing-grid");
+  if (!box) return;
+  const teams = ourTeams();
+  if (!teams.length) {
+    box.innerHTML = `<p class="empty">Nessuna squadra in calendario.</p>`;
+    return;
+  }
+  box.innerHTML = teams.map((t, i) => teamCardHtml(t, i)).join("");
+
+  box.querySelectorAll("[data-action]").forEach((el) =>
+    el.addEventListener("click", (e) => {
+      // Il link del titolo copre la card: senza questo il click farebbe il
+      // giro completo e ricaricherebbe la pagina.
+      e.preventDefault();
+      e.stopPropagation();
+      const slug = el.dataset.slug;
+      if (el.dataset.action === "calendario") showCalendar(slug, false);
+      else showCalendar(slug, true);
+    })
+  );
+
+  // La prossima partita apre la scheda di quella singola partita. Il click non
+  // deve arrivare alla card sotto, che invece porta al calendario.
+  box.querySelectorAll("[data-match-key]").forEach((el) => {
+    const apri = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const m = allMatches().find((x) => matchKey(x) === el.dataset.matchKey);
+      if (m) openMatchModal(m);
+    };
+    el.addEventListener("click", apri);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") apri(e);
+    });
+  });
+}
+
+// La landing e la vista calendario sono la stessa pagina: si scambiano, cosi'
+// il tasto Indietro funziona e i link restano condivisibili.
+function showLanding(opts = {}) {
+  $("#landing")?.removeAttribute("hidden");
+  $("#calendar-view")?.setAttribute("hidden", "");
+  $("#back-to-landing")?.setAttribute("hidden", "");
+  document.body.classList.add("on-landing");
+  if (!opts.fromUrl) syncUrl();
+}
+
+function showCalendar(slug, riepilogo) {
+  $("#landing")?.setAttribute("hidden", "");
+  $("#calendar-view")?.removeAttribute("hidden");
+  $("#back-to-landing")?.removeAttribute("hidden");
+  document.body.classList.remove("on-landing");
+  applyView("ours", slug || "");
+  // "Riepilogo" apre la classifica del campionato della squadra.
+  const panel = $("#standings-panel");
+  const btn = $("#toggle-standings");
+  const apri = Boolean(riepilogo);
+  if (panel) {
+    if (apri) panel.removeAttribute("hidden");
+    else panel.setAttribute("hidden", "");
+  }
+  btn?.setAttribute("aria-expanded", String(apri));
+  if (apri) renderStandings();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 async function init() {
   try {
     // La CDN di GitHub Pages tiene schedule.json in cache fino a 10 minuti.
@@ -995,6 +1270,27 @@ async function init() {
   renderViewFilter();
   renderList();
   renderStandings();
+  renderLanding();
+
+  // Un link con ?squadra= o ?campionato= deve continuare a funzionare: apre
+  // direttamente il calendario invece della landing. Solo la radice mostra
+  // le card.
+  $("#back-to-landing")?.addEventListener("click", () => {
+    state.team = "";
+    state.panel = "";
+    state.round = null;
+    // Il calendario resta filtrato dietro le card: si riporta a "tutte le
+    // nostre" e si richiude la classifica, cosi' riaprendo una squadra non si
+    // trova il filtro della precedente.
+    renderViewFilter();
+    renderList();
+    const panel = $("#standings-panel");
+    if (panel) panel.setAttribute("hidden", "");
+    $("#toggle-standings")?.setAttribute("aria-expanded", "false");
+    showLanding();
+  });
+  if (daUrl) showCalendar(state.team, Boolean(state.panel));
+  else showLanding({ fromUrl: true });
   // Un link con ?campionato= apre direttamente il pannello.
   if (state.panel) togglePanel(true);
   if (daUrl) syncUrl({ replace: true });
@@ -1002,11 +1298,14 @@ async function init() {
     state.view = "ours";
     state.team = "";
     state.panel = "";
-    applyUrlState();
+    const conFiltri = applyUrlState();
     renderViewFilter();
     renderList();
     renderStandings();
     togglePanel(Boolean(state.panel));
+    // Indietro fino all'URL nudo riporta alle card.
+    if (conFiltri) showCalendar(state.team, Boolean(state.panel));
+    else showLanding({ fromUrl: true });
     syncUrl({ replace: true });
   });
 
