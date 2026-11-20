@@ -19,7 +19,7 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
 - `site/data/squadre.json` — squadre del club: slug per i link diretti e nomi usati nei calendari
 - `site/admin/` — pagina admin protetta (vedi sotto)
 - `worker/` — funzione serverless opzionale per l'accesso OAuth
-- `site/assets/logo.jpg` — logo società (scaricato da FIPAV Napoli)
+- `site/assets/logo.webp` — logo società nell'header, 192px WebP (vedi «Loghi»)
 
 ## Fonti dati
 - **FIPAV Napoli** (`https://www.fipavnapoli.it`): **fonte primaria** (importer/fipav_napoli.py).
@@ -69,6 +69,8 @@ per un'immagine che nella scheda si vede a 46px. Entrambi gli importer li scaric
 li ridimensionano a 512px e li salvano in WebP (`importer/loghi.py`), che mantiene la
 trasparenza a una frazione del peso di un PNG.
 
+- `site/assets/logo.webp` — stemma della societa' nell'header. 192px: il CSS lo mostra a
+  54px, quindi copre fino a DPR 3.5. Non e' un logo di squadra e non lo tocca l'importer.
 - `site/assets/loghi/fipav/<id>.webp` — nome = id societa' FIPAV.
 - `site/assets/loghi/asi/squadra-<id>.webp` — nome = id squadra dell'API ASI.
 - Gli id sono stabili, i nomi delle squadre no: non usare i nomi come nome file.
