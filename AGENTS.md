@@ -314,15 +314,18 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 - **Il titolo e' il nome della squadra**, non "Calendario". Il sottotitolo e' il
   campionato. Senza squadra scelta il tasto Classifica e' nascosto (`hidden`):
   non ci sarebbe una classifica da aprire.
-- **Non ci sono filtri**: la vista mostra sempre tutte le partite della squadra.
-  Le pillole "tutte/disputate/da disputare" sono state rimosse insieme a
-  `state.filtro`, `righeCalendario` e `filtroCalendario`. Restano solo la barra
-  di avanzamento e i conteggi nel testo.
+- **Il filtro di partenza e' "tutte"**, ma le pillole restano: Tutte /
+  Disputate / Da disputare, ognuna con il conteggio. Chi apre il calendario
+  vuole l'elenco completo, poi semmai lo restringe. `state.filtro` vive
+  nell'indirizzo solo se diverso da "tutte" (`&filtro=disputate`).
 - Struttura: `.cal-head` (logo, titolo, tasto), `.cal-progress` (barra + `N/M`),
   poi `.fixture-row`.
-- La riga mostra: giornata + data breve, **icona casa/trasferta** (`ICONA_CASA` /
-  `ICONA_TRASFERTA`, in `app.js`), `vs`, logo e nome dell'avversario, poi
-  risultato (o orario) con lo stato. Le icone sono `aria-hidden` con un
+- La riga mostra: giornata + data breve, **icona casa/trasferta**, `vs`, logo e
+  nome dell'avversario, poi risultato (o orario) con lo stato.
+- **Le icone sono le stesse della card della home**: `venueIcon(inCasa, size,
+  cls)` disegna il tetto in casa e l'aereo in trasferta. In home va a 26px, nel
+  calendario a 14px: cambia la misura, non il disegno. Non reintrodurre un
+  pullman o altri simboli: la card e la riga devono parlare la stessa lingua. Le icone sono `aria-hidden` con un
   `sr-only` che dice "In casa"/"In trasferta"; l'`aria-label` della riga
   ripete il luogo, perche' il testo visibile da solo non lo direbbe.
 - Casa e trasferta si distinguono **anche dal colore** (viola in casa, grigio
@@ -331,6 +334,15 @@ Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
   con la stessa tolleranza di 6 ore di `defaultRound`.
 - `state.calRows` tiene le righe mostrate: la scheda dettagli si apre con
   quell'indice, non con quello di un'altra lista.
+- **Un click = una voce di cronologia.** `showCalendar` chiama `applyView` e
+  `mostraVistaCalendario` con `fromUrl: true` e scrive l'indirizzo una volta
+  sola alla fine. Se si lascia che entrambe facciano `syncUrl()`, il tasto
+  Indietro si ferma su uno stato intermedio (calendario aperto, URL senza
+  `vista`) e serve premerlo due volte.
+- **Attenzione ai tag nei template.** Il tasto Classifica della card e' passato
+  da `<button>` a `<a>`: lasciando `</button>` il browser annidava "Prossima
+  partita" dentro il link e le card crescevano di 100px. Se si cambia il tag di
+  apertura, cambiare anche quello di chiusura.
 - **`eDisputata` / `eAnnullata` / `MESI_BREVI` stanno in `app.js` e servono al
   calendario.** Se si tocca il blocco del calendario, controllare che restino:
   cancellandole la pagina si svuota con "eDisputata is not defined".

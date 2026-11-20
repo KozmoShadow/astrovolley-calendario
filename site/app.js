@@ -17,6 +17,7 @@ const state = {
   liveError: null,
   panelRows: [], // partite mostrate nella giornata del pannello (indici separati)
   calendario: false, // true = vista "Calendario" (solo partite, senza classifica)
+  filtro: "tutte", // filtro della vista calendario: tutte|disputate|da-disputare
   calRows: [], // partite mostrate nella vista calendario (per la scheda dettagli)
 };
 
@@ -285,7 +286,12 @@ function syncUrl(opts = {}) {
   const params = new URLSearchParams();
   if (state.team) params.set("squadra", state.team);
   if (state.panel) params.set("campionato", state.panel);
-  if (state.calendario) params.set("vista", "calendario");
+  if (state.calendario) {
+    params.set("vista", "calendario");
+    // "tutte" e' il valore di partenza: scriverlo allunga l'indirizzo senza
+    // dire nulla di nuovo.
+    if (state.filtro !== "tutte") params.set("filtro", state.filtro);
+  }
   const qs = params.toString();
   const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
   if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
@@ -303,6 +309,8 @@ function applyUrlState() {
 
   state.team = team && ourTeams().some((t) => t.slug === team) ? team : "";
   state.calendario = vista === "calendario";
+  const filtro = (params.get("filtro") || "").trim();
+  if (["tutte", "disputate", "da-disputare"].includes(filtro)) state.filtro = filtro;
   // I vecchi link usavano ?vista=<id campionato> per aprire un campionato:
   // ora il campionato e' un pannello, quindi si accetta anche quella forma.
   const legacy = vista && !["week", "ours", "calendario"].includes(vista) ? vista : "";
@@ -400,18 +408,17 @@ function prossimaPartita(rows) {
   );
 }
 
-// Casa e trasferta come icone, non come "vs"/"@": il simbolo si legge a colpo
-// d'occhio anche a 12px, la chiocciola no.
-const ICONA_CASA = `<svg class="ha-icon" viewBox="0 0 24 24" width="14" height="14"
-  aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 10.5 12 4l8 6.5"/><path d="M6 10v9h12v-9"/></svg>`;
+// Il filtro attivo. "tutte" e' il valore di partenza: chi apre il calendario
+// vuole vedere l'elenco completo, poi semmai restringerlo.
+const FILTRI = ["tutte", "disputate", "da-disputare"];
+const filtroCalendario = () => (FILTRI.includes(state.filtro) ? state.filtro : "tutte");
 
-const ICONA_TRASFERTA = `<svg class="ha-icon" viewBox="0 0 24 24" width="14" height="14"
-  aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 17h18"/><path d="M5 17V8h7l3 4h4v5"/>
-  <path d="M9 17a2 2 0 1 0 4 0"/><path d="M6 17a2 2 0 1 0 4 0"/></svg>`;
+function righeCalendario(rows) {
+  const f = filtroCalendario();
+  if (f === "disputate") return rows.filter(eDisputata);
+  if (f === "da-disputare") return rows.filter((m) => !eDisputata(m) && !eAnnullata(m));
+  return rows;
+}
 
 function fixtureRow(m, idx, prossimaKey) {
   const d = parseDate(m.data);
@@ -446,7 +453,7 @@ function fixtureRow(m, idx, prossimaKey) {
       </div>
       <div class="ha-tag ${inCasa ? "in-casa" : "in-trasferta"}"
            title="${inCasa ? "In casa" : "In trasferta"}">
-        ${inCasa ? ICONA_CASA : ICONA_TRASFERTA}
+        ${venueIcon(inCasa, 14, "ha-icon")}
         <span class="sr-only">${inCasa ? "In casa" : "In trasferta"}</span>
       </div>
       <div class="opp-col">
@@ -476,6 +483,23 @@ function renderRiepilogoCalendario(rows) {
     bar.setAttribute("aria-valuenow", String(perc));
     bar.setAttribute("aria-valuetext", `${giocate} partite disputate su ${tot}`);
   }
+
+  // Le pillole portano il conteggio: cosi' si vede se un gruppo e' vuoto
+  // senza doverlo aprire.
+  document.querySelectorAll(".pill[data-filtro]").forEach((b) => {
+    const f = b.dataset.filtro;
+    const n = f === "disputate" ? giocate : f === "da-disputare" ? daGiocare : tot;
+    let c = b.querySelector(".pill-count");
+    if (!c) {
+      c = document.createElement("span");
+      c.className = "pill-count";
+      b.appendChild(c);
+    }
+    c.textContent = String(n);
+    const attivo = f === filtroCalendario();
+    b.classList.toggle("active", attivo);
+    b.setAttribute("aria-pressed", String(attivo));
+  });
 }
 
 function renderCalendario() {
@@ -502,16 +526,22 @@ function renderCalendario() {
 
   renderRiepilogoCalendario(tutte);
 
-  if (!tutte.length) {
-    box.innerHTML = `<p class="empty">Nessuna partita in calendario.</p>`;
+  const rows = righeCalendario(tutte);
+  if (!rows.length) {
+    const messaggi = {
+      tutte: "Nessuna partita in calendario.",
+      disputate: "Nessuna partita disputata finora.",
+      "da-disputare": "Nessuna partita da giocare: il calendario e' completo.",
+    };
+    box.innerHTML = `<p class="empty">${messaggi[filtroCalendario()]}</p>`;
     state.calRows = [];
     return;
   }
 
   const prossima = prossimaPartita(tutte);
   const chiave = prossima ? matchKey(prossima) : "";
-  box.innerHTML = tutte.map((m, i) => fixtureRow(m, i, chiave)).join("");
-  state.calRows = tutte;
+  box.innerHTML = rows.map((m, i) => fixtureRow(m, i, chiave)).join("");
+  state.calRows = rows;
   box.querySelectorAll(".fixture-row").forEach((el) =>
     el.addEventListener("click", () => openMatchModal(state.calRows[Number(el.dataset.idx)]))
   );
@@ -1214,13 +1244,16 @@ function teamNextMatch(slug) {
 
 // Icona del campo: casa per le partite in casa, aereo per le trasferte.
 // Sostituisce "vs"/"@" che erano ambigui da leggere a colpo d'occhio.
-function venueIcon(inCasa) {
+// La stessa coppia serve alla card della home (26px) e alle righe del
+// calendario (14px): cambia solo la misura, non il disegno.
+function venueIcon(inCasa, size = 26, cls = "venue-icon") {
+  const dim = `width="${size}" height="${size}"`;
   if (inCasa) {
-    return `<svg class="venue-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+    return `<svg class="${cls}" ${dim} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
       aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>`;
   }
-  return `<svg class="venue-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+  return `<svg class="${cls}" ${dim} viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
     aria-hidden="true"><path d="M10.5 13.5 3 11V8.5l7.5 1V5a1.5 1.5 0 0 1 3 0v4.5l7.5-1V11l-7.5 2.5V18l2.5 1.5V21L12 20l-4 1v-1.5L10.5 18z"/></svg>`;
 }
@@ -1309,7 +1342,7 @@ function teamCardHtml(t, i) {
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M17 5h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 5H4.5a2.5 2.5 0 0 0 0 5H7"/></svg>
           </span>
           Classifica
-        </button>
+        </a>
       </div>
     </div>
     ${nextMatchHtml(next, t.slug)}
@@ -1376,8 +1409,11 @@ function showCalendar(slug, vista = "classifica") {
   document.body.classList.remove("on-landing");
   // state.panel resta quello scelto (o quello della squadra): azzerarlo qui
   // farebbe cadere un link ?campionato= sulla prima competizione.
-  applyView("ours", slug || "");
+  // fromUrl su entrambe: un click deve lasciare UNA voce di cronologia, non due
+  // (la prima senza vista, la seconda con). Si scrive l'indirizzo una volta qui.
+  applyView("ours", slug || "", { fromUrl: true });
   mostraVistaCalendario(vista === "calendario", { fromUrl: true });
+  syncUrl();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1442,6 +1478,15 @@ async function init() {
     mostraVistaCalendario(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  // Pillole di filtro della vista Calendario.
+  document.querySelectorAll(".pill[data-filtro]").forEach((b) =>
+    b.addEventListener("click", () => {
+      state.filtro = b.dataset.filtro;
+      renderCalendario();
+      syncUrl();
+    })
+  );
 
   // Tastiera nella vista Calendario: Invio o spazio aprono la scheda.
   $("#calendar")?.addEventListener("keydown", (e) => {
