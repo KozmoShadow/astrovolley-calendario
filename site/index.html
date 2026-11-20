@@ -69,6 +69,21 @@
     </div>
   </div>
 
+  <!-- Ingrandimento del logo: si apre sopra la scheda dettagli, cosi' chi
+       chiude l'immagine ritrova la partita dov'era. -->
+  <div id="logo-lightbox" class="lightbox" hidden>
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <figure class="lightbox-figure">
+      <button class="lightbox-close" data-lightbox-close aria-label="Chiudi immagine">&times;</button>
+      <img id="lightbox-img" alt="" />
+      <figcaption class="lightbox-caption">
+        <span id="lightbox-name"></span>
+        <a id="lightbox-link" href="#" target="_blank" rel="noopener">Apri immagine</a>
+        <span id="lightbox-note" class="lightbox-note"></span>
+      </figcaption>
+    </figure>
+  </div>
+
   <script type="module" src="app.js"></script>
 </body>
 </html>

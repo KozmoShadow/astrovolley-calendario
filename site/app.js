@@ -456,12 +456,16 @@ function openMatchModal(m) {
         .map((s) => `<span class="set-chip">${escapeHtml(s)}</span>`)
         .join("")}</div>`
     : "";
-  const logoCasa = m.logo_casa
-    ? `<img src="${escapeAttr(logoUrl(m.logo_casa))}" alt="" loading="lazy" onerror="this.remove()" />`
-    : "";
-  const logoTrasf = m.logo_trasferta
-    ? `<img src="${escapeAttr(logoUrl(m.logo_trasferta))}" alt="" loading="lazy" onerror="this.remove()" />`
-    : "";
+  // Il logo si puo' cliccare per vederlo grande: l'immagine originale e'
+  // spesso molto piu' definita di quanto mostrato a 46px.
+  const logoImg = (url, nome) =>
+    url
+      ? `<img src="${escapeAttr(logoUrl(url))}" alt="Logo ${escapeAttr(nome || "")}" loading="lazy"
+           class="logo-zoom" role="button" tabindex="0"
+           data-logo="${escapeAttr(logoUrl(url))}" data-nome="${escapeAttr(nome || "")}" />`
+      : "";
+  const logoCasa = logoImg(m.logo_casa, m.casa);
+  const logoTrasf = logoImg(m.logo_trasferta, m.trasferta);
   const indirizzo = (m.indirizzo || "").trim();
   const maps = mapsUrl(m);
   const rigaMappa =
@@ -523,6 +527,50 @@ function closeModal() {
   if (!modal || modal.hidden) return;
   modal.hidden = true;
   document.body.classList.remove("modal-open");
+}
+
+// ------------------------------------------------------- ingrandimento logo
+// Un logo da 50px in una scheda larga 46px sembra a posto, ma e' comunque
+// piccolo: qui lo si mostra alla sua risoluzione reale, senza ingrandirlo
+// oltre. Per i loghi FIPAV (50x50 nativi) significa vederlo nitido ma piccolo;
+// per quelli ASI, che arrivano a 2000px, si vede il dettaglio vero.
+
+function openLogo(nome, src) {
+  const box = $("#logo-lightbox");
+  if (!box || !src) return;
+  const img = $("#lightbox-img");
+  const nota = $("#lightbox-note");
+  nota.textContent = "";
+  img.style.maxWidth = "";
+  img.style.maxHeight = "";
+  img.onload = () => {
+    const { naturalWidth: w, naturalHeight: h } = img;
+    // Mai oltre la risoluzione del file (ingrandire un 50px lo rende solo
+    // sgranato), ma nemmeno oltre lo schermo: min() tiene entrambi i limiti.
+    img.style.maxWidth = `min(${w}px, 88vw)`;
+    img.style.maxHeight = `min(${h}px, 74vh)`;
+    const minore = Math.min(w, h);
+    nota.textContent = minore < 200 ? `originale ${w}×${h} px, non ingrandito` : "";
+  };
+  img.src = src;
+  img.alt = nome ? `Logo ${nome}` : "Logo squadra";
+  $("#lightbox-name").textContent = nome || "";
+  const link = $("#lightbox-link");
+  link.href = src;
+  box.hidden = false;
+  document.body.classList.add("lightbox-open");
+  box.querySelector(".lightbox-close").focus();
+}
+
+function closeLogo() {
+  const box = $("#logo-lightbox");
+  if (!box || box.hidden) return;
+  box.hidden = true;
+  document.body.classList.remove("lightbox-open");
+  $("#lightbox-img").removeAttribute("src");
+  // Il focus torna al logo da cui si e' partiti, se e' ancora nella pagina.
+  const logo = document.querySelector(".modal-card .logo-zoom");
+  if (logo) logo.focus();
 }
 
 // ---------------------------------------------------- pannello Campionato
@@ -962,8 +1010,38 @@ async function init() {
   // Scheda dettagli: chiusura con click fuori, tasto Chiudi o Esc.
   const modal = $("#match-modal");
   modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
+
+  // Click (o Invio) su un logo della scheda: lo si apre grande.
+  modal.addEventListener("click", (e) => {
+    const logo = e.target.closest(".logo-zoom");
+    if (logo) openLogo(logo.dataset.nome, logo.dataset.logo);
+  });
+  modal.addEventListener("keydown", (e) => {
+    const logo = e.target.closest(".logo-zoom");
+    if (logo && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      openLogo(logo.dataset.nome, logo.dataset.logo);
+    }
+  });
+  // Un logo che non carica non deve lasciare un riquadro vuoto.
+  modal.addEventListener(
+    "error",
+    (e) => {
+      if (e.target.classList && e.target.classList.contains("logo-zoom")) e.target.remove();
+    },
+    true
+  );
+
+  const lightbox = $("#logo-lightbox");
+  lightbox.querySelectorAll("[data-lightbox-close]").forEach((el) =>
+    el.addEventListener("click", closeLogo)
+  );
+
+  // Esc chiude prima l'immagine, poi la scheda: evita di perdere la partita.
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key !== "Escape") return;
+    if (!lightbox.hidden) closeLogo();
+    else closeModal();
   });
   // Invio o spazio aprono il dettaglio, sia nella lista sia nel pannello.
   for (const contenitore of ["#calendar", "#campionato"]) {
