@@ -263,44 +263,27 @@ function inWeek(m, range) {
   return d && d >= range.start && d < range.end;
 }
 
+// Senza filtri la lista mostra tutte le nostre partite, o solo quelle della
+// squadra aperta.
 function visibleMatches() {
-  let rows = allMatches();
-  if (state.view === "week") {
-    const range = weekRange();
-    rows = rows.filter((m) => matchIsOurs(m) && inWeek(m, range));
-  } else {
-    rows = rows.filter(matchIsOurs);
-  }
+  let rows = allMatches().filter(matchIsOurs);
   if (state.team) rows = rows.filter(teamMatcher(state.team));
   return rows.sort((a, b) => (a.data || "").localeCompare(b.data || ""));
 }
 
-function viewLabel() {
-  return state.view === "week" ? "Questa settimana" : "Le nostre partite";
-}
-
-function closeFilters() {
-  const panel = $("#filters-panel");
-  const toggle = $("#filters-toggle");
-  if (panel) panel.hidden = true;
-  if (toggle) toggle.setAttribute("aria-expanded", "false");
-}
-
-// Cambia vista e ridisegna tutto.
+// Apre una squadra e ridisegna la pagina. Non ci sono piu' filtri: la pagina
+// mostra sempre tutto quello che riguarda la squadra scelta.
 function applyView(view, team, opts = {}) {
-  state.view = view === "week" ? "week" : "ours";
   state.team = team || "";
-  closeFilters();
-  renderViewFilter();
-  renderList();
+  renderTeamHead();
   renderStandings();
-  if (isPanelOpen()) renderChampionship();
+  renderChampionship();
+  renderList();
   if (!opts.fromUrl) syncUrl();
 }
 
 function isPanelOpen() {
-  const panel = $("#campionato-panel");
-  return Boolean(panel && !panel.hasAttribute("hidden"));
+  return true;
 }
 
 // L'indirizzo rispecchia filtri e pannello aperto, cosi' il link si puo'
@@ -310,7 +293,6 @@ function isPanelOpen() {
 function syncUrl(opts = {}) {
   if (!window.history?.pushState) return;
   const params = new URLSearchParams();
-  if (state.view !== "ours") params.set("vista", state.view);
   if (state.team) params.set("squadra", state.team);
   if (state.panel) params.set("campionato", state.panel);
   const qs = params.toString();
@@ -328,7 +310,6 @@ function applyUrlState() {
   const vista = (params.get("vista") || "").trim();
   const campionato = (params.get("campionato") || "").trim();
 
-  state.view = vista === "week" ? "week" : "ours";
   state.team = team && ourTeams().some((t) => t.slug === team) ? team : "";
   // I vecchi link usavano ?vista=<id campionato> per aprire un campionato:
   // ora il campionato e' un pannello, quindi si accetta anche quella forma.
@@ -339,82 +320,15 @@ function applyUrlState() {
   return Boolean(state.team || state.panel);
 }
 
-function renderViewFilter() {
-  const box = $("#view-filter");
-  const teams = ourTeams();
-  const filtriActive = Boolean(state.team);
-
-  let html = `<span class="chip chip-current" aria-current="true">${escapeHtml(viewLabel())}</span>
-    <button class="chip chip-dropdown ${filtriActive ? "is-active" : ""}" id="filters-toggle"
-            aria-haspopup="true" aria-expanded="false">
-      Filtri${state.team ? ` · 1` : ""}
-      <span class="caret" aria-hidden="true">▾</span>
-    </button>
-    <div class="dropdown-menu filters-panel" id="filters-panel" role="menu" hidden>`;
-
-  // Vista
-  html += `<div class="filter-group"><div class="filter-head">Vista</div>
-    <button role="menuitem" class="dropdown-item ${state.view === "ours" ? "is-active" : ""}" data-view="ours">
-      Le nostre partite</button>
-    <button role="menuitem" class="dropdown-item ${state.view === "week" ? "is-active" : ""}" data-view="week">
-      Questa settimana</button></div>`;
-
-  // Squadra
-  html += `<div class="filter-group"><div class="filter-head">Squadra</div>
-    <button role="menuitem" class="dropdown-item ${!state.team ? "is-active" : ""}" data-team="">
-      Tutte le nostre</button>`;
-  for (const t of teams) {
-    html += `<button role="menuitem" class="dropdown-item ${state.team === t.slug ? "is-active" : ""}" data-team="${escapeAttr(t.slug)}">
-      <span class="filter-team">${escapeHtml(t.nome)}</span>
-      <span class="filter-sub">${escapeHtml(titolaNome(t.comp))} · ${t.partite} partite</span></button>`;
-  }
-  html += `</div>`;
-
-  html += `</div>`;
-  box.innerHTML = html;
-
-  const toggle = $("#filters-toggle");
-  const panel = $("#filters-panel");
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const open = panel.hidden;
-    panel.hidden = !open;
-    toggle.setAttribute("aria-expanded", String(open));
-  });
-  panel.addEventListener("click", (e) => e.stopPropagation());
-  panel.querySelectorAll(".dropdown-item").forEach((item) =>
-    item.addEventListener("click", () => {
-      if (item.dataset.team !== undefined) applyView(state.view, item.dataset.team);
-      else applyView(item.dataset.view, "");
-    })
-  );
-}
-
 // Blocchetto calendario per il pannello Campionato: mese e anno nella barretta,
 // giorno in grande, ora sotto. L'anno sta nella barretta perche' la stagione
 // scavalca il 31 dicembre: senza, "11/11" e "11/01" sarebbero indistinguibili.
-const MESI = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
 
-function whenBlock(d) {
-  if (!d) {
-    return `<div class="cal"><span class="m">—</span><span class="g">--</span><span class="t">--:--</span></div>`;
-  }
-  const giorno = String(d.getDate()).padStart(2, "0");
-  return `<div class="cal">
-            <span class="m" aria-hidden="true">${MESI[d.getMonth()]} ${String(d.getFullYear()).slice(2)}</span>
-            <span class="g" aria-hidden="true">${giorno}</span>
-            <span class="t" aria-hidden="true">${fmtTime(d)}</span>
-            <span class="sr-only">${escapeHtml(fmtDay(d))}, ore ${fmtTime(d)}</span>
-          </div>`;
-}
-
-function matchCard(m, idx, opts = {}) {
+function matchCard(m, idx) {
   const d = parseDate(m.data);
   const ours = matchIsOurs(m);
   const time = d ? fmtTime(d) : "--:--";
-  // Nel pannello Campionato la data serve: le partite di una giornata cadono in
-  // giorni diversi. Nella lista no, perche' il giorno e' gia' nell'intestazione.
-  const quando = opts.showDate ? whenBlock(d) : `<div class="match-time">${time}</div>`;
+  const quando = `<div class="match-time">${time}</div>`;
   const parts = (m.risultato || "").split(/\s*[-–]\s*/);
   const hasScore = parts.length === 2;
   const annullata = (m.stato || "") === "cancelled";
@@ -427,8 +341,7 @@ function matchCard(m, idx, opts = {}) {
   const scoreOspite = hasScore ? `<span class="team-score score-ospite">${escapeHtml(parts[1])}</span>` : "";
   const esito = hasScore && ours ? esitoOf(m, parts) : "";
   const metaParts = [];
-  if (opts.showDate && d) metaParts.push(escapeHtml(fmtDay(d)));
-  else if (m.campionato) metaParts.push(escapeHtml(titolaNome(m.campionato)));
+  if (m.campionato) metaParts.push(escapeHtml(titolaNome(m.campionato)));
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
   return `
@@ -445,8 +358,42 @@ function matchCard(m, idx, opts = {}) {
           </div>
           <div class="meta">${metaParts.join(" · ")}</div>
         </div>
-        <span class="badge ${fonte}">${escapeHtml(ente)}</span>
+        <span class="badge ${fonte}">${ours ? '<span class="badge-star" aria-hidden="true">★</span>' : ""}${escapeHtml(ente)}</span>
       </article>`;
+}
+
+// Card della giornata: due squadre ai lati e il calendarietto al centro, come
+// nel riferimento. Il resto delle informazioni sta sotto, in una riga sola.
+function roundMatchCard(m, idx) {
+  const d = parseDate(m.data);
+  const ours = matchIsOurs(m);
+  const annullata = (m.stato || "") === "cancelled";
+  const parts = (m.risultato || "").split(/\s*[-–]\s*/);
+  const hasScore = parts.length === 2;
+  const esito = hasScore && ours ? esitoOf(m, parts) : "";
+  const fonte = (m._comp.fonte || "manuale").toLowerCase();
+  const ente = (m._comp.fonte || "manuale").toUpperCase();
+  const centro = d
+    ? `<span class="rm-date">${escapeHtml(fmtShortDay(d))}</span>
+       <span class="rm-time">${escapeHtml(fmtTime(d))}</span>`
+    : `<span class="rm-date">Data</span><span class="rm-time">--:--</span>`;
+  const risultato = annullata
+    ? `<span class="annullata">annullata</span>`
+    : hasScore
+      ? `<span class="rm-score">${escapeHtml(m.risultato)}</span>`
+      : "";
+  return `
+    <article class="round-match ${ours ? "is-ours" : ""} ${esito} ${annullata ? "is-cancelled" : ""}"
+             data-idx="${idx}" tabindex="0" role="button"
+             aria-label="Dettagli partita${annullata ? " (annullata)" : ""}">
+      <span class="rm-team rm-casa ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
+      <span class="rm-center">${centro}</span>
+      <span class="rm-team rm-ospite ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
+      <span class="rm-foot">
+        ${risultato}
+        <span class="badge ${fonte}">${ours ? '<span class="badge-star" aria-hidden="true">★</span>' : ""}${escapeHtml(ente)}</span>
+      </span>
+    </article>`;
 }
 
 // Raggruppa le partite per data. L'indice resta quello di `rows`, per la
@@ -471,10 +418,8 @@ function groupRows(rows) {
 function renderList() {
   const box = $("#calendar");
   const rows = visibleMatches();
-  let title = viewLabel();
   const tn = teamName(state.team);
-  if (tn) title += ` — ${titolaNome(tn)}`;
-  $("#list-title").textContent = title;
+  $("#list-title").textContent = tn ? `Le nostre partite — ${titolaNome(tn)}` : "Le nostre partite";
 
   if (!rows.length) {
     box.innerHTML = `<p class="empty">Nessuna partita trovata con questi filtri.</p>`;
@@ -685,33 +630,12 @@ function defaultRound(rounds) {
 
 function renderChampionship() {
   const box = $("#campionato");
-  const comp = panelCompetition();
-  if (!box) return;
-
-  // Selettore di campionato: serve solo se ce n'e' piu' di uno.
-  let html = "";
-  if (state.competitions.length > 1) {
-    html += `<label class="champ-select">
-      <span class="sr-only">Campionato</span>
-      <select id="champ-picker">${state.competitions
-        .map(
-          (c) =>
-            `<option value="${escapeAttr(c.id)}" ${c.id === state.panel ? "selected" : ""}>${escapeHtml(
-              titolaNome(c.titolo)
-            )}</option>`
-        )
-        .join("")}</select>
-    </label>`;
-  }
-
-  if (!comp) {
-    box.innerHTML = html + `<p class="empty">Nessun campionato disponibile.</p>`;
-    return;
-  }
+  const comp = panelCompetition() || competitionForTeam(state.team);
+  if (!box || !comp) return;
 
   const { rounds, senza } = roundsOf(comp);
   if (!rounds.length && !senza.length) {
-    box.innerHTML = html + `<p class="empty">Nessuna partita in questo campionato.</p>`;
+    box.innerHTML = `<p class="empty">Nessuna partita in questo campionato.</p>`;
     return;
   }
 
@@ -722,54 +646,42 @@ function renderChampionship() {
     (a.data || "").localeCompare(b.data || "")
   );
 
+  // Carosello: frecce ai lati e striscia scorrevole al centro. La striscia
+  // tiene tutte le giornate, quindi si trascina col dito su mobile.
+  let html = "";
   if (rounds.length) {
     html += `<div class="round-nav">
       <button class="round-step" id="round-prev" aria-label="Giornata precedente" ${
         pos <= 0 ? "disabled" : ""
       }>‹</button>
-      <div class="round-current">
-        <span class="round-name">Giornata ${escapeHtml(String(corrente.n))}</span>
-        <span class="round-count">${pos + 1} di ${rounds.length} · ${partite.length} partite</span>
+      <div class="round-carousel">
+        <div class="round-strip" id="round-strip" role="tablist" aria-label="Giornate">${rounds
+          .map(
+            (r) =>
+              `<button role="tab" class="round-tab ${r.n === corrente.n ? "is-active" : ""}"
+                 data-round="${r.n}" aria-selected="${r.n === corrente.n}">Giornata ${escapeHtml(String(r.n))}</button>`
+          )
+          .join("")}</div>
       </div>
       <button class="round-step" id="round-next" aria-label="Giornata successiva" ${
         pos >= rounds.length - 1 ? "disabled" : ""
       }>›</button>
-    </div>`;
-
-    html += `<div class="round-strip" role="tablist" aria-label="Giornate">${rounds
-      .map(
-        (r) =>
-          `<button role="tab" class="round-tab ${r.n === corrente.n ? "is-active" : ""}"
-             data-round="${r.n}" aria-selected="${r.n === corrente.n}">${escapeHtml(String(r.n))}</button>`
-      )
-      .join("")}</div>`;
+    </div>
+    <p class="round-hint">Scorri per cambiare giornata</p>`;
   }
 
   html += `<div id="round-matches" class="round-matches" role="tabpanel"></div>`;
   box.innerHTML = html;
 
-  // Le partite della giornata: stessa scheda della lista, cosi' il dettaglio
-  // si apre allo stesso modo. state.panelRows tiene gli indici di QUESTO
-  // contenitore, altrimenti si aprirebbe la partita sbagliata.
   const list = $("#round-matches");
   state.panelRows = partite;
   list.innerHTML = partite.length
-    ? partite.map((m, i) => matchCard(m, i, { showDate: true })).join("")
+    ? partite.map((m, i) => roundMatchCard(m, i)).join("")
     : `<p class="empty">Nessuna partita in questa giornata.</p>`;
-  list.querySelectorAll(".match").forEach((el) =>
+  list.querySelectorAll(".round-match").forEach((el) =>
     el.addEventListener("click", () => openMatchModal(state.panelRows[Number(el.dataset.idx)]))
   );
 
-  const picker = $("#champ-picker");
-  if (picker) {
-    picker.addEventListener("change", (e) => {
-      state.panel = e.target.value;
-      state.round = null;
-      renderChampionship();
-      renderStandings();
-      syncUrl();
-    });
-  }
   const prev = $("#round-prev");
   const next = $("#round-next");
   if (prev) prev.addEventListener("click", () => goRound(pos - 1));
@@ -777,14 +689,36 @@ function renderChampionship() {
   box.querySelectorAll(".round-tab").forEach((tab) =>
     tab.addEventListener("click", () => goRound(Number(tab.dataset.round), true))
   );
-  // La giornata attiva deve restare visibile nella striscia, anche quando e'
-  // l'ultima e la striscia e' piu' larga dello schermo.
+
+  // Trascinamento orizzontale col mouse (col dito funziona da solo).
+  setupStripDrag($("#round-strip"));
+
+  // La giornata attiva resta al centro della striscia.
   const attivo = box.querySelector(".round-tab.is-active");
   if (attivo) {
     const strip = attivo.parentElement;
-    const sinistra = attivo.offsetLeft - strip.clientWidth / 2 + attivo.clientWidth / 2;
-    strip.scrollLeft = Math.max(0, sinistra);
+    strip.scrollLeft = Math.max(0, attivo.offsetLeft - strip.clientWidth / 2 + attivo.clientWidth / 2);
   }
+}
+
+// Trascinare la striscia con il mouse, come su un carosello. Su touch non
+// serve: lo scorrimento nativo e' gia' quello giusto.
+function setupStripDrag(strip) {
+  if (!strip) return;
+  let giu = false, x = 0, scroll = 0;
+  strip.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "touch") return;
+    giu = true; x = e.clientX; scroll = strip.scrollLeft;
+    strip.classList.add("is-dragging");
+  });
+  strip.addEventListener("pointermove", (e) => {
+    if (!giu) return;
+    strip.scrollLeft = scroll - (e.clientX - x);
+  });
+  const fine = () => { giu = false; strip.classList.remove("is-dragging"); };
+  strip.addEventListener("pointerup", fine);
+  strip.addEventListener("pointerleave", fine);
+  strip.addEventListener("pointercancel", fine);
 }
 
 // Cambia giornata: `valore` e' l'indice (dalle frecce) o il numero (dai tab).
@@ -798,76 +732,118 @@ function goRound(valore, eNumero = false) {
   renderChampionship();
 }
 
-// Apre o chiude il pannello. All'apertura sceglie un campionato sensato:
-// quello della squadra filtrata, altrimenti il primo.
+// Non c'e' piu' un pannello da aprire: la giornata e' sempre visibile.
+// Resta questa funzione per scegliere il campionato giusto all'apertura.
 function togglePanel(open) {
-  const panel = $("#campionato-panel");
-  const btn = $("#toggle-campionato");
-  if (!panel || !btn) return;
-  const apri = open === undefined ? panel.hasAttribute("hidden") : open;
-  if (apri && !state.panel) {
+  if (!state.panel) {
     const comp = competitionForTeam(state.team) || state.competitions[0];
     state.panel = comp ? comp.id : "";
     state.round = null;
   }
-  if (apri) panel.removeAttribute("hidden");
-  else {
-    panel.setAttribute("hidden", "");
-    // Il campionato scelto non resta nell'indirizzo: il link non deve dire
-    // che il pannello e' aperto quando non lo e'.
-    state.panel = "";
-    state.round = null;
-  }
-  btn.setAttribute("aria-expanded", String(apri));
-  if (apri) renderChampionship();
+  if (open !== false) renderChampionship();
   syncUrl();
+}
+
+// Testata della pagina squadra: titolo, campionato e stagione come scritte
+// statiche nei riquadri (niente menu a tendina).
+function renderTeamHead() {
+  const nome = teamName(state.team);
+  const titolo = $("#team-title");
+  if (titolo) titolo.textContent = nome ? titolaNome(nome) : "Classifica";
+  const comp = $("#team-comp");
+  if (comp) comp.textContent = titolaNome(teamCompetition(state.team) || "");
+  const stag = $("#team-season");
+  if (stag) stag.textContent = state.data?.stagione || "—";
 }
 
 function renderStandings() {
   const box = $("#standings");
-  // Con un campionato aperto nel pannello si mostra la sua classifica; con una
-  // squadra selezionata, quella del campionato in cui gioca. Altrimenti tutte.
-  let comp = state.panel ? state.competitions.find((c) => c.id === state.panel) : null;
-  if (!comp && state.team) {
-    const match = teamMatcher(state.team);
-    comp = state.competitions.find((c) => c.matches.some(match)) || null;
+  if (!box) return;
+  // Il campionato della squadra aperta; senza squadra, quello scelto o il primo.
+  const comp = competitionForTeam(state.team) || panelCompetition() || state.competitions[0] || null;
+  if (!comp) {
+    box.innerHTML = `<p class="empty">Nessuna classifica disponibile.</p>`;
+    return;
   }
-  const comps = (comp ? [comp] : state.competitions).filter(
-    (c) => c.standings && c.standings.length
-  );
-  $("#standings-title").textContent = comp ? "Classifica" : "Classifiche";
-  if (!comps.length) {
+  state.panel = comp.id;
+
+  const rows = comp.standings || [];
+  const sub = $("#standings-sub");
+  if (sub) sub.textContent = giornataLabel(comp, rows);
+
+  if (!rows.length) {
     box.innerHTML = `<p class="empty">Nessuna classifica disponibile al momento.</p>`;
     return;
   }
-  box.innerHTML = comps
-    .map((c) => {
-      const rows = c.standings
-        .map((s, i) => {
-          const ours = isOurs(s.squadra);
-          return `<tr class="${ours ? "is-ours" : ""}">
-            <td class="num">${i + 1}</td>
-            <td>${escapeHtml(titolaNome(s.squadra))}</td>
-            <td class="num">${s.punti}</td>
-            <td class="num">${s.pg}</td>
-            <td class="num">${s.pv}-${s.pp}</td>
-            <td class="num">${s.sf}-${s.ss}</td>
-          </tr>`;
-        })
-        .join("");
-      return `<div class="standing-card">
-        <h3>${escapeHtml(titolaNome(c.titolo))}</h3>
-        <table>
-          <thead><tr>
-            <th class="num">#</th><th>Squadra</th>
-            <th class="num">Pti</th><th class="num">PG</th>
-            <th class="num">V-P</th><th class="num">Set</th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
+
+  // Sigle compatte come nel riferimento: PG, V, P, Punti. Il resto (set e
+  // punti fatti/subiti) resta nella scheda della singola partita.
+  const head = `<div class="table-head" role="row">
+      <span>Pos</span><span>Squadra</span>
+      <span>PG</span><span>V</span><span>P</span><span>Punti</span>
+    </div>`;
+
+  const body = rows
+    .map((s, i) => {
+      const ours = isHighlighted(s.squadra, comp);
+      const logo = logoUrl(logoInComp(comp, s.squadra));
+      return `<div class="team-row ${ours ? "highlight" : ""}" role="row">
+        <span class="pos">${i + 1}</span>
+        <span class="team-cell">
+          ${logo ? `<img class="row-logo" src="${escapeAttr(logo)}" alt="" width="22" height="22" loading="lazy" onerror="this.remove()" />` : ""}
+          <span class="row-name">${escapeHtml(titolaNome(s.squadra))}</span>
+          ${ours ? `<span class="row-badge" aria-label="La nostra squadra">★</span>` : ""}
+        </span>
+        <span class="num">${s.pg}</span>
+        <span class="num">${s.pv}</span>
+        <span class="num">${s.pp}</span>
+        <span class="num punti">${s.punti}</span>
       </div>`;
     })
     .join("");
+
+  box.innerHTML = head + body;
+}
+
+// La riga da evidenziare in classifica. Con una squadra aperta conta solo
+// quella: in Promozionale giocano Cercola e Portici, e senza questo controllo
+// si accenderebbero entrambe le righe.
+function isHighlighted(nome, comp) {
+  if (state.team) {
+    const cfg = teamConfig(state.team);
+    if (cfg) {
+      const cercato = normName(nome);
+      if (!(cfg.nomi || []).map(normName).includes(cercato)) return false;
+      const titolo = normName(comp?.titolo || "");
+      return !cfg.campionato || titolo.includes(normName(cfg.campionato));
+    }
+  }
+  return isOurs(nome);
+}
+
+// Logo di una squadra qualsiasi del campionato (non solo delle nostre): si
+// guardano le partite del girone e si prende il lato in cui compare.
+function logoInComp(comp, nome) {
+  const cercato = normName(nome);
+  for (const m of comp.matches || []) {
+    if (normName(m.casa) === cercato && m.logo_casa) return m.logo_casa;
+    if (normName(m.trasferta) === cercato && m.logo_trasferta) return m.logo_trasferta;
+  }
+  return "";
+}
+
+// "Giornata 6 · aggiornata dopo l'ultimo turno", come nel riferimento. Se il
+// campionato non ha giornate numerate si ripiega sul numero di partite.
+function giornataLabel(comp, rows) {
+  const { rounds } = roundsOf(comp);
+  if (!rounds.length) return `${rows.length} squadre`;
+  // L'ultima giornata con almeno un risultato e' quella "giocata".
+  let ultima = null;
+  for (const r of rounds) {
+    if (r.matches.some((m) => m.risultato)) ultima = r.n;
+  }
+  if (ultima === null) return `Giornata 1 · in attesa dei primi risultati`;
+  return `Giornata ${ultima} · aggiornata dopo l'ultimo turno`;
 }
 
 function renderHeader() {
@@ -989,21 +965,6 @@ function mergeLiveAsi(liveComps) {
     standings: comp.standings || [],
   }));
   state.competitions = altri.concat(asi);
-}
-
-function setupStandingsToggle() {
-  const btn = $("#toggle-standings");
-  const panel = $("#standings-panel");
-  btn.addEventListener("click", () => {
-    const open = panel.hasAttribute("hidden");
-    if (open) panel.removeAttribute("hidden");
-    else panel.setAttribute("hidden", "");
-    btn.setAttribute("aria-expanded", String(open));
-  });
-}
-
-function setupCampionatoToggle() {
-  $("#toggle-campionato").addEventListener("click", () => togglePanel());
 }
 
 /* ---------------------------------------------------------------------------
@@ -1221,17 +1182,11 @@ function showCalendar(slug, riepilogo) {
   $("#calendar-view")?.removeAttribute("hidden");
   $("#back-to-landing")?.removeAttribute("hidden");
   document.body.classList.remove("on-landing");
+  // Classifica e giornata sono sempre visibili: nessun pannello da aprire.
+  // state.panel resta quello scelto (o quello della squadra): azzerarlo qui
+  // farebbe cadere un link ?campionato= sulla prima competizione.
+  $("#all-matches-panel")?.setAttribute("hidden", "");
   applyView("ours", slug || "");
-  // "Riepilogo" apre la classifica del campionato della squadra.
-  const panel = $("#standings-panel");
-  const btn = $("#toggle-standings");
-  const apri = Boolean(riepilogo);
-  if (panel) {
-    if (apri) panel.removeAttribute("hidden");
-    else panel.setAttribute("hidden", "");
-  }
-  btn?.setAttribute("aria-expanded", String(apri));
-  if (apri) renderStandings();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1265,11 +1220,10 @@ async function init() {
   const daUrl = applyUrlState();
 
   renderHeader();
-  setupStandingsToggle();
-  setupCampionatoToggle();
-  renderViewFilter();
+  renderTeamHead();
   renderList();
   renderStandings();
+  renderChampionship();
   renderLanding();
 
   // Un link con ?squadra= o ?campionato= deve continuare a funzionare: apre
@@ -1282,34 +1236,36 @@ async function init() {
     // Il calendario resta filtrato dietro le card: si riporta a "tutte le
     // nostre" e si richiude la classifica, cosi' riaprendo una squadra non si
     // trova il filtro della precedente.
-    renderViewFilter();
-    renderList();
-    const panel = $("#standings-panel");
-    if (panel) panel.setAttribute("hidden", "");
-    $("#toggle-standings")?.setAttribute("aria-expanded", "false");
     showLanding();
   });
-  if (daUrl) showCalendar(state.team, Boolean(state.panel));
+
+  // "Tutte le partite Astrovolley": apre la lista cronologica sotto la
+  // giornata, senza cambiare pagina.
+  $("#all-matches")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const panel = $("#all-matches-panel");
+    if (!panel) return;
+    const chiuso = panel.hasAttribute("hidden");
+    if (chiuso) panel.removeAttribute("hidden");
+    else panel.setAttribute("hidden", "");
+    e.currentTarget.textContent = chiuso
+      ? "Nascondi le partite Astrovolley"
+      : "Tutte le partite Astrovolley";
+    if (chiuso) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  if (daUrl) showCalendar(state.team);
   else showLanding({ fromUrl: true });
-  // Un link con ?campionato= apre direttamente il pannello.
-  if (state.panel) togglePanel(true);
   if (daUrl) syncUrl({ replace: true });
   window.addEventListener("popstate", () => {
-    state.view = "ours";
     state.team = "";
     state.panel = "";
     const conFiltri = applyUrlState();
-    renderViewFilter();
-    renderList();
-    renderStandings();
-    togglePanel(Boolean(state.panel));
     // Indietro fino all'URL nudo riporta alle card.
-    if (conFiltri) showCalendar(state.team, Boolean(state.panel));
+    if (conFiltri) showCalendar(state.team);
     else showLanding({ fromUrl: true });
     syncUrl({ replace: true });
   });
-
-  document.addEventListener("click", closeFilters);
 
   // Scheda dettagli: chiusura con click fuori, tasto Chiudi o Esc.
   const modal = $("#match-modal");
@@ -1351,7 +1307,7 @@ async function init() {
   for (const contenitore of ["#calendar", "#campionato"]) {
     $(contenitore).addEventListener("keydown", (e) => {
       if (e.key !== "Enter" && e.key !== " ") return;
-      const card = e.target.closest(".match");
+      const card = e.target.closest(".match, .round-match");
       if (!card) return;
       e.preventDefault();
       const righe = card.closest("#round-matches") ? state.panelRows : state.rows;
@@ -1409,10 +1365,10 @@ async function init() {
 
   if (cambiato || Object.keys(state.liveFonti).length) {
     renderHeader();
-    renderViewFilter();
+    renderTeamHead();
     renderList();
     renderStandings();
-    if (isPanelOpen()) renderChampionship();
+    renderChampionship();
   }
 }
 

@@ -41,30 +41,38 @@
     </section>
 
     <div id="calendar-view">
-    <button id="back-to-landing" class="back-btn" hidden>← Tutte le squadre</button>
-    <nav class="chips" id="view-filter" aria-label="Vista"></nav>
+    <button id="back-to-landing" class="back-btn" hidden>← Squadre</button>
 
-    <div class="toolbar">
-      <button id="toggle-campionato" class="btn-standings" aria-expanded="false" aria-controls="campionato-panel">
-        Campionato
-      </button>
-      <button id="toggle-standings" class="btn-standings" aria-expanded="false" aria-controls="standings-panel">
-        Classifica
-      </button>
-    </div>
+    <header class="page-head">
+      <h2 id="team-title" class="page-title">Classifica</h2>
+      <div class="page-chips">
+        <span id="team-comp" class="info-chip">—</span>
+        <span id="team-season" class="info-chip">—</span>
+      </div>
+    </header>
 
-    <section id="campionato-panel" class="panel" hidden>
-      <h2>Campionato</h2>
+    <section class="panel standings-panel" aria-labelledby="standings-heading">
+      <div class="standings-card">
+        <div class="card-top">
+          <div>
+            <h3 id="standings-heading" class="card-title">Classifica</h3>
+            <p id="standings-sub" class="card-subtitle">—</p>
+          </div>
+        </div>
+        <div id="standings" class="standings"></div>
+      </div>
+    </section>
+
+    <section class="panel round-panel" aria-labelledby="round-heading">
+      <div class="round-header">
+        <h3 id="round-heading" class="round-title">Giornata in corso</h3>
+      </div>
       <div id="campionato" class="campionato"></div>
+      <a id="all-matches" class="all-matches" href="#">Tutte le partite Astrovolley</a>
     </section>
 
-    <section id="standings-panel" class="panel standings-panel" hidden>
-      <h2 id="standings-title">Classifica</h2>
-      <div id="standings" class="standings"></div>
-    </section>
-
-    <section class="panel">
-      <h2 id="list-title">Le nostre partite</h2>
+    <section id="all-matches-panel" class="panel" hidden>
+      <h3 id="list-title" class="round-title">Le nostre partite</h3>
       <div id="calendar" class="calendar" aria-live="polite"></div>
     </section>
     </div>
