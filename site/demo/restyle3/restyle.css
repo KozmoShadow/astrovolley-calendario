@@ -117,13 +117,24 @@ body {
    cerchio resta pieno e gli angoli spariscono sul fondo scuro.
    Sostituisce background:#fff + padding:4px di .brand-mark.
    --------------------------------------------------------------------------- */
-.brand-mark {
+.brand-mark,
+.team-logo {
   background: none;
   padding: 0;
   border-radius: 50%;
 }
 .club-logo,
 .cal-club-logo { border-radius: 50%; }
+
+/* In landing le card sono tutte di Astrovolley: stesso stemma per ogni
+   squadra. Il logo e' un background, non content:url(), perche' Firefox
+   ignora content sugli <img>. object-position sposta fuori il file
+   originale (logo federale), lasciando visibile solo lo sfondo. */
+.team-logo {
+  background: url("logo-tondo.png") center / contain no-repeat;
+  object-fit: none;
+  object-position: -9999px 0;
+}
 
 /* ---------------------------------------------------------------------------
    ANIMAZIONI — vocabolario del sito istituzionale
