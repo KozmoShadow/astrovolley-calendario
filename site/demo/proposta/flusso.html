@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refertisti — demo interattiva</title>
+  <meta name="description" content="Demo del sistema di raccolta disponibilità refertisti: lato refertista e lato dirigente." />
+  <link rel="icon" type="image/png" href="../../assets/favicon.png" />
+  <style>
+    @font-face {
+      font-family: "Bebas";
+      src: url("fonts/bebas-neue-latin.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #180c22;
+      --surface: #1f1129;
+      --surface-2: #271633;
+      --line: #3a3a44;
+      --text: #fbf9fc;
+      --muted: #d6c2e4;
+      --accent: #9801cc;
+      --accent-soft: #d9b3ee;
+      --win: #4ec97a;
+      --loss: #ff6b7d;
+      --warn: #ffb44e;
+      --fipav: #7f9fe0;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1100px 520px at 84% -10%, rgba(152, 1, 204, .26) 0%, transparent 60%),
+        radial-gradient(900px 460px at 4% 100%, rgba(176, 102, 218, .13) 0%, transparent 58%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    button { font-family: inherit; font-size: inherit; cursor: pointer; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-soft);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px 90px; }
+
+    /* ---------- testata ---------- */
+    .top {
+      display: flex; align-items: center; gap: 13px;
+      padding: 24px 0 0;
+    }
+    .top img { width: 44px; height: 44px; border-radius: 50%; background: #fff; padding: 3px; flex: none; }
+    .kicker {
+      font-family: "Bebas", sans-serif;
+      font-size: 12px; letter-spacing: .18em;
+      color: var(--accent-soft); text-transform: uppercase; line-height: 1.2;
+    }
+    .club { font-size: 12.5px; color: var(--muted); }
+
+    h1 {
+      font-family: "Bebas", sans-serif;
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: .98; letter-spacing: .015em;
+      font-weight: 400; margin: 26px 0 0;
+    }
+    h1 em { font-style: normal; color: var(--accent-soft); }
+
+    .lede {
+      color: var(--muted); max-width: 60ch;
+      margin: 14px 0 0; font-size: 15.5px;
+    }
+    .lede strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- interruttore dei due lati ---------- */
+    .modes {
+      display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+      margin: 26px 0 0;
+      padding: 5px;
+      background: rgba(31, 17, 41, .82);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      width: fit-content;
+      max-width: 100%;
+    }
+    .modes button {
+      border: none; background: none; color: var(--muted);
+      padding: 9px 17px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; letter-spacing: -.01em;
+      transition: background .18s var(--ease-out), color .18s var(--ease-out);
+      min-height: 40px;
+    }
+    .modes button:hover { color: var(--text); }
+    .modes button[aria-pressed="true"] {
+      background: linear-gradient(135deg, var(--accent), #6f0b96);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(152, 1, 204, .34);
+    }
+    .modes .sep { width: 1px; align-self: stretch; background: var(--line); margin: 4px 2px; }
+    .modes button.reset {
+      font-weight: 500; font-size: 13px; color: #a892b8;
+    }
+    .modes button.reset:hover { color: var(--loss); }
+
+    .hint {
+      margin: 14px 0 0;
+      font-size: 14px; color: var(--muted);
+      padding: 12px 15px;
+      background: rgba(152, 1, 204, .09);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      max-width: 66ch;
+    }
+    .hint strong { color: var(--text); }
+
+    /* ---------- viste ---------- */
+    .view[hidden] { display: none; }
+    .view { margin-top: 30px; }
+
+    h2 {
+      font-family: "Bebas", sans-serif;
+      font-size: clamp(23px, 3.4vw, 30px);
+      letter-spacing: .04em; font-weight: 400;
+      margin: 0 0 4px;
+    }
+    .view > p.sub {
+      color: var(--muted); font-size: 14.5px; margin: 0 0 20px; max-width: 62ch;
+    }
+
+    /* ---------- scelta refertista ---------- */
+    .who {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .who .label {
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); font-weight: 700; margin-right: 2px;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(39, 22, 51, .85);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 6px 14px 6px 6px;
+      border-radius: 100px;
+      font-size: 14px; font-weight: 600;
+      transition: border-color .16s, background .16s, transform .16s var(--ease-out);
+      min-height: 42px;
+    }
+    .chip:hover { border-color: rgba(217, 179, 238, .55); transform: translateY(-1px); }
+    .chip[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: rgba(152, 1, 204, .2);
+      box-shadow: 0 0 0 1px rgba(152, 1, 204, .45);
+    }
+    .av {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 10.5px; font-weight: 800; color: #fff;
+      letter-spacing: .02em; flex: none;
+    }
+    .av.sm { width: 22px; height: 22px; font-size: 9px; }
+
+    /* ---------- schede partita (lato refertista) ---------- */
+    .matches { display: grid; gap: 10px; }
+
+    .match {
+      display: grid;
+      grid-template-columns: 62px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      background: linear-gradient(160deg, var(--surface-2), var(--surface));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: border-color .18s, box-shadow .18s;
+    }
+    .match.mine {
+      border-color: rgba(78, 201, 122, .5);
+      box-shadow: inset 3px 0 0 var(--win);
+    }
+    .match.full:not(.mine) { opacity: .62; }
+
+    .date {
+      text-align: center;
+      border-right: 1px solid rgba(58, 58, 68, .7);
+      padding-right: 12px;
+    }
+    .date .d {
+      font-family: "Bebas", sans-serif;
+      font-size: 27px; line-height: 1; display: block;
+      color: var(--text);
+    }
+    .date .m {
+      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent-soft); font-weight: 700; display: block; margin-top: 2px;
+    }
+    .date .w { font-size: 10.5px; color: var(--muted); display: block; }
+
+    .info h3 {
+      margin: 0 0 3px; font-size: 15px; font-weight: 700; letter-spacing: -.01em;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .info .meta { font-size: 12.8px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+    .info .meta .dot { color: #6b5a79; }
+
+    .tag {
+      font-size: 9.5px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 100px; white-space: nowrap;
+      background: rgba(127, 159, 224, .16); color: var(--fipav);
+    }
+    .tag.away { background: rgba(255, 180, 78, .14); color: var(--warn); }
+
+    .side { display: flex; align-items: center; gap: 12px; }
+    .stack { display: flex; align-items: center; }
+    .stack .av { margin-left: -7px; border: 2px solid var(--surface-2); }
+    .stack .av:first-child { margin-left: 0; }
+    .stack .slot {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1px dashed rgba(214, 194, 228, .45);
+      margin-left: -7px; flex: none;
+    }
+    .stack .slot:first-child { margin-left: 0; }
+
+    .btn-vote {
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, .22);
+      color: var(--text);
+      padding: 8px 15px; border-radius: 100px;
+      font-size: 13.5px; font-weight: 700;
+      white-space: nowrap;
+      min-height: 40px;
+      transition: background .16s, border-color .16s, transform .16s var(--ease-out);
+    }
+    .btn-vote:hover:not(:disabled) { border-color: var(--accent-soft); transform: translateY(-1px); }
+    .btn-vote.on {
+      background: rgba(78, 201, 122, .16);
+      border-color: rgba(78, 201, 122, .55);
+      color: var(--win);
+    }
+    .btn-vote:disabled {
+      cursor: not-allowed;
+      color: #9b8aa9;
+      background: rgba(255, 255, 255, .03);
+      border-color: rgba(58, 58, 68, .8);
+    }
+
+    .counter {
+      display: flex; align-items: baseline; gap: 8px;
+      margin: 0 0 16px; font-size: 14px; color: var(--muted);
+    }
+    .counter b { color: var(--text); font-size: 17px; font-weight: 800; }
+
+    /* ---------- riepilogo dirigente ---------- */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .stat {
+      background: rgba(39, 22, 51, .8);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .stat .n {
+      font-family: "Bebas", sans-serif; font-size: 34px; line-height: 1;
+      display: block;
+    }
+    .stat.ok .n { color: var(--win); }
+    .stat.half .n { color: var(--warn); }
+    .stat.miss .n { color: var(--loss); }
+    .stat .c { font-size: 11.5px; color: var(--muted); display: block; margin-top: 5px; line-height: 1.3; }
+
+    .table-wrap {
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      background: var(--surface);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead th {
+      text-align: left; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); font-weight: 800; padding: 11px 14px;
+      background: rgba(0, 0, 0, .26); border-bottom: 1px solid var(--line);
+    }
+    tbody td { padding: 11px 14px; border-bottom: 1px solid rgba(58, 58, 68, .5); vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody td:first-child { font-weight: 600; }
+    .when { color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .names { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; }
+    .empty { color: #8f7c9e; font-style: italic; }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 800; letter-spacing: .02em;
+      padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+    }
+    .pill.ok { background: rgba(78, 201, 122, .15); color: var(--win); }
+    .pill.half { background: rgba(255, 180, 78, .15); color: var(--warn); }
+    .pill.miss { background: rgba(255, 107, 125, .15); color: var(--loss); }
+
+    /* ---------- messaggio per il gruppo ---------- */
+    .share {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(31, 17, 41, .7);
+      padding: 16px 18px;
+    }
+    .share h3 {
+      margin: 0 0 4px; font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .share p.note { margin: 0 0 12px; font-size: 12.8px; color: var(--muted); }
+    .bubble {
+      background: #1f3b32;
+      border: 1px solid #2c5748;
+      border-radius: 10px 10px 10px 3px;
+      padding: 12px 14px;
+      font-size: 13.8px; line-height: 1.5;
+      white-space: pre-wrap;
+      color: #eaf6f0;
+    }
+    .bubble .lnk { color: #9fe0c0; text-decoration: underline; word-break: break-all; }
+    .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 11px; flex-wrap: wrap; }
+    .btn-copy {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 7px 14px; border-radius: 100px;
+      font-size: 12.5px; font-weight: 700;
+      min-height: 36px;
+    }
+    .btn-copy:hover { border-color: var(--accent-soft); }
+    .copied { font-size: 12.5px; color: var(--win); font-weight: 700; }
+
+    .sim {
+      background: linear-gradient(135deg, rgba(152, 1, 204, .26), rgba(31, 17, 41, .9));
+      border: 1px solid rgba(152, 1, 204, .55);
+      color: var(--text);
+      padding: 9px 17px; border-radius: 100px;
+      font-size: 13.5px; font-weight: 700;
+      min-height: 40px;
+    }
+    .sim:hover:not(:disabled) { border-color: var(--accent-soft); }
+    .sim:disabled { opacity: .5; cursor: not-allowed; }
+
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+
+    /* ---------- chiusura ---------- */
+    .foot {
+      margin-top: 44px; padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 12px; color: #8f7c9e;
+      display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    }
+    .foot a { color: var(--accent-soft); text-decoration: none; }
+    .foot a:hover { text-decoration: underline; }
+
+    /* ---------- ingresso ---------- */
+    @media (prefers-reduced-motion: no-preference) {
+      .rise { animation: rise .5s var(--ease-out) both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      .match { animation: rise .38s var(--ease-out) both; }
+      .match:nth-child(1) { animation-delay: .02s; }
+      .match:nth-child(2) { animation-delay: .05s; }
+      .match:nth-child(3) { animation-delay: .08s; }
+      .match:nth-child(4) { animation-delay: .11s; }
+      .match:nth-child(5) { animation-delay: .14s; }
+      .match:nth-child(6) { animation-delay: .17s; }
+      .match:nth-child(7) { animation-delay: .2s; }
+      .match:nth-child(8) { animation-delay: .23s; }
+    }
+
+    /* ---------- mobile ---------- */
+    @media (max-width: 760px) {
+      .wrap { padding: 0 16px 64px; }
+      .modes { width: 100%; border-radius: 14px; }
+      .modes button { flex: 1; padding: 9px 12px; font-size: 13px; }
+      .modes .sep { display: none; }
+      .modes button.reset { flex: 0 0 auto; }
+
+      .match {
+        grid-template-columns: 52px 1fr;
+        grid-template-areas: "date info" "side side";
+        gap: 10px 14px;
+        padding: 13px 14px;
+      }
+      .match .date { grid-area: date; }
+      .match .info { grid-area: info; }
+      .match .side { grid-area: side; justify-content: space-between; padding-top: 2px; }
+      .btn-vote { flex: 1; text-align: center; }
+      .stack { flex: none; }
+
+      .stats { grid-template-columns: 1fr; gap: 8px; }
+      .stat { display: flex; align-items: baseline; gap: 10px; padding: 11px 14px; }
+      .stat .n { font-size: 26px; }
+      .stat .c { margin-top: 0; }
+
+      .table-wrap { border: none; background: none; overflow: visible; }
+      table, thead, tbody, tr, td { display: block; width: 100%; }
+      thead { display: none; }
+      tbody tr {
+        background: linear-gradient(160deg, var(--surface-2), var(--surface));
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 9px;
+      }
+      tbody tr:last-child { margin-bottom: 0; }
+      tbody td { border: none; padding: 0; }
+      tbody td:first-child { font-size: 14.5px; margin-bottom: 2px; }
+      tbody td:nth-child(2) { margin-bottom: 6px; }
+      tbody td:nth-child(3) { margin-bottom: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="top">
+      <img src="../restyle3/logo-tondo.png" alt="ASD Astrovolley" />
+      <div>
+        <div class="kicker">Demo</div>
+        <div class="club">ASD Astrovolley &middot; refertisti</div>
+      </div>
+    </div>
+
+    <h1>Come funzionerebbe,<br /><em>provato con le mani</em></h1>
+
+    <p class="lede">
+      Le stesse partite, viste dai due lati. Quello che un refertista segna da qui,
+      il dirigente lo vede dall'altro lato. <strong>Nomi e partite sono inventati</strong>:
+      serve solo a capire il meccanismo.
+    </p>
+
+    <div class="modes" role="group" aria-label="Scegli il lato da vedere">
+      <button type="button" id="btn-ref" data-mode="refertista" aria-pressed="true">Lato refertista</button>
+      <button type="button" id="btn-dir" data-mode="dirigente" aria-pressed="false">Lato dirigente</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" class="reset" id="btn-reset">Azzera</button>
+    </div>
+
+    <p class="hint" id="hint"></p>
+
+    <!-- ============ LATO REFERTISTA ============ -->
+    <section class="view" id="view-refertista">
+      <h2>Le partite di novembre</h2>
+      <p class="sub">Il refertista apre il link, dice chi è, e tocca le partite in cui può esserci.</p>
+
+      <div class="who" role="group" aria-label="Chi sei">
+        <span class="label">Sei</span>
+        <span id="chips"></span>
+      </div>
+
+      <p class="counter">Hai dato disponibilità per <b id="my-count">0</b> partite</p>
+
+      <div class="matches" id="matches"></div>
+    </section>
+
+    <!-- ============ LATO DIRIGENTE ============ -->
+    <section class="view" id="view-dirigente" hidden>
+      <h2>La copertura del mese</h2>
+      <p class="sub">Questa è la schermata del dirigente. Si aggiorna da sola quando i refertisti rispondono.</p>
+
+      <div class="toolbar">
+        <button type="button" class="sim" id="btn-sim">Simula le risposte dei refertisti</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat ok">
+          <span class="n" id="st-ok">0</span>
+          <span class="c">partite coperte</span>
+        </div>
+        <div class="stat half">
+          <span class="n" id="st-half">0</span>
+          <span class="c">da completare</span>
+        </div>
+        <div class="stat miss">
+          <span class="n" id="st-miss">0</span>
+          <span class="c">scoperte</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Partita</th>
+              <th>Data e ora</th>
+              <th>Refertisti</th>
+              <th>Stato</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="share">
+        <h3>Il messaggio da mandare sul gruppo</h3>
+        <p class="note">WhatsApp resta il canale di avviso: cambia solo il link dentro.</p>
+        <div class="bubble" id="msg">Refertisti, ecco le partite di novembre.
+
+Segnate la vostra disponibilità qui:
+<span class="lnk">astrovolley.example/refertisti/novembre</span>
+
+Servono 2 refertisti per partita. Grazie!</div>
+        <div class="copy-row">
+          <button type="button" class="btn-copy" id="btn-copy">Copia il messaggio</button>
+          <span class="copied" id="copied" hidden>Copiato</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>ASD Astrovolley &middot; demo interna &middot; dati inventati</span>
+      <a href="./">Torna alla proposta scritta</a>
+    </div>
+
+  </div>
+
+  <script>
+    // ---------------------------------------------------------------- dati finti
+    const REFERTISTI = [
+      { id: 'mario',   nome: 'Mario R.',   ini: 'MR', tinta: '#8b3fc9' },
+      { id: 'luisa',   nome: 'Luisa P.',   ini: 'LP', tinta: '#2f6cc0' },
+      { id: 'anna',    nome: 'Anna C.',    ini: 'AC', tinta: '#17784a' },
+      { id: 'gennaro', nome: 'Gennaro E.', ini: 'GE', tinta: '#a8621f' }
+    ];
+
+    const MESI = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+    const GIORNI = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+
+    // data ISO, orario, squadre, sede, se è in casa
+    const PARTITE = [
+      { id: 'p1', iso: '2025-11-15', ora: '18:00', comp: 'Misto', noi: 'Misto Cercola', loro: 'Vesuvio',  sede: 'Palasport A, Cercola',     casa: true },
+      { id: 'p2', iso: '2025-11-16', ora: '11:00', comp: 'U19',   noi: 'Under 19',      loro: 'Pompei',   sede: 'Palasport A, Cercola',     casa: true },
+      { id: 'p3', iso: '2025-11-22', ora: '16:30', comp: 'Misto', noi: 'Misto Cercola', loro: 'Portici',  sede: 'Palazzetto Portici',       casa: false },
+      { id: 'p4', iso: '2025-11-22', ora: '19:00', comp: 'U19',   noi: 'Under 19',      loro: 'Volla',    sede: 'Palazzetto Volla',         casa: false },
+      { id: 'p5', iso: '2025-11-23', ora: '10:00', comp: 'U19',   noi: 'Under 19',      loro: 'Ercolano', sede: 'Palazzetto Ercolano',      casa: false },
+      { id: 'p6', iso: '2025-11-29', ora: '18:00', comp: 'Misto', noi: 'Misto Cercola', loro: 'Somma',    sede: 'Palasport A, Cercola',     casa: true },
+      { id: 'p7', iso: '2025-11-30', ora: '11:00', comp: 'U19',   noi: 'Under 19',      loro: 'Torre',    sede: 'Palasport A, Cercola',     casa: true },
+      { id: 'p8', iso: '2025-11-30', ora: '17:00', comp: 'Misto', noi: 'Misto Cercola', loro: 'S. Giorgio', sede: 'Palazzetto S. Giorgio',  casa: false }
+    ];
+
+    const POSTI = 2;
+
+    // stato: chi è iscritto a cosa (parte già con qualche risposta, per mostrare i tre stati)
+    const statoIniziale = () => ({
+      p1: ['mario', 'luisa'],
+      p2: ['anna'],
+      p6: ['luisa']
+    });
+
+    let iscritti = statoIniziale();
+    let chiSono = 'mario';
+    let modo = 'refertista';
+    let simulando = false;
+
+    // ---------------------------------------------------------------- aiuti
+    const $ = (s, r = document) => r.querySelector(s);
+    const el = (tag, cls, txt) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (txt != null) n.textContent = txt;
+      return n;
+    };
+    const ref = id => REFERTISTI.find(r => r.id === id);
+    const avatar = (r, cls = '') => {
+      const a = el('span', 'av ' + cls, r.ini);
+      a.style.background = r.tinta;
+      a.title = r.nome;
+      return a;
+    };
+    const dataIt = iso => {
+      const d = new Date(iso + 'T12:00:00');
+      return { g: d.getDate(), m: MESI[d.getMonth()], w: GIORNI[d.getDay()], d };
+    };
+    const iscrittiA = pid => iscritti[pid] || [];
+    const pieno = pid => iscrittiA(pid).length >= POSTI;
+
+    function toggle(pid) {
+      if (simulando) return;
+      const lista = iscritti[pid] || [];
+      if (lista.includes(chiSono)) {
+        iscritti[pid] = lista.filter(x => x !== chiSono);
+      } else {
+        if (lista.length >= POSTI) return;
+        iscritti[pid] = [...lista, chiSono];
+      }
+      render();
+    }
+
+    // ---------------------------------------------------------------- lato refertista
+    function renderChips() {
+      const box = $('#chips');
+      box.innerHTML = '';
+      REFERTISTI.forEach(r => {
+        const b = el('button', 'chip');
+        b.type = 'button';
+        b.setAttribute('aria-pressed', String(r.id === chiSono));
+        b.appendChild(avatar(r));
+        b.appendChild(el('span', null, r.nome));
+        b.addEventListener('click', () => { chiSono = r.id; render(); });
+        box.appendChild(b);
+      });
+    }
+
+    function renderMatches() {
+      const box = $('#matches');
+      box.innerHTML = '';
+      let mie = 0;
+
+      PARTITE.forEach(p => {
+        const d = dataIt(p.iso);
+        const lista = iscrittiA(p.id);
+        const sonoDentro = lista.includes(chiSono);
+        if (sonoDentro) mie++;
+
+        const card = el('div', 'match' + (sonoDentro ? ' mine' : '') + (pieno(p.id) ? ' full' : ''));
+
+        const date = el('div', 'date');
+        date.appendChild(el('span', 'd', String(d.g)));
+        date.appendChild(el('span', 'm', d.m));
+        date.appendChild(el('span', 'w', d.w));
+        card.appendChild(date);
+
+        const info = el('div', 'info');
+        const h3 = el('h3');
+        h3.appendChild(document.createTextNode(p.noi + ' – ' + p.loro));
+        const t = el('span', 'tag' + (p.casa ? '' : ' away'), p.casa ? 'in casa' : 'trasferta');
+        h3.appendChild(t);
+        info.appendChild(h3);
+        const meta = el('div', 'meta');
+        meta.appendChild(el('span', null, d.w + ' ' + String(d.g).padStart(2, '0') + '/' + String(d.d.getMonth() + 1).padStart(2, '0') + ' · ' + p.ora));
+        meta.appendChild(el('span', 'dot', '·'));
+        meta.appendChild(el('span', null, p.sede));
+        info.appendChild(meta);
+        card.appendChild(info);
+
+        const side = el('div', 'side');
+        const stack = el('div', 'stack');
+        for (let i = 0; i < POSTI; i++) {
+          if (lista[i]) stack.appendChild(avatar(ref(lista[i]), 'sm'));
+          else stack.appendChild(el('span', 'slot'));
+        }
+        side.appendChild(stack);
+
+        const btn = el('button', 'btn-vote' + (sonoDentro ? ' on' : ''));
+        btn.type = 'button';
+        if (sonoDentro) {
+          btn.textContent = 'Ci sono ✓';
+          btn.setAttribute('aria-pressed', 'true');
+          btn.addEventListener('click', () => toggle(p.id));
+        } else if (pieno(p.id)) {
+          btn.textContent = 'Completa';
+          btn.disabled = true;
+          btn.title = 'Già due refertisti';
+        } else {
+          btn.textContent = 'Ci sono';
+          btn.setAttribute('aria-pressed', 'false');
+          btn.addEventListener('click', () => toggle(p.id));
+        }
+        side.appendChild(btn);
+        card.appendChild(side);
+
+        box.appendChild(card);
+      });
+
+      $('#my-count').textContent = String(mie);
+    }
+
+    // ---------------------------------------------------------------- lato dirigente
+    function renderTabella() {
+      const tb = $('#tbody');
+      tb.innerHTML = '';
+      let ok = 0, half = 0, miss = 0;
+
+      PARTITE.forEach(p => {
+        const d = dataIt(p.iso);
+        const lista = iscrittiA(p.id);
+        const n = lista.length;
+        if (n >= POSTI) ok++; else if (n === 1) half++; else miss++;
+
+        const tr = el('tr');
+
+        const td1 = el('td');
+        td1.appendChild(document.createTextNode(p.noi + ' – ' + p.loro));
+        td1.appendChild(document.createElement('br'));
+        const tg = el('span', 'tag' + (p.casa ? '' : ' away'), p.comp + (p.casa ? '' : ' · trasferta'));
+        td1.appendChild(tg);
+        tr.appendChild(td1);
+
+        tr.appendChild(el('td', 'when', d.w + ' ' + String(d.g).padStart(2, '0') + '/' + String(d.d.getMonth() + 1).padStart(2, '0') + ' · ' + p.ora));
+
+        const td3 = el('td');
+        const names = el('div', 'names');
+        if (!n) {
+          names.appendChild(el('span', 'empty', 'nessuno'));
+        } else {
+          lista.forEach(id => names.appendChild(avatar(ref(id), 'sm')));
+          names.appendChild(el('span', null, lista.map(id => ref(id).nome).join(', ')));
+        }
+        td3.appendChild(names);
+        tr.appendChild(td3);
+
+        const td4 = el('td');
+        const cls = n >= POSTI ? 'ok' : (n === 1 ? 'half' : 'miss');
+        const txt = n >= POSTI ? 'Coperta' : (n === 1 ? 'Ne serve 1' : 'Scoperta');
+        td4.appendChild(el('span', 'pill ' + cls, txt));
+        tr.appendChild(td4);
+
+        tb.appendChild(tr);
+      });
+
+      $('#st-ok').textContent = String(ok);
+      $('#st-half').textContent = String(half);
+      $('#st-miss').textContent = String(miss);
+    }
+
+    // ---------------------------------------------------------------- viste
+    function renderHint() {
+      const h = $('#hint');
+      h.innerHTML = modo === 'refertista'
+        ? 'Stai vedendo quello che vede un refertista: <strong>scegli chi sei</strong>, poi tocca le partite. Quando una partita ha già due refertisti si chiude da sola.'
+        : 'Stai vedendo quello che vede il dirigente: <strong>la copertura del mese</strong>, senza leggere il gruppo. Prova «Simula» per vedere la tabella riempirsi.';
+    }
+
+    function render() {
+      renderChips();
+      renderMatches();
+      renderTabella();
+      renderHint();
+    }
+
+    function setMode(m) {
+      modo = m;
+      $('#btn-ref').setAttribute('aria-pressed', String(m === 'refertista'));
+      $('#btn-dir').setAttribute('aria-pressed', String(m === 'dirigente'));
+      $('#view-refertista').hidden = m !== 'refertista';
+      $('#view-dirigente').hidden = m !== 'dirigente';
+      renderHint();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------------------------------------------------------------- simulazione
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function simula() {
+      if (simulando) return;
+      simulando = true;
+      $('#btn-sim').disabled = true;
+
+      // un refertista non può coprire due partite nello stesso giorno
+      const impegnatoIl = (rid, iso) =>
+        Object.entries(iscritti).some(([pid, lista]) => {
+          const partita = PARTITE.find(x => x.id === pid);
+          return partita && partita.iso === iso && lista.includes(rid);
+        });
+
+      const ordine = PARTITE.filter(p => p.id !== 'p8').sort(() => Math.random() - 0.5);
+      for (const p of ordine) {
+        while (iscrittiA(p.id).length < POSTI) {
+          const liberi = REFERTISTI.filter(r =>
+            !iscrittiA(p.id).includes(r.id) && !impegnatoIl(r.id, p.iso)
+          );
+          if (!liberi.length) break;
+          const scelto = liberi[Math.floor(Math.random() * liberi.length)];
+          iscritti[p.id] = [...iscrittiA(p.id), scelto.id];
+          render();
+          await sleep(240);
+        }
+      }
+
+      simulando = false;
+      $('#btn-sim').disabled = false;
+    }
+
+    // ---------------------------------------------------------------- avvio
+    $('#btn-ref').addEventListener('click', () => setMode('refertista'));
+    $('#btn-dir').addEventListener('click', () => setMode('dirigente'));
+
+    $('#btn-reset').addEventListener('click', () => {
+      iscritti = {};
+      chiSono = 'mario';
+      simulando = false;
+      $('#btn-sim').disabled = false;
+      render();
+    });
+
+    $('#btn-sim').addEventListener('click', simula);
+
+    $('#btn-copy').addEventListener('click', async () => {
+      const testo = $('#msg').innerText;
+      try {
+        await navigator.clipboard.writeText(testo);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = testo;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      const c = $('#copied');
+      c.hidden = false;
+      setTimeout(() => { c.hidden = true; }, 1800);
+    });
+
+    render();
+  </script>
+</body>
+</html>
