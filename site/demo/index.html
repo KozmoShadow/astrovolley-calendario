@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo animazioni — ASD Astrovolley</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+<style>
+:root {
+  --bg: #0b1220;
+  --surface: #131c2e;
+  --surface-2: #1b2740;
+  --line: #26344f;
+  --text: #eaf0fb;
+  --muted: #93a3c0;
+  --accent: #7b4fb5;
+  --accent-soft: #a37fd4;
+  --on-accent: #ffffff;
+  --fipav: #2f7dd1;
+  --asi: #23b26d;
+  --win: #23b26d;
+  --loss: #e0576a;
+  --astro: #a060c0;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(1200px 600px at 80% -10%, #1a2540 0%, var(--bg) 55%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* ---------- Intestazione ---------- */
+.top {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 34px 20px 8px;
+}
+.top-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 12px;
+}
+.top-kicker::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--accent-soft);
+  border-radius: 2px;
+}
+.top h1 {
+  font-size: clamp(26px, 4.4vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.top p {
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 68ch;
+  margin: 0 0 10px;
+}
+.top p strong { color: var(--text); font-weight: 600; }
+
+/* ---------- Barra comandi ---------- */
+.comandi {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid var(--line);
+  margin-top: 22px;
+}
+.comandi-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.comandi-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 4px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s, transform .12s;
+}
+.btn:hover { border-color: var(--accent-soft); background: var(--surface-2); }
+.btn:active { transform: scale(.97); }
+.btn:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  border-color: transparent;
+  color: var(--on-accent);
+}
+.btn-accent:hover { filter: brightness(1.08); background: linear-gradient(135deg, var(--accent), var(--accent-soft)); }
+
+/* ---------- Sezioni ---------- */
+main { max-width: 1100px; margin: 0 auto; padding: 30px 20px 90px; }
+
+.sezione {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.sezione-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.sezione-titolo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 320px;
+}
+.num {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.sezione h2 { font-size: 18px; font-weight: 700; line-height: 1.25; }
+.sezione-desc {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 18px;
+  max-width: 74ch;
+}
+.sezione-desc code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  background: var(--surface-2);
+  padding: 1.5px 6px;
+  border-radius: 5px;
+  color: var(--accent-soft);
+}
+.sezione-desc .nota {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fipav) 14%, transparent);
+  border-left: 2px solid var(--fipav);
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* ---------- Interruttore ---------- */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+  flex: none;
+}
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch-track {
+  width: 44px;
+  height: 25px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  position: relative;
+  transition: background .18s, border-color .18s;
+}
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform .18s cubic-bezier(.22,.61,.36,1), background .18s;
+}
+.switch input:checked + .switch-track {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  border-color: transparent;
+}
+.switch input:checked + .switch-track::after {
+  transform: translateX(19px);
+  background: #fff;
+}
+.switch input:focus-visible + .switch-track {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+.switch-testo { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.switch input:checked ~ .switch-testo { color: var(--text); }
+
+/* ---------- Area demo ---------- */
+.demo {
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.demo-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  align-items: center;
+}
+.btn-mini {
+  padding: 6px 11px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.btn-mini:hover { border-color: var(--accent-soft); background: var(--surface-2); }
+.btn-mini:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+/* ---------- Card squadra (replica fedele) ---------- */
+.grid-squadre {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+.team-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.team-card:hover {
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.4);
+}
+.team-head { display: flex; align-items: center; gap: 12px; }
+.team-logo {
+  width: 46px; height: 46px; flex: none;
+  border-radius: 50%;
+  object-fit: contain;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 4px;
+}
+.team-name { font-size: 16px; font-weight: 700; }
+.team-comp { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+.team-middle {
+  display: grid;
+  grid-template-columns: 1fr 1px auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.rank-label { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; }
+.rank-value { font-size: 23px; font-weight: 800; font-family: "Plus Jakarta Sans", sans-serif; }
+.rank-total { font-size: 11.5px; color: var(--muted); }
+.v-sep { width: 1px; height: 40px; background: var(--line); }
+.team-actions { display: flex; align-items: center; gap: 14px; }
+.action-item {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 11.5px; font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.action-box {
+  width: 46px; height: 44px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: rgba(255,255,255,.04);
+  display: grid; place-items: center;
+  color: var(--text);
+  transition: border-color .16s ease, background .16s ease;
+}
+.action-item:hover .action-box {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* ---------- Riga partita (replica) ---------- */
+.calendario { display: flex; flex-direction: column; gap: 6px; }
+.fixture-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease;
+}
+.fixture-row:hover { border-color: var(--accent-soft); background: var(--surface-2); }
+.fixture-row:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+.round-col { font-size: 11px; color: var(--muted); font-weight: 700; min-width: 30px; }
+.date-col { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.ha-tag { display: grid; place-items: center; width: 22px; color: var(--muted); }
+.fixture-main { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.fixture-logo { width: 24px; height: 24px; flex: none; object-fit: contain; border-radius: 50%; background: var(--surface-2); padding: 2px; }
+.fixture-avv { font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fixture-esito { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.esito-win { color: var(--win); }
+.esito-loss { color: var(--loss); }
+.esito-futura { color: var(--muted); font-weight: 600; }
+
+/* ---------- Pillole ---------- */
+.filter-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.pill:hover { border-color: var(--accent-soft); color: var(--text); }
+.pill:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+.pill.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: var(--on-accent);
+}
+.pill-count {
+  font-size: 11px; font-weight: 700;
+  padding: 1px 6px; border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  font-variant-numeric: tabular-nums;
+}
+.pill.active .pill-count { background: rgba(0,0,0,.2); }
+
+/* ---------- Classifica ---------- */
+.standings { display: flex; flex-direction: column; gap: 5px; }
+.team-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 13px;
+  border-radius: 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.team-row.noi {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface));
+}
+.pos { font-weight: 800; font-size: 12.5px; color: var(--muted); min-width: 16px; }
+.team-row.noi .pos { color: var(--accent-soft); }
+.pts { font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* ---------- Scheda partita ---------- */
+.modal {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  padding: 20px;
+  background: rgba(4, 8, 16, .68);
+  backdrop-filter: blur(3px);
+}
+.modal[hidden] { display: none !important; }
+.modal-box {
+  width: min(440px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.55);
+  animation: modal-in .16s ease-out;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+.modal-tag { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--accent-soft); font-weight: 800; margin-bottom: 8px; }
+.modal-title { font-size: 19px; font-weight: 700; margin-bottom: 6px; }
+.modal-meta { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.modal-close {
+  margin-top: 18px;
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit; font-weight: 700; font-size: 13.5px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.modal-close:hover { border-color: var(--accent-soft); }
+
+/* ---------- Skeleton ---------- */
+.skeleton-row {
+  height: 46px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.25s infinite linear;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* ---------- Barra avanzamento ---------- */
+.progress-wrap { display: flex; align-items: center; gap: 14px; }
+.progress-track {
+  flex: 1;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 20%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  transition: width .7s cubic-bezier(.22,.61,.36,1);
+}
+.progress-label { font-size: 12.5px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---------- Icona in movimento ---------- */
+.icona-demo { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+.icona-box {
+  width: 62px; height: 58px;
+  border-radius: 11px;
+  border: 1.5px solid var(--line);
+  background: rgba(255,255,255,.04);
+  display: grid; place-items: center;
+  color: var(--text);
+  cursor: pointer;
+}
+.icona-etichetta { font-size: 12px; color: var(--muted); text-align: center; margin-top: 7px; font-weight: 600; }
+
+/* ---------- Riepilogo ---------- */
+.riepilogo-box {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px dashed var(--line);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--muted);
+  white-space: pre-wrap;
+  display: none;
+}
+.riepilogo-box.visibile { display: block; }
+
+/* ---------- Avviso riduzione movimento ---------- */
+.avviso-rm {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--win) 14%, transparent);
+  border-left: 3px solid var(--win);
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.avviso-rm.visibile { display: flex; }
+
+/* ---------- Ancore ai titoli ---------- */
+.sezione { scroll-margin-top: 76px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .sezione { padding: 17px; }
+  .demo { padding: 14px; }
+  .fixture-row { grid-template-columns: auto 1fr auto; gap: 9px; }
+  .round-col { display: none; }
+  .date-col { font-size: 11.5px; }
+  .top { padding-top: 24px; }
+}
+
+/* =========================================================
+   ANIMAZIONI — tutte disattivabili.
+   Il corpo riceve .anim-off-<nome> quando l'interruttore e' spento,
+   e .rm quando si simula prefers-reduced-motion.
+   ========================================================= */
+
+/* A — entrata a cascata delle card */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(16px) scale(.985); }
+  to { opacity: 1; transform: none; }
+}
+body:not(.off-cards):not(.rm) .grid-squadre.animate .team-card {
+  animation: card-in .5s cubic-bezier(.22,.61,.36,1) backwards;
+}
+body:not(.off-cards):not(.rm) .grid-squadre.animate .team-card:nth-child(1) { animation-delay: 0ms; }
+body:not(.off-cards):not(.rm) .grid-squadre.animate .team-card:nth-child(2) { animation-delay: 70ms; }
+body:not(.off-cards):not(.rm) .grid-squadre.animate .team-card:nth-child(3) { animation-delay: 140ms; }
+body:not(.off-cards):not(.rm) .grid-squadre.animate .team-card:nth-child(4) { animation-delay: 210ms; }
+
+/* B — FLIP: le righe scorrono quando si filtra */
+body:not(.off-flip):not(.rm) .fixture-row.flip-in {
+  transition: transform .42s cubic-bezier(.22,.61,.36,1);
+}
+body:not(.off-flip):not(.rm) .fixture-row.flip-fade {
+  transition: opacity .28s ease, transform .42s cubic-bezier(.22,.61,.36,1);
+}
+
+/* C — micro-movimento icone */
+body:not(.off-icons):not(.rm) .icona-box:hover .ico-casa { animation: casa-settle .55s cubic-bezier(.34,1.56,.64,1); }
+@keyframes casa-settle {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-3px) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+body:not(.off-icons):not(.rm) .icona-box:hover .ico-aereo { animation: aereo-vola .7s cubic-bezier(.34,1.56,.64,1); }
+@keyframes aereo-vola {
+  0% { transform: translate(0,0) rotate(0); }
+  45% { transform: translate(4px,-4px) rotate(-9deg); }
+  100% { transform: translate(0,0) rotate(0); }
+}
+body:not(.off-icons):not(.rm) .fixture-row:hover .ico-aereo-mini { animation: aereo-vola .7s cubic-bezier(.34,1.56,.64,1); }
+body:not(.off-icons):not(.rm) .fixture-row:hover .ico-casa-mini { animation: casa-settle .55s cubic-bezier(.34,1.56,.64,1); }
+
+/* D — apertura scheda partita */
+body:not(.off-modal):not(.rm) .modal-box { animation: modal-in .22s cubic-bezier(.22,.61,.36,1); }
+body.off-modal .modal-box { animation: none; }
+body:not(.off-modal):not(.rm) .modal-backdrop-fade { animation: backdrop-in .22s ease-out; }
+@keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* E — dissolvenza tra calendario e classifica */
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+body:not(.off-view):not(.rm) .vista.entra {
+  animation: view-in .24s cubic-bezier(.22,.61,.36,1);
+}
+
+/* F — skeleton */
+body.off-skeleton .skeleton-row { animation: none; }
+
+/* G — barra avanzamento */
+body.off-progress .progress-fill { transition: none; }
+
+/* H — scroll reveal */
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+body:not(.off-reveal):not(.rm) .reveal {
+  opacity: 0;
+}
+body:not(.off-reveal):not(.rm) .reveal.visto {
+  animation: reveal-in .55s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+/* I — logo che respira */
+@keyframes respira {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-4px) rotate(-1.5deg); }
+}
+body:not(.off-logo):not(.rm) .logo-fluttua { animation: respira 3.4s ease-in-out infinite; }
+
+/* Riduzione movimento: tutto si ferma, ma nulla sparisce */
+body.rm *, body.rm *::before, body.rm *::after {
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+  scroll-behavior: auto !important;
+}
+body.rm .reveal { opacity: 1 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1 !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-kicker">Proposta di animazioni</div>
+  <h1>ASD Astrovolley — demo animazioni</h1>
+  <p>
+    Questa pagina mostra le animazioni possibili sul sito vero, con i dati veri.
+    Ogni effetto si accende e si spegne con l'interruttore in alto a destra della
+    scheda. <strong>Nessuna di queste richiede un framework</strong>: sono CSS e
+    poche righe di JavaScript, e funzionano su un sito statico come il nostro.
+  </p>
+  <p>
+    In fondo alla pagina c'è un pulsante che copia un riepilogo delle scelte, da
+    rimandare così com'è.
+  </p>
+</header>
+
+<div class="comandi">
+  <div class="comandi-inner">
+    <span class="comandi-label">Prova</span>
+    <button class="btn" id="btn-rm" type="button">Simula «riduci movimento»</button>
+    <button class="btn" id="btn-tutti-on" type="button">Accendi tutte</button>
+    <button class="btn" id="btn-tutti-off" type="button">Spegni tutte</button>
+    <button class="btn btn-accent" id="btn-riepilogo" type="button">Copia riepilogo</button>
+  </div>
+</div>
+
+<main>
+  <div class="avviso-rm" id="avviso-rm">
+    <strong>Riduzione movimento attiva.</strong>
+    Questa è la modalità per chi ha disturbi vestibolari o emicrania: le animazioni
+    si fermano, il contenuto resta tutto visibile. Il sistema operativo lo segnala
+    da solo, quindi non serve un pulsante nel sito.
+  </div>
+
+  <!-- ============ 1. Entrata card ============ -->
+  <section class="sezione" id="s1">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">1</span>
+        <h2>Entrata a cascata delle card</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="cards" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Le card della home entrano una dopo l'altra, con 70 ms di scarto. Dà
+      l'impressione che la pagina si stia «caricando» invece di comparire di
+      colpo. È l'animazione più economica di tutte: solo <code>opacity</code> e
+      <code>transform</code>.
+      <span class="nota">Durata 500 ms. Si vede solo al primo caricamento: non si ripete quando i dati si aggiornano, altrimenti la pagina lampeggerebbe ogni volta.</span>
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn-mini" data-replay="cards" type="button">↻ Rivedi</button>
+      </div>
+      <div class="grid-squadre animate" id="grid-squadre"></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. FLIP filtri ============ -->
+  <section class="sezione" id="s2">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">2</span>
+        <h2>Le righe si ricompattano quando filtri</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="flip" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      L'animazione che vale di più, perché <em>spiega</em> cosa è successo: quando
+      scegli un filtro, le righe che restano scorrono verso l'alto a chiudere il
+      vuoto, invece di sparire di colpo. Si chiama tecnica FLIP e usa solo
+      <code>transform</code>, quindi non ricalcola il layout e resta fluida anche
+      sul telefono.
+      <span class="nota">Prova a premere le pillole qui sotto, con l'interruttore acceso e poi spento: la differenza si sente subito.</span>
+    </p>
+    <div class="demo">
+      <div class="filter-pills" id="pillole-demo"></div>
+      <div class="calendario" id="calendario-demo"></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. Icone ============ -->
+  <section class="sezione" id="s3">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">3</span>
+        <h2>Micro-movimento delle icone casa e trasferta</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="icons" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Il problema delle icone statiche è che non si leggono a colpo d'occhio: un
+      tetto e un aereo sono chiari solo se li guardi. Un piccolo movimento al
+      passaggio del mouse li rende riconoscibili senza etichette. Passa sopra le
+      due icone, e poi sopra le righe qui sotto.
+      <span class="nota">Solo al passaggio del mouse: su telefono non si vede, ed è giusto così — non deve muoversi da solo mentre scorri.</span>
+    </p>
+    <div class="demo">
+      <div class="icona-demo">
+        <div>
+          <div class="icona-box" tabindex="0">
+            <svg class="ico-casa" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
+          </div>
+          <div class="icona-etichetta">In casa</div>
+        </div>
+        <div>
+          <div class="icona-box" tabindex="0">
+            <svg class="ico-aereo" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11V8.5l7.5 1V5a1.5 1.5 0 0 1 3 0v4.5l7.5-1V11l-7.5 2.5V18l2.5 1.5V21L12 20l-4 1v-1.5L10.5 18z"/></svg>
+          </div>
+          <div class="icona-etichetta">In trasferta</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Scheda partita ============ -->
+  <section class="sezione" id="s4">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">4</span>
+        <h2>Apertura della scheda partita</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="modal" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Oggi la scheda compare dal nulla con una dissolvenza di 160 ms. Qui la
+      versione proposta è leggermente più marcata: il pannello sale di 8 px e si
+      ingrandisce dello 0,2%, mentre lo sfondo si scurisce. Dà continuità tra la
+      riga cliccata e la scheda.
+      <span class="nota">La versione «avanzata» — la scheda che nasce dalla riga cliccata — è possibile solo su Chrome e derivati. Questa funziona ovunque.</span>
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn-mini" id="apri-modal" type="button">Apri scheda partita</button>
+      </div>
+      <div class="calendario" id="calendario-modal"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. Cambio vista ============ -->
+  <section class="sezione" id="s5">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">5</span>
+        <h2>Passaggio tra calendario e classifica</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="view" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Il tasto «Classifica» oggi cambia vista in modo istantaneo. Con una
+      dissolvenza breve il passaggio si capisce meglio. Tenuta corta di proposito
+      (240 ms): le due viste hanno altezze diverse, e un'animazione lunga
+      sembrerebbe un salto.
+      <span class="nota">Premi «Classifica» e «Calendario» qui sotto per vedere entrambi i lati.</span>
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn-mini" id="vai-cal" type="button">Calendario</button>
+        <button class="btn-mini" id="vai-class" type="button">Classifica</button>
+      </div>
+      <div class="vista" id="vista-demo"></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. Skeleton ============ -->
+  <section class="sezione" id="s6">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">6</span>
+        <h2>Caricamento (skeleton)</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="skeleton" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Mentre il sito interroga FIPAV e ASI dal vivo, oggi non mostra niente.
+      Con le sagome grigie l'utente capisce che sta caricando e non che è rotto.
+      Il riflesso che scorre è puramente CSS.
+      <span class="nota">Utile soprattutto da telefono, dove FIPAV a volte risponde in 2-3 secondi.</span>
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn-mini" id="replay-skeleton" type="button">↻ Rivedi</button>
+      </div>
+      <div class="calendario" id="skeleton-demo">
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. Barra ============ -->
+  <section class="sezione" id="s7">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">7</span>
+        <h2>Barra di avanzamento del campionato</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="progress" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      La barra si riempie fino al valore reale invece di apparire già piena.
+      È un'animazione di 700 ms che parte quando la barra entra nello schermo.
+      <span class="nota">Valore vero dell'Under 19: 2 partite disputate su 10.</span>
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn-mini" id="replay-progress" type="button">↻ Rivedi</button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        <span class="progress-label" id="progress-label">2 / 10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. Scroll reveal ============ -->
+  <section class="sezione" id="s8">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">8</span>
+        <h2>Elementi che compaiono scorrendo</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="reveal" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      I blocchi entrano dal basso quando arrivano nello schermo. Funziona con
+      <code>IntersectionObserver</code>, un'API del browser di circa 10 righe, non
+      una libreria.
+      <span class="nota">Qui sotto ci sono tre blocchi finti per far vedere l'effetto: scorri la pagina.</span>
+    </p>
+    <div class="demo">
+      <div class="reveal" style="padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin-bottom:10px;">
+        <strong>Blocco uno</strong> — compare scorrendo
+      </div>
+      <div class="reveal" style="padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin-bottom:10px;">
+        <strong>Blocco due</strong> — compare scorrendo
+      </div>
+      <div class="reveal" style="padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--line);">
+        <strong>Blocco tre</strong> — compare scorrendo
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. Logo ============ -->
+  <section class="sezione" id="s9">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">9</span>
+        <h2>Il logo che respira</h2>
+      </div>
+      <label class="switch">
+        <input type="checkbox" data-anim="logo" checked />
+        <span class="switch-track"></span>
+        <span class="switch-testo">Attiva</span>
+      </label>
+    </div>
+    <p class="sezione-desc">
+      Un movimento lentissimo (3,4 s) e appena percettibile: il logo sale di 4 px
+      e ruota di 1,5 gradi. Serve a dare vita all'intestazione senza distrarre.
+      <span class="nota">È il tipo di animazione che si può fare in After Effects ed esportare come Lottie, se la grafica vuole disegnare qualcosa di più ricco.</span>
+    </p>
+    <div class="demo" style="display:grid;place-items:center;padding:30px;">
+      <img class="logo-fluttua" src="../assets/logo.webp" alt="Logo ASD Astrovolley" width="72" height="72" style="border-radius:50%;" />
+    </div>
+  </section>
+
+  <!-- ============ Riepilogo ============ -->
+  <section class="sezione" id="s-riepilogo">
+    <div class="sezione-head">
+      <div class="sezione-titolo">
+        <span class="num">✓</span>
+        <h2>Riepilogo delle scelte</h2>
+      </div>
+    </div>
+    <p class="sezione-desc">
+      Premi «Copia riepilogo» per avere un testo con tutte le scelte fatte,
+      da incollare in chat o via mail.
+    </p>
+    <div class="demo">
+      <div class="demo-toolbar">
+        <button class="btn btn-accent" id="btn-riepilogo-2" type="button">Copia riepilogo</button>
+      </div>
+      <div class="riepilogo-box" id="riepilogo-box"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ Modal ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-tag" id="modal-tag">Giornata 3 · FIPAV</div>
+    <h3 class="modal-title" id="modal-title">ASD Astrovolley — Minerva Medica Flyer</h3>
+    <div class="modal-meta" id="modal-meta"></div>
+    <button class="modal-close" id="modal-close" type="button">Chiudi</button>
+  </div>
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Dati veri, presi da site/data/schedule.json
+// ---------------------------------------------------------------------------
+const SQUADRE = [
+  { nome: "Under 19", comp: "Under 19 Eccellenza 2 · Gir. B", pos: 4, punti: 3, tot: 10, logo: "../assets/loghi/fipav/772.webp" },
+  { nome: "Misto Dirigenziale", comp: "Open Misto Élite", pos: 2, punti: 6, tot: 9, logo: "../assets/loghi/asi/squadra-146.webp" },
+  { nome: "Misto Cercola", comp: "Open Misto Promozionale", pos: 1, punti: 9, tot: 12, logo: "../assets/loghi/asi/squadra-147.webp" },
+  { nome: "Misto Portici", comp: "Open Misto Promozionale", pos: 3, punti: 4, tot: 12, logo: "../assets/loghi/asi/squadra-148.webp" },
+];
+
+const PARTITE = [
+  { g: 1, data: "mer 12 nov", ora: "21:30", casa: false, avv: "CALVIZZANO VOLLEY BLU", logo: "../assets/loghi/fipav/4199.webp", esito: "0-3", tipo: "loss", pal: "Pala Raffaella" },
+  { g: 2, data: "mar 17 nov", ora: "19:00", casa: true, avv: "VICTORIA MARANO APD", logo: "../assets/loghi/fipav/752.webp", esito: "0-3", tipo: "loss", pal: "Liceo Silvestri" },
+  { g: 3, data: "mar 24 nov", ora: "19:00", casa: true, avv: "MINERVA MEDICA FLYER", logo: "../assets/loghi/fipav/772.webp", esito: "19:00", tipo: "futura", pal: "Liceo Silvestri" },
+  { g: 4, data: "mar 01 dic", ora: "21:00", casa: false, avv: "VOLLEY WORD", logo: "../assets/loghi/fipav/1159.webp", esito: "21:00", tipo: "futura", pal: "Itas V. Emanuele II" },
+  { g: 5, data: "mer 09 dic", ora: "18:00", casa: false, avv: "ASD VOLLEY VOLLA", logo: "../assets/loghi/fipav/1186.webp", esito: "18:00", tipo: "futura", pal: "I.C. V. De Sica" },
+  { g: 6, data: "mar 15 dic", ora: "19:00", casa: true, avv: "CALVIZZANO VOLLEY BLU", logo: "../assets/loghi/fipav/4199.webp", esito: "19:00", tipo: "futura", pal: "Liceo Silvestri" },
+  { g: 7, data: "mer 06 gen", ora: "18:30", casa: false, avv: "VICTORIA MARANO APD", logo: "../assets/loghi/fipav/752.webp", esito: "18:30", tipo: "futura", pal: "Palasport Palamarano" },
+  { g: 8, data: "mar 12 gen", ora: "17:30", casa: false, avv: "MINERVA MEDICA FLYER", logo: "../assets/loghi/fipav/772.webp", esito: "17:30", tipo: "futura", pal: "SMS Radice" },
+];
+
+const CLASSIFICA = [
+  { sq: "VICTORIA MARANO APD", p: 6, g: 2 },
+  { sq: "ASD VOLLEY VOLLA", p: 6, g: 2 },
+  { sq: "MINERVA MEDICA FLYER", p: 3, g: 2 },
+  { sq: "ASD ASTROVOLLEY", p: 3, g: 2, noi: true },
+  { sq: "VOLLEY WORD", p: 0, g: 2 },
+  { sq: "CALVIZZANO VOLLEY BLU", p: 0, g: 2 },
+];
+
+// ---------------------------------------------------------------------------
+// Icone
+// ---------------------------------------------------------------------------
+const icoCasa = (cls = "", s = 14) =>
+  `<svg class="${cls}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>`;
+
+const icoAereo = (cls = "", s = 14) =>
+  `<svg class="${cls}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 13.5 3 11V8.5l7.5 1V5a1.5 1.5 0 0 1 3 0v4.5l7.5-1V11l-7.5 2.5V18l2.5 1.5V21L12 20l-4 1v-1.5L10.5 18z"/></svg>`;
+
+// ---------------------------------------------------------------------------
+// 1. Card
+// ---------------------------------------------------------------------------
+function renderCard() {
+  const grid = document.getElementById("grid-squadre");
+  grid.innerHTML = SQUADRE.map((s) => `
+    <article class="team-card">
+      <div class="team-head">
+        <img class="team-logo" src="${s.logo}" alt="" />
+        <div>
+          <h3 class="team-name">${s.nome}</h3>
+          <p class="team-comp">${s.comp}</p>
+        </div>
+      </div>
+      <div class="team-middle">
+        <div>
+          <div class="rank-label">Classifica</div>
+          <div class="rank-value">${s.pos}<sup>°</sup></div>
+          <div class="rank-total">${s.punti} punti</div>
+        </div>
+        <div class="v-sep"></div>
+        <div class="team-actions">
+          <a class="action-item" href="#" onclick="return false">
+            <span class="action-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M17 5h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 5H4.5a2.5 2.5 0 0 0 0 5H7"/></svg>
+            </span>
+            Classifica
+          </a>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+// ---------------------------------------------------------------------------
+// 2. Riga partita + FLIP
+// ---------------------------------------------------------------------------
+function rigaPartita(m) {
+  const icona = m.casa ? icoCasa("ico-casa-mini") : icoAereo("ico-aereo-mini");
+  const cls = m.tipo === "win" ? "esito-win" : m.tipo === "loss" ? "esito-loss" : "esito-futura";
+  return `
+    <div class="fixture-row" data-casa="${m.casa}" data-tipo="${m.tipo}" tabindex="0" role="button">
+      <span class="round-col">${m.g}ª</span>
+      <span class="ha-tag" title="${m.casa ? "In casa" : "In trasferta"}">${icona}</span>
+      <div class="fixture-main">
+        <span class="date-col">${m.data}</span>
+        <img class="fixture-logo" src="${m.logo}" alt="" />
+        <span class="fixture-avv">${m.avv}</span>
+      </div>
+      <span class="fixture-esito ${cls}">${m.esito}</span>
+    </div>`;
+}
+
+const FILTRI = [
+  { id: "tutte", label: "Tutte", test: () => true },
+  { id: "disputate", label: "Disputate", test: (m) => m.tipo === "win" || m.tipo === "loss" },
+  { id: "da-disputare", label: "Da disputare", test: (m) => m.tipo === "futura" },
+];
+
+let filtroAttivo = "tutte";
+
+function renderPillole() {
+  const box = document.getElementById("pillole-demo");
+  box.innerHTML = FILTRI.map((f) => {
+    const n = PARTITE.filter(f.test).length;
+    const on = f.id === filtroAttivo ? " active" : "";
+    return `<button class="pill${on}" data-filtro="${f.id}" type="button" aria-pressed="${f.id === filtroAttivo}">${f.label}<span class="pill-count">${n}</span></button>`;
+  }).join("");
+  box.querySelectorAll(".pill").forEach((b) => {
+    b.addEventListener("click", () => applicaFiltro(b.dataset.filtro));
+  });
+}
+
+// FLIP: misura -> cambia -> rimisura -> anima il delta
+function applicaFiltro(id) {
+  const box = document.getElementById("calendario-demo");
+  const rows = [...box.querySelectorAll(".fixture-row")];
+  const attive = new Set(PARTITE.filter(FILTRI.find((f) => f.id === id).test).map((m) => m.g));
+
+  // posizioni prima
+  const prima = new Map();
+  rows.forEach((r) => prima.set(r, r.getBoundingClientRect().top));
+
+  filtroAttivo = id;
+  renderPillole();
+
+  // applica il filtro
+  rows.forEach((r) => {
+    const g = Number(r.querySelector(".round-col").textContent.replace("ª", ""));
+    r.dataset.visibile = attive.has(g) ? "1" : "0";
+  });
+
+  // Rimetto visibili TUTTE le righe prima di rimisurare: quelle che tornano
+  // devono riapparire, altrimenti restano display:none per sempre.
+  rows.forEach((r) => {
+    r.style.display = "";
+    r.classList.remove("flip-in", "flip-fade");
+  });
+
+  const visibili = rows.filter((r) => r.dataset.visibile === "1");
+
+  // Nascondo i non visibili DOPO aver rimisurato le posizioni.
+  rows.forEach((r) => {
+    if (r.dataset.visibile === "0") r.style.display = "none";
+  });
+
+  // posizioni dopo
+  const dopo = new Map();
+  visibili.forEach((r) => dopo.set(r, r.getBoundingClientRect().top));
+
+  // anima
+  visibili.forEach((r) => {
+    const d = prima.get(r) - dopo.get(r);
+    if (!d) return;
+    r.style.transform = `translateY(${d}px)`;
+    r.classList.add("flip-in");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        r.style.transform = "";
+      });
+    });
+  });
+
+  // ripulisci quando l'animazione finisce
+  clearTimeout(applicaFiltro._t);
+  applicaFiltro._t = setTimeout(() => {
+    visibili.forEach((r) => r.classList.remove("flip-in"));
+  }, 500);
+}
+
+function renderCalendario() {
+  const box = document.getElementById("calendario-demo");
+  box.innerHTML = PARTITE.map(rigaPartita).join("");
+  // stato iniziale coerente col filtro
+  if (filtroAttivo !== "tutte") {
+    const attive = new Set(PARTITE.filter(FILTRI.find((f) => f.id === filtroAttivo).test).map((m) => m.g));
+    box.querySelectorAll(".fixture-row").forEach((r) => {
+      const g = Number(r.querySelector(".round-col").textContent.replace("ª", ""));
+      if (!attive.has(g)) r.style.display = "none";
+    });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 4. Calendario per il modal
+// ---------------------------------------------------------------------------
+function renderCalendarioModal() {
+  const box = document.getElementById("calendario-modal");
+  box.innerHTML = PARTITE.slice(0, 3).map(rigaPartita).join("");
+  box.querySelectorAll(".fixture-row").forEach((r, i) => {
+    r.addEventListener("click", () => apriModal(PARTITE[i]));
+    r.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apriModal(PARTITE[i]); }
+    });
+  });
+}
+
+const modal = document.getElementById("modal");
+function apriModal(m) {
+  document.getElementById("modal-tag").textContent = `Giornata ${m.g} · FIPAV`;
+  document.getElementById("modal-title").textContent =
+    `ASD Astrovolley — ${m.avv}`;
+  document.getElementById("modal-meta").innerHTML =
+    `${m.data} · ore ${m.ora}<br>${m.casa ? "In casa" : "In trasferta"} · ${m.pal}` +
+    (m.tipo === "futura" ? "" : `<br>Risultato: <strong>${m.esito}</strong>`);
+  modal.hidden = false;
+  document.getElementById("modal-close").focus();
+}
+document.getElementById("modal-close").addEventListener("click", () => { modal.hidden = true; });
+modal.addEventListener("click", (e) => { if (e.target === modal) modal.hidden = true; });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) modal.hidden = true; });
+document.getElementById("apri-modal").addEventListener("click", () => apriModal(PARTITE[2]));
+
+// ---------------------------------------------------------------------------
+// 5. Cambio vista
+// ---------------------------------------------------------------------------
+function vistaCalendario() {
+  document.getElementById("vista-demo").innerHTML =
+    `<div class="calendario">${PARTITE.slice(0, 5).map(rigaPartita).join("")}</div>`;
+  animaVista();
+}
+function vistaClassifica() {
+  document.getElementById("vista-demo").innerHTML =
+    `<div class="standings">${CLASSIFICA.map((r, i) => `
+      <div class="team-row${r.noi ? " noi" : ""}">
+        <span class="pos">${i + 1}</span>
+        <span>${r.sq}</span>
+        <span class="pts">${r.p} pt</span>
+      </div>`).join("")}</div>`;
+  animaVista();
+}
+function animaVista() {
+  const v = document.getElementById("vista-demo");
+  v.classList.remove("entra");
+  void v.offsetWidth;
+  v.classList.add("entra");
+}
+document.getElementById("vai-cal").addEventListener("click", vistaCalendario);
+document.getElementById("vai-class").addEventListener("click", vistaClassifica);
+
+// ---------------------------------------------------------------------------
+// 6. Skeleton
+// ---------------------------------------------------------------------------
+document.getElementById("replay-skeleton").addEventListener("click", () => {
+  const box = document.getElementById("skeleton-demo");
+  box.innerHTML = '<div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div>';
+  setTimeout(() => {
+    box.innerHTML = PARTITE.slice(0, 3).map(rigaPartita).join("");
+  }, 1600);
+});
+
+// ---------------------------------------------------------------------------
+// 7. Barra
+// ---------------------------------------------------------------------------
+function animaBarra() {
+  const fill = document.getElementById("progress-fill");
+  fill.style.width = "0%";
+  requestAnimationFrame(() => {
+    setTimeout(() => { fill.style.width = "20%"; }, 60);
+  });
+}
+document.getElementById("replay-progress").addEventListener("click", animaBarra);
+
+// ---------------------------------------------------------------------------
+// 8. Scroll reveal
+// ---------------------------------------------------------------------------
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add("visto");
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+// ---------------------------------------------------------------------------
+// Interruttori
+// ---------------------------------------------------------------------------
+const NOMI = {
+  cards: "Entrata a cascata delle card",
+  flip: "Righe che si ricompattano filtrando",
+  icons: "Micro-movimento icone casa/trasferta",
+  modal: "Apertura scheda partita",
+  view: "Passaggio calendario ↔ classifica",
+  skeleton: "Caricamento (skeleton)",
+  progress: "Barra di avanzamento",
+  reveal: "Elementi che compaiono scorrendo",
+  logo: "Logo che respira",
+};
+
+function applicaStato(nome, on) {
+  document.body.classList.toggle("off-" + nome, !on);
+}
+document.querySelectorAll("input[data-anim]").forEach((cb) => {
+  cb.addEventListener("change", () => applicaStato(cb.dataset.anim, cb.checked));
+});
+
+// ---------------------------------------------------------------------------
+// Replay card
+// ---------------------------------------------------------------------------
+document.querySelectorAll("[data-replay='cards']").forEach((b) => {
+  b.addEventListener("click", () => {
+    const g = document.getElementById("grid-squadre");
+    g.classList.remove("animate");
+    void g.offsetWidth;
+    g.classList.add("animate");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Riduzione movimento simulata
+// ---------------------------------------------------------------------------
+const btnRm = document.getElementById("btn-rm");
+btnRm.addEventListener("click", () => {
+  const on = document.body.classList.toggle("rm");
+  document.getElementById("avviso-rm").classList.toggle("visibile", on);
+  btnRm.textContent = on ? "Disattiva «riduci movimento»" : "Simula «riduci movimento»";
+});
+
+// ---------------------------------------------------------------------------
+// Tutte on / tutte off
+// ---------------------------------------------------------------------------
+document.getElementById("btn-tutti-on").addEventListener("click", () => {
+  document.querySelectorAll("input[data-anim]").forEach((cb) => {
+    cb.checked = true;
+    applicaStato(cb.dataset.anim, true);
+  });
+});
+document.getElementById("btn-tutti-off").addEventListener("click", () => {
+  document.querySelectorAll("input[data-anim]").forEach((cb) => {
+    cb.checked = false;
+    applicaStato(cb.dataset.anim, false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Riepilogo
+// ---------------------------------------------------------------------------
+function testoRiepilogo() {
+  const righe = [...document.querySelectorAll("input[data-anim]")].map((cb, i) => {
+    const stato = cb.checked ? "SÌ" : "NO";
+    return `  ${String(i + 1).padStart(2)}. [${stato.padEnd(2)}]  ${NOMI[cb.dataset.anim]}`;
+  });
+  const accese = [...document.querySelectorAll("input[data-anim]")].filter((c) => c.checked).length;
+  return [
+    "ASD Astrovolley — scelte animazioni",
+    "-----------------------------------",
+    ...righe,
+    "",
+    `Accese: ${accese} su 9`,
+  ].join("\n");
+}
+
+function copiaRiepilogo() {
+  const testo = testoRiepilogo();
+  const box = document.getElementById("riepilogo-box");
+  box.textContent = testo;
+  box.classList.add("visibile");
+  const done = () => {
+    const b1 = document.getElementById("btn-riepilogo");
+    const b2 = document.getElementById("btn-riepilogo-2");
+    [b1, b2].forEach((b) => {
+      if (!b) return;
+      const orig = b.textContent;
+      b.textContent = "✓ Copiato";
+      setTimeout(() => { b.textContent = orig; }, 1600);
+    });
+  };
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(testo).then(done).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = testo;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      done();
+    });
+  } else {
+    const ta = document.createElement("textarea");
+    ta.value = testo;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    done();
+  }
+}
+document.getElementById("btn-riepilogo").addEventListener("click", copiaRiepilogo);
+document.getElementById("btn-riepilogo-2").addEventListener("click", copiaRiepilogo);
+
+// ---------------------------------------------------------------------------
+// Avvio
+// ---------------------------------------------------------------------------
+renderCard();
+renderCalendario();
+renderPillole();
+renderCalendarioModal();
+vistaCalendario();
+animaBarra();
+</script>
+</body>
+</html>

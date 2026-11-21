@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anteprima restyle — ASD Astrovolley</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" href="../../assets/favicon.png" />
+<style>
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/bebas-neue-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/montserrat-latin.woff2") format("woff2");
+}
+
+/* =========================================================
+   TOKEN — presi dal sito di riferimento (asdastrovolley.netlify.app)
+   ========================================================= */
+:root {
+  --purple: #9801cc;
+  --purple-2: #5c007c;
+  --purple-3: #d9b3ee;
+  --black: #0b0b0d;
+  --black-2: #1a1a1f;
+  --white: #fbf9fc;
+  --lilac: #f1defa;
+  --grey: #4a4551;
+  --rule-p: #b066da;
+  --rule-k: #3a3a44;
+  --rule-w: #d9d6de;
+  --win: #21763c;
+  --loss: #be2323;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
+
+  --radius-card: 10px;
+  --radius-chip: 6px;
+  --radius-pill: 999px;
+
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  --nav-h: 72px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 20px); }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  background: var(--white);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: 0.92; letter-spacing: 0.01em; margin: 0; }
+
+.container { width: min(1240px, 100% - 48px); margin-inline: auto; }
+
+/* =========================================================
+   ANIMAZIONI — il vocabolario del riferimento
+   ========================================================= */
+@keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes fly-a { from { opacity: 0; transform: translate(-60px, 80px) rotate(-14deg); } to { opacity: 1; transform: none; } }
+@keyframes fly-b { from { opacity: 0; transform: translate(80px, 100px) rotate(12deg); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.4) rotate(-40deg); } to { opacity: 1; transform: none; } }
+@keyframes slide-in { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes slash { from { transform: translateX(-30%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes pop-in { from { opacity: 0; transform: scale(.96) translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* reveal allo scroll, con ritardo a cascata (--i) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--dur-long) var(--ease-out), transform 640ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: var(--black);
+  color: var(--white);
+  transition: box-shadow var(--dur-long) var(--ease-out);
+}
+.nav.is-scrolled { box-shadow: 0 2px 0 var(--purple); }
+.nav__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: var(--nav-h); }
+.wordmark {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  text-decoration: none;
+}
+.wordmark img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.nav__links { display: flex; align-items: center; gap: var(--space-lg); list-style: none; margin: 0; padding: 0; }
+.nav__links a {
+  position: relative;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  padding-block: 6px;
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--purple-3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.nav__links a:hover::after, .nav__links a:focus-visible::after { transform: scaleX(1); }
+.nav__badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--radius-chip);
+  background: var(--purple);
+  color: var(--white);
+}
+
+/* =========================================================
+   HERO — bianco, tipografia viola enorme, bande diagonali
+   ========================================================= */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--white);
+  color: var(--black);
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--purple);
+  animation: slash 900ms var(--ease-out) both;
+}
+.hero::before { left: -6%; top: 10%; width: 34%; height: 44px; rotate: -28deg; }
+.hero::after { right: -8%; bottom: 12%; width: 42%; height: 58px; rotate: -28deg; animation-delay: 150ms; }
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--space-3xl);
+  align-items: center;
+}
+.hero h1 {
+  font-size: clamp(3.4rem, 9vw, 7.5rem);
+  color: var(--purple);
+  margin-bottom: var(--space-md);
+}
+.hero h1 .line { display: block; overflow: clip; padding-block: 0.04em; }
+.hero h1 .line > span { display: inline-block; animation: rise 800ms var(--ease-out) both; }
+.hero h1 .line + .line > span { animation-delay: 120ms; }
+.hero .lead {
+  font-size: clamp(1.05rem, 0.4vw + 1rem, 1.3rem);
+  max-width: 34ch;
+  color: var(--black);
+  margin: 0 0 var(--space-lg);
+  animation: fade-up 700ms var(--ease-out) 300ms both;
+}
+.hero .actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; animation: fade-up 700ms var(--ease-out) 420ms both; }
+
+/* bottoni: sottolineatura che entra da sinistra */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: var(--radius-chip);
+  cursor: pointer;
+  transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--purple); color: var(--white); }
+.btn--primary:hover { background: var(--purple-2); }
+.btn--quiet { background: transparent; color: var(--black); padding-inline: 4px; }
+.btn--quiet::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 8px;
+  height: 3px; background: var(--purple);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.btn--quiet:hover::after { transform: scaleX(1); }
+.btn:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+
+/* stack di card nel hero */
+.hero__stack { position: relative; min-height: 340px; }
+.hcard {
+  position: absolute;
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--rule-w);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  box-shadow: 0 24px 48px rgba(11, 11, 13, 0.18);
+}
+.hcard--a { top: 0; left: 0; width: 62%; animation: fly-a 900ms var(--ease-out) 250ms both; }
+.hcard--b { bottom: 0; right: 0; width: 58%; animation: fly-b 900ms var(--ease-out) 400ms both; }
+.hcard__k { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin: 0 0 6px; }
+.hcard__n { font-family: var(--font-display); font-size: 2.6rem; color: var(--black); margin: 0; }
+.hcard__s { font-size: 0.8125rem; color: var(--grey); margin: 2px 0 0; }
+.hcard--a .hcard__n { color: var(--purple); }
+.hbadge {
+  position: absolute;
+  top: 44%; left: 30%;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 10px 18px;
+  border-radius: var(--radius-chip);
+  rotate: -6deg;
+  animation: pop 700ms var(--ease-out) 650ms both;
+  z-index: 2;
+}
+
+/* =========================================================
+   TICKER
+   ========================================================= */
+.ticker {
+  position: relative;
+  background: var(--purple);
+  color: var(--white);
+  overflow: hidden;
+  border-block: 2px solid var(--black);
+}
+.ticker__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.ticker__track ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0;
+  padding: 14px var(--space-lg) 14px 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.ticker__sep { color: var(--black); }
+.ticker__toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 9px;
+  border-radius: var(--radius-chip);
+  border: 1px solid var(--white);
+  background: var(--purple);
+  color: var(--white);
+  cursor: pointer;
+}
+.ticker__toggle:hover { background: var(--black); }
+.ticker.is-paused .ticker__track { animation-play-state: paused; }
+
+/* =========================================================
+   SEZIONI
+   ========================================================= */
+.sec { padding-block: var(--space-3xl); }
+.sec--purple { background: var(--purple); color: var(--white); }
+.sec--black { background: var(--black); color: var(--white); }
+.sec--white { background: var(--white); color: var(--black); }
+
+.sec__head { position: relative; margin-bottom: var(--space-xl); }
+.sec__ghost {
+  position: absolute;
+  top: -0.35em;
+  left: -0.03em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--purple-3);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+.sec--white .sec__ghost { -webkit-text-stroke: 2px var(--purple); }
+.sec--black .sec__ghost { -webkit-text-stroke: 2px var(--purple); }
+.sec__head h2 {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  padding-top: 0.5em;
+}
+.sec__sub {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9375rem;
+  margin: var(--space-sm) 0 0;
+  max-width: 60ch;
+}
+.sec--purple .sec__sub { color: var(--lilac); }
+.sec--black .sec__sub { color: var(--lilac); }
+.sec--white .sec__sub { color: var(--grey); }
+
+/* =========================================================
+   CARD SQUADRA
+   ========================================================= */
+.grid-teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+}
+.tcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background: var(--white);
+  color: var(--black);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  text-decoration: none;
+  transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+}
+.tcard:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(11,11,13,.3); }
+.tcard:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+.tcard__top { display: flex; align-items: center; gap: 10px; }
+.tcard__logo { width: 40px; height: 40px; border-radius: 50%; object-fit: contain; background: var(--lilac); padding: 3px; flex: none; }
+.tcard__name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1; text-transform: uppercase; }
+.tcard__comp { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--purple); margin: 3px 0 0; }
+.tcard__mid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm);
+  align-items: end;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--rule-w);
+}
+.tcard__pos { font-family: var(--font-display); font-size: 2.6rem; line-height: 0.85; color: var(--purple); }
+.tcard__pos sup { font-size: 0.9rem; vertical-align: super; }
+.tcard__meta { font-size: 0.75rem; color: var(--grey); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.tcard__bar { height: 6px; border-radius: 999px; background: var(--lilac); overflow: hidden; margin-top: 6px; }
+.tcard__bar > i { display: block; height: 100%; background: var(--purple); border-radius: 999px; transition: width .7s var(--ease-out); }
+.tcard__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+.tcard__next { font-size: 0.75rem; color: var(--grey); font-weight: 600; }
+.tcard__go {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: var(--purple);
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap var(--dur-short) var(--ease-out);
+}
+.tcard:hover .tcard__go { gap: 12px; }
+
+/* =========================================================
+   FILTRI (chip)
+   ========================================================= */
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); }
+.chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 9px 15px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-k);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+}
+.chip:hover { border-color: var(--purple-3); }
+.chip:focus-visible { outline: 2px solid var(--purple-3); outline-offset: 2px; }
+.chip.is-on { background: var(--purple); border-color: var(--purple); color: var(--white); }
+.chip__n {
+  font-size: 0.6875rem;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.16);
+}
+.chip.is-on .chip__n { background: rgba(0,0,0,.22); }
+
+/* =========================================================
+   RIGHE PARTITA — layout del riferimento
+   ========================================================= */
+.fixtures { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fx {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--black-2);
+  border: 1px solid var(--rule-k);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+}
+.fx:hover { border-color: var(--purple); background: #22222a; }
+.fx:focus-visible { outline: 2px solid var(--purple-3); outline-offset: 2px; }
+.fx__team {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+  min-width: 0;
+}
+.fx__team span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx__team img { width: 26px; height: 26px; flex: none; object-fit: contain; border-radius: 50%; background: #2a2a33; padding: 2px; }
+.fx__team--us { color: var(--purple-3); justify-content: flex-end; text-align: right; }
+.fx__mid { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.fx__date { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lilac); margin: 0; }
+.fx__big { font-family: var(--font-display); font-size: 2.1rem; line-height: 0.9; color: var(--white); margin: 0; }
+.fx__place { font-size: 0.6875rem; color: var(--lilac); opacity: .78; margin: 2px 0 0; max-width: 15ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx__right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.fx__res { font-family: var(--font-display); font-size: 1.9rem; line-height: 1; letter-spacing: 0.02em; }
+.fx__res--w { color: #4ec97a; }
+.fx__res--l { color: #ff6b7d; }
+.fx__res--n { color: var(--grey); }
+.fx__fed {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.625rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 4px;
+  background: #2a2a33; color: var(--lilac);
+}
+.fx__ha { display: inline-flex; align-items: center; gap: 4px; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lilac); opacity: .78; }
+.fx--hidden { display: none; }
+.fx.flip-in { transition: transform .42s var(--ease-out); }
+
+/* =========================================================
+   CLASSIFICA
+   ========================================================= */
+.table { display: flex; flex-direction: column; gap: 6px; }
+.tr {
+  display: grid;
+  grid-template-columns: 44px 1fr auto auto;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-chip);
+  background: var(--white);
+  border: 1px solid var(--rule-w);
+  font-size: 0.9375rem;
+}
+.tr--us { background: var(--black); color: var(--white); border-color: var(--black); }
+.tr__pos { font-family: var(--font-display); font-size: 1.5rem; line-height: 1; color: var(--purple); }
+.tr--us .tr__pos { color: var(--purple-3); }
+.tr__name { font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tr__pg { font-size: 0.75rem; color: var(--grey); font-weight: 600; }
+.tr--us .tr__pg { color: var(--lilac); }
+.tr__pts { font-family: var(--font-display); font-size: 1.6rem; line-height: 1; min-width: 2ch; text-align: right; }
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(11, 11, 13, .72);
+  animation: fade-in 180ms ease-out;
+}
+.modal[hidden] { display: none !important; }
+.modal__box {
+  width: min(460px, 100%);
+  background: var(--white);
+  color: var(--black);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  box-shadow: 0 30px 70px rgba(0,0,0,.5);
+  animation: pop-in 240ms var(--ease-out);
+}
+.modal__k { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin: 0 0 8px; }
+.modal__t { font-family: var(--font-display); font-size: 2rem; line-height: 1; text-transform: uppercase; margin: 0 0 10px; }
+.modal__m { font-size: 0.875rem; color: var(--grey); line-height: 1.7; margin: 0; }
+.modal__m strong { color: var(--black); }
+.modal__x {
+  margin-top: var(--space-md);
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: var(--radius-chip);
+  background: var(--purple);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-short) var(--ease-out);
+}
+.modal__x:hover { background: var(--purple-2); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.foot { background: var(--black); color: var(--white); padding-block: var(--space-xl); border-top: 2px solid var(--purple); }
+.foot__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; }
+.foot__mark { font-family: var(--font-display); font-size: 2.4rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--purple-3); }
+.foot__note { font-size: 0.75rem; color: var(--grey); margin: 0; }
+.foot__link { color: var(--lilac); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px solid var(--rule-k); padding-bottom: 2px; }
+.foot__link:hover { border-color: var(--purple-3); color: var(--white); }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+  .hero__grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .hero__stack { min-height: 260px; max-width: 420px; }
+  .nav__links { display: none; }
+}
+@media (max-width: 620px) {
+  .container { width: min(1240px, 100% - 32px); }
+  .sec { padding-block: var(--space-2xl); }
+  .fx { grid-template-columns: 1fr auto; grid-template-areas: "team right" "mid mid"; row-gap: 10px; }
+  .fx__team { grid-area: team; }
+  .fx__right { grid-area: right; flex-direction: row; align-items: center; gap: 8px; }
+  .fx__mid { grid-area: mid; flex-direction: row; justify-content: flex-start; gap: 10px; }
+  .fx__place { max-width: none; }
+  .tr { grid-template-columns: 34px 1fr auto; }
+  .tr__pg { display: none; }
+  .hero__stack { min-height: 230px; }
+  .hcard--a { width: 66%; }
+  .hcard--b { width: 62%; }
+}
+
+/* =========================================================
+   RIDUZIONE MOVIMENTO
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .ticker__track { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="container nav__in">
+    <a class="wordmark" href="#top">
+      <img src="../../assets/logo.webp" alt="" />
+      <span>Astrovolley</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#squadre">Squadre</a></li>
+      <li><a href="#calendario">Calendario</a></li>
+      <li><a href="#classifica">Classifica</a></li>
+    </ul>
+    <span class="nav__badge">Stagione 2026/27</span>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container hero__grid">
+    <div>
+      <h1>
+        <span class="line"><span>Il nostro</span></span>
+        <span class="line"><span>calendario</span></span>
+      </h1>
+      <p class="lead">Tutte le partite della società, FIPAV e ASI, in un unico posto. Con classifiche e risultati aggiornati.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#calendario">Vedi le partite</a>
+        <a class="btn btn--quiet" href="#squadre">Le squadre</a>
+      </div>
+    </div>
+    <div class="hero__stack">
+      <figure class="hcard hcard--a">
+        <p class="hcard__k">Under 19</p>
+        <p class="hcard__n">4°</p>
+        <p class="hcard__s">3 punti · 2 giornate</p>
+      </figure>
+      <figure class="hcard hcard--b">
+        <p class="hcard__k">Prossima</p>
+        <p class="hcard__n">24/11</p>
+        <p class="hcard__s">19:00 · Liceo Silvestri</p>
+      </figure>
+      <div class="hbadge">4 squadre</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" id="ticker" aria-label="Squadre in campo">
+  <div class="ticker__track" aria-hidden="true">
+    <ul>
+      <li>Under 19</li><li class="ticker__sep">✦</li>
+      <li>Misto Dirigenziale</li><li class="ticker__sep">✦</li>
+      <li>Misto Cercola</li><li class="ticker__sep">✦</li>
+      <li>Misto Portici</li><li class="ticker__sep">✦</li>
+      <li>FIPAV</li><li class="ticker__sep">✦</li>
+      <li>ASI</li><li class="ticker__sep">✦</li>
+    </ul>
+    <ul>
+      <li>Under 19</li><li class="ticker__sep">✦</li>
+      <li>Misto Dirigenziale</li><li class="ticker__sep">✦</li>
+      <li>Misto Cercola</li><li class="ticker__sep">✦</li>
+      <li>Misto Portici</li><li class="ticker__sep">✦</li>
+      <li>FIPAV</li><li class="ticker__sep">✦</li>
+      <li>ASI</li><li class="ticker__sep">✦</li>
+    </ul>
+  </div>
+  <button class="ticker__toggle" id="ticker-toggle" type="button">Pausa</button>
+</div>
+
+<section class="sec sec--purple" id="squadre">
+  <div class="container">
+    <div class="sec__head">
+      <p class="sec__ghost" aria-hidden="true">Squadre</p>
+      <h2>Le nostre squadre</h2>
+      <p class="sec__sub">Quattro squadre in campo, tra campionati FIPAV e ASI.</p>
+    </div>
+    <div class="grid-teams" id="grid-teams"></div>
+  </div>
+</section>
+
+<section class="sec sec--black" id="calendario">
+  <div class="container">
+    <div class="sec__head">
+      <p class="sec__ghost" aria-hidden="true">Partite</p>
+      <h2>Calendario</h2>
+      <p class="sec__sub">Under 19 · Eccellenza 2 Girone B. Clicca una riga per i dettagli.</p>
+    </div>
+    <div class="chips" id="chips"></div>
+    <ol class="fixtures" id="fixtures"></ol>
+  </div>
+</section>
+
+<section class="sec sec--white" id="classifica">
+  <div class="container">
+    <div class="sec__head">
+      <p class="sec__ghost" aria-hidden="true">Classifica</p>
+      <h2>Classifica</h2>
+      <p class="sec__sub">Under 19 · Eccellenza 2 Girone B · dopo 2 giornate.</p>
+    </div>
+    <div class="table" id="table"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container foot__in">
+    <div>
+      <div class="foot__mark">ASD Astrovolley</div>
+      <p class="foot__note">Anteprima di restyle · colori e animazioni dal sito istituzionale</p>
+    </div>
+    <a class="foot__link" href="../index.html">Demo animazioni precedente</a>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modal-t">
+    <p class="modal__k" id="modal-k">Giornata 3 · FIPAV</p>
+    <h3 class="modal__t" id="modal-t">Dettaglio partita</h3>
+    <p class="modal__m" id="modal-m"></p>
+    <button class="modal__x" id="modal-x" type="button">Chiudi</button>
+  </div>
+</div>
+
+<script>
+document.documentElement.classList.add("js");
+
+// ---------------------------------------------------------------------------
+// Dati veri da site/data/schedule.json
+// ---------------------------------------------------------------------------
+const SQUADRE = [
+  { nome: "Under 19", comp: "Eccellenza 2 · Gir. B", pos: 4, punti: 3, tot: 10, giocate: 2, logo: "../../assets/loghi/fipav/772.webp", next: "24/11 · 19:00" },
+  { nome: "Misto Dirigenziale", comp: "Open Misto Élite", pos: 2, punti: 6, tot: 9, giocate: 3, logo: "../../assets/loghi/asi/squadra-146.webp", next: "22/11 · 18:00" },
+  { nome: "Misto Cercola", comp: "Open Misto Promozionale", pos: 1, punti: 9, tot: 12, giocate: 4, logo: "../../assets/loghi/asi/squadra-147.webp", next: "23/11 · 20:45" },
+  { nome: "Misto Portici", comp: "Open Misto Promozionale", pos: 3, punti: 4, tot: 12, giocate: 4, logo: "../../assets/loghi/asi/squadra-148.webp", next: "25/11 · 21:15" },
+];
+
+const PARTITE = [
+  { g: 1, data: "mer 12 nov", ora: "21:30", casa: false, avv: "Calvizzano Volley Blu", logo: "../../assets/loghi/fipav/4199.webp", res: "0-3", esito: "l", pal: "Pala Raffaella", fed: "FIPAV" },
+  { g: 2, data: "mar 17 nov", ora: "19:00", casa: true, avv: "Victoria Marano", logo: "../../assets/loghi/fipav/752.webp", res: "0-3", esito: "l", pal: "Liceo Silvestri", fed: "FIPAV" },
+  { g: 3, data: "mar 24 nov", ora: "19:00", casa: true, avv: "Minerva Medica", logo: "../../assets/loghi/fipav/772.webp", res: "—", esito: "n", pal: "Liceo Silvestri", fed: "FIPAV" },
+  { g: 4, data: "mar 01 dic", ora: "21:00", casa: false, avv: "Volley Word", logo: "../../assets/loghi/fipav/1159.webp", res: "—", esito: "n", pal: "Itas V. Emanuele II", fed: "FIPAV" },
+  { g: 5, data: "mer 09 dic", ora: "18:00", casa: false, avv: "Volley Volla", logo: "../../assets/loghi/fipav/1186.webp", res: "—", esito: "n", pal: "I.C. V. De Sica", fed: "FIPAV" },
+  { g: 6, data: "mar 15 dic", ora: "19:00", casa: true, avv: "Calvizzano Volley Blu", logo: "../../assets/loghi/fipav/4199.webp", res: "—", esito: "n", pal: "Liceo Silvestri", fed: "FIPAV" },
+  { g: 7, data: "mer 06 gen", ora: "18:30", casa: false, avv: "Victoria Marano", logo: "../../assets/loghi/fipav/752.webp", res: "—", esito: "n", pal: "Palasport Palamarano", fed: "FIPAV" },
+  { g: 8, data: "mar 12 gen", ora: "17:30", casa: false, avv: "Minerva Medica", logo: "../../assets/loghi/fipav/772.webp", res: "—", esito: "n", pal: "SMS Radice", fed: "FIPAV" },
+];
+
+const CLASSIFICA = [
+  { sq: "Victoria Marano", p: 6, g: 2 },
+  { sq: "Volley Volla", p: 6, g: 2 },
+  { sq: "Minerva Medica", p: 3, g: 2 },
+  { sq: "ASD Astrovolley", p: 3, g: 2, us: true },
+  { sq: "Volley Word", p: 0, g: 2 },
+  { sq: "Calvizzano Volley Blu", p: 0, g: 2 },
+];
+
+const icoCasa = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>`;
+const icoAereo = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 13.5 3 11V8.5l7.5 1V5a1.5 1.5 0 0 1 3 0v4.5l7.5-1V11l-7.5 2.5V18l2.5 1.5V21L12 20l-4 1v-1.5L10.5 18z"/></svg>`;
+
+// ---------------------------------------------------------------------------
+// Card squadra
+// ---------------------------------------------------------------------------
+function renderSquadre() {
+  document.getElementById("grid-teams").innerHTML = SQUADRE.map((s, i) => {
+    const pct = Math.round((s.giocate / s.tot) * 100);
+    return `
+    <a class="tcard" href="#calendario" data-reveal style="--i:${i}">
+      <div class="tcard__top">
+        <img class="tcard__logo" src="${s.logo}" alt="" />
+        <div>
+          <div class="tcard__name">${s.nome}</div>
+          <p class="tcard__comp">${s.comp}</p>
+        </div>
+      </div>
+      <div class="tcard__mid">
+        <div class="tcard__pos">${s.pos}<sup>°</sup></div>
+        <div>
+          <div class="tcard__meta">${s.punti} punti · ${s.giocate}/${s.tot} giocate</div>
+          <div class="tcard__bar"><i style="width:${pct}%"></i></div>
+        </div>
+      </div>
+      <div class="tcard__foot">
+        <span class="tcard__next">${s.next}</span>
+        <span class="tcard__go">Calendario →</span>
+      </div>
+    </a>`;
+  }).join("");
+}
+
+// ---------------------------------------------------------------------------
+// Filtri + FLIP
+// ---------------------------------------------------------------------------
+const FILTRI = [
+  { id: "tutte", label: "Tutte", test: () => true },
+  { id: "disputate", label: "Disputate", test: (m) => m.esito !== "n" },
+  { id: "da-disputare", label: "Da disputare", test: (m) => m.esito === "n" },
+];
+let filtro = "tutte";
+
+function renderChips() {
+  document.getElementById("chips").innerHTML = FILTRI.map((f) => {
+    const n = PARTITE.filter(f.test).length;
+    return `<button class="chip${f.id === filtro ? " is-on" : ""}" data-f="${f.id}" type="button" aria-pressed="${f.id === filtro}">${f.label}<span class="chip__n">${n}</span></button>`;
+  }).join("");
+  document.querySelectorAll(".chip").forEach((b) => {
+    b.addEventListener("click", () => applicaFiltro(b.dataset.f));
+  });
+}
+
+function rigaFX(m, i) {
+  const esitoCls = m.esito === "w" ? "fx__res--w" : m.esito === "l" ? "fx__res--l" : "fx__res--n";
+  return `
+  <li class="fx" data-g="${m.g}" data-esito="${m.esito}" data-reveal style="--i:${i}" tabindex="0" role="button" aria-label="Giornata ${m.g}, ${m.avv}, ${m.data}">
+    <p class="fx__team">
+      <img src="${m.logo}" alt="" />
+      <span>${m.avv}</span>
+    </p>
+    <div class="fx__mid">
+      <p class="fx__date">${m.data}</p>
+      <p class="fx__big">${m.ora}</p>
+      <p class="fx__place">${m.pal}</p>
+    </div>
+    <p class="fx__team fx__team--us"><span>Astrovolley</span></p>
+    <div class="fx__right">
+      <span class="fx__res ${esitoCls}">${m.res}</span>
+      <span class="fx__fed">${m.fed}</span>
+      <span class="fx__ha">${m.casa ? icoCasa + " casa" : icoAereo + " trasferta"}</span>
+    </div>
+  </li>`;
+}
+
+function renderPartite() {
+  const ol = document.getElementById("fixtures");
+  ol.innerHTML = PARTITE.map(rigaFX).join("");
+  ol.querySelectorAll(".fx").forEach((li, i) => {
+    const apri = () => apriModal(PARTITE[i]);
+    li.addEventListener("click", apri);
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apri(); }
+    });
+  });
+}
+
+function applicaFiltro(id) {
+  const ol = document.getElementById("fixtures");
+  const righe = [...ol.querySelectorAll(".fx")];
+  const test = FILTRI.find((f) => f.id === id).test;
+
+  const prima = new Map();
+  righe.forEach((r) => prima.set(r, r.getBoundingClientRect().top));
+
+  filtro = id;
+  renderChips();
+
+  // Tutte visibili prima di rimisurare, altrimenti quelle che tornano restano nascoste.
+  righe.forEach((r) => {
+    r.classList.remove("fx--hidden", "flip-in");
+    r.style.transform = "";
+  });
+
+  const visibili = righe.filter((r) => test(PARTITE[Number(r.dataset.g) - 1]));
+  righe.forEach((r) => {
+    if (!visibili.includes(r)) r.classList.add("fx--hidden");
+  });
+
+  const dopo = new Map();
+  visibili.forEach((r) => dopo.set(r, r.getBoundingClientRect().top));
+
+  visibili.forEach((r) => {
+    const d = prima.get(r) - dopo.get(r);
+    if (!d) return;
+    r.style.transform = `translateY(${d}px)`;
+    r.classList.add("flip-in");
+    requestAnimationFrame(() => requestAnimationFrame(() => { r.style.transform = ""; }));
+  });
+
+  clearTimeout(applicaFiltro._t);
+  applicaFiltro._t = setTimeout(() => {
+    visibili.forEach((r) => r.classList.remove("flip-in"));
+  }, 500);
+}
+
+// ---------------------------------------------------------------------------
+// Classifica
+// ---------------------------------------------------------------------------
+function renderClassifica() {
+  document.getElementById("table").innerHTML = CLASSIFICA.map((r, i) => `
+    <div class="tr${r.us ? " tr--us" : ""}" data-reveal style="--i:${i}">
+      <span class="tr__pos">${i + 1}</span>
+      <span class="tr__name">${r.sq}</span>
+      <span class="tr__pg">${r.g} giocate</span>
+      <span class="tr__pts">${r.p}</span>
+    </div>`).join("");
+}
+
+// ---------------------------------------------------------------------------
+// Modal
+// ---------------------------------------------------------------------------
+const modal = document.getElementById("modal");
+function apriModal(m) {
+  document.getElementById("modal-k").textContent = `Giornata ${m.g} · ${m.fed}`;
+  document.getElementById("modal-t").textContent = m.avv;
+  document.getElementById("modal-m").innerHTML =
+    `${m.data} · ore <strong>${m.ora}</strong><br>` +
+    `${m.casa ? "In casa" : "In trasferta"} · ${m.pal}` +
+    (m.esito === "n" ? "<br>Risultato non ancora disponibile" : `<br>Risultato: <strong>${m.res}</strong>`);
+  modal.hidden = false;
+  document.getElementById("modal-x").focus();
+}
+document.getElementById("modal-x").addEventListener("click", () => { modal.hidden = true; });
+modal.addEventListener("click", (e) => { if (e.target === modal) modal.hidden = true; });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) modal.hidden = true; });
+
+// ---------------------------------------------------------------------------
+// Ticker
+// ---------------------------------------------------------------------------
+const ticker = document.getElementById("ticker");
+const tickerBtn = document.getElementById("ticker-toggle");
+tickerBtn.addEventListener("click", () => {
+  const pausa = ticker.classList.toggle("is-paused");
+  tickerBtn.textContent = pausa ? "Riprendi" : "Pausa";
+});
+
+// ---------------------------------------------------------------------------
+// Reveal + nav ombra
+// ---------------------------------------------------------------------------
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add("is-in");
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+function osserva() {
+  document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => obs.observe(el));
+}
+
+const nav = document.getElementById("nav");
+addEventListener("scroll", () => {
+  nav.classList.toggle("is-scrolled", scrollY > 8);
+}, { passive: true });
+
+// ---------------------------------------------------------------------------
+// Avvio
+// ---------------------------------------------------------------------------
+renderSquadre();
+renderChips();
+renderPartite();
+renderClassifica();
+osserva();
+</script>
+</body>
+</html>
