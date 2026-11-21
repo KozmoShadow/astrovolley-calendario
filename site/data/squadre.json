@@ -25,5 +25,17 @@
       "campionato": "promozionale",
       "nomi": ["Astrovolley Portici"]
     }
+    {
+      "slug": "seconda-divisione-femminile",
+      "nome": "Seconda Divisione Femminile",
+      "campionato": "seconda divisione femminile",
+      "nomi": ["ASD ASTROVOLLEY"]
+    },
+    {
+      "slug": "seconda-divisione-maschile",
+      "nome": "Seconda Divisione Maschile",
+      "campionato": "seconda divisione maschile",
+      "nomi": ["ASD ASTROVOLLEY"]
+    }
   ]
 }
