@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-21T13:23:31+00:00",
+  "generato_il": "2026-11-22T22:14:29+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -4359,12 +4359,12 @@
           "data": "2026-11-22 17:00",
           "casa": "Libertas Sorrento",
           "trasferta": "Volley Pimonte",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-18 25-8 25-15",
           "palestra": "LS \"G. Salvemini\"",
           "indirizzo": "Via Sant'Antonio, 2, Sorrento",
           "gara": "809",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-146.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-156.webp"
         },
@@ -4377,12 +4377,12 @@
           "data": "2026-11-22 18:00",
           "casa": "ASD Astrovolley",
           "trasferta": "Kleos Volley",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "14-25 16-25 14-25",
           "palestra": "IC \"Custra\"",
           "indirizzo": "Via Modigliani, 1, Cercola",
           "gara": "810",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-149.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-171.webp"
         },
@@ -4395,12 +4395,12 @@
           "data": "2026-11-22 21:00",
           "casa": "Volley Meta",
           "trasferta": "Volley Mugnano Flame",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-22 25-19 25-21",
           "palestra": "Tendostruttura \"Carlo Sassi\"",
           "indirizzo": "Viale Privato Le Querce, Meta",
           "gara": "811",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-157.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-152.webp"
         },
@@ -6496,36 +6496,47 @@
       "standings": [
         {
           "squadra": "Volley Meta",
-          "punti": 6,
-          "pg": 2,
-          "pv": 2,
+          "punti": 9,
+          "pg": 3,
+          "pv": 3,
           "pp": 0,
-          "sf": 6,
+          "sf": 9,
           "ss": 1,
-          "pf": 170,
-          "ps": 125
+          "pf": 245,
+          "ps": 187
         },
         {
           "squadra": "Kleos Volley",
-          "punti": 6,
-          "pg": 2,
-          "pv": 2,
+          "punti": 9,
+          "pg": 3,
+          "pv": 3,
           "pp": 0,
-          "sf": 6,
+          "sf": 9,
           "ss": 2,
-          "pf": 188,
-          "ps": 159
+          "pf": 263,
+          "ps": 203
+        },
+        {
+          "squadra": "Libertas Sorrento",
+          "punti": 6,
+          "pg": 3,
+          "pv": 2,
+          "pp": 1,
+          "sf": 6,
+          "ss": 3,
+          "pf": 213,
+          "ps": 158
         },
         {
           "squadra": "Volley Pimonte",
           "punti": 5,
-          "pg": 2,
+          "pg": 3,
           "pv": 2,
-          "pp": 0,
+          "pp": 1,
           "sf": 6,
-          "ss": 2,
-          "pf": 184,
-          "ps": 148
+          "ss": 5,
+          "pf": 225,
+          "ps": 223
         },
         {
           "squadra": "Smile Team",
@@ -6537,17 +6548,6 @@
           "ss": 3,
           "pf": 170,
           "ps": 161
-        },
-        {
-          "squadra": "Volley Mugnano Flame",
-          "punti": 3,
-          "pg": 1,
-          "pv": 1,
-          "pp": 0,
-          "sf": 3,
-          "ss": 0,
-          "pf": 75,
-          "ps": 59
         },
         {
           "squadra": "Oplontis",
@@ -6583,15 +6583,15 @@
           "ps": 159
         },
         {
-          "squadra": "Libertas Sorrento",
+          "squadra": "Volley Mugnano Flame",
           "punti": 3,
           "pg": 2,
           "pv": 1,
           "pp": 1,
           "sf": 3,
           "ss": 3,
-          "pf": 138,
-          "ps": 117
+          "pf": 137,
+          "ps": 134
         },
         {
           "squadra": "Ziosta Suri Sport",
@@ -6605,17 +6605,6 @@
           "ps": 225
         },
         {
-          "squadra": "ASD Astrovolley",
-          "punti": 0,
-          "pg": 2,
-          "pv": 0,
-          "pp": 2,
-          "sf": 0,
-          "ss": 6,
-          "pf": 95,
-          "ps": 150
-        },
-        {
           "squadra": "La Fenice",
           "punti": 0,
           "pg": 2,
@@ -6625,6 +6614,17 @@
           "ss": 6,
           "pf": 93,
           "ps": 150
+        },
+        {
+          "squadra": "ASD Astrovolley",
+          "punti": 0,
+          "pg": 3,
+          "pv": 0,
+          "pp": 3,
+          "sf": 0,
+          "ss": 9,
+          "pf": 139,
+          "ps": 225
         }
       ]
     }
