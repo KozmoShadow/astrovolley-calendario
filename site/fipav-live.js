@@ -4,23 +4,19 @@
 
 const FIPAV_UA_NOTE = "richiede un browser reale (User-Agent) per rispondere";
 
-function stripTags(fragment) {
-  return fragment
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
+// FIPAV scrive gli accenti come entita' numeriche ("CITT&#192;", "CITT&#x00C0;"):
+// elencarle a mano ne lascerebbe fuori qualcuna, e il nome arriverebbe in pagina
+// con il codice al posto della lettera. Il browser le conosce tutte, quindi si
+// lascia decodificare a lui.
 function decodeEntities(s) {
   const el = document.createElement("textarea");
   el.innerHTML = s;
   return el.value;
+}
+
+function stripTags(fragment) {
+  const senzaTag = fragment.replace(/<[^>]+>/g, " ");
+  return decodeEntities(senzaTag).replace(/\s+/g, " ").trim();
 }
 
 function matchAll(html, re) {

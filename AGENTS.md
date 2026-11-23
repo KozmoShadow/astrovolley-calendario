@@ -136,6 +136,13 @@ mostra un avviso. Senza `id` la pagina legge solo il file.
 - `site/app.js` (`init` → `fetchLiveFipav`/`fetchLiveAsi` → `mergeLive`/`mergeLiveAsi`):
   sostituisce le competizioni di **quella** fonte, lascia intatte le altre. Se il live di
   una fonte fallisce, per quella resta lo snapshot `site/data/schedule.json`.
+- **Entita' HTML nei nomi FIPAV**: il sito federale scrive gli accenti come entita'
+  numeriche (`ASD PARCO CITT&#192;`), non come caratteri. Il testo va decodificato dal
+  browser (`decodeEntities`, via `<textarea>`), non con una lista di `replace`: una lista
+  copre solo i casi elencati e lascia in pagina il codice (`CITT&#192;`). Il difetto e'
+  **intermittente** e insidioso, perche' lo snapshot dell'importer e' gia' corretto: si
+  vede solo quando vince il dato letto dal vivo. Se un nome mostra codici, il sospetto
+  numero uno e' un `stripTags`/`decodeEntities` incompleto, non l'encoding del file.
 - L'header mostra **un bollino per fonte**: verde (`in diretta`) se letta dal vivo, rosso
   (`da archivio`) se si sta usando lo snapshot. Le fonti senza competizioni nel calendario
   non compaiono. `state.liveFonti[fonte]` tiene l'esito.
