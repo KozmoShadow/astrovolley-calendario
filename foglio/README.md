@@ -44,8 +44,24 @@ cose in un colpo:
 
 Rilanciarlo non duplica niente: si puo' fare quante volte si vuole.
 
-Puoi anche mettere un trigger giornaliero (Apps Script → icona orologio → funzione
-`riordinaTurni`, timer giornaliero) e non pensarci piu'.
+### Trigger giornaliero (facoltativo)
+
+Attenzione al menu a tendina, perche' il timer non e' dove sembra: nella finestra
+"Modifica trigger" ci sono **due** tendine.
+
+1. Apps Script → icona **orologio** (Trigger) a sinistra → **Aggiungi trigger**.
+2. Prima tendina, **"Scegli il tipo di evento"**: lascia **"Da foglio di calcolo"**
+   (le altre voci sono all'apertura, alla modifica, al cambio, all'invio del modulo).
+3. **Sotto** compare una seconda tendina, **"Seleziona il tipo di evento":**
+   qui c'e' **"Timer giornaliero"**. E' questa quella che serve.
+4. Funzione: `riordinaTurni`. Salva.
+
+Il timer non compare nella prima tendina perche' l'evento "timer" non appartiene al
+foglio: e' un evento orario, e Apps Script lo tiene nella seconda tendina.
+
+**Prima di attivare il timer**, lancia il riordino almeno una volta dal menu: serve
+allo script per memorizzare quale foglio aggiornare. Da trigger non c'e' un foglio
+"attivo", e senza quell'id lo script si fermerebbe con un messaggio esplicito.
 
 ## Se hai gia' incollato male
 

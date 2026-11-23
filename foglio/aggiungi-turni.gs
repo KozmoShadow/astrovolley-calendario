@@ -35,6 +35,30 @@ var COL_CASA = "casa";
 var COL_TRASFERTA = "trasferta";
 
 /**
+ * Restituisce il foglio su cui lavorare, anche quando lo script gira da trigger.
+ *
+ * Da trigger non c'e' nessun foglio "attivo" e getActiveSpreadsheet() torna
+ * null: senza questo, il timer giornaliero fallirebbe con
+ * "Cannot read properties of null". Alla prima esecuzione manuale si memorizza
+ * l'id del foglio, e da li' in poi lo si riapre per id.
+ */
+function apriFoglio() {
+  var foglio = SpreadsheetApp.getActiveSpreadsheet();
+  if (foglio) {
+    PropertiesService.getScriptProperties().setProperty("FOGLIO_ID", foglio.getId());
+    return foglio;
+  }
+  var id = PropertiesService.getScriptProperties().getProperty("FOGLIO_ID");
+  if (!id) {
+    throw new Error(
+      "Foglio non trovato. Apri il foglio e lancia il comando una volta dal menu " +
+      "Turni: serve a memorizzare quale foglio aggiornare quando lo script parte da solo."
+    );
+  }
+  return SpreadsheetApp.openById(id);
+}
+
+/**
  * Voce di menu, per non dover aprire l'editor ogni volta.
  * Apps Script la chiama da sola all'apertura del foglio.
  */
@@ -208,7 +232,7 @@ function trovaRiga(turni, chiave) {
  * partita a cui appartengono.
  */
 function riordinaTurni() {
-  var foglio = SpreadsheetApp.getActiveSpreadsheet();
+  var foglio = apriFoglio();
   var partite = leggiTab(foglio, TAB_PARTITE);
   var turni = leggiTab(foglio, TAB_TURNI);
   var larghezza = Math.max(turni.ultimaColonna, partite.ultimaColonna);
@@ -335,7 +359,7 @@ function salvaStorico(foglio, turni, larghezza) {
  * l'abbinamento corretto.
  */
 function ripristinaDaStorico() {
-  var foglio = SpreadsheetApp.getActiveSpreadsheet();
+  var foglio = apriFoglio();
   var storicoTab = foglio.getSheetByName(TAB_STORICO);
   if (!storicoTab || storicoTab.getLastRow() < 2) {
     throw new Error(
