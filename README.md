@@ -132,9 +132,9 @@ Quando parte un campionato nuovo le righe compaiono senza copiarle a mano. Il ta
 Partite e' **generato**: si riscrive a ogni aggiornamento, quindi non va compilato.
 I nomi si scrivono nel tab Turni, che resta l'unico tab da toccare a mano.
 
-Per aggiungere in blocco le partite nuove al tab Turni, senza copiare e incollare
-(che sovrascriverebbe le colonne dei refertisti), c'e' uno script da installare una
-volta sola nel foglio: vedi `foglio/README.md`.
+Per aggiungere in blocco le partite nuove al tab Turni, e per far si' che i nomi
+restino attaccati alla loro partita quando il calendario cambia, c'e' uno script da
+installare una volta sola nel foglio: vedi `foglio/README.md`.
 
 Il CSV contiene anche le gare in casa dell'altra societa', cosi' anche i suoi
 referti hanno una riga da cui partire. Resta pero' a **tre colonne**: aggiungerne

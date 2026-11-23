@@ -282,12 +282,19 @@ regola: meglio un turno da riassegnare a mano che un refertista sulla partita
 sbagliata. Con due partite lo stesso giorno contro lo stesso avversario (non
 esiste in pratica) il livello 3 non scatta, perche' la chiave non e' unica.
 
-### Tab Turni: aggiunta in blocco
+### Tab Turni: ricostruzione con i nomi che seguono la partita
 `foglio/aggiungi-turni.gs` e' uno script Apps Script che gira **dentro** il foglio
-dell'utente (non nel repo). Legge il tab Partite, confronta le chiavi con il tab
-Turni e appende in fondo solo le righe mancanti, con refertisti vuoti. Non tocca,
-non riordina e non riscrive le righe esistenti: e' il motivo per cui esiste, perche'
-copiare e incollare righe intere sovrascriverebbe i nomi.
+dell'utente (non nel repo). Non incolla righe: **ricostruisce** il tab Turni in
+ordine di data, prendendo le partite dal tab Partite e i nomi da un indice
+`chiave -> valori compilati`. Cosi' un nome segue la sua partita anche quando la
+partita cambia riga.
+
+Prima di ogni riscrittura salva il tab Turni in `Storico turni`; la voce di menu
+"Ripristina nomi dallo storico" usa quella fotografia per rimediare a un incolla
+che ha sfasato i nomi. Lo storico tiene solo l'ultima copia.
+
+Le partite sparite dal calendario non vengono eliminate: finiscono in fondo con i
+loro nomi, per non perdere la traccia di un turno assegnato.
 
 La chiave di confronto e' la stessa del sito: `impronta(data)|impronta(casa)|
 impronta(trasferta)`. Attenzione a `dataInTesto()`: Sheets puo' restituire la data
