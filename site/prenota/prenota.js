@@ -374,11 +374,21 @@ function ricordaModifica(azione, chiave, nome) {
  * Card di un mese nell'elenco. Il colore del bordo dice se resta qualcosa da
  * prendere: e' l'informazione che serve per capire dove andare, senza aprire.
  */
-function cardMese(chiave, lista, nome) {
-  // "Libero" vuol dire un posto che posso ancora prendere io. Una partita a cui
-  // sono gia' prenotato non e' un posto libero: e' fatta.
+/**
+ * Quanti posti restano da prendere e quante partite sono gia' mie.
+ *
+ * "Libero" vuol dire un posto che posso ancora prendere io: una partita a cui
+ * sono gia' prenotato e' fatta, non libera. Sta qui e non dentro cardMese
+ * perche' lo usano sia la card sia l'intestazione del mese aperto.
+ */
+function contaMese(lista, nome) {
   const mie = lista.filter((t) => eMio(t, nome)).length;
   const liberi = lista.filter((t) => !eMio(t, nome) && t.postiRefertista > 0).length;
+  return { liberi, mie };
+}
+
+function cardMese(chiave, lista, nome) {
+  const { liberi, mie } = contaMese(lista, nome);
   const primo = dataParti(lista[0].data);
 
   let stato = "pieno";
@@ -435,7 +445,7 @@ function render(turni, nome) {
       `${futuri.length} partite in casa, da ${nomeMese(meseDi(futuri[0].data))}. Scegli il mese.`;
   } else {
     const lista = perMese.get(meseAperto);
-    const liberi = lista.filter((t) => eMio(t, nome) || t.postiRefertista > 0).length;
+    const { liberi } = contaMese(lista, nome);
     $("prn-lista").innerHTML = `
       <button class="prn-indietro" type="button" data-mesi-tutti>← tutti i mesi</button>
       <section class="prn-mese">
