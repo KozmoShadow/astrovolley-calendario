@@ -62,6 +62,22 @@ In Apps Script: **Esegui il deployment → Nuovo deployment → App web**.
 
 Copia l'indirizzo che finisce con **`/exec`** (non `/dev`).
 
+### 2-bis. Aggiornare un deployment che esiste gia'
+
+Questo e' il passaggio che serve quando il codice cambia, per esempio per la
+copia dei turni. **Non** usare "Nuovo deployment": creerebbe un indirizzo nuovo
+e la pagina smetterebbe di funzionare finche' non aggiorni `config.js`.
+
+La strada giusta tiene lo stesso indirizzo:
+
+1. **Esegui il deployment → Gestisci deployment**
+2. Sulla riga del deployment attivo, icona a matita (**Modifica**)
+3. In **Versione** scegli **Nuova versione**
+4. **Esegui il deployment**
+
+L'indirizzo `/exec` resta identico: `config.js` non va toccato e chi ha la
+pagina aperta non si accorge di niente.
+
 ### 3. Incollalo in `site/prenota/config.js`
 
 ```js
