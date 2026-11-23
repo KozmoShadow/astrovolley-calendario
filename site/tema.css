@@ -1,0 +1,259 @@
+/* ===========================================================================
+   TEMA UFFICIALE — colori e animazioni.
+   Caricato DOPO styles.css: sovrascrive la palette e aggiunge il movimento.
+   Non contiene display, grid, flex, padding, margin, width o height:
+   la struttura e le misure restano quelle di styles.css.
+   Palette e animazioni prese da asdastrovolley.netlify.app (tokens.css).
+
+   Usato da index.html e da dirigenza/. La pagina prenota/ ha una sua veste
+   (prenota.css) e non carica questo file.
+   =========================================================================== */
+
+
+:root {
+  /* palette del sito istituzionale */
+  --bg: #180c22;
+  --surface: #1f1129;
+  --surface-2: #271633;
+  --line: #3a3a44;
+  --text: #fbf9fc;
+  --muted: #d6c2e4;
+  --accent: #9801cc;
+  --accent-soft: #d9b3ee;
+  --on-accent: #fbf9fc;
+  --fipav: #5a7fd0;
+  --asi: #23b26d;
+  --win: #4ec97a;
+  --loss: #ff6b7d;
+  --astro: #b066da;
+  --radius: 10px;
+  --shadow: 0 24px 48px rgba(11, 11, 13, .55);
+
+
+  /* tempi del sito istituzionale */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
+
+/* ---------------------------------------------------------------------------
+   Colori di base
+   --------------------------------------------------------------------------- */
+body {
+  background:
+    radial-gradient(1200px 560px at 82% -14%, rgba(152, 1, 204, .22) 0%, transparent 62%),
+    var(--bg);
+  color: var(--text);
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(152, 1, 204, .30), rgba(92, 0, 124, .18));
+  border-bottom-color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   Superfici: card, pannelli, righe
+   --------------------------------------------------------------------------- */
+.team-card,
+.standings-card,
+.round-panel,
+.modal-card,
+.lightbox-figure {
+  background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface) 100%);
+  border-color: var(--line);
+}
+
+.team-card { --accent: #b066da; --accent-glow: rgba(152, 1, 204, .55); }
+
+.fixture-row,
+.team-row,
+.pill {
+  background: var(--surface-2);
+  border-color: var(--line);
+}
+
+.fixture-row:hover,
+.team-row:hover,
+.pill:hover { border-color: var(--accent-soft); }
+
+.pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.pill-count { background: rgba(255, 255, 255, .14); }
+.pill.active .pill-count { background: rgba(0, 0, 0, .28); }
+
+.team-row.highlight {
+  border-color: var(--accent);
+  background: rgba(152, 1, 204, .18);
+}
+
+/* icone e bottoni secondari */
+.back-btn,
+.classifica-btn,
+.all-matches-btn {
+  border-color: var(--line);
+  color: var(--text);
+}
+.back-btn:hover,
+.classifica-btn:hover,
+.all-matches-btn:hover {
+  border-color: var(--accent-soft);
+  background: rgba(152, 1, 204, .18);
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+}
+
+/* esiti: verde e rosso piu' leggibili sul nero pieno */
+.fixture-row.win .time-val,
+.fixture-row.win .status-label { color: var(--win); }
+.fixture-row.loss .time-val,
+.fixture-row.loss .status-label { color: var(--loss); }
+
+/* ---------------------------------------------------------------------------
+   LOGO — disco bianco fino al bordo del cerchio, fuori trasparente.
+   Il bianco non e' piu' un background CSS: sta dentro l'immagine, cosi' il
+   cerchio resta pieno e gli angoli spariscono sul fondo scuro.
+   Sostituisce background:#fff + padding:4px di .brand-mark.
+   --------------------------------------------------------------------------- */
+.brand-mark,
+.team-logo {
+  background: none;
+  padding: 0;
+  border-radius: 50%;
+}
+.club-logo,
+.cal-club-logo { border-radius: 50%; }
+
+/* In landing le card sono tutte di Astrovolley: stesso stemma per ogni
+   squadra. Il logo e' un background, non content:url(), perche' Firefox
+   ignora content sugli <img>. object-position sposta fuori il file
+   originale (logo federale), lasciando visibile solo lo sfondo. */
+.team-logo {
+  background: url("assets/logo-tondo.png") center / contain no-repeat;
+  object-fit: none;
+  object-position: -9999px 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ANIMAZIONI — vocabolario del sito istituzionale
+   --------------------------------------------------------------------------- */
+@keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes fly-a { from { opacity: 0; transform: translate(-40px, 60px) rotate(-10deg); } to { opacity: 1; transform: none; } }
+@keyframes fly-b { from { opacity: 0; transform: translate(50px, 70px) rotate(9deg); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(.4) rotate(-30deg); } to { opacity: 1; transform: none; } }
+@keyframes pop-in { from { opacity: 0; transform: scale(.97) translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slash { from { transform: translateX(-30%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* --- hero: il titolo sale da sotto una maschera, poi sottotitolo --- */
+.hero h1 {
+  overflow: clip;
+  animation: rise 800ms var(--ease-out) both;
+}
+.hero .season { animation: fade-up 700ms var(--ease-out) 180ms both; }
+.hero .tagline { animation: fade-up 700ms var(--ease-out) 300ms both; }
+.hero .updated { animation: fade-up 700ms var(--ease-out) 400ms both; }
+.brand-mark { animation: pop 700ms var(--ease-out) 60ms both; }
+
+/* --- card squadra: entrata a cascata (--i lo imposta app.js? no: nth-child) --- */
+.landing-grid > .team-card:nth-child(1) { animation: fade-up 620ms var(--ease-out) 0ms both; }
+.landing-grid > .team-card:nth-child(2) { animation: fade-up 620ms var(--ease-out) 90ms both; }
+.landing-grid > .team-card:nth-child(3) { animation: fade-up 620ms var(--ease-out) 180ms both; }
+.landing-grid > .team-card:nth-child(4) { animation: fade-up 620ms var(--ease-out) 270ms both; }
+
+/* --- righe del calendario: entrata a cascata.
+   nth-child invece di una variabile: app.js non espone l'indice, e cosi'
+   non serve toccarlo. Oltre la decima il ritardo si ferma, per non far
+   aspettare chi ha molte partite. --- */
+.calendario .fixture-row { animation: fade-up 520ms var(--ease-out) both; }
+.calendario .fixture-row:nth-child(1) { animation-delay: 0ms; }
+.calendario .fixture-row:nth-child(2) { animation-delay: 45ms; }
+.calendario .fixture-row:nth-child(3) { animation-delay: 90ms; }
+.calendario .fixture-row:nth-child(4) { animation-delay: 135ms; }
+.calendario .fixture-row:nth-child(5) { animation-delay: 180ms; }
+.calendario .fixture-row:nth-child(6) { animation-delay: 225ms; }
+.calendario .fixture-row:nth-child(7) { animation-delay: 270ms; }
+.calendario .fixture-row:nth-child(8) { animation-delay: 315ms; }
+.calendario .fixture-row:nth-child(9) { animation-delay: 360ms; }
+.calendario .fixture-row:nth-child(n+10) { animation-delay: 400ms; }
+
+/* --- classifica: righe in sequenza --- */
+.standings .team-row { animation: fade-up 460ms var(--ease-out) both; }
+.standings .team-row:nth-child(1) { animation-delay: 0ms; }
+.standings .team-row:nth-child(2) { animation-delay: 40ms; }
+.standings .team-row:nth-child(3) { animation-delay: 80ms; }
+.standings .team-row:nth-child(4) { animation-delay: 120ms; }
+.standings .team-row:nth-child(5) { animation-delay: 160ms; }
+.standings .team-row:nth-child(6) { animation-delay: 200ms; }
+.standings .team-row:nth-child(n+7) { animation-delay: 240ms; }
+
+/* --- prossima partita: un respiro appena percettibile --- */
+.fixture-row.next-match { animation: fade-up 520ms var(--ease-out) both, respiro 3.6s ease-in-out 800ms infinite; }
+@keyframes respiro {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(152, 1, 204, 0); }
+  50% { box-shadow: 0 0 0 3px rgba(152, 1, 204, .22); }
+}
+
+/* --- pillole e progresso: transizioni morbide --- */
+.pill { transition: border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+.progress-fill { transition: width 700ms var(--ease-out); }
+
+/* --- schede e modale --- */
+.modal-card { animation: pop-in 240ms var(--ease-out); }
+.modal-backdrop { animation: fade-in 200ms ease-out; }
+.lightbox-figure { animation: pop-in 220ms var(--ease-out); }
+
+/* --- icone casa / trasferta: micro-movimento al passaggio --- */
+.ha-tag .ha-icon { transition: transform var(--dur-short) var(--ease-out); }
+.fixture-row:hover .ha-tag.in-casa .ha-icon { animation: casa-settle .55s cubic-bezier(.34, 1.56, .64, 1); }
+.fixture-row:hover .ha-tag.in-trasferta .ha-icon { animation: aereo-vola .7s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes casa-settle {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-3px) scale(1.08); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes aereo-vola {
+  0% { transform: translate(0, 0) rotate(0); }
+  45% { transform: translate(3px, -3px) rotate(-10deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+/* --- bottoni: sottolineatura che entra da sinistra --- */
+.classifica-btn,
+.all-matches-btn { position: relative; overflow: hidden; }
+.classifica-btn::after,
+.all-matches-btn::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--accent-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.classifica-btn:hover::after,
+.all-matches-btn:hover::after { transform: scaleX(1); }
+
+/* --- cambio vista: dissolvenza breve --- */
+#vista-squadra,
+#vista-calendario { animation: fade-in 240ms var(--ease-out); }
+
+/* ---------------------------------------------------------------------------
+   Riduzione movimento: si ferma tutto, il contenuto resta visibile.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
