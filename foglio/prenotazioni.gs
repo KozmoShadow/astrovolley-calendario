@@ -27,6 +27,22 @@ var COL_ADDETTI = "addetti_arbitro";
 var POSTI_REFERTISTA = 1;
 
 /**
+ * Secondi di validita' della copia dei turni tenuta da Apps Script.
+ *
+ * Serve per il controllo automatico degli aggiornamenti dal sito: senza copia
+ * ogni controllo rileggerebbe il foglio (1,5-2 secondi di esecuzione), e con
+ * sedici refertisti che tengono la pagina aperta si esaurisce la quota
+ * giornaliera di Apps Script, fermando le prenotazioni per tutti. Con la copia
+ * un controllo costa pochi decimi di secondo.
+ *
+ * Quindici secondi e' il compromesso: chi prenota vede subito il proprio
+ * risultato (la scrittura svuota la copia), gli altri al massimo quindici
+ * secondi dopo. Non e' una cache "vera": non serve a risparmiare letture, serve
+ * a non bruciare la quota.
+ */
+var SECONDI_COPIA_TURNI = 15;
+
+/**
  * Serve le richieste GET: e' la lettura dello stato dei turni.
  *
  * Il sito potrebbe leggere il CSV pubblicato, ma passando di qui si ha la stessa
@@ -36,7 +52,7 @@ function doGet(e) {
   var azione = (e && e.parameter && e.parameter.azione) || "turni";
   try {
     if (azione === "turni") {
-      return risposta({ ok: true, turni: leggiTurni() });
+      return risposta({ ok: true, turni: turniInCopia() });
     }
     if (azione === "persone") {
       return risposta({ ok: true, persone: leggiPersone() });
@@ -44,6 +60,51 @@ function doGet(e) {
     return risposta({ ok: false, errore: "Azione sconosciuta: " + azione });
   } catch (err) {
     return risposta({ ok: false, errore: String(err && err.message ? err.message : err) });
+  }
+}
+
+/**
+ * Turni, riusando la copia in CacheService se e' fresca.
+ *
+ * CacheService e' condiviso da tutte le esecuzioni della web app, quindi la
+ * copia vale per tutti i telefoni insieme: sedici persone che controllano nello
+ * stesso minuto pagano una sola lettura del foglio.
+ */
+function turniInCopia() {
+  var cache = CacheService.getScriptCache();
+  var salvato = null;
+  try {
+    salvato = cache.get("turni");
+  } catch (err) {
+    salvato = null;
+  }
+  if (salvato) {
+    try {
+      return JSON.parse(salvato);
+    } catch (err) {
+      // copia illeggibile: si rilegge e si riscrive
+    }
+  }
+  var turni = leggiTurni();
+  salvaCopiaTurni(turni);
+  return turni;
+}
+
+/** Scrive la copia. Se il foglio e' troppo grande per la cache, si prosegue. */
+function salvaCopiaTurni(turni) {
+  try {
+    CacheService.getScriptCache().put("turni", JSON.stringify(turni), SECONDI_COPIA_TURNI);
+  } catch (err) {
+    // Oltre i 100KB per chiave la cache non regge: si continua senza.
+  }
+}
+
+/** Da chiamare dopo ogni scrittura: chi ha appena prenotato deve vedere subito. */
+function svuotaCopiaTurni() {
+  try {
+    CacheService.getScriptCache().remove("turni");
+  } catch (err) {
+    // niente cache disponibile: nessun problema
   }
 }
 
@@ -67,6 +128,11 @@ function doPost(e) {
       return risposta({ ok: false, errore: "Azione sconosciuta: " + azione });
     }
     esito.turni = leggiTurni();
+    // Lo stato appena letto e' il piu' fresco che esista: si butta la copia
+    // vecchia e si mette questa, cosi' chi controlla nei secondi successivi
+    // non rilegge il foglio e non vede lo stato precedente.
+    svuotaCopiaTurni();
+    salvaCopiaTurni(esito.turni);
     return risposta(esito);
   } catch (err) {
     return risposta({ ok: false, errore: String(err && err.message ? err.message : err) });

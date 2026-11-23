@@ -132,6 +132,43 @@ mentre un altro ha appena preso il posto. Con un solo refertista per partita e
 poche decine di partite non vale il rischio: la copia di 30 secondi lato sito
 copre il caso reale, cioe' aprire la pagina e toccare un turno.
 
+## Chi prenota lo vede subito? Non proprio, e va detto
+
+Non c'e' modo di avvisare un telefono quando un altro prenota: il sito e'
+statico e la web app non ha un canale persistente. L'unica strada e' chiedere
+periodicamente. Ma ogni richiesta e' un'esecuzione di Apps Script, e la quota
+giornaliera e' limitata: con sedici refertisti e un controllo ogni trenta
+secondi senza copia si arriva a **oltre cinquanta minuti di esecuzione al
+giorno**, abbastanza da bloccare le prenotazioni per tutti.
+
+Quindi il controllo e' stato progettato per costare poco:
+
+- **Copia lato backend, quindici secondi** (`CacheService`). Non serve a
+  risparmiare letture: serve a non bruciare la quota. Sedici telefoni che
+  controllano nello stesso minuto pagano una sola lettura del foglio. Ogni
+  scrittura svuota la copia e ci mette subito lo stato appena letto, cosi' chi
+  ha appena prenotato vede il proprio risultato senza attendere.
+- **Controllo ogni quindici secondi**, solo con la pagina visibile, e si ferma
+  dopo dieci minuti senza tocchi. Con la pagina in secondo piano non parte
+  niente: i telefoni rallentano i timer e non servirebbe a nessuno.
+- **Controllo immediato al ritorno sulla pagina**, che e' il momento in cui il
+  rischio di guardare dati vecchi e' piu' alto.
+
+Come si comporta quando qualcosa cambia:
+
+- **Se cambia il tuo stato** (il tuo turno e' stato preso o liberato da un
+  altro) la pagina si ridisegna subito. Lasciarti un bottone che non funziona
+  sarebbe peggio di un ridisegno.
+- **Se cambia qualcosa d'altro** compare un avviso con un bottone "Aggiorna" e
+  la pagina resta ferma. Ridisegnare di nascosto mentre stai leggendo, o mentre
+  stai per toccare "Ci sono", sposta le card sotto il dito e il tocco finirebbe
+  sul turno sbagliato.
+
+Quindici secondi non e' "in tempo reale": chi prenota per ultimo puo' sempre
+trovare il turno appena preso, e in quel caso la web app risponde "occupato" e
+la pagina si aggiorna. La copia lato backend **non** cambia questa garanzia:
+la prenotazione resta protetta dal lock sul foglio.
+
 ## Regole
 
 - **Un solo refertista per partita.** Si cambia in cima a `foglio/prenotazioni.gs`

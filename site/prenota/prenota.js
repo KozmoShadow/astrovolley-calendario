@@ -149,6 +149,132 @@ function caricaTurni(opzioni = {}) {
   return letturaInCorso;
 }
 
+/** Lettura che non si accontenta della copia locale: quella e' per l'apertura. */
+async function leggiTurniFreschi() {
+  const turni = await leggiTurni();
+  ultimaLettura = { quando: Date.now(), turni };
+  return turni;
+}
+
+/**
+ * Firma dei turni: serve solo a capire "e' cambiato qualcosa".
+ *
+ * Volutamente grezza e ordine-dipendente: due letture identiche devono dare la
+ * stessa stringa, e una prenotazione in piu' deve cambiarla. Non serve a
+ * nient'altro.
+ */
+function firmaTurni(turni) {
+  return (turni || [])
+    .map((t) => `${t.chiave}:${(t.refertisti || []).join("+")}:${(t.addetti || []).join("+")}`)
+    .join("|");
+}
+
+/**
+ * Un controllo: chiede i turni e decide cosa fare.
+ *
+ * Se cambia qualcosa che riguarda me (il mio turno e' stato preso o liberato da
+ * un altro) ridisegna subito, perche' lasciarmi con un bottone che non funziona
+ * sarebbe peggio di un ridisegno. Se invece e' cambiato altro, non tocco
+ * niente: mostro un avviso con un bottone. Ridisegnare di nascosto mentre
+ * qualcuno sta leggendo o sta per toccare "Ci sono" sposta le card sotto il
+ * dito, e il tocco finirebbe sul turno sbagliato.
+ */
+async function controllaAggiornamenti() {
+  const nome = localStorage.getItem(CHIAVE_NOME);
+  if (!nome) return;
+
+  let letti;
+  try {
+    // Sempre dal backend: la copia locale di 30 secondi serve a non ripetere
+    // una lettura quando si apre la pagina, ma qui lo scopo e' proprio sapere
+    // se nel frattempo e' cambiato qualcosa.
+    letti = await leggiTurniFreschi();
+  } catch (err) {
+    // Un controllo fallito non e' un errore da mostrare: la pagina funziona
+    // lo stesso, e il prossimo giro riprova.
+    return;
+  }
+
+  const prima = firmaTurni(turniVisti);
+  const dopo = firmaTurni(letti);
+  if (prima === dopo) return;
+
+  const mieiPrima = turniVisti ? statiMiei(turniVisti, nome) : null;
+  const mieiDopo = statiMiei(letti, nome);
+  turniVisti = letti;
+  ultimaLettura = { quando: Date.now(), turni: letti };
+
+  // In entrambe le direzioni: se un turno mio sparisce dal foglio, il solo
+  // confronto sulle chiavi di "dopo" non se ne accorgerebbe.
+  const chiavi = new Set([...Object.keys(mieiPrima || {}), ...Object.keys(mieiDopo)]);
+  const mioCambiato =
+    !mieiPrima ||
+    [...chiavi].some((k) => (mieiPrima[k] || null) !== (mieiDopo[k] || null));
+
+  if (mioCambiato) {
+    await aggiorna(nome, { turni: letti });
+    messaggioBanner("I turni sono cambiati.", "ok");
+    return;
+  }
+
+  mostraAvvisoAggiorna();
+}
+
+/**
+ * Mappa chiave -> "mio" / "altro": dice solo se quel turno e' prenotato da me.
+ *
+ * Deve restare cosi' povera. Distinguere "libero" da "occupato da un altro"
+ * farebbe scattare il ridisegno quando e' un altro a prenotare, cioe' proprio il
+ * caso in cui vogliamo invece solo avvisare senza muovere le card.
+ */
+function statiMiei(turni, nome) {
+  const mio = impronta(nome);
+  const mappa = {};
+  for (const t of turni) {
+    const preso = (t.refertisti || []).some((x) => impronta(x) === mio);
+    mappa[t.chiave] = preso ? "mio" : "altro";
+  }
+  return mappa;
+}
+
+function mostraAvvisoAggiorna() {
+  const box = $("prn-aggiorna");
+  if (!box) return;
+  $("prn-aggiorna-testo").textContent = "Qualcuno ha prenotato: i turni sono cambiati.";
+  mostra(box);
+}
+
+function nascondiAvvisoAggiorna() {
+  const box = $("prn-aggiorna");
+  if (box) nascondi(box);
+}
+
+/** Fa partire il controllo periodico, una volta sola. */
+function avviaControllo() {
+  if (timerControllo) return;
+  const giro = async () => {
+    // Con la pagina in secondo piano i telefoni rallentano i timer e il
+    // controllo non serve a nessuno: si risparmia quota Apps Script.
+    const attivo = !document.hidden && Date.now() - ultimaAttivita < DURATA_INATTIVITA;
+    if (attivo) await controllaAggiornamenti();
+    timerControllo = setTimeout(giro, INTERVALLO_CONTROLLO);
+  };
+  timerControllo = setTimeout(giro, INTERVALLO_CONTROLLO);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) return;
+    // Tornando sulla pagina si controlla subito: e' il momento in cui il
+    // rischio di guardare dati vecchi e' piu' alto.
+    ultimaAttivita = Date.now();
+    controllaAggiornamenti();
+  });
+  const tocca = () => {
+    ultimaAttivita = Date.now();
+  };
+  document.addEventListener("click", tocca);
+  document.addEventListener("scroll", tocca, { passive: true });
+}
+
 async function leggiTurni() {
   if (URL_BACKEND) {
     try {
@@ -312,6 +438,26 @@ let letturaInCorso = null;
  */
 let ultimaLettura = { quando: 0, turni: null };
 const DURATA_LETTURA = 30 * 1000;
+
+/**
+ * Ogni quanto si controlla se qualcun altro ha prenotato.
+ *
+ * Non c'e' modo di ricevere un avviso: il sito e' statico e la web app non ha
+ * un canale persistente. L'unica strada e' chiedere. Il costo pero' non e' del
+ * browser ma di Apps Script: ogni controllo e' un'esecuzione, e la quota
+ * giornaliera e' limitata. Per questo il controllo gira solo con la pagina
+ * visibile, si ferma dopo un po' di inattivita' ed e' lento di proposito.
+ * Quindici secondi sono un compromesso: chi prenota vede subito il suo
+ * risultato, gli altri entro un quarto di minuto.
+ */
+const INTERVALLO_CONTROLLO = 15 * 1000;
+
+/** Dopo quanto si smette di controllare, se nessuno tocca lo schermo. */
+const DURATA_INATTIVITA = 10 * 60 * 1000;
+
+let timerControllo = null;
+let ultimaAttivita = Date.now();
+let turniVisti = null;
 
 /**
  * Prenotazioni fatte da questo telefono che il CSV non mostra ancora.
@@ -520,9 +666,13 @@ async function aggiorna(nome, opzioni = {}) {
   try {
     if (opzioni.pulisci) messaggioBanner("");
     const letti = opzioni.turni || (await caricaTurni(opzioni));
+    // Cio' che e' stato letto, senza le modifiche locali: e' il termine di
+    // paragone per capire, al controllo dopo, se e' cambiato qualcosa.
+    turniVisti = letti;
     const turni = applicaModifiche(letti);
     turniCorrenti = turni;
     render(turni, nome);
+    nascondiAvvisoAggiorna();
   } catch (err) {
     nascondi($("prn-loading"));
     messaggioBanner(err.message, "errore");
@@ -538,6 +688,7 @@ function impostaNome(nome) {
   if (nota) nota.hidden = !(precedente && precedente !== nome);
   $("prn-io-nome").textContent = nome;
   mostra($("prn-io"));
+  avviaControllo();
   nascondi($("prn-identita"));
   aggiorna(nome);
 }
@@ -683,6 +834,13 @@ function bind() {
       bottone.disabled = false;
       bottone.textContent = originale;
     }
+  });
+
+  $("prn-aggiorna-btn").addEventListener("click", async () => {
+    const nome = localStorage.getItem(CHIAVE_NOME);
+    if (!nome) return;
+    nascondiAvvisoAggiorna();
+    await aggiorna(nome, { saltaCache: true });
   });
 
   $("prn-cambia").addEventListener("click", () => {
