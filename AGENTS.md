@@ -210,6 +210,15 @@ Con un foglio pubblicato il link e' `.../d/e/2PACX-.../pubhtml` e il tab si indi
 formati, piu' il solo id. Il CSV pubblicato esce con `max-age=300`, quindi l'URL porta
 un cache-buster `_=<timestamp>`: senza, si leggerebbe una copia vecchia di 5 minuti.
 
+**Ma il CSV pubblicato non e' una fotografia sola.** Google serve il file da piu'
+istantanee (`doc-XX-.../pub/<id>/<timestamp>/`) e due letture ravvicinate possono
+cadere su istantanee diverse: la pagina di prenotazione che leggeva solo il CSV
+oscillava tra "sei prenotato" e "non sei prenotato" a ogni ricarica, mentre il
+foglio era corretto. Per questo `site/prenota/` legge i turni dal backend
+(`?azione=turni`, che apre il foglio in quel momento) e usa il CSV solo come
+riserva. La pagina dirigenza legge ancora il CSV: li' un dato di 5 minuti non
+cambia nulla, e il CSV evita di far girare Apps Script a ogni visita.
+
 **Il file** (`turni.json`) usa lo stesso schema con `addetti_arbitro` come chiave:
 ogni voce si aggancia con `data` + `casa` + `trasferta` scritti come in `schedule.json`.
 Le voci senza partita vengono ignorate, quindi un rinvio non rompe la pagina.
