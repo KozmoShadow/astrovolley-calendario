@@ -17,4 +17,5 @@
 export const URL_CSV =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBwyVqLXEz0iZwx6GvQ7-e8f5QSReZuMsuB2jaOGZI-ly8N8yLS9SknttfTBZIudlDCcuUmrruC4HL/pub?output=csv&gid=0";
 
-export const URL_BACKEND = "";
+export const URL_BACKEND = 
+  "https://script.google.com/macros/s/AKfycbyXsnKii4xEcbKEtfPnVvp-DVVlCp1eniljx32gnGGe1I4wEQydksJn0xunMvliljWU/exec";
