@@ -32,5 +32,11 @@
   "max_workers": 10,
   "output": "site/data/schedule.json",
   "manual": "data/manual.json",
-  "output_casa_csv": "site/data/partite-casa.csv"
+  "output_casa_csv": "site/data/partite-casa.csv",
+  "altra_societa": {
+    "societa_id": "",
+    "pattern": "",
+    "output": "site/data/partite-altra-societa.json",
+    "_istruzioni": "Partite di un'altra societa' da mostrare SOLO nell'area dirigenza. 'societa_id' e' l'id FIPAV della societa' (SId nell'indirizzo della sua pagina risultati-classifiche). Lasciandolo vuoto la funzione resta spenta. 'pattern' e' il frammento del nome usato per scegliere le gare in casa: se vuoto si ricava dal nome che ricorre in tutte le partite."
+  }
 }

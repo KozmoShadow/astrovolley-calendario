@@ -108,9 +108,10 @@ mostra un avviso. Senza `id` la pagina legge solo il file.
 - **Nessun doppione**: le partite si filtrano una per una, non per squadra. Il derby
   Cercola-Portici e' una partita sola e deve comparire una volta, non una per squadra.
   C'e' anche una deduplica esplicita su `data|casa|trasferta`.
-- **Altra societa'**: `dirigenza.json` ha `altra_societa.pattern` (frammento del nome) e
-  `altra_societa.nome` (etichetta). Serve per le partite di cui curiamo il referto senza
-  essere nostri; quelle partite prendono il chip "Referto <nome>".
+- **Altra societa'**: le sue gare in casa arrivano da `data/partite-altra-societa.json`
+  (vedi «Altra societa'» sotto) e prendono il badge "Referto <nome>". In
+  `dirigenza.json` restano `altra_societa.pattern` e `.nome` per le gare che stessero
+  gia' in `schedule.json`: servono solo a quelle, il file nuovo non ne ha bisogno.
 - **Niente live**: la pagina usa solo lo snapshot. Il live FIPAV riporta le sole partite
   della nostra societa' e scarterebbe quelle dell'altra societa'.
 - **Turni mancanti**: una voce che non trova la partita non rompe la pagina. La card del
@@ -240,6 +241,26 @@ Due trappole gia' pagate:
   push: si scavalca cambiando l'URL (`?v=1`). jsDelivr
   (`cdn.jsdelivr.net/gh/<owner>/<repo>@main/<path>`) e' l'alternativa: serve `text/csv` e
   non ha i limiti di frequenza di GitHub, ma tiene cache 12 ore.
+
+### Altra societa' (solo area dirigenza)
+Serve quando curiamo i referti di una societa' che non e' la nostra, senza mostrarne
+il calendario nel sito pubblico.
+
+- `config.json` → `altra_societa.societa_id` e' l'id FIPAV (`SId` nella sua pagina
+  `risultati-classifiche.aspx`). Se e' vuoto la funzione resta spenta.
+- `fipav_napoli.fetch_society_matches()` legge **solo** la pagina societa', non i
+  gironi completi: quella pagina contiene gia' le sole sue partite (verificato: 40
+  gare, nessuna estranea), quindi basta una richiesta e non serve indovinare il nome
+  della squadra. Il nome si ricava da quello che ricorre in tutte le gare.
+- `import_schedule.scrivi_altra_societa()` tiene solo le gare **in casa** e scrive
+  `site/data/partite-altra-societa.json`, file separato: queste partite non entrano
+  in `schedule.json`, quindi il sito pubblico non le vede.
+- `dirigenza.js` le unisce alle nostre con il flag `_altra` e mostra il badge
+  "Referto <nome>". Arrivano gia' filtrate in casa, quindi non passa da `isAltraSquadra`.
+
+**Trappola:** con `societa_id` vuoto la pagina FIPAV elenca tutto il comitato (59
+competizioni). `fetch_society_matches()` solleva `ValueError` invece di importare
+mezzo campionato: non togliere quel controllo.
 
 ## Trappole gia' pagate (leggere prima di toccare le viste)
 - **Una sola lista di partite.** Fino alla vista Calendario esistevano due

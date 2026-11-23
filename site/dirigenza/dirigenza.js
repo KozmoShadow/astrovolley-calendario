@@ -11,6 +11,7 @@
 const DATA_URL = "../data/schedule.json";
 const CONFIG_URL = "../data/dirigenza.json";
 const TURNI_URL = "../data/turni.json";
+const ALTRA_URL = "../data/partite-altra-societa.json";
 
 const FOGLIO_TIMEOUT = 8000;
 
@@ -21,6 +22,7 @@ const MESI_LUNGHI = [
 
 const state = {
   competitions: [],
+  altra: { societa: "", partite: [] },
   config: { societa: ["astro"], altraSocieta: { nome: "", pattern: "" }, foglio: { id: "", gid: "0", nome: "" } },
   turni: new Map(),
   origineTurni: "file", // foglio | file
@@ -69,8 +71,13 @@ function isAltraSquadra(name) {
 
 // Partita in casa: gioca in casa una squadra nostra, oppure quella di cui
 // curiamo il referto.
-const inCasa = (m) => isOurTeam(m.casa) || isAltraSquadra(m.casa);
-const nostre = (m) => isOurTeam(m.casa) || isOurTeam(m.trasferta) || isAltraSquadra(m.casa) || isAltraSquadra(m.trasferta);
+// Le gare dell'altra societa' arrivano gia' filtrate in casa dall'importer,
+// quindi il flag _altra basta: non serve indovinare il nome della squadra.
+const inCasa = (m) => m._altra || isOurTeam(m.casa) || isAltraSquadra(m.casa);
+const nostre = (m) =>
+  m._altra ||
+  isOurTeam(m.casa) || isOurTeam(m.trasferta) ||
+  isAltraSquadra(m.casa) || isAltraSquadra(m.trasferta);
 
 // Una lista piatta con le partite che ci interessano. Il filtro e' sulla singola
 // partita, non sulla squadra: cosi' una partita tra due nostre squadre (es.
@@ -78,13 +85,22 @@ const nostre = (m) => isOurTeam(m.casa) || isOurTeam(m.trasferta) || isAltraSqua
 function tutteLePartite() {
   const rows = [];
   const viste = new Set();
-  for (const c of state.competitions) {
+  const fonti = state.competitions.concat(
+    state.altra.partite.length
+      ? [{
+          titolo: state.altra.societa || "Altra societa'",
+          fonte: "altra",
+          matches: state.altra.partite,
+        }]
+      : []
+  );
+  for (const c of fonti) {
     for (const m of c.matches || []) {
       if (!m.data) continue;
       const key = matchKey(m);
       if (viste.has(key)) continue; // rete di sicurezza contro i doppioni
       viste.add(key);
-      rows.push({ ...m, _comp: c, _key: key });
+      rows.push({ ...m, _altra: c.fonte === "altra", _comp: c, _key: key });
     }
   }
   return rows.sort((a, b) => a.data.localeCompare(b.data));
@@ -319,13 +335,16 @@ function riallineaTurni(turniFoglio, partite) {
 
 function chipEnte(fonte) {
   const f = norm(fonte);
-  const etichetta = f === "fipav" ? "FIPAV" : f === "asi" ? "ASI" : "Manuale";
-  return `<span class="dir-ente dir-ente-${escapeAttr(f || "manuale")}">${etichetta}</span>`;
+  // Anche l'altra societa' viene da FIPAV: il chip non deve dire "Manuale".
+  const etichetta = f === "fipav" || f === "altra" ? "FIPAV" : f === "asi" ? "ASI" : "Manuale";
+  const classe = f === "altra" ? "fipav" : f || "manuale";
+  return `<span class="dir-ente dir-ente-${escapeAttr(classe)}">${etichetta}</span>`;
 }
 
 function etichettaAltra(m) {
-  if (!isAltraSquadra(m.casa) && !isAltraSquadra(m.trasferta)) return "";
-  const nome = state.config.altraSocieta.nome || "altra società";
+  const daFile = m._altra;
+  if (!daFile && !isAltraSquadra(m.casa) && !isAltraSquadra(m.trasferta)) return "";
+  const nome = state.config.altraSocieta.nome || state.altra.societa || "altra società";
   return `<span class="dir-alien">Referto ${escapeHtml(nome)}</span>`;
 }
 
@@ -590,13 +609,19 @@ async function init() {
   leggiUrl();
 
   try {
-    const [schedule, cfg, turni] = await Promise.all([
+    const [schedule, cfg, turni, altra] = await Promise.all([
       loadJson(DATA_URL, "calendario"),
       loadJson(CONFIG_URL, "configurazione").catch(() => ({})),
       loadJson(TURNI_URL, "turni").catch(() => ({ turni: [] })),
+      // Facoltativo: se il file non c'e' la pagina funziona come prima.
+      loadJson(ALTRA_URL, "altra societa'").catch(() => ({ partite: [] })),
     ]);
 
     state.config = leggiConfig(cfg);
+    state.altra = {
+      societa: (altra.societa || "").trim(),
+      partite: Array.isArray(altra.partite) ? altra.partite : [],
+    };
     state.turni = leggiTurni(turni);
     state.competitions = (schedule.competitions || []).map((c) => ({ ...c, _doc: schedule }));
     renderHeader();

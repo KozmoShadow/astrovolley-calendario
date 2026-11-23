@@ -339,3 +339,55 @@ def fetch_competitions(config: dict) -> list[dict]:
             }
         )
     return out
+
+
+def fetch_society_matches(config: dict) -> list[dict]:
+    """Partite di una societa' qualsiasi, lette dalla sola pagina societa'.
+
+    Non scarica i gironi completi: la pagina societa' contiene gia' solo le sue
+    partite (verificato: 40 gare, nessuna estranea), quindi una richiesta basta e
+    il risultato non dipende dal nome delle squadre. Restituisce le partite con
+    `casa` e `trasferta` in chiaro piu' il nome della societa' in `_societa`,
+    ricavato dai nomi che ricorrono in tutte le gare.
+    """
+    base = config["base_url"]
+    societa_id = str(config.get("societa_id") or "").strip()
+    # Senza id la pagina elenca TUTTO il comitato (59 competizioni): meglio
+    # fallire che importare per sbaglio le partite di mezzo campionato.
+    if not societa_id:
+        raise ValueError("societa_id mancante: la pagina societa' non e' filtrabile")
+
+    html = fetch(
+        build_society_url(
+            base,
+            config["pid"],
+            config["stagione_id"],
+            config.get("comitato_id", ""),
+            societa_id,
+        ),
+        config.get("timeout", 40),
+    )
+    competitions = parse_competitions(html, base)
+
+    matches: list[dict] = []
+    for comp in competitions:
+        for m in comp["matches"]:
+            matches.append({**m, "campionato": comp["titolo"]})
+
+    # La squadra della societa' compare in ogni sua partita: e' l'unica che
+    # ricorre in tutte. Con una sola partita il dato non e' deducibile e si
+    # lascia vuoto invece di indovinare.
+    societa = ""
+    if matches:
+        conteggio: dict[str, int] = {}
+        for m in matches:
+            for nome in {(m.get("casa") or "").strip(), (m.get("trasferta") or "").strip()}:
+                if nome:
+                    conteggio[nome] = conteggio.get(nome, 0) + 1
+        migliori = [n for n, c in conteggio.items() if c == len(matches)]
+        if len(migliori) == 1:
+            societa = migliori[0]
+
+    for m in matches:
+        m["_societa"] = societa
+    return matches

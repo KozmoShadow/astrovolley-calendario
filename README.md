@@ -141,6 +141,21 @@ l'URL (`...csv?v=1`) la scavalca. In alternativa jsDelivr serve lo stesso file c
 =IMPORTDATA("https://cdn.jsdelivr.net/gh/KozmoShadow/astrovolley-calendario@main/site/data/partite-casa.csv")
 ```
 
+### Partite di un'altra societa'
+
+Se curiamo i referti anche di un'altra societa', le sue partite in casa compaiono in
+questa pagina e **solo** qui: il calendario pubblico resta il nostro.
+
+Si configura una volta, in `config.json` → `altra_societa.societa_id`, con l'id FIPAV
+della societa' (`SId` nell'indirizzo della sua pagina `risultati-classifiche.aspx`).
+Da li' l'importer scrive `site/data/partite-altra-societa.json` a ogni aggiornamento.
+
+Il nome della societa' non va scritto: si ricava da solo, perche' e' l'unica squadra
+che compare in tutte le sue partite. Le gare sono solo quelle **in casa**, le
+trasferte restano fuori come per le nostre.
+
+Finche' `societa_id` e' vuoto la funzione e' spenta e la pagina funziona come prima.
+
 ## Deploy (gratuito)
 
 1. Crea un repository su GitHub e carica questi file.

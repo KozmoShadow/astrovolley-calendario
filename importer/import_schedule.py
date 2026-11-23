@@ -518,6 +518,39 @@ def scrivi_csv_casa(competitions: list, pattern: str, out_path: Path) -> int:
     return len(righe)
 
 
+def scrivi_altra_societa(matches: list, pattern: str, out_path: Path, societa: str = "") -> int:
+    """Partite in casa dell'altra societa', per la sola area dirigenza.
+
+    Riceve una lista piatta di partite (non competizioni). File separato di
+    proposito: queste gare non devono comparire nel calendario pubblico, quindi
+    non entrano in schedule.json. La pagina dirigenza le legge da qui.
+    """
+    righe = []
+    visti = set()
+    for m in matches:
+        data = (m.get("data") or "").strip()
+        casa = (m.get("casa") or "").strip()
+        trasferta = (m.get("trasferta") or "").strip()
+        if not data or not casa:
+            continue
+        if pattern not in casa.lower():
+            continue
+        chiave = (data, casa.lower(), trasferta.lower())
+        if chiave in visti:
+            continue
+        visti.add(chiave)
+        righe.append({"data": data, "casa": casa, "trasferta": trasferta,
+                      "campionato": m.get("campionato", ""),
+                      "palestra": m.get("palestra", "")})
+    righe.sort(key=lambda r: r["data"])
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        json.dumps({"societa": societa, "partite": righe}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return len(righe)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Importa il calendario Astrovolley")
     parser.add_argument("--config", default=str(ROOT / "config.json"))
@@ -597,6 +630,32 @@ def main() -> int:
     csv_path = ROOT / config.get("output_casa_csv", "site/data/partite-casa.csv")
     n_casa = scrivi_csv_casa(competitions, pattern, csv_path)
     print(f"CSV partite in casa: {n_casa} righe -> {csv_path}", file=sys.stderr)
+
+    # L'altra societa' si legge a parte, dalla sua pagina FIPAV: le sue partite
+    # non devono finire in schedule.json (il sito pubblico mostra solo le nostre).
+    altra_cfg = config.get("altra_societa") or {}
+    altra_id = str(altra_cfg.get("societa_id") or "").strip()
+    if altra_id:
+        try:
+            gare = fipav_napoli.fetch_society_matches(
+                {
+                    **config["fipav_napoli"],
+                    "societa_id": altra_id,
+                    "timeout": altra_cfg.get("timeout", 40),
+                }
+            )
+            nome = next((m["_societa"] for m in gare if m.get("_societa")), "")
+            pattern_altra = (altra_cfg.get("pattern") or nome or "").lower()
+            altra_path = ROOT / altra_cfg.get(
+                "output", "site/data/partite-altra-societa.json"
+            )
+            n_altra = scrivi_altra_societa(gare, pattern_altra, altra_path, nome)
+            print(
+                f"Altra societa' ({nome or altra_id}): {n_altra} partite in casa -> {altra_path}",
+                file=sys.stderr,
+            )
+        except Exception as exc:  # noqa: BLE001 - non blocca il resto del sito
+            print(f"Altra societa' non disponibile ({exc}).", file=sys.stderr)
 
     out_path = ROOT / config["output"]
     out_path.parent.mkdir(parents=True, exist_ok=True)
