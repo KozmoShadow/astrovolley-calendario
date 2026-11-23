@@ -18,6 +18,7 @@
 import { URL_BACKEND, URL_CSV } from "./config.js";
 import { NOMI_REFERTISTI } from "./nomi.js";
 import { PALESTRE } from "./palestre.js";
+import { titolaNome } from "../formato-nomi.js";
 
 const CHIAVE_NOME = "astrovolley.nome";
 
@@ -539,11 +540,11 @@ function schedaHtml(turno, nome) {
         <span class="w">${escapeHtml(d.sett.slice(0, 3))}</span>
       </div>
       <div class="prn-info">
-        <h3>${escapeHtml(turno.casa)} – ${escapeHtml(turno.trasferta)}</h3>
+        <h3>${escapeHtml(titolaNome(turno.casa))} – ${escapeHtml(titolaNome(turno.trasferta))}</h3>
         <div class="prn-meta">
           <span>${escapeHtml(d.sett)} ${escapeHtml(d.g)} ${escapeHtml(d.mese)} · ${escapeHtml(d.ora)}</span>
           ${palestra ? `<span class="dot">·</span>
-          <span class="prn-palestra">${escapeHtml(palestra)}</span>` : ""}
+          <span class="prn-palestra">${escapeHtml(titolaNome(palestra))}</span>` : ""}
         </div>
       </div>
       <div class="prn-side">

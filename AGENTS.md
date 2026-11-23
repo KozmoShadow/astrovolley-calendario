@@ -73,6 +73,12 @@ trasparenza a una frazione del peso di un PNG.
 
 - `site/assets/logo.webp` — stemma della societa' nell'header. 192px: il CSS lo mostra a
   54px, quindi copre fino a DPR 3.5. Non e' un logo di squadra e non lo tocca l'importer.
+- `site/assets/logo-tondo.png` — lo stesso stemma gia' ritagliato in cerchio (angoli
+  trasparenti). E' la sorgente delle icone: `favicon.png` (32), `apple-touch-icon.png`
+  (180), `icona-192.png` e `icona-512.png` (manifest). Si rigenerano ridimensionando
+  questo file, non ridisegnandole: prima erano un'altra immagine, opaca e diversa dallo
+  stemma. L'apple-touch-icon va **senza** trasparenza, su fondo `#180c22`: iOS altrimenti
+  ci mette il nero.
 - `site/assets/loghi/fipav/<id>.webp` — nome = id societa' FIPAV.
 - `site/assets/loghi/asi/squadra-<id>.webp` — nome = id squadra dell'API ASI.
 - Gli id sono stabili, i nomi delle squadre no: non usare i nomi come nome file.
@@ -149,6 +155,14 @@ mostra un avviso. Senza `id` la pagina legge solo il file.
 - `generato_il` è UTC **con** il fuso (`+00:00`): va passato intero a `new Date()`.
   Troncarlo (`.slice(0,19)`) lo fa leggere come ora locale e in Italia il dato sembra
   vecchio di un'ora appena scritto.
+- **Nomi propri scritti a mano**: `site/formato-nomi.js` raccoglie `normName`,
+  `titolaNome` e `slugify`, condivisi da `app.js` e `prenota.js`. `titolaNome` si applica
+  **solo al rendering**: i dati grezzi restano quelli federali/del foglio, perche' le
+  chiavi delle prenotazioni (`data|casa|trasferta`, vedi `site/prenota/palestre.js`) sono
+  costruite sui nomi originali. Formattare il dato invece della sua resa romperebbe
+  l'abbinamento con i turni gia' prenotati. Il modulo sta fuori da `app.js` perche' due
+  copie divergerebbero; non va confuso con `site/prenota/nomi.js`, che e' l'elenco dei
+  refertisti.
 - `app.js` è un **modulo ES** (`<script type="module">`), quindi `file://` non funziona:
   serve un server HTTP.
 
@@ -335,6 +349,15 @@ mezzo campionato: non togliere quel controllo.
 - Le velature di esito sono due regole distinte (`.round-match`, `.fixture-row`)
   con gli stessi valori: se ne cambi una, cambia l'altra. Verifica con
   `getComputedStyle().backgroundImage` che siano identiche, non a occhio.
+- **Animazioni a cascata: usa `--i`, non `nth-child`.** Le card avevano quattro
+  regole `nth-child(1..4)`: con sei squadre le ultime due entravano senza
+  animazione. Ora `app.js` scrive `style="--i:<indice>"` sulla card e il CSS fa
+  `animation-delay: calc(min(var(--i), 8) * 90ms)`. Cosi' vale per qualunque
+  numero di card e regge se l'elenco cambia.
+- **`prefers-reduced-motion` deve azzerare anche `animation-delay`.** Con
+  `animation-fill-mode: both` e un ritardo non azzerato, l'elemento resta
+  invisibile per tutta la durata del ritardo: chi chiede meno movimento vede la
+  pagina vuota per ~400ms. Il blocco in `tema.css` azzera durata **e** ritardo.
 
 ## Filtri del calendario (site/app.js)
 - La barra in alto mostra **due chip**: l'etichetta della vista attiva
