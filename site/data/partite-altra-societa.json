@@ -1,4 +1,131 @@
 {
-  "societa": "",
-  "partite": []
+  "societa": "FLAT SPORT",
+  "partite": [
+    {
+      "data": "2026-11-11 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "VITTORIO ALFIERI VOLLEY",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-11-13 20:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "SANTA MARIA ROSA NOVA",
+      "campionato": "UNDER 19 MASCHILE ECCELENZA 2 GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-11-20 20:15",
+      "casa": "FLAT SPORT",
+      "trasferta": "SANTA MARIA ROSA NOVA",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-11-27 20:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "TYA PALLAVOLO MARIGLIANO",
+      "campionato": "UNDER 19 MASCHILE ECCELENZA 2 GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-02 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "GIMEL S. AGATA",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-04 19:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "UISP VOLLEY ERCOLANO",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-04 21:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "L'IMPRONTA ANDROMEDA",
+      "campionato": "UNDER 19 MASCHILE ECCELENZA 2 GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-16 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "I SANTI ORTOPEDIE NOLA",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-18 20:15",
+      "casa": "FLAT SPORT",
+      "trasferta": "LA FENICE POGGIOMARINO",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2026-12-30 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "VICO EQUENSE",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-01-08 19:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "VOLLEY PIMONTE",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-01-08 21:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "SSD VOLLEY POGGIOMARINO",
+      "campionato": "UNDER 19 MASCHILE ECCELENZA 2 GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-01-20 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "SPORTING PORTICI",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-01-29 19:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "CUCCFIAMMA",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-01-29 21:00",
+      "casa": "FLAT SPORT",
+      "trasferta": "UISP VOLLEY ERCOLANO",
+      "campionato": "UNDER 19 MASCHILE ECCELENZA 2 GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-02-03 19:30",
+      "casa": "FLAT SPORT",
+      "trasferta": "ABATESE VOLLEY",
+      "campionato": "UNDER 14 FEMMINILE - ECCELLENZA 2 - GIRONE B",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-02-19 20:15",
+      "casa": "FLAT SPORT",
+      "trasferta": "VESUVIO OPLONTI VOLLEY-A",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    },
+    {
+      "data": "2027-03-12 20:15",
+      "casa": "FLAT SPORT",
+      "trasferta": "SALES VOLLEY GRAGNANO",
+      "campionato": "UNDER 17 FEMMINILE - FASCIA VERDE - GIRONE A",
+      "palestra": "PALASPORT PALAVELIERO"
+    }
+  ]
 }
