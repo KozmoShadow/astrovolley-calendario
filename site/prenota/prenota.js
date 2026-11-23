@@ -159,14 +159,26 @@ async function chiama(azione, corpo) {
   return dati;
 }
 
-function dataLeggibile(testo) {
+const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+  "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+const GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+
+/**
+ * Spezza "YYYY-MM-DD HH:MM" nei pezzi che servono alla scheda: numero del
+ * giorno, mese, giorno della settimana, ora. Mezzogiorno forzato: con la
+ * mezzanotte un fuso a ovest mostrerebbe il giorno prima.
+ */
+function dataParti(testo) {
   const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(testo || "");
-  if (!m) return testo || "";
+  if (!m) return { g: "", mese: "", sett: "", ora: "", iso: testo || "" };
   const d = new Date(+m[1], +m[2] - 1, +m[3], 12, 0, 0);
-  const giorni = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
-  const mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
-    "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-  return `${giorni[d.getDay()]} ${d.getDate()} ${mesi[d.getMonth()]} · ${m[4]}:${m[5]}`;
+  return {
+    g: String(d.getDate()),
+    mese: MESI[d.getMonth()],
+    sett: GIORNI[d.getDay()],
+    ora: `${m[4]}:${m[5]}`,
+    iso: `${m[1]}-${m[2]}-${m[3]}`,
+  };
 }
 
 function meseDi(testo) {
@@ -175,10 +187,51 @@ function meseDi(testo) {
 }
 
 function nomeMese(chiave) {
-  const mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
   const m = /^(\d{4})-(\d{2})$/.exec(chiave || "");
-  return m ? `${mesi[+m[2] - 1]} ${m[1]}` : chiave;
+  return m ? `${MESI[+m[2] - 1]} ${m[1]}` : chiave;
+}
+
+/**
+ * Tinta stabile per persona: stessa persona, stesso colore, sempre. Senza
+ * questa, ogni ridisegno cambierebbe i colori e la pagina sembrerebbe impazzita.
+ */
+function tinta(nome) {
+  let h = 0;
+  const s = impronta(nome);
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+  return `hsl(${h} 52% 38%)`;
+}
+
+/**
+ * Squadre per cui il turno e' in casa. Il foglio elenca solo le partite nostre,
+ * ma la colonna "casa" puo' contenere l'avversaria: il tag va dedotto, non
+ * scritto fisso, altrimenti dice "in casa" anche quando non lo e'.
+ */
+const SQUADRE_CASA = ["astrovolley", "flat sport"];
+
+function eInCasa(casa) {
+  const c = impronta(casa);
+  return SQUADRE_CASA.some((n) => c.includes(n));
+}
+
+/**
+ * Per le partite della Flat l'addetto all'arbitro non serve: la Flat lo mette
+ * per conto suo. Meglio non mostrare una riga che resterebbe sempre vuota e
+ * farebbe pensare a un turno scoperto.
+ */
+function serveAddetto(turno) {
+  return !impronta(turno.casa).includes("flat");
+}
+
+function iniziali(nome) {
+  const parti = String(nome || "").trim().split(/\s+/).filter(Boolean);
+  if (!parti.length) return "?";
+  if (parti.length === 1) return parti[0].slice(0, 2).toUpperCase();
+  return (parti[0][0] + parti[parti.length - 1][0]).toUpperCase();
+}
+
+function avatar(nome, classe = "") {
+  return `<span class="prn-av ${classe}" style="background:${tinta(nome)}" title="${escapeHtml(nome)}">${escapeHtml(iniziali(nome))}</span>`;
 }
 
 function messaggioBanner(testo, tipo = "errore") {
@@ -195,52 +248,69 @@ function eMio(turno, nome) {
   return (turno.refertisti || []).some((x) => impronta(x) === n);
 }
 
-function nomiHtml(nomi, vuoto) {
-  if (!nomi || !nomi.length) return `<span class="prn-vuoto">${escapeHtml(vuoto)}</span>`;
-  return nomi.map((n) => `<span class="prn-persona">${escapeHtml(n)}</span>`).join("");
-}
-
-function turnoHtml(turno, nome) {
+function schedaHtml(turno, nome) {
   const mio = eMio(turno, nome);
-  const occupato = turno.refertisti && turno.refertisti.length > 0;
+  const occupato = (turno.refertisti || []).length > 0;
+  const d = dataParti(turno.data);
+
   const classi = ["prn-turno"];
   if (mio) classi.push("prn-turno-mio");
   else if (occupato) classi.push("prn-turno-pieno");
 
-  // Un solo bottone: o "Prenota" se il posto e' libero, o "Lascia" se e' mio.
-  let azione = "";
+  // Un solo posto: o l'avatar di chi c'e', o il cerchio tratteggiato vuoto.
+  const stack = occupato
+    ? avatar(turno.refertisti[0], "sm")
+    : `<span class="prn-slot"></span>`;
+
+  let bottone;
   if (mio) {
-    azione = `<button class="prn-btn prn-btn-ghost" data-azione="libera" data-chiave="${escapeHtml(turno.chiave)}" type="button">Lascia il turno</button>`;
-  } else if (!occupato) {
-    azione = `<button class="prn-btn prn-btn-primary" data-azione="prenota" data-chiave="${escapeHtml(turno.chiave)}" type="button">Prenota</button>`;
+    bottone = `<button class="prn-btn prn-btn-on" data-azione="libera" data-chiave="${escapeHtml(turno.chiave)}" type="button">Ci sono ✓</button>`;
+  } else if (occupato) {
+    bottone = `<button class="prn-btn" type="button" disabled title="Turno gia' preso da ${escapeHtml(turno.refertisti.join(", "))}">Occupato</button>`;
+  } else {
+    bottone = `<button class="prn-btn" data-azione="prenota" data-chiave="${escapeHtml(turno.chiave)}" type="button">Ci sono</button>`;
   }
 
   // L'addetto all'arbitro si vede ma non si prenota: lo assegna la dirigenza,
   // e puo' essere una persona esterna al gruppo dei refertisti.
-  const addetto = (turno.addetti && turno.addetti.length)
-    ? nomiHtml(turno.addetti, "")
-    : `<span class="prn-vuoto">a cura della dirigenza</span>`;
+  //
+  // Qui il nome va scritto per esteso, non come avatar: le iniziali su un
+  // telefono non bastano a capire chi e', e non c'e' un passaggio del mouse per
+  // leggere il nome completo.
+  const rigaAddetto = serveAddetto(turno)
+    ? `<div class="prn-addetto">
+        <span class="prn-addetto-tit">Addetto arbitro</span>
+        ${(turno.addetti || []).length
+          ? (turno.addetti || []).map((n) => `<span class="prn-persona">${escapeHtml(n)}</span>`).join("")
+          : `<span class="prn-vuoto">lo assegna la dirigenza</span>`}
+      </div>`
+    : "";
+
+  const casa = eInCasa(turno.casa);
+  const tag = `<span class="prn-tag${casa ? "" : " prn-tag-away"}">${casa ? "in casa" : "trasferta"}</span>`;
 
   return `
     <article class="${classi.join(" ")}">
-      <div class="prn-turno-top">
-        <span class="prn-turno-data">${escapeHtml(dataLeggibile(turno.data))}</span>
-        ${mio ? `<span class="prn-badge">tuo</span>` : ""}
+      <div class="prn-data">
+        <span class="d">${escapeHtml(d.g)}</span>
+        <span class="m">${escapeHtml(d.mese.slice(0, 3))}</span>
+        <span class="w">${escapeHtml(d.sett.slice(0, 3))}</span>
       </div>
-      <p class="prn-turno-partita">
-        <strong>${escapeHtml(turno.casa)}</strong> – ${escapeHtml(turno.trasferta)}
-      </p>
-      <div class="prn-ruoli">
-        <div class="prn-ruolo">
-          <span class="prn-ruolo-tit">Refertista</span>
-          <span class="prn-ruolo-nomi">${nomiHtml(turno.refertisti, "libero")}</span>
-        </div>
-        <div class="prn-ruolo prn-ruolo-manuale">
-          <span class="prn-ruolo-tit">Addetto arbitro</span>
-          <span class="prn-ruolo-nomi">${addetto}</span>
+      <div class="prn-info">
+        <h3>${escapeHtml(turno.casa)} – ${escapeHtml(turno.trasferta)}
+          ${tag}
+        </h3>
+        <div class="prn-meta">
+          <span>${escapeHtml(d.sett)} ${escapeHtml(d.g)} ${escapeHtml(d.mese)} · ${escapeHtml(d.ora)}</span>
+          <span class="dot">·</span>
+          <span>Refertista</span>
         </div>
       </div>
-      ${azione ? `<div class="prn-azioni">${azione}</div>` : ""}
+      <div class="prn-side">
+        <div class="prn-stack">${stack}</div>
+        ${bottone}
+      </div>
+      ${rigaAddetto}
     </article>`;
 }
 
@@ -272,9 +342,9 @@ function render(turni, nome) {
     html += `
       <section class="prn-mese">
         <h3 class="prn-mese-tit">${escapeHtml(nomeMese(k))}
-          <span class="prn-mese-conta">${lista.length} partite${liberi ? ` · ${liberi} con posti` : ""}</span>
+          <span class="prn-mese-conta">${lista.length === 1 ? "1 partita" : `${lista.length} partite`}${liberi ? ` · ${liberi} con posti` : ""}</span>
         </h3>
-        ${lista.map((t) => turnoHtml(t, nome)).join("")}
+        ${lista.map((t) => schedaHtml(t, nome)).join("")}
       </section>`;
   }
   $("prn-lista").innerHTML = html;
@@ -322,7 +392,7 @@ function chiediNome(persone) {
   nascondi($("prn-turni"));
   mostra($("prn-identita"));
   $("prn-nomi").innerHTML = (persone || [])
-    .map((n) => `<button class="prn-nome" data-nome="${escapeHtml(n)}" type="button">${escapeHtml(n)}</button>`)
+    .map((n) => `<button class="prn-nome" data-nome="${escapeHtml(n)}" type="button">${avatar(n)}${escapeHtml(n)}</button>`)
     .join("");
 }
 

@@ -1,29 +1,79 @@
-/* Prenotazione turni. Usa le variabili di styles.css; qui solo struttura e
-   misure della pagina. Mobile prima di tutto: si usa dal telefono. */
+/* Prenotazione turni.
+   Grafica ripresa da site/demo/proposta/flusso.html: data grande in Bebas,
+   schede partita con avatar, pillole per i nomi. Mobile prima di tutto: si usa
+   dal telefono, quasi sempre in piedi in palestra. */
 
-.prn-page {
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
+@font-face {
+  font-family: "Bebas";
+  src: url("fonts/bebas-neue-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
 }
 
+.prn-page {
+  --bg: #180c22;
+  --surface: #1f1129;
+  --surface-2: #271633;
+  --line: #3a3a44;
+  --text: #fbf9fc;
+  --muted: #d6c2e4;
+  --accent: #9801cc;
+  --accent-soft: #d9b3ee;
+  --win: #4ec97a;
+  --loss: #ff6b7d;
+  --warn: #ffb44e;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 520px at 84% -10%, rgba(152, 1, 204, 0.26) 0%, transparent 60%),
+    radial-gradient(900px 460px at 4% 100%, rgba(176, 102, 218, 0.13) 0%, transparent 58%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.prn-page *,
+.prn-page *::before,
+.prn-page *::after {
+  box-sizing: border-box;
+}
+
+.prn-page :focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.prn-main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px 90px;
+}
+
+/* ---------- testata ---------- */
+
 .prn-hero {
-  padding: 22px 18px 26px;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(160, 96, 192, 0.16), transparent);
-  border-bottom: 1px solid var(--line);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 30px 20px 26px;
 }
 
 .prn-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   color: var(--text);
   text-decoration: none;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.9;
 }
 .prn-brand img {
   border-radius: 50%;
@@ -31,76 +81,99 @@
 }
 
 .prn-hero h1 {
-  margin: 14px 0 4px;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: 1.5rem;
-  line-height: 1.2;
+  margin: 16px 0 6px;
+  font-family: "Bebas", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.1rem, 8vw, 3.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .prn-tagline {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  max-width: 52ch;
 }
 
-.prn-main {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 18px 14px 40px;
+/* ---------- chi sei ---------- */
+
+.prn-card {
+  background: linear-gradient(160deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 20px;
 }
 
 .prn-h2 {
   margin: 0 0 6px;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: 1.15rem;
+  font-family: "Bebas", sans-serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .prn-sub,
 .prn-hint {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   color: var(--muted);
   font-size: 0.88rem;
   line-height: 1.5;
 }
 .prn-hint-small {
   font-size: 0.8rem;
-  margin-top: 14px;
-}
-
-/* --- scelta del nome --- */
-
-.prn-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: var(--shadow);
+  margin: 20px 0 8px;
 }
 
 .prn-nomi {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
   gap: 8px;
-  margin-bottom: 4px;
 }
 
+/* Stessa forma delle chip della proposta: pillola con avatar tondo. */
 .prn-nome {
-  padding: 13px 12px;
-  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 6px 15px 6px 6px;
+  border-radius: 100px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(39, 22, 51, 0.85);
   color: var(--text);
   font: inherit;
-  font-size: 0.95rem;
-  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
   text-align: left;
-  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s, transform 0.16s var(--ease-out);
 }
 .prn-nome:hover,
 .prn-nome:focus-visible {
-  border-color: var(--accent);
-  background: rgba(160, 96, 192, 0.14);
-  outline: none;
+  border-color: rgba(217, 179, 238, 0.55);
+  transform: translateY(-1px);
+}
+
+.prn-av {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.02em;
+  flex: none;
+}
+.prn-av.sm {
+  width: 24px;
+  height: 24px;
+  font-size: 9px;
 }
 
 .prn-form {
@@ -112,290 +185,373 @@
 .prn-input {
   flex: 1 1 180px;
   min-width: 0;
-  padding: 12px 13px;
-  border-radius: 10px;
+  padding: 12px 15px;
+  border-radius: 100px;
   border: 1px solid var(--line);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.22);
   color: var(--text);
   font: inherit;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 .prn-input::placeholder {
   color: var(--muted);
 }
 .prn-input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--accent-soft);
 }
 
-/* --- barra "stai prenotando come" --- */
+/* ---------- barra identita ---------- */
 
 .prn-io {
-  padding: 11px 14px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  background: rgba(160, 96, 192, 0.12);
-  border: 1px solid rgba(160, 96, 192, 0.35);
-  font-size: 0.86rem;
-}
-
-.prn-io-riga {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
-}
-
-.prn-io-nota {
-  margin: 9px 0 0;
-  padding-top: 9px;
-  border-top: 1px solid rgba(160, 96, 192, 0.3);
-  color: var(--muted);
-  font-size: 0.8rem;
-  line-height: 1.5;
+  margin-bottom: 22px;
 }
 .prn-io-label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--muted);
+  font-weight: 700;
 }
 .prn-io-nome {
   font-size: 0.95rem;
 }
 
-.prn-cambia {
-  margin-left: auto;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(160, 96, 192, 0.5);
-  background: transparent;
+/* Il link torna com'era nella proposta: discreto, non un bottone. */
+.prn-link {
+  background: none;
+  border: none;
   color: var(--accent-soft);
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
+  text-decoration: underline;
   cursor: pointer;
-}
-.prn-cambia:hover {
-  background: rgba(160, 96, 192, 0.2);
-  color: var(--text);
+  padding: 0;
 }
 
-/* --- avvisi --- */
-
-.prn-banner {
+.prn-io-nota {
+  flex-basis: 100%;
+  margin: 4px 0 0;
   padding: 11px 14px;
   border-radius: 10px;
+  background: rgba(255, 180, 78, 0.1);
+  border: 1px solid rgba(255, 180, 78, 0.32);
+  color: #ffe0b0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* ---------- avvisi ---------- */
+
+.prn-banner {
+  padding: 12px 16px;
+  border-radius: 12px;
   font-size: 0.88rem;
   line-height: 1.45;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
 .prn-banner-errore {
-  background: rgba(224, 87, 106, 0.14);
-  border: 1px solid rgba(224, 87, 106, 0.45);
+  background: rgba(255, 107, 125, 0.13);
+  border: 1px solid rgba(255, 107, 125, 0.42);
   color: #ffd6db;
 }
 .prn-banner-ok {
-  background: rgba(35, 178, 109, 0.14);
-  border: 1px solid rgba(35, 178, 109, 0.45);
+  background: rgba(78, 201, 122, 0.14);
+  border: 1px solid rgba(78, 201, 122, 0.45);
   color: #c8f5dd;
 }
 
-/* --- mesi e turni --- */
+/* ---------- mesi ---------- */
 
 .prn-mese {
-  margin-bottom: 26px;
+  margin-bottom: 30px;
 }
 
 .prn-mese-tit {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin: 0 0 10px;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: 1rem;
-  color: var(--accent-soft);
+  margin: 0 0 12px;
+  font-family: "Bebas", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text);
 }
 
 .prn-mese-conta {
   font-family: Inter, system-ui, sans-serif;
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+}
+
+/* ---------- scheda partita ---------- */
+
+.prn-lista {
+  display: grid;
+  gap: 10px;
 }
 
 .prn-turno {
-  background: var(--surface);
+  display: grid;
+  grid-template-columns: 62px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  background: linear-gradient(160deg, var(--surface-2), var(--surface));
   border: 1px solid var(--line);
-  border-left: 3px solid var(--line);
   border-radius: 12px;
-  padding: 13px 14px;
-  margin-bottom: 10px;
+  padding: 14px 16px;
+  transition: border-color 0.18s, box-shadow 0.18s;
 }
 
 .prn-turno-mio {
-  border-left-color: var(--win);
-  background: rgba(35, 178, 109, 0.07);
+  border-color: rgba(78, 201, 122, 0.5);
+  box-shadow: inset 3px 0 0 var(--win);
 }
 
-.prn-turno-pieno {
-  opacity: 0.72;
+.prn-turno-pieno:not(.prn-turno-mio) {
+  opacity: 0.62;
 }
 
-.prn-turno-top {
+/* La data: numero grande, mese in maiuscoletto viola. */
+.prn-data {
+  text-align: center;
+  border-right: 1px solid rgba(58, 58, 68, 0.7);
+  padding-right: 12px;
+}
+.prn-data .d {
+  font-family: "Bebas", sans-serif;
+  font-size: 27px;
+  line-height: 1;
+  display: block;
+}
+.prn-data .m {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  font-weight: 700;
+  display: block;
+  margin-top: 2px;
+}
+.prn-data .w {
+  font-size: 10.5px;
+  color: var(--muted);
+  display: block;
+}
+
+.prn-info h3 {
+  margin: 0 0 3px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 4px;
 }
 
-.prn-turno-data {
-  font-size: 0.8rem;
+.prn-meta {
+  font-size: 12.8px;
   color: var(--muted);
-  text-transform: capitalize;
-}
-
-.prn-badge {
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(35, 178, 109, 0.2);
-  color: #9ff0c4;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.prn-turno-partita {
-  margin: 0 0 10px;
-  font-size: 0.98rem;
-  line-height: 1.35;
-}
-
-.prn-ruoli {
-  display: grid;
-  gap: 6px;
-  margin-bottom: 11px;
-}
-
-.prn-ruolo {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  flex-wrap: wrap;
-  font-size: 0.84rem;
-}
-
-.prn-ruolo-tit {
-  color: var(--muted);
-  min-width: 108px;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.prn-ruolo-nomi {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.prn-persona {
-  padding: 2px 9px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--line);
-  font-size: 0.82rem;
-}
-
-.prn-ruolo-manuale .prn-ruolo-nomi {
-  opacity: 0.85;
-}
-
-.prn-vuoto {
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-style: italic;
-}
-
-.prn-azioni {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+}
+.prn-meta .dot {
+  color: #6b5a79;
 }
 
-/* --- bottoni --- */
+.prn-tag-away {
+  background: rgba(255, 180, 78, 0.14);
+  color: var(--warn);
+}
+
+.prn-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 100px;
+  white-space: nowrap;
+  background: rgba(78, 201, 122, 0.16);
+  color: var(--win);
+}
+
+/* ---------- lato destro: chi c'e', e il bottone ---------- */
+
+.prn-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prn-stack {
+  display: flex;
+  align-items: center;
+}
+.prn-stack .prn-av {
+  margin-left: -7px;
+  border: 2px solid var(--surface-2);
+}
+.prn-stack .prn-av:first-child {
+  margin-left: 0;
+}
+
+/* Posto vuoto: cerchio tratteggiato, come nella proposta. */
+.prn-slot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px dashed rgba(214, 194, 228, 0.45);
+  flex: none;
+}
 
 .prn-btn {
-  padding: 11px 15px;
-  border-radius: 10px;
-  border: 1px solid transparent;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+  padding: 8px 15px;
+  border-radius: 100px;
   font: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  min-height: 40px;
   cursor: pointer;
-  transition: opacity 0.15s, background 0.15s;
+  transition: background 0.16s, border-color 0.16s, transform 0.16s var(--ease-out);
+}
+.prn-btn:hover:not(:disabled) {
+  border-color: var(--accent-soft);
+  transform: translateY(-1px);
 }
 .prn-btn:disabled {
-  opacity: 0.55;
-  cursor: default;
+  cursor: not-allowed;
+  color: #9b8aa9;
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(58, 58, 68, 0.8);
 }
 
-.prn-btn-primary {
-  background: var(--accent);
-  color: var(--on-accent);
-}
-.prn-btn-primary:hover:not(:disabled) {
-  background: var(--accent-soft);
+.prn-btn-on {
+  background: rgba(78, 201, 122, 0.16);
+  border-color: rgba(78, 201, 122, 0.55);
+  color: var(--win);
 }
 
-.prn-btn-outline {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--line);
-}
-.prn-btn-outline:hover:not(:disabled) {
-  border-color: var(--accent);
-}
+/* ---------- addetto: riga a parte, non prenotabile ---------- */
 
-.prn-btn-ghost {
-  background: transparent;
+.prn-addetto {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  margin-top: 2px;
+  border-top: 1px solid rgba(58, 58, 68, 0.55);
+  font-size: 12.5px;
   color: var(--muted);
-  border-color: var(--line);
 }
-.prn-btn-ghost:hover:not(:disabled) {
-  color: var(--text);
-  border-color: var(--loss);
+.prn-addetto-tit {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #9b8aa9;
 }
 
-/* --- stati --- */
+/* ---------- stati ---------- */
 
 .prn-loading,
 .prn-empty {
   text-align: center;
   color: var(--muted);
   font-size: 0.9rem;
-  padding: 26px 10px;
+  padding: 30px 10px;
+}
+
+.prn-persona {
+  padding: 2px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.prn-vuoto {
+  color: #8f7c9e;
+  font-style: italic;
+  font-size: 0.82rem;
 }
 
 .prn-footer {
-  padding: 22px 18px 30px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 20px 40px;
+  color: var(--muted);
+  font-size: 0.78rem;
   text-align: center;
   border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.82rem;
 }
 .prn-footer p {
   margin: 0 0 6px;
 }
-.prn-footer-small {
-  font-size: 0.76rem;
-  opacity: 0.85;
-}
 
-@media (min-width: 620px) {
-  .prn-hero h1 {
-    font-size: 1.8rem;
+/* ---------- telefono ---------- */
+
+@media (max-width: 760px) {
+  .prn-main,
+  .prn-hero,
+  .prn-footer {
+    padding-left: 16px;
+    padding-right: 16px;
   }
-  .prn-ruolo-tit {
-    min-width: 130px;
+
+  .prn-turno {
+    grid-template-columns: 52px 1fr;
+    grid-template-areas:
+      "data info"
+      "side side"
+      "add  add";
+    gap: 10px 14px;
+    padding: 13px 14px;
+  }
+  .prn-data {
+    grid-area: data;
+  }
+  .prn-info {
+    grid-area: info;
+  }
+  .prn-side {
+    grid-area: side;
+    justify-content: space-between;
+    padding-top: 2px;
+  }
+  .prn-addetto {
+    grid-area: add;
+    grid-column: auto;
+  }
+  .prn-btn {
+    flex: 1;
+    text-align: center;
+  }
+  .prn-stack {
+    flex: none;
+  }
+
+  .prn-nomi {
+    grid-template-columns: 1fr;
   }
 }

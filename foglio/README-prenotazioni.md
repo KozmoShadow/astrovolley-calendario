@@ -10,7 +10,11 @@ personali da mandare a 20 persone una per una.
 Si prenota **solo il refertista, un posto per partita**. L'addetto all'arbitro lo
 assegna la dirigenza a mano nel foglio: puo' essere una persona esterna al gruppo
 e non deve prenotare. Nella pagina la riga "Addetto arbitro" si vede lo stesso,
-in grigio, per sapere chi c'e'.
+per sapere chi c'e', ma non ha bottoni.
+
+**Sulle partite della FLAT la riga non compare affatto**: la Flat l'addetto lo
+mette per conto suo, e una riga sempre vuota farebbe solo pensare a un turno
+scoperto. La regola e' in `serveAddetto()` in `site/prenota/prenota.js`.
 
 ## Come funziona (e perche' cosi')
 
@@ -89,7 +93,7 @@ in elenco puo' comunque scrivere il proprio nome a mano.
 
 ## Se sbagliano a scegliere il nome
 
-Il bottone in alto a destra si chiama **Cambia nome** e riporta alla scelta.
+Il link **non sei tu?** accanto al nome riporta alla scelta.
 Attenzione a cosa succede: **i turni gia' prenotati restano assegnati al nome
 sbagliato**. Non si spostano da soli, perche' il sistema non ha modo di sapere se
 e' un errore o una persona diversa sullo stesso telefono.
@@ -97,16 +101,16 @@ e' un errore o una persona diversa sullo stesso telefono.
 Dopo il cambio la pagina lo dice esplicitamente, con la nota che compare sotto il
 nome. La procedura e':
 
-1. scegliere il nome giusto con **Cambia nome**
-2. aprire i turni presi per sbaglio e toccare **Lascia il turno**
-3. prenotarli di nuovo
+1. toccare **non sei tu?** e scegliere il nome giusto
+2. aprire i turni presi per sbaglio e toccare **Ci sono ✓** per lasciarli
+3. prenotarli di nuovo con **Ci sono**
 
 Se non se ne accorgono, si corregge anche dal foglio: e' una cella di testo, si
 cambia il nome a mano. Anzi, per la dirigenza e' la via piu' rapida.
 
 Il nome resta scritto nel telefono (`localStorage`), quindi vale finche' non
 cambiano browser o non cancellano i dati. Se un telefono viene passato a un'altra
-persona, va fatto **Cambia nome** la prima volta.
+persona, va fatto **non sei tu?** la prima volta.
 
 ## Cosa NON e' protetto
 
@@ -145,7 +149,11 @@ tocco, maiuscole e accenti, posto unico con rifiuto nominando chi l'ha preso,
 addetto rifiutato, rinuncia e riprenotazione, riga sbagliata, partita
 inesistente, nomi con virgola.
 
-Pagina (24 test, Chromium su viewport telefono): lista fissa con ordine
+Pagina (27 test, Chromium su viewport telefono): lista fissa con ordine
 alfabetico, chi non ha mai prenotato compare, addetto visibile ma senza bottone,
-turni pieni senza azioni, payload POST senza ruolo, nota dopo il cambio nome,
+nessuna riga addetto sulle partite Flat, tag in casa/trasferta, turni pieni con
+bottone disabilitato, payload POST senza ruolo, nota dopo il cambio nome,
 memoria del telefono, console pulita.
+
+In piu' una prova a mano con il **CSV vero del foglio**: 18 partite Flat senza
+riga addetto, mesi da novembre a maggio, "1 partita" al singolare.
