@@ -613,12 +613,6 @@ function bind() {
     avvia();
   });
 
-  $("prn-form-nome").addEventListener("submit", (ev) => {
-    ev.preventDefault();
-    const valore = $("prn-nome-libero").value.trim().replace(/\s+/g, " ");
-    if (!valore) return;
-    impostaNome(valore);
-  });
 }
 
 bind();

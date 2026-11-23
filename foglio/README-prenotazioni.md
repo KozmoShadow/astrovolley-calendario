@@ -96,8 +96,14 @@ colonne, compatte, e il suggerimento in cima si nasconde. Se l'elenco cresce
 molto (oltre una trentina) conviene passare a un campo di ricerca invece delle
 pillole.
 
-L'ordine del file non conta: la pagina li mostra in ordine alfabetico. Chi non e'
-in elenco puo' comunque scrivere il proprio nome a mano.
+L'ordine del file non conta: la pagina li mostra in ordine alfabetico per
+cognome.
+
+**Non c'e' un campo per scrivere il nome a mano.** La pagina mostra solo i nomi
+dell'elenco: chi non c'e' lo deve far aggiungere dalla dirigenza, che modifica
+`nomi.js` e fa il push. E' una scelta voluta, per non ritrovarsi nel foglio nomi
+scritti in modi diversi ("Antonio", "Antonio Liguoro", "T. Liguoro") che poi
+spezzano il conteggio delle prenotazioni per persona.
 
 ## Regole
 
@@ -176,8 +182,15 @@ essere il link "Pubblica sul web" del foglio, come in `site/data/dirigenza.json`
 **Esecuzioni**: c'e' il log con l'errore.
 
 **Non compare il nome di una persona** → non e' in `site/prenota/nomi.js`. Si
-aggiunge li' e si rifa' il push. In alternativa puo' scriverlo a mano nella
-casella in fondo alla schermata di scelta.
+aggiunge li' e si rifa' il push: dalla pagina non c'e' modo di inserirlo, e'
+voluto. Il nome va scritto come deve comparire nel foglio Turni.
+
+**Compare "Stai prenotando come" mentre sto ancora scegliendo** → non deve
+succedere. La barra e' nascosta finche' un nome non e' scelto. Se ricapita,
+il sospetto e' una regola CSS con `display` su `#prn-io`: l'attributo `hidden`
+perde contro qualsiasi classe che imposti `display`, ed e' esattamente il
+difetto che c'era. In cima a `prenota.css` c'e' una regola `[hidden]` con
+`!important` che lo impedisce: non toglierla.
 
 ## Verifiche fatte
 

@@ -1,3 +1,12 @@
+/* [hidden] deve vincere sempre.
+   L'attributo hidden vale display:none, ma con la specificita' di un attributo:
+   qualsiasi classe che imposti display lo scavalca. .prn-io { display: flex }
+   teneva quindi visibile la barra "Stai prenotando come" anche quando lo
+   script la nascondeva, cioe' durante la scelta del nome. */
+[hidden] {
+  display: none !important;
+}
+
 /* Prenotazione turni.
    Data grande in Bebas, schede partita con avatar, pillole per i nomi. Mobile
    prima di tutto: si usa dal telefono, quasi sempre in piedi in palestra. */
@@ -173,31 +182,6 @@
   width: 24px;
   height: 24px;
   font-size: 9px;
-}
-
-.prn-form {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.prn-input {
-  flex: 1 1 180px;
-  min-width: 0;
-  padding: 12px 15px;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  background: rgba(0, 0, 0, 0.22);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.95rem;
-}
-.prn-input::placeholder {
-  color: var(--muted);
-}
-.prn-input:focus {
-  outline: none;
-  border-color: var(--accent-soft);
 }
 
 /* ---------- barra identita ---------- */
