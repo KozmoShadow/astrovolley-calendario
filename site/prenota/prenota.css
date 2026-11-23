@@ -296,6 +296,8 @@
 .prn-mese-libero { border-left-color: #4ec97a; }
 .prn-mese-parziale { border-left-color: #e0b341; }
 .prn-mese-pieno { border-left-color: #6b5c78; }
+/* Niente posti per me, ma sono gia' dentro: verde come "a posto", non grigio. */
+.prn-mese-mio { border-left-color: rgba(78, 201, 122, 0.55); }
 
 .prn-mese-nome {
   font-family: "Bebas", sans-serif;
@@ -322,6 +324,7 @@
 .prn-mese-libero .prn-mese-stato { color: #4ec97a; }
 .prn-mese-parziale .prn-mese-stato { color: #e0b341; }
 .prn-mese-pieno .prn-mese-stato { color: #9b8aa9; }
+.prn-mese-mio .prn-mese-stato { color: #4ec97a; }
 
 .prn-indietro {
   display: inline-block;

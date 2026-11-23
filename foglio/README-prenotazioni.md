@@ -17,6 +17,13 @@ con quante partite hanno e quanti posti restano, e si entra solo in quello che
 interessa. Cosi' a gennaio non si scorre tutta la stagione. La card e' verde se
 il mese e' tutto libero, gialla se e' misto, grigia se e' tutto preso.
 
+**"Posti liberi" conta solo quelli che posso ancora prendere io.** Una partita a
+cui sono gia' prenotato non e' un posto libero, e' fatta: se a novembre restano
+tre partite e mi prenoto a due, la card dice "1 posto libero · 2 tue", non
+"3 posti liberi". Quando non resta niente da prendere ma sono dentro, la card
+dice "ci sei tu" ed e' verde, non grigia: il grigio resta per i mesi in cui i
+posti li hanno presi altri.
+
 ## Come funziona (e perche' cosi')
 
 Due canali, per un motivo tecnico preciso:

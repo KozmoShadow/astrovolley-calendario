@@ -375,10 +375,24 @@ function ricordaModifica(azione, chiave, nome) {
  * prendere: e' l'informazione che serve per capire dove andare, senza aprire.
  */
 function cardMese(chiave, lista, nome) {
-  const liberi = lista.filter((t) => eMio(t, nome) || t.postiRefertista > 0).length;
+  // "Libero" vuol dire un posto che posso ancora prendere io. Una partita a cui
+  // sono gia' prenotato non e' un posto libero: e' fatta.
+  const mie = lista.filter((t) => eMio(t, nome)).length;
+  const liberi = lista.filter((t) => !eMio(t, nome) && t.postiRefertista > 0).length;
   const primo = dataParti(lista[0].data);
-  const stato = liberi === 0 ? "pieno" : liberi === lista.length ? "libero" : "parziale";
-  const testo = liberi === 0 ? "tutto preso" : liberi === 1 ? "1 posto libero" : `${liberi} posti liberi`;
+
+  let stato = "pieno";
+  if (liberi > 0) stato = liberi === lista.length ? "libero" : "parziale";
+  else if (mie > 0) stato = "mio";
+
+  let testo;
+  if (liberi === 0 && mie === 0) testo = "tutto preso";
+  else if (liberi === 0) testo = mie === 1 ? "ci sei tu" : `ci sei tu (${mie} partite)`;
+  else {
+    testo = liberi === 1 ? "1 posto libero" : `${liberi} posti liberi`;
+    if (mie > 0) testo += mie === 1 ? " · 1 tua" : ` · ${mie} tue`;
+  }
+
   return `
     <button class="prn-mese-card prn-mese-${stato}" type="button" data-mese="${escapeHtml(chiave)}">
       <span class="prn-mese-nome">${escapeHtml(nomeMese(chiave))}</span>
