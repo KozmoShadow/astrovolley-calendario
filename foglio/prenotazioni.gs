@@ -21,10 +21,10 @@ var TAB_PARTITE = "Partite";
 var COL_REFERTISTI = "refertisti";
 var COL_ADDETTI = "addetti_arbitro";
 
-// Quante persone servono per ruolo. Se il club decide che basta un refertista
-// e nessun addetto, si mette 0.
-var POSTI_REFERTISTA = 2;
-var POSTI_ADDETTO = 1;
+// Un solo refertista per partita. L'addetto all'arbitro non si prenota da qui:
+// lo assegna la dirigenza a mano nel foglio, perche' puo' essere una persona
+// esterna al gruppo dei refertisti.
+var POSTI_REFERTISTA = 1;
 
 /**
  * Serve le richieste GET: e' la lettura dello stato dei turni.
@@ -213,7 +213,6 @@ function leggiTurni() {
       refertisti: refertisti,
       addetti: addetti,
       postiRefertista: Math.max(0, POSTI_REFERTISTA - refertisti.length),
-      postiAddetto: Math.max(0, POSTI_ADDETTO - addetti.length),
     });
   }
   return elenco;
@@ -254,9 +253,12 @@ function contieneNome(elenco, nome) {
 function prenota(richiesta) {
   var nome = normalizzaNome(richiesta.nome);
   var chiave = String(richiesta.chiave || "").trim();
-  var ruolo = richiesta.ruolo === "addetto" ? "addetto" : "refertista";
   if (!nome) return { ok: false, errore: "Nome mancante." };
   if (!chiave) return { ok: false, errore: "Partita mancante." };
+  // L'addetto all'arbitro non passa da qui: si assegna a mano nel foglio.
+  if (richiesta.ruolo && richiesta.ruolo !== "refertista") {
+    return { ok: false, errore: "Da qui si prenota solo il refertista." };
+  }
 
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(10000)) {
@@ -267,26 +269,21 @@ function prenota(richiesta) {
     var r = trovaRiga(t, chiave);
     if (r < 0) return { ok: false, errore: "Partita non trovata nel foglio." };
 
-    var iRef = t.mappa[COL_REFERTISTI], iAdd = t.mappa[COL_ADDETTI];
+    var iRef = t.mappa[COL_REFERTISTI];
     var refertisti = separaNomi(t.valori[r][iRef]);
-    var addetti = separaNomi(t.valori[r][iAdd]);
 
-    // Chi e' gia' dentro, in qualunque ruolo, non si riaggiunge: altrimenti un
-    // doppio tocco sul telefono lo registra due volte.
-    if (contieneNome(refertisti, nome) || contieneNome(addetti, nome)) {
+    // Doppio tocco sul telefono: chi e' gia' dentro non si riaggiunge.
+    if (contieneNome(refertisti, nome)) {
       return { ok: true, messaggio: "Sei gia' prenotato per questa partita." };
     }
 
-    var elenco = ruolo === "refertista" ? refertisti : addetti;
-    var posti = ruolo === "refertista" ? POSTI_REFERTISTA : POSTI_ADDETTO;
-    if (elenco.length >= posti) {
-      return { ok: false, errore: "Posti esauriti per questo ruolo." };
+    if (refertisti.length >= POSTI_REFERTISTA) {
+      return { ok: false, errore: "Turno gia' preso da " + refertisti.join(", ") + "." };
     }
 
-    elenco.push(nome);
-    var colonna = (ruolo === "refertista" ? iRef : iAdd) + 1;
-    t.tab.getRange(r + 1, colonna).setValue(elenco.join(", "));
-    return { ok: true, messaggio: "Prenotato come " + ruolo + "." };
+    refertisti.push(nome);
+    t.tab.getRange(r + 1, iRef + 1).setValue(refertisti.join(", "));
+    return { ok: true, messaggio: "Turno prenotato." };
   } finally {
     lock.releaseLock();
   }
@@ -298,7 +295,6 @@ function prenota(richiesta) {
 function libera(richiesta) {
   var nome = normalizzaNome(richiesta.nome);
   var chiave = String(richiesta.chiave || "").trim();
-  var ruolo = richiesta.ruolo === "addetto" ? "addetto" : "refertista";
   if (!nome) return { ok: false, errore: "Nome mancante." };
 
   var lock = LockService.getScriptLock();
@@ -310,15 +306,14 @@ function libera(richiesta) {
     var r = trovaRiga(t, chiave);
     if (r < 0) return { ok: false, errore: "Partita non trovata nel foglio." };
 
-    var iRef = t.mappa[COL_REFERTISTI], iAdd = t.mappa[COL_ADDETTI];
-    var iCol = ruolo === "refertista" ? iRef : iAdd;
-    var elenco = separaNomi(t.valori[r][iCol]);
+    var iRef = t.mappa[COL_REFERTISTI];
+    var elenco = separaNomi(t.valori[r][iRef]);
     var target = impronta(nome);
     var rimasti = elenco.filter(function (n) { return impronta(n) !== target; });
     if (rimasti.length === elenco.length) {
       return { ok: false, errore: "Non risulti prenotato per questo turno." };
     }
-    t.tab.getRange(r + 1, iCol + 1).setValue(rimasti.join(", "));
+    t.tab.getRange(r + 1, iRef + 1).setValue(rimasti.join(", "));
     return { ok: true, messaggio: "Turno lasciato." };
   } finally {
     lock.releaseLock();

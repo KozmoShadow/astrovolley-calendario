@@ -16,8 +16,14 @@
 // Il POST invece passa, perche' text/plain non richiede preflight.
 
 import { URL_BACKEND, URL_CSV } from "./config.js";
+import { NOMI_REFERTISTI } from "./nomi.js";
 
 const CHIAVE_NOME = "astrovolley.nome";
+
+// Ultimo nome usato in questa sessione. Serve a capire se chi sta scegliendo ora
+// ha appena cambiato persona: in quel caso i turni presi restano al nome vecchio
+// e va detto, altrimenti sembrano spariti.
+let nomePrecedente = null;
 
 const $ = (id) => document.getElementById(id);
 const mostra = (el) => { if (el) el.hidden = false; };
@@ -91,7 +97,7 @@ function indiceColonne(intestazione) {
  * I posti liberi si calcolano qui e non nel foglio: sono una regola di
  * presentazione, e il foglio non ha modo di esprimerla.
  */
-function turniDaCsv(testo, postiRefertista, postiAddetto) {
+function turniDaCsv(testo, postiRefertista) {
   const righe = parseCsv(testo);
   if (!righe.length) return [];
   const mappa = indiceColonne(righe[0]);
@@ -112,7 +118,6 @@ function turniDaCsv(testo, postiRefertista, postiAddetto) {
       chiave: chiavePartita(data, casa, trasferta),
       data, casa, trasferta, refertisti, addetti,
       postiRefertista: Math.max(0, postiRefertista - refertisti.length),
-      postiAddetto: Math.max(0, postiAddetto - addetti.length),
     });
   }
   return elenco;
@@ -125,13 +130,13 @@ async function caricaTurni() {
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error("Il foglio non risponde (" + res.status + ").");
   const testo = await res.text();
-  return turniDaCsv(testo, POSTI_REFERTISTA, POSTI_ADDETTO);
+  return turniDaCsv(testo, POSTI_REFERTISTA);
 }
 
-// Quanti posti per ruolo. Devono combaciare con POSTI_* in foglio/prenotazioni.gs,
-// che e' chi decide davvero: qui servono solo per mostrare "posti liberi".
-const POSTI_REFERTISTA = 2;
-const POSTI_ADDETTO = 1;
+// Un solo refertista per partita. Deve combaciare con POSTI_REFERTISTA in
+// foglio/prenotazioni.gs, che e' chi decide davvero: qui serve solo a mostrare
+// "posti liberi". L'addetto all'arbitro lo assegna la dirigenza a mano.
+const POSTI_REFERTISTA = 1;
 
 async function chiama(azione, corpo) {
   if (!URL_BACKEND) {
@@ -184,11 +189,10 @@ function messaggioBanner(testo, tipo = "errore") {
   mostra(b);
 }
 
-function ruoloDi(turno, nome) {
+/** Vero se il turno e' prenotato a questo nome. L'addetto non si prenota qui. */
+function eMio(turno, nome) {
   const n = impronta(nome);
-  if ((turno.refertisti || []).some((x) => impronta(x) === n)) return "refertista";
-  if ((turno.addetti || []).some((x) => impronta(x) === n)) return "addetto";
-  return null;
+  return (turno.refertisti || []).some((x) => impronta(x) === n);
 }
 
 function nomiHtml(nomi, vuoto) {
@@ -197,30 +201,31 @@ function nomiHtml(nomi, vuoto) {
 }
 
 function turnoHtml(turno, nome) {
-  const mio = ruoloDi(turno, nome);
-  const liberoRef = turno.postiRefertista > 0;
-  const liberoAdd = turno.postiAddetto > 0;
+  const mio = eMio(turno, nome);
+  const occupato = turno.refertisti && turno.refertisti.length > 0;
   const classi = ["prn-turno"];
   if (mio) classi.push("prn-turno-mio");
-  else if (!liberoRef && !liberoAdd) classi.push("prn-turno-pieno");
+  else if (occupato) classi.push("prn-turno-pieno");
 
-  const azioni = [];
-  if (mio === "refertista") {
-    azioni.push(`<button class="prn-btn prn-btn-ghost" data-azione="libera" data-ruolo="refertista" data-chiave="${escapeHtml(turno.chiave)}" type="button">Lascia</button>`);
-  } else if (!mio && liberoRef) {
-    azioni.push(`<button class="prn-btn prn-btn-primary" data-azione="prenota" data-ruolo="refertista" data-chiave="${escapeHtml(turno.chiave)}" type="button">Prenota come refertista</button>`);
+  // Un solo bottone: o "Prenota" se il posto e' libero, o "Lascia" se e' mio.
+  let azione = "";
+  if (mio) {
+    azione = `<button class="prn-btn prn-btn-ghost" data-azione="libera" data-chiave="${escapeHtml(turno.chiave)}" type="button">Lascia il turno</button>`;
+  } else if (!occupato) {
+    azione = `<button class="prn-btn prn-btn-primary" data-azione="prenota" data-chiave="${escapeHtml(turno.chiave)}" type="button">Prenota</button>`;
   }
-  if (mio === "addetto") {
-    azioni.push(`<button class="prn-btn prn-btn-ghost" data-azione="libera" data-ruolo="addetto" data-chiave="${escapeHtml(turno.chiave)}" type="button">Lascia</button>`);
-  } else if (!mio && liberoAdd) {
-    azioni.push(`<button class="prn-btn prn-btn-outline" data-azione="prenota" data-ruolo="addetto" data-chiave="${escapeHtml(turno.chiave)}" type="button">Prenota come addetto</button>`);
-  }
+
+  // L'addetto all'arbitro si vede ma non si prenota: lo assegna la dirigenza,
+  // e puo' essere una persona esterna al gruppo dei refertisti.
+  const addetto = (turno.addetti && turno.addetti.length)
+    ? nomiHtml(turno.addetti, "")
+    : `<span class="prn-vuoto">a cura della dirigenza</span>`;
 
   return `
     <article class="${classi.join(" ")}">
       <div class="prn-turno-top">
         <span class="prn-turno-data">${escapeHtml(dataLeggibile(turno.data))}</span>
-        ${mio ? `<span class="prn-badge">tuo · ${escapeHtml(mio)}</span>` : ""}
+        ${mio ? `<span class="prn-badge">tuo</span>` : ""}
       </div>
       <p class="prn-turno-partita">
         <strong>${escapeHtml(turno.casa)}</strong> – ${escapeHtml(turno.trasferta)}
@@ -228,14 +233,14 @@ function turnoHtml(turno, nome) {
       <div class="prn-ruoli">
         <div class="prn-ruolo">
           <span class="prn-ruolo-tit">Refertista</span>
-          <span class="prn-ruolo-nomi">${nomiHtml(turno.refertisti, "da assegnare")}</span>
+          <span class="prn-ruolo-nomi">${nomiHtml(turno.refertisti, "libero")}</span>
         </div>
-        <div class="prn-ruolo">
+        <div class="prn-ruolo prn-ruolo-manuale">
           <span class="prn-ruolo-tit">Addetto arbitro</span>
-          <span class="prn-ruolo-nomi">${nomiHtml(turno.addetti, "da assegnare")}</span>
+          <span class="prn-ruolo-nomi">${addetto}</span>
         </div>
       </div>
-      ${azioni.length ? `<div class="prn-azioni">${azioni.join("")}</div>` : ""}
+      ${azione ? `<div class="prn-azioni">${azione}</div>` : ""}
     </article>`;
 }
 
@@ -263,7 +268,7 @@ function render(turni, nome) {
 
   let html = "";
   for (const [k, lista] of perMese) {
-    const liberi = lista.filter((t) => ruoloDi(t, nome) || t.postiRefertista > 0 || t.postiAddetto > 0).length;
+    const liberi = lista.filter((t) => eMio(t, nome) || t.postiRefertista > 0).length;
     html += `
       <section class="prn-mese">
         <h3 class="prn-mese-tit">${escapeHtml(nomeMese(k))}
@@ -296,8 +301,12 @@ async function aggiorna(nome, opzioni = {}) {
 }
 
 function impostaNome(nome) {
+  const precedente = localStorage.getItem(CHIAVE_NOME) || nomePrecedente;
   localStorage.setItem(CHIAVE_NOME, nome);
+  nomePrecedente = null;
   messaggioBanner("");
+  const nota = $("prn-io-nota");
+  if (nota) nota.hidden = !(precedente && precedente !== nome);
   $("prn-io-nome").textContent = nome;
   mostra($("prn-io"));
   nascondi($("prn-identita"));
@@ -318,15 +327,20 @@ function chiediNome(persone) {
 }
 
 /**
- * I nomi si leggono dal CSV del tab Turni stesso: chi e' gia' stato assegnato
- * almeno una volta compare li'. Cosi' non serve un tab in piu' ne' una seconda
- * chiamata, e l'elenco resta sempre allineato alla realta'.
+ * Elenco dei nomi da proporre.
+ *
+ * Quello fisso di nomi.js ha la precedenza: e' l'unico modo per far comparire
+ * chi non ha ancora mai prenotato. Se non e' compilato si ripiega sui nomi gia'
+ * presenti nei turni del foglio, cosi' la pagina resta usabile.
  */
-function personeDaTurni(turni) {
+function personeDaProporre(turni) {
+  if (NOMI_REFERTISTI && NOMI_REFERTISTI.length) {
+    return NOMI_REFERTISTI.slice().sort((a, b) => a.localeCompare(b, "it"));
+  }
   const visti = new Set();
   const nomi = [];
   turni.forEach((t) => {
-    [...(t.refertisti || []), ...(t.addetti || [])].forEach((n) => {
+    (t.refertisti || []).forEach((n) => {
       const k = impronta(n);
       if (k && !visti.has(k)) { visti.add(k); nomi.push(n); }
     });
@@ -342,7 +356,7 @@ async function avvia() {
   }
   try {
     const turni = await caricaTurni();
-    chiediNome(personeDaTurni(turni));
+    chiediNome(personeDaProporre(turni));
   } catch (err) {
     nascondi($("prn-loading"));
     messaggioBanner(err.message, "errore");
@@ -367,7 +381,6 @@ function bind() {
       const esito = await chiama(bottone.dataset.azione, {
         nome,
         chiave: bottone.dataset.chiave,
-        ruolo: bottone.dataset.ruolo,
       });
       messaggioBanner(esito.messaggio || "Fatto.", "ok");
       // Rilegge dal foglio invece di fidarsi della risposta: cosi' si vede lo
@@ -381,9 +394,13 @@ function bind() {
   });
 
   $("prn-cambia").addEventListener("click", () => {
+    // Il nome va ricordato prima di cancellarlo: e' quello che permette alla
+    // nota di dire "i turni sono rimasti a X".
+    nomePrecedente = localStorage.getItem(CHIAVE_NOME);
     localStorage.removeItem(CHIAVE_NOME);
     nascondi($("prn-io"));
     nascondi($("prn-turni"));
+    nascondi($("prn-io-nota"));
     messaggioBanner("");
     avvia();
   });

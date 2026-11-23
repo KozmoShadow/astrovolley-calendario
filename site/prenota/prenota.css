@@ -131,16 +131,28 @@
 /* --- barra "stai prenotando come" --- */
 
 .prn-io {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
   padding: 11px 14px;
   margin-bottom: 16px;
   border-radius: 10px;
   background: rgba(160, 96, 192, 0.12);
   border: 1px solid rgba(160, 96, 192, 0.35);
   font-size: 0.86rem;
+}
+
+.prn-io-riga {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.prn-io-nota {
+  margin: 9px 0 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(160, 96, 192, 0.3);
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 .prn-io-label {
   color: var(--muted);
@@ -149,16 +161,20 @@
   font-size: 0.95rem;
 }
 
-.prn-link {
-  background: none;
-  border: none;
+.prn-cambia {
+  margin-left: auto;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(160, 96, 192, 0.5);
+  background: transparent;
   color: var(--accent-soft);
   font: inherit;
-  font-size: 0.82rem;
-  text-decoration: underline;
+  font-size: 0.8rem;
   cursor: pointer;
-  padding: 0;
-  margin-left: auto;
+}
+.prn-cambia:hover {
+  background: rgba(160, 96, 192, 0.2);
+  color: var(--text);
 }
 
 /* --- avvisi --- */
@@ -288,6 +304,10 @@
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid var(--line);
   font-size: 0.82rem;
+}
+
+.prn-ruolo-manuale .prn-ruolo-nomi {
+  opacity: 0.85;
 }
 
 .prn-vuoto {
