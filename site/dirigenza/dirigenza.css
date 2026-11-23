@@ -1,0 +1,386 @@
+/* Area dirigenza. Solo colori presi dalle variabili del tema, cosi' la pagina
+   segue l'aspetto del sito (e delle demo) senza duplicare palette. */
+
+.dir-main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 18px 70px;
+}
+
+.dir-hero { padding-bottom: 18px; }
+
+/* ------------------------------------------------------------- intestazioni */
+
+.dir-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.dir-title {
+  margin: 0;
+  font-size: clamp(22px, 4vw, 30px);
+  letter-spacing: -0.01em;
+}
+
+.dir-sub {
+  margin: 5px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.dir-empty {
+  margin: 22px 0;
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* -------------------------------------------------------------------- filtri */
+
+.dir-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+}
+
+.dir-chips .chip {
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 38px;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.dir-chips .chip:hover { color: var(--text); border-color: var(--accent-soft); }
+
+.dir-chips .chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--on-accent);
+}
+
+/* --------------------------------------------------------------- card dei mesi */
+
+.mesi-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 620px) {
+  .mesi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.mese-card {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  padding: 16px 17px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, var(--surface-2) 0%, var(--surface) 100%);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  animation: fade-up 620ms var(--ease-out, ease) both;
+}
+
+/* Entrata a cascata come le card del sito. Oltre l'ottava il ritardo si ferma,
+   per non far aspettare chi ha molti mesi. */
+.mesi-grid > .mese-card:nth-child(1) { animation-delay: 0ms; }
+.mesi-grid > .mese-card:nth-child(2) { animation-delay: 70ms; }
+.mesi-grid > .mese-card:nth-child(3) { animation-delay: 140ms; }
+.mesi-grid > .mese-card:nth-child(4) { animation-delay: 210ms; }
+.mesi-grid > .mese-card:nth-child(5) { animation-delay: 280ms; }
+.mesi-grid > .mese-card:nth-child(6) { animation-delay: 350ms; }
+.mesi-grid > .mese-card:nth-child(n+7) { animation-delay: 400ms; }
+
+.mese-card:hover,
+.mese-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.mese-nome {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.mese-conteggio { font-size: 13px; color: var(--accent-soft); font-weight: 600; }
+.mese-prima { font-size: 12.5px; color: var(--muted); }
+
+.mese-stato {
+  margin-top: 7px;
+  justify-self: start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.mese-stato.ok {
+  color: var(--win);
+  background: color-mix(in srgb, var(--win) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--win) 40%, transparent);
+}
+
+.mese-stato.warn {
+  color: var(--warn, #ffb44e);
+  background: color-mix(in srgb, var(--warn, #ffb44e) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warn, #ffb44e) 38%, transparent);
+}
+
+.mese-stato.ko {
+  color: var(--loss);
+  background: color-mix(in srgb, var(--loss) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--loss) 38%, transparent);
+}
+
+/* La card del mese segue lo stato delle partite: verde se sono tutte coperte,
+   rossa se nessuna lo e' (stessa logica delle card vinte/perse). */
+.mese-card.mese-ok {
+  border-color: color-mix(in srgb, var(--win) 45%, var(--line));
+  background: linear-gradient(160deg, color-mix(in srgb, var(--win) 14%, var(--surface-2)) 0%, var(--surface) 100%);
+}
+
+.mese-card.mese-ko {
+  border-color: color-mix(in srgb, var(--loss) 45%, var(--line));
+  background: linear-gradient(160deg, color-mix(in srgb, var(--loss) 13%, var(--surface-2)) 0%, var(--surface) 100%);
+}
+
+/* Mese con sole trasferte: niente da coprire, quindi nessun colore di allarme. */
+.mese-card.mese-neutro {
+  border-color: var(--line);
+  background: var(--surface-2);
+  opacity: 0.8;
+}
+
+.mese-stato.neutro { color: var(--muted); }
+
+/* ----------------------------------------------------------- partite del mese */
+
+.mese-lista { display: grid; gap: 12px; }
+
+.partita-riga {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 15px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  box-shadow: var(--shadow);
+  animation: fade-up 520ms var(--ease-out, ease) both;
+  transition: border-color 0.16s ease;
+}
+
+.partita-riga:hover { border-color: var(--accent-soft); }
+
+/* Copertura del referto: verde se c'e' almeno un refertista, rosso se manca.
+   Stessa lettura delle card vinte/perse del calendario, cosi' si capisce a
+   colpo d'occhio cosa resta da coprire. */
+.partita-riga.coperta {
+  border-left: 5px solid var(--win);
+  border-color: color-mix(in srgb, var(--win) 55%, var(--line));
+  background: linear-gradient(90deg, color-mix(in srgb, var(--win) 26%, transparent) 0%, color-mix(in srgb, var(--win) 6%, var(--surface-2)) 42%, var(--surface-2) 100%);
+}
+
+.partita-riga.scoperta {
+  border-left: 5px solid var(--loss);
+  border-color: color-mix(in srgb, var(--loss) 55%, var(--line));
+  background: linear-gradient(90deg, color-mix(in srgb, var(--loss) 24%, transparent) 0%, color-mix(in srgb, var(--loss) 6%, var(--surface-2)) 42%, var(--surface-2) 100%);
+}
+
+/* Trasferta: solo informazione. Nessun turno da coprire, quindi niente verde
+   ne' rosso: la riga resta neutra e senza il blocco dei nomi. */
+.partita-riga.esterna {
+  border-left: 5px solid var(--line);
+  border-color: var(--line);
+  background: var(--surface-2);
+  opacity: 0.78;
+}
+
+/* Annullata: grigia, non deve sembrare coperta o scoperta. */
+.partita-riga.annullata {
+  border-left: 5px solid var(--line);
+  border-color: var(--line);
+  background: var(--surface-2);
+  opacity: 0.62;
+}
+
+/* Stessa cascata del calendario pubblico: oltre la decima il ritardo si ferma. */
+.mese-lista > .partita-riga:nth-child(1) { animation-delay: 0ms; }
+.mese-lista > .partita-riga:nth-child(2) { animation-delay: 45ms; }
+.mese-lista > .partita-riga:nth-child(3) { animation-delay: 90ms; }
+.mese-lista > .partita-riga:nth-child(4) { animation-delay: 135ms; }
+.mese-lista > .partita-riga:nth-child(5) { animation-delay: 180ms; }
+.mese-lista > .partita-riga:nth-child(6) { animation-delay: 225ms; }
+.mese-lista > .partita-riga:nth-child(7) { animation-delay: 270ms; }
+.mese-lista > .partita-riga:nth-child(8) { animation-delay: 315ms; }
+.mese-lista > .partita-riga:nth-child(9) { animation-delay: 360ms; }
+.mese-lista > .partita-riga:nth-child(n+10) { animation-delay: 400ms; }
+
+@media (min-width: 720px) {
+  .partita-riga { grid-template-columns: 150px 1fr 210px; align-items: start; }
+  /* Senza il blocco turni la terza colonna resterebbe vuota: la riga della
+     trasferta si allarga sullo spazio libero. */
+  .partita-riga.esterna { grid-template-columns: 150px 1fr; }
+}
+
+.partita-riga.annullata { opacity: 0.62; }
+
+.pr-quando { display: flex; flex-direction: column; gap: 2px; }
+
+.pr-giorno {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--text);
+}
+
+.pr-ora { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.pr-incontro { min-width: 0; }
+
+.pr-squadre {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pr-vs {
+  font-size: 12.5px;
+  color: var(--accent-soft);
+  font-weight: 700;
+  padding: 0 2px;
+}
+
+.pr-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.pr-comp { font-size: 11.5px; }
+
+.dir-ente {
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.dir-ente-fipav { color: var(--fipav); background: color-mix(in srgb, var(--fipav) 18%, transparent); }
+.dir-ente-asi { color: var(--asi); background: color-mix(in srgb, var(--asi) 18%, transparent); }
+.dir-ente-manuale { color: var(--muted); background: color-mix(in srgb, var(--muted) 16%, transparent); }
+
+.dir-esterna,
+.dir-annullata,
+.dir-alien {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.dir-esterna { color: var(--muted); border: 1px solid var(--line); }
+.dir-annullata { color: var(--loss); background: color-mix(in srgb, var(--loss) 16%, transparent); }
+
+.dir-alien {
+  color: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.pr-palestra { margin: 7px 0 0; font-size: 12px; color: var(--muted); }
+
+/* ------------------------------------------------------------------- i turni */
+
+.pr-turni {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .pr-turni { padding-top: 0; border-top: 0; border-left: 1px solid var(--line); padding-left: 14px; }
+}
+
+.dir-turno { display: grid; gap: 3px; }
+
+.dir-turno-tit {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dir-turno-nomi { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.dir-persona {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+}
+
+.dir-vuoto { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* Da dove arrivano i turni: serve a capire se i dati sono live o dal file. */
+.turni-nota {
+  margin: 14px 0 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.turni-nota-avviso {
+  color: var(--warn, #ffb44e);
+}
+
+.dir-banner-errore {
+  border-color: color-mix(in srgb, var(--loss) 45%, transparent);
+  background: color-mix(in srgb, var(--loss) 12%, transparent);
+}
+
+/* --------------------------------------------------------------------- fondo */
+
+.dir-footer {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 18px 40px;
+  font-size: 11.5px;
+  color: var(--muted);
+}

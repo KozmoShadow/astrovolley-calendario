@@ -14,7 +14,10 @@
     "timeout": 40
   },
   "comitati": [
-    { "nome": "C.T. NAPOLI", "id": "99912" }
+    {
+      "nome": "C.T. NAPOLI",
+      "id": "99912"
+    }
   ],
   "asi": {
     "committee_id": "2",
@@ -28,5 +31,6 @@
   },
   "max_workers": 10,
   "output": "site/data/schedule.json",
-  "manual": "data/manual.json"
+  "manual": "data/manual.json",
+  "output_casa_csv": "site/data/partite-casa.csv"
 }

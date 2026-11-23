@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as futures
+import csv
 import json
 import re
 import sys
@@ -344,7 +345,7 @@ def _match_da_compito(comp: dict) -> list[dict]:
 
 
 def _applica_risultati_manuali(matches: list[dict], path: Path) -> None:
-    """Sovrappone i risultati inseriti a mano dalla pagina admin.
+    """Sovrappone i risultati inseriti a mano in `<id>.risultati.json`.
 
     L'API ASI e' la fonte principale, ma un risultato puo' non esserci ancora
     (o arrivare in ritardo). Se il file `<id>.risultati.json` esiste, i suoi
@@ -483,6 +484,40 @@ def scan_spike_fallback(config: dict, pattern: str) -> list[dict]:
     return competitions
 
 
+def scrivi_csv_casa(competitions: list, pattern: str, out_path: Path) -> int:
+    """CSV delle sole partite in casa, per il tab "Partite" del Google Sheet.
+
+    Il foglio lo importa con =IMPORTDATA(...) e si tiene aggiornato da solo: quando
+    parte un campionato nuovo le righe compaiono senza che nessuno le copi a mano.
+    Le trasferte restano fuori: il referto lo curiamo solo in casa.
+    """
+    righe = []
+    visti = set()
+    for comp in competitions:
+        for m in comp.get("matches", []):
+            data = (m.get("data") or "").strip()
+            casa = (m.get("casa") or "").strip()
+            trasferta = (m.get("trasferta") or "").strip()
+            if not data or not casa:
+                continue
+            if pattern not in casa.lower():
+                continue
+            chiave = (data, casa.lower(), trasferta.lower())
+            if chiave in visti:
+                continue
+            visti.add(chiave)
+            righe.append((data, casa, trasferta))
+    righe.sort()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    # newline="" e' richiesto da csv: senza, su Windows uscirebbero righe vuote.
+    with out_path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.writer(fh, lineterminator="\n")
+        writer.writerow(["data", "casa", "trasferta"])
+        writer.writerows(righe)
+    return len(righe)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Importa il calendario Astrovolley")
     parser.add_argument("--config", default=str(ROOT / "config.json"))
@@ -558,6 +593,10 @@ def main() -> int:
         "asi": {"tornei": tornei_asi},
         "competitions": competitions,
     }
+
+    csv_path = ROOT / config.get("output_casa_csv", "site/data/partite-casa.csv")
+    n_casa = scrivi_csv_casa(competitions, pattern, csv_path)
+    print(f"CSV partite in casa: {n_casa} righe -> {csv_path}", file=sys.stderr)
 
     out_path = ROOT / config["output"]
     out_path.parent.mkdir(parents=True, exist_ok=True)

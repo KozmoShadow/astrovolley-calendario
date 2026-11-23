@@ -45,13 +45,36 @@ const MESI = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OT
 const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
 const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 
-// Esito dal punto di vista dell'Astrovolley: vale anche giocando in trasferta.
+// Il lato della partita che stiamo guardando. Con una squadra aperta conta
+// quella: in Promozionale giocano Cercola e Portici, e "astro" compare da
+// entrambe le parti, quindi senza questo controllo il derby risultava in casa
+// anche sul calendario della squadra che giocava fuori.
+function ourSide(m) {
+  const cfg = state.team ? teamConfig(state.team) : null;
+  if (cfg) {
+    const nomi = (cfg.nomi || []).map(normName);
+    if (nomi.includes(normName(m.casa))) return "casa";
+    if (nomi.includes(normName(m.trasferta))) return "trasferta";
+  }
+  if (isOurs(m.casa)) return "casa";
+  if (isOurs(m.trasferta)) return "trasferta";
+  return "";
+}
+
+// true quando la partita si gioca in casa nostra. Con una squadra aperta il
+// verdetto e' sul suo lato; senza, sul primo lato che riconosciamo come nostro.
+const playingHome = (m) => ourSide(m) === "casa";
+
+// Esito dal punto di vista della squadra che stiamo guardando: con una squadra
+// aperta il punteggio va letto dal suo lato, non dal primo "astro" trovato.
 function esitoOf(m, parts) {
   const a = Number(parts[0]);
   const b = Number(parts[1]);
   if (!Number.isFinite(a) || !Number.isFinite(b) || a === b) return "";
-  const nostri = isOurs(m.casa) ? a : b;
-  const loro = isOurs(m.casa) ? b : a;
+  const lato = ourSide(m);
+  if (!lato) return "";
+  const nostri = lato === "casa" ? a : b;
+  const loro = lato === "casa" ? b : a;
   return nostri > loro ? "esito-win" : "esito-loss";
 }
 
@@ -422,7 +445,7 @@ function righeCalendario(rows) {
 
 function fixtureRow(m, idx, prossimaKey) {
   const d = parseDate(m.data);
-  const inCasa = isOurs(m.casa);
+  const inCasa = playingHome(m);
   const avversario = inCasa ? m.trasferta : m.casa;
   const logo = logoUrl(inCasa ? m.logo_trasferta : m.logo_casa);
   const giocata = eDisputata(m);
@@ -1368,7 +1391,7 @@ function nextMatchHtml(next, slug) {
     </div>`;
   }
   const { m, d } = next;
-  const inCasa = isOurs(m.casa);
+  const inCasa = playingHome(m);
   const avversario = inCasa ? m.trasferta : m.casa;
   const sede = m.palestra || m.impianto || "";
   return `<div class="next-match" role="button" tabindex="0"

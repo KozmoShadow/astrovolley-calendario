@@ -13,8 +13,8 @@ on:
     # nel browser ad ogni apertura, e questo snapshot serve solo come riserva
     # (soprattutto da telefono, dove FIPAV blocca il fetch).
     - cron: "*/10 17-22 * * *"
-  # Rigenera anche quando la pagina admin scrive i dati ASI: cosi' i risultati
-  # inseriti a mano entrano subito in schedule.json.
+  # Rigenera anche quando cambiano i dati ASI scritti a mano: cosi' i risultati
+  # inseriti in data/asi/*.risultati.json entrano subito in schedule.json.
   push:
     paths:
       - "data/asi/**"
@@ -57,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/data/schedule.json site/assets/loghi data/asi
+          git add site/data/schedule.json site/data/partite-casa.csv site/assets/loghi data/asi
           if git diff --cached --quiet; then
             echo "Nessun cambiamento."
           else

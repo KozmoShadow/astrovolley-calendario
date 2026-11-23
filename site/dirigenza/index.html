@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Area dirigenza — ASD Astrovolley</title>
+  <meta name="description" content="Vista riservata alla dirigenza: partite in casa mese per mese, con refertisti e addetti all'arbitro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <!-- Tema restyle3: solo colori e animazioni, caricato dopo gli stili della
+       pagina. Struttura e misure restano in dirigenza.css. -->
+  <link rel="stylesheet" href="../demo/restyle3/restyle.css" />
+  <link rel="stylesheet" href="dirigenza.css" />
+</head>
+<body class="dir-page">
+  <header class="hero dir-hero">
+    <div class="hero-inner">
+      <div class="brand">
+        <a class="brand-link" href="../" title="Torna al sito" aria-label="Torna al sito">
+          <img class="brand-mark" src="../demo/restyle3/logo-tondo.png" alt="Logo ASD Astrovolley" width="54" height="54" />
+        </a>
+        <div>
+          <h1 id="societa">ASD Astrovolley</h1>
+          <p class="season">Area dirigenza · Stagione <span id="stagione">—</span></p>
+        </div>
+      </div>
+      <p class="tagline">Le partite in casa, con refertisti e addetti all'arbitro.</p>
+      <p class="updated" id="updated">—</p>
+    </div>
+  </header>
+
+  <main class="dir-main">
+    <div class="dir-chips" role="group" aria-label="Filtro partite">
+      <button class="chip" id="filtro-casa" type="button" aria-pressed="true">Solo in casa</button>
+      <button class="chip" id="filtro-tutte" type="button" aria-pressed="false">Tutte le partite</button>
+    </div>
+
+    <!-- Avviso: compare solo se il foglio non si legge. -->
+    <div class="dir-banner" id="dir-banner" hidden>
+      <span class="dir-banner-testo"></span>
+    </div>
+
+    <!-- Elenco dei mesi -->
+    <section id="mesi-view" aria-labelledby="mesi-titolo">
+      <div class="dir-head">
+        <div>
+          <h2 id="mesi-titolo" class="dir-title">Mesi</h2>
+          <p class="dir-sub" id="mesi-sub">—</p>
+        </div>
+      </div>
+
+      <div id="mesi-grid" class="mesi-grid"></div>
+    </section>
+
+    <!-- Dettaglio di un mese -->
+    <section id="mese-view" hidden aria-labelledby="mese-titolo">
+      <button class="back-btn" id="torna-mesi" type="button">← Mesi</button>
+      <div class="dir-head">
+        <div>
+          <h2 id="mese-titolo" class="dir-title">—</h2>
+          <p class="dir-sub" id="mese-sub">—</p>
+        </div>
+      </div>
+      <div id="mese-lista" class="mese-lista"></div>
+      <p class="turni-nota" id="turni-nota"></p>
+    </section>
+
+    <p class="dir-empty" id="dir-empty" hidden></p>
+  </main>
+
+  <footer class="dir-footer">
+    <p>ASD Astrovolley · area interna</p>
+  </footer>
+
+  <script type="module" src="dirigenza.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+  "_istruzioni": "Turni delle partite in casa: refertisti e addetti all'arbitro. Ogni voce si aggancia a una partita tramite 'data' (YYYY-MM-DD HH:MM), 'casa' e 'trasferta', scritti esattamente come in site/data/schedule.json. 'refertisti' e 'addetti_arbitro' sono elenchi di nomi. Le voci che non trovano la partita vengono ignorate, quindi una partita rinviata non rompe la pagina: va solo aggiornata la data. Questa pagina per ora legge soltanto; il sistema di raccolta delle disponibilita' scrivera' qui.",
+  "turni": []
+}

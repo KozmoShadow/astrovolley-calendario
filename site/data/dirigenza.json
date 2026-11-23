@@ -1,0 +1,15 @@
+{
+  "_istruzioni": "Configurazione della pagina Dirigenza. 'societa' elenca i frammenti di nome, in minuscolo, che identificano le nostre squadre: una partita e' 'in casa' quando la squadra di casa ne contiene uno. 'altra_societa' serve per le partite di cui curiamo il referto pur non essendo nostre: scrivi in 'pattern' il frammento del suo nome e in 'nome' il nome leggibile. Se non serve, lascia 'pattern' vuoto. 'foglio_turni' punta al Google Sheet dei turni: in 'id' va l'indirizzo del foglio (oppure il solo id). Con un foglio PUBBLICATO sul web (.../d/e/2PACX-.../pubhtml) il tab si sceglie con 'gid', non con 'nome': il gid e' il numero dopo gid= nel link. Con un foglio normale condiviso in lettura si usa 'nome'. Se 'id' e' vuoto la pagina legge data/turni.json.",
+  "societa": [
+    "astro"
+  ],
+  "altra_societa": {
+    "nome": "",
+    "pattern": ""
+  },
+  "foglio_turni": {
+    "id": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBwyVqLXEz0iZwx6GvQ7-e8f5QSReZuMsuB2jaOGZI-ly8N8yLS9SknttfTBZIudlDCcuUmrruC4HL/pubhtml?gid=0&single=true",
+    "gid": "0",
+    "nome": "Turni"
+  }
+}

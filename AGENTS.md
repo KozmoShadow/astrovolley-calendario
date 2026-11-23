@@ -17,8 +17,9 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
 - `importer/asi_pdf.py` — estrae il calendario ASI dal PDF (richiede `pdfplumber`)
 - `site/` — frontend statico (index.html, styles.css, app.js, assets/, data/)
 - `site/data/squadre.json` — squadre del club: slug per i link diretti e nomi usati nei calendari
-- `site/admin/` — pagina admin protetta (vedi sotto)
-- `worker/` — funzione serverless opzionale per l'accesso OAuth
+- `site/dirigenza/` — area dirigenza, sola lettura (vedi sotto)
+- `site/data/turni.json` — refertisti e addetti arbitro per partita
+- `site/data/dirigenza.json` — configurazione dell'area dirigenza
 - `site/assets/logo.webp` — logo società nell'header, 192px WebP (vedi «Loghi»)
 
 ## Fonti dati
@@ -54,7 +55,7 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
     esplicitamente: non reintrodurre il conteggio degli 0-0.
   - **Vecchio flusso PDF** (`importer/asi_pdf.py` → `<id>.calendario.json` +
     `<id>.risultati.json`): resta supportato da `load_asi()` per i campionati caricati a
-    mano dalla pagina admin. Se per lo stesso id esiste il file unico, vince quello.
+    mano. Se per lo stesso id esiste il file unico, vince quello.
   - Il PDF **non** va mai committato: contiene email/cellulari dei referenti (`*.pdf`
     in `.gitignore`).
   - `data/asi/<id>.squadre.json` contiene i loghi scelti a mano: l'importer lo legge e li
@@ -84,27 +85,43 @@ FIPAV verso `assets/loghi/fipav/`, e `mergeLiveAsi` mette i loghi dello snapshot
 prima di quelli del live. L'URL remoto resta solo come riserva per una squadra nuova,
 che non ha ancora il file.
 
-## Pagina admin (`site/admin/`)
-Pubblica su Pages, non linkata dal sito e `noindex`. Serve a caricare i PDF e inserire
-i risultati. **Scrivere richiede un token GitHub valido**: la sicurezza sta nei permessi
-del repo, non nel nascondere la pagina.
-- **Token personale** (fine-grained, Contents: read & write): si incolla e resta in
-  `localStorage`. Nessuna configurazione.
-- **OAuth** ("Accedi con GitHub"): richiede il worker in `worker/` (Cloudflare). GitHub
-  non espone l'endpoint OAuth con CORS e il `client_secret` non deve stare nella pagina,
-  quindi lo scambio va fatto lì. Imposta `oauthWorkerUrl` in `site/admin/config.json` (nessun codice da toccare).
-- Il parsing PDF usa **pdf.js** (vendored in `site/admin/vendor/`, niente CDN) e replica
-  `importer/asi_pdf.py`: stesse x di colonna ricavate dall'intestazione, stessa tolleranza
-  di 2pt, il giorno è l'ultima parola dopo la squadra ospite.
-- Il **N. Gara** può avere un numero di cifre variabile (es. `1` in Open Misto Élite,
-  `3001` in Open Misto Promozionale): non va mai dato per scontato a 4 cifre. La riga
-  gara si riconosce da `^\d+ <data> <ora>`.
-- Il separatore palestra/indirizzo è il **primo " - " fuori dalle virgolette**: alcune
-  palestre hanno un trattino nel nome (es. `SMS "Illuminato - Cirino"`). Vale per
-  entrambi i parser.
-- L'admin scrive via API GitHub (`contents/`, base64). `update-schedule.yml` ha un trigger
-  `push` su `data/asi/**` e `data/manual.json`, così i risultati entrano subito in
-  `schedule.json` (niente `[skip ci]`, altrimenti Pages non ridistribuisce).
+## Area dirigenza (`site/dirigenza/`)
+Sola lettura, si apre dal logo in testata. Mostra le card dei mesi e, dentro un mese,
+le partite con refertisti e addetti all'arbitro.
+
+I turni si leggono da un **Google Sheet pubblico** (configurato in
+`dirigenza.json` → `foglio_turni.id`): chi li assegna scrive nel foglio e il sito li
+vede al reload, senza commit. `site/data/turni.json` resta come **riserva**: se il
+foglio non risponde (privato, 404, Google giu', timeout 8 s) la pagina usa il file e
+mostra un avviso. Senza `id` la pagina legge solo il file.
+
+- **Nessuna scrittura e nessun token**: la pagina legge solo file statici. Non c'e' piu'
+  nessun percorso che scriva sul repo dal browser (l'admin e il worker OAuth sono stati
+  rimossi).
+- **Filtro**: chip "Solo in casa" (predefinito) e "Tutte le partite". Sta fuori dalle due
+  viste, cosi' resta raggiungibile anche dentro un mese. Lo stato va nell'indirizzo
+  (`?filtro=tutte&mese=2027-01`).
+- **Casa e trasferta** si decidono con `playingHome()` in `app.js` e con `inCasa()` qui:
+  con una squadra aperta conta il lato di *quella* squadra. In Open Misto Promozionale
+  giocano Cercola e Portici, quindi "astro" compare da entrambe le parti.
+- **Nessun doppione**: le partite si filtrano una per una, non per squadra. Il derby
+  Cercola-Portici e' una partita sola e deve comparire una volta, non una per squadra.
+  C'e' anche una deduplica esplicita su `data|casa|trasferta`.
+- **Altra societa'**: `dirigenza.json` ha `altra_societa.pattern` (frammento del nome) e
+  `altra_societa.nome` (etichetta). Serve per le partite di cui curiamo il referto senza
+  essere nostri; quelle partite prendono il chip "Referto <nome>".
+- **Niente live**: la pagina usa solo lo snapshot. Il live FIPAV riporta le sole partite
+  della nostra societa' e scarterebbe quelle dell'altra societa'.
+- **Turni mancanti**: una voce che non trova la partita non rompe la pagina. La card del
+  mese mostra quanti turni mancano.
+- **Aggancio tollerante**: `riallineaTurni()` confronta `data|casa|trasferta` in forma
+  ripulita (minuscole, accenti, spazi doppi), cosi' "asd astrovolley" combacia con
+  "ASD ASTROVOLLEY". Se la trasferta e' scritta male ma data+casa sono univoche, il
+  turno si aggancia lo stesso; altrimenti finisce negli **orfani**, segnalati sotto la
+  lista. Il ripiego su data+casa non scatta se due partite in casa cadono lo stesso
+  giorno: li' non si puo' indovinare.
+- **Nome e cognome**: nella cella i nomi si separano con la virgola, quindi scrivere
+  "Rossi, Mario" crea due persone. Va scritto "Mario Rossi". 
 
 ## Refresh live nel browser (opzione C)
 - `site/fipav-live.js` replica in JS il parser Python e legge FIPAV **direttamente dal
@@ -148,7 +165,7 @@ quindi dal telefono il fetch live fallisce sempre e si usa lo snapshot.
 ma copre solo 12 regioni e **non include la Campania** → non utilizzabile per questo club.
 
 ## Aggiornamento del sito dopo un salvataggio (importante)
-La catena è: admin salva `data/asi/*.risultati.json` → push → workflow "Aggiorna
+La catena è: si aggiorna `data/asi/*.risultati.json` → push → workflow "Aggiorna
 calendario" (che prima rilancia `importer/asi_api.py`, poi `import_schedule.py`)
 rigenera `site/data/schedule.json` → deploy GitHub Pages.
 `_applica_risultati_manuali()` fa vincere i risultati scritti a mano su quelli dell'API:
@@ -165,34 +182,37 @@ Due trappole già risolte, da non reintrodurre:
 
 Tempi tipici: salvataggio ~1 s, sito aggiornato ~30 s.
 
-## Sezione admin (site/admin/)
-- `admin.js` salva i risultati in `data/asi/<id>.risultati.json` e i loghi delle
-  squadre in `data/asi/<id>.squadre.json` (file separato: il calendario si
-  rigenera dal PDF e perderebbe i loghi).
-- I loghi sono URL (esterni oppure locali); l'importer li collega a
-  `logo_casa`/`logo_trasferta`.
-- La modifica dei risultati avviene in una scheda che ricalca quella pubblica:
-  si clicca il "vs", si scrive il punteggio, e i blocchi dei parziali si
-  generano dal risultato (3-1 -> 4 blocchi). Cambiando punteggio i parziali
-  scritti restano; si taglia/aggiunge solo in coda.
-- Le modifiche stanno in `state.pending` finche' non si preme Salva: un solo
-  commit per l'intera giornata compilata. Il file loghi si scrive solo se
-  cambiato (`state.loghiDirty`).
-- **Non contare `state.pending` per l'avviso "Modifiche non salvate"**: al
-  caricamento `state.pending` contiene anche i risultati gia' salvati, quindi
-  contarne le chiavi fa comparire l'avviso appena si apre la pagina (con
-  l'Open Misto Elite, che ha risultati, succedeva sempre). L'avviso usa il
-  flag `state.dirty`, alzato solo da `setPending`/input loghi e azzerato al
-  caricamento (`loadResults`) e dopo un salvataggio riuscito.
-- La lista partite e' **raggruppata per giornata** (`renderMatchList` costruisce
-  una `.giornata` per giornata, con intestazione `.giornata-head` sticky e
-  contatore). Le gare senza giornata vanno in fondo. Ogni riga non ripete piu'
-  "G<n>": la giornata sta nell'intestazione della sezione.
-- **Overflow orizzontale su mobile**: `.grid` usa `minmax(0, 1fr)` e
-  `label.inline select` ha `max-width: 100%`. Senza, la select del campionato
-  (larga quanto il titolo piu' lungo) allarga la pagina oltre lo schermo.
-- `escapeAttr` e' definita in `admin.js` come in `app.js`; se manca, il form
-  loghi si rompe silenziosamente.
+## Turni (Google Sheet + site/data/turni.json)
+La fonte normale e' il Google Sheet. Il file JSON resta come riserva e come formato di
+scambio.
+
+**Il foglio** ha una riga di intestazione con queste colonne, cercate per nome (l'ordine
+non conta, le colonne in piu' si ignorano):
+
+| colonna | contenuto |
+|---|---|
+| `data` | `YYYY-MM-DD HH:MM`, identica a `schedule.json` |
+| `casa` | squadra di casa |
+| `trasferta` | squadra ospite |
+| `refertisti` | nomi separati da virgola |
+| `addetti_arbitro` | nomi separati da virgola |
+
+Il foglio va **pubblicato sul web** (File → Condividi → Pubblica sul web → *questo
+foglio*), non condiviso con "chiunque abbia il link": cosi' si espone solo il tab dei
+turni e il resto del documento resta privato. In cambio Google **non permette di
+pubblicare solo alcuni tab**: il CSV contiene tutti i tab pubblicati, e `gid` sceglie
+quale leggere.
+
+Con un foglio pubblicato il link e' `.../d/e/2PACX-.../pubhtml` e il tab si indica con
+`gid` (il numero dopo `gid=`), non con `nome`. `urlFoglio()` riconosce entrambi i
+formati, piu' il solo id. Il CSV pubblicato esce con `max-age=300`, quindi l'URL porta
+un cache-buster `_=<timestamp>`: senza, si leggerebbe una copia vecchia di 5 minuti.
+
+**Il file** (`turni.json`) usa lo stesso schema con `addetti_arbitro` come chiave:
+ogni voce si aggancia con `data` + `casa` + `trasferta` scritti come in `schedule.json`.
+Le voci senza partita vengono ignorate, quindi un rinvio non rompe la pagina.
+Il file e' ancora vuoto: finche' il foglio non e' compilato la pagina mostra "da
+assegnare".
 
 ## Trappole gia' pagate (leggere prima di toccare le viste)
 - **Una sola lista di partite.** Fino alla vista Calendario esistevano due

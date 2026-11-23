@@ -77,8 +77,8 @@ anche dal browser, quindi il sito legge i dati **dal vivo** a ogni apertura.
   quindi non va cambiato: i link già diffusi smetterebbero di funzionare.
 - Le partite **annullate** restano in elenco in grigio ma non hanno risultato e
   **non entrano in classifica**.
-- Se un risultato manca o è sbagliato, si può correggere a mano dalla pagina
-  admin: il valore scritto a mano vince su quello dell'API.
+- Se un risultato manca o è sbagliato, si può correggere a mano scrivendo in
+  `data/asi/<id>.risultati.json`: il valore scritto a mano vince su quello dell'API.
 
 Vecchio flusso con PDF (ancora supportato per i campionati caricati a mano):
 `importer/asi_pdf.py` genera `data/asi/<id>.calendario.json`, i risultati stanno
@@ -88,25 +88,28 @@ file calcolando la classifica (3-0/3-1 → 3 punti, 3-2 → 2, 2-3 → 1).
 > Il PDF **non** va mai committato: contiene i contatti dei referenti. La regola
 > `*.pdf` è in `.gitignore`.
 
-## Pagina admin
+## Area dirigenza
 
-Su `site/admin/` c'è una pagina protetta per caricare i PDF e inserire i risultati
-senza toccare i file a mano. È pubblicata su GitHub Pages come il sito, ma:
+Su `site/dirigenza/` c'e' una pagina di sola lettura, raggiungibile dal logo in
+testata: card dei mesi con le partite in casa e, dentro un mese, refertisti e
+addetti all'arbitro per ogni gara.
 
-- non è linkata dal sito ed è `noindex`;
-- **scrivere richiede un token GitHub valido**: chi non ha i permessi sul repo non
-  può fare nulla, anche trovando la pagina.
+Non scrive nulla e non chiede credenziali: legge `site/data/schedule.json`,
+`site/data/dirigenza.json` e i turni.
 
-Due modi di accesso:
+I turni stanno su un **Google Sheet pubblico**: si compilano li' e il sito li vede
+al reload, senza commit. `site/data/turni.json` resta come riserva se il foglio non
+risponde. Il foglio si configura in `site/data/dirigenza.json` → `foglio_turni`
+(`id` e `nome` del tab); lo schema delle colonne e' descritto in `AGENTS.md`.
+Un modello gia' compilato con le 45 partite in casa e' in
+`site/demo/foglio-turni-esempio.csv`: importalo con File → Importa.
 
-- **Token personale** (fine-grained, permesso *Contents: read & write* su questo
-  repo). Immediato, nessuna configurazione: si incolla nella pagina e resta solo
-  nel browser (`localStorage`).
-- **Accedi con GitHub** (OAuth): più comodo quando i gestori sono più d'uno, perché
-  ognuno usa il proprio account. Richiede la funzione serverless in `worker/`
-  (Cloudflare Worker): è l'unico pezzo che non può stare nel browser, perché lo
-  scambio del token va fatto con il `client_secret`, che non deve mai finire nella
-  pagina. Vedi `worker/README.md`.
+Due chip in cima cambiano cosa si vede: "Solo in casa" (predefinito) e "Tutte le
+partite". Lo stato passa nell'indirizzo, quindi `?filtro=tutte&mese=2027-01` si
+puo' salvare tra i preferiti.
+
+La pagina e' pubblica come il resto del sito, ma `noindex`: chi ha il link la
+vede. Non c'e' nulla di riservato oltre ai turni.
 
 ## Deploy (gratuito)
 
