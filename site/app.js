@@ -563,9 +563,23 @@ function mostraVistaCalendario(on, opts = {}) {
 function openMatchModal(m) {
   if (!m) return;
   const d = parseDate(m.data);
+  const giorno = d ? fmtDay(d) : "";
+  const ora = d ? `Ore ${fmtTime(d)}` : "";
   const quando = d ? `${fmtDay(d)} · ore ${fmtTime(d)}` : "Data da definire";
-  const riga = (label, val) =>
-    val ? `<div class="detail-row"><span class="detail-label">${label}</span><span class="detail-value">${escapeHtml(val)}</span></div>` : "";
+
+  const icona = (nome) => `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${nome}</svg>`;
+  const ICONE = {
+    palla: '<circle cx="12" cy="12" r="9"/><path d="M12 3c3.5 3.2 3.5 14.8 0 18M3 12c3.2-3.5 14.8-3.5 18 0"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    calendario: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    orologio: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    pin: '<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/>',
+    mappa: '<path d="M3 11l18-8-8 18-2.5-7.5L3 11z"/>',
+    condividi: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/>',
+  };
+
   const parziali = (m.parziali || "").trim();
   const setChips = parziali
     ? `<div class="set-chips">${parziali
@@ -574,63 +588,140 @@ function openMatchModal(m) {
         .map((s) => `<span class="set-chip">${escapeHtml(s)}</span>`)
         .join("")}</div>`
     : "";
-  // Il logo si puo' cliccare per vederlo grande: l'immagine originale e'
-  // spesso molto piu' definita di quanto mostrato a 46px.
+
   const logoImg = (url, nome) =>
     url
       ? `<img src="${escapeAttr(logoUrl(url))}" alt="Logo ${escapeAttr(titolaNome(nome))}" loading="lazy"
            class="logo-zoom" role="button" tabindex="0"
            data-logo="${escapeAttr(logoUrl(url))}" data-nome="${escapeAttr(titolaNome(nome))}" />`
-      : "";
-  const logoCasa = logoImg(m.logo_casa, m.casa);
-  const logoTrasf = logoImg(m.logo_trasferta, m.trasferta);
+      : `<span class="logo-fallback">${escapeHtml(iniziali(nome))}</span>`;
+
+  const annullata = (m.stato || "") === "cancelled";
+  const giocata = !!m.risultato && !annullata;
+
+  const esito = annullata
+    ? `<div class="esito annullata">${icona(ICONE.x)}<span>Annullata</span></div>`
+    : giocata
+      ? `<div class="esito finale">${icona(ICONE.check)}<span>Finale</span></div>`
+      : `<div class="esito dagiocare">${icona(ICONE.orologio)}<span>Da giocare</span></div>`;
+
+  const centro = annullata
+    ? `<div class="detail-result annullata">—</div>`
+    : giocata
+      ? `<div class="detail-result">${escapeHtml(m.risultato)}</div>`
+      : `<div class="detail-result vs">vs</div>`;
+
   const indirizzo = (m.indirizzo || "").trim();
   const maps = mapsUrl(m);
-  const rigaMappa =
-    indirizzo && maps
-      ? `<div class="detail-row"><span class="detail-label">Indirizzo</span><span class="detail-value"><a class="maps-link" href="${escapeAttr(
-          maps
-        )}" target="_blank" rel="noopener">${escapeHtml(indirizzo)}</a></span></div>`
-      : indirizzo
-      ? `<div class="detail-row"><span class="detail-label">Indirizzo</span><span class="detail-value">${escapeHtml(
-          indirizzo
-        )}</span></div>`
-      : "";
+  const bloccoPalestra = (m.palestra || indirizzo)
+    ? `<div class="info-card">
+        <div class="info-icon">${icona(ICONE.pin)}</div>
+        <div class="info-text">
+          <h4>${escapeHtml(titolaNome(m.palestra) || "Palestra da definire")}</h4>
+          ${indirizzo ? `<p>${escapeHtml(indirizzo)}</p>` : ""}
+        </div>
+        ${maps ? `<a class="btn-mappa" href="${escapeAttr(maps)}" target="_blank" rel="noopener">${icona(ICONE.mappa)}<span>Mappa</span></a>` : ""}
+      </div>`
+    : "";
+
   const fonte = (m._comp.fonte || "manuale").toLowerCase();
   const ente = (m._comp.fonte || "manuale").toUpperCase();
+  const nomeComp = titolaNome(m._comp.titolo || m.campionato || "");
+
   $("#modal-content").innerHTML = `
-    <p class="modal-kicker">${escapeHtml(titolaNome(m._comp.titolo || m.campionato || ""))}${
-      m.giornata ? ` · Giornata ${escapeHtml(String(m.giornata))}` : ""
-    }</p>
-    <div class="detail-score">
-      <div class="detail-team">
-        ${logoCasa}
-        <span class="detail-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
+    <header class="sheet-head">
+      <div class="sheet-title">
+        <span class="sheet-title-icon">${icona(ICONE.palla)}</span>
+        <h2>Dettagli partita</h2>
       </div>
-      <div class="detail-result">${
-        (m.stato || "") === "cancelled"
-          ? `<span class="annullata">annullata</span>`
-          : m.risultato
-            ? escapeHtml(m.risultato)
-            : "vs"
-      }</div>
-      <div class="detail-team">
-        ${logoTrasf}
-        <span class="detail-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
+      <button class="sheet-close" type="button" data-close>
+        <span>Chiudi</span>${icona(ICONE.x)}
+      </button>
+    </header>
+
+    <div class="sheet-body">
+      <div class="sheet-meta">
+        <span class="chip-comp"><span class="chip-dot"></span>${escapeHtml(ente)} • ${escapeHtml(nomeComp)}</span>
+        <div class="meta-row">
+          ${giorno ? `<span class="meta-item">${icona(ICONE.calendario)}<b>${escapeHtml(giorno)}</b></span>` : ""}
+          ${ora ? `<span class="meta-item">${icona(ICONE.orologio)}<b>${escapeHtml(ora)}</b></span>` : ""}
+        </div>
+      </div>
+
+      <section class="match-box" aria-label="Il match">
+        <h3 class="match-box-title">Il match</h3>
+        <div class="match-grid">
+          <div class="team-side">
+            <div class="logo-ring">${logoImg(m.logo_casa, m.casa)}</div>
+            <span class="sheet-team-name ${isOurs(m.casa) ? "ours" : ""}">${escapeHtml(titolaNome(m.casa) || "—")}</span>
+          </div>
+          <div class="score-side">
+            ${centro}
+            ${esito}
+            ${setChips}
+          </div>
+          <div class="team-side">
+            <div class="logo-ring">${logoImg(m.logo_trasferta, m.trasferta)}</div>
+            <span class="sheet-team-name ${isOurs(m.trasferta) ? "ours" : ""}">${escapeHtml(titolaNome(m.trasferta) || "—")}</span>
+          </div>
+        </div>
+      </section>
+
+      ${bloccoPalestra}
+
+      <div class="sheet-actions">
+        <button class="btn-share" type="button" id="share-match">
+          ${icona(ICONE.condividi)}<span>Condividi partita</span>
+        </button>
+      </div>
+
+      <div class="sheet-foot">
+        <span class="badge ${fonte}">${escapeHtml(ente)}</span>
+        ${m.giornata ? `<span class="foot-giornata">Giornata ${escapeHtml(String(m.giornata))}</span>` : ""}
       </div>
     </div>
-    ${setChips}
-    <div class="detail-list">
-      ${riga("Data", quando)}
-      ${riga("Campionato", titolaNome(m.campionato || m.girone))}
-      ${riga("Girone", m.girone && m.girone !== m.campionato ? titolaNome(m.girone) : "")}
-      ${riga("Palestra", titolaNome(m.palestra))}
-      ${rigaMappa}
-      ${riga("Fonte", m._comp.fonte === "fipav" ? "FIPAV (ufficiale)" : m._comp.fonte)}
-    </div>
-    <span class="badge ${fonte} modal-badge">${escapeHtml(ente)}</span>
   `;
+
+  // I listener [data-close] sono agganciati una volta sola all'avvio: il
+  // pulsante qui dentro nasce dopo, quindi va collegato a mano.
+  document.querySelector(".modal-card")?.classList.add("sheet-card");
+  $("#modal-content .sheet-close")?.addEventListener("click", closeModal);
+  $("#share-match")?.addEventListener("click", () => condividiPartita(m, quando));
   openModal();
+}
+
+// Iniziali per il segnaposto quando manca il logo: "ASD Astrovolley" -> "AA".
+function iniziali(nome) {
+  const pulito = (nome || "").replace(/[^\p{L}\s]/gu, " ").trim();
+  if (!pulito) return "?";
+  const parole = pulito.split(/\s+/);
+  return parole.length > 1 ? (parole[0][0] + parole[1][0]).toUpperCase() : parole[0].slice(0, 2).toUpperCase();
+}
+
+async function condividiPartita(m, quando) {
+  const testo = `${titolaNome(m.casa)} - ${titolaNome(m.trasferta)}${
+    quando ? ` · ${quando}` : ""
+  }${m.palestra ? ` · ${titolaNome(m.palestra)}` : ""}`;
+  const url = window.location.href;
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "ASD Astrovolley", text: testo, url });
+      return;
+    } catch {
+      // Condivisione annullata o non disponibile: si prova il ripiego.
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(`${testo}\n${url}`);
+    const btn = $("#share-match span");
+    if (btn) {
+      const prima = btn.textContent;
+      btn.textContent = "Link copiato";
+      setTimeout(() => { btn.textContent = prima; }, 1800);
+    }
+  } catch {
+    window.prompt("Copia il link della partita:", url);
+  }
 }
 
 function openModal() {

@@ -279,6 +279,200 @@ body.modal-open { overflow: hidden; }
 .maps-link:hover { color: var(--text); }
 .modal-badge { margin-top: 14px; }
 
+/* ------------------------------------------------- nuova scheda partita
+   Header, chip campionato, riquadro "Il match" con loghi in cerchio,
+   esito, parziali, blocco palestra con pulsante mappa e pulsante condividi.
+   I colori vengono tutti dalle variabili del tema: le demo (demo/restyle*)
+   ridefiniscono solo quelle e la scheda si adatta da sola. */
+.modal-card.sheet-card {
+  width: min(480px, 100%);
+  padding: 0;
+  border-radius: 22px;
+  /* le demo dipingono un gradiente su .modal-card: qui serve un fondo pieno */
+  background: var(--surface-2);
+}
+.modal-card.sheet-card .modal-close { display: none; }
+
+.ui-icon { width: 16px; height: 16px; flex: 0 0 auto; }
+
+.sheet-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  border-radius: 22px 22px 0 0;
+}
+.sheet-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.sheet-title h2 {
+  margin: 0; font-size: 15px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text);
+}
+.sheet-title-icon {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 11px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent-soft);
+}
+.sheet-title-icon .ui-icon { width: 18px; height: 18px; }
+.sheet-close {
+  display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto;
+  padding: 7px 12px; border-radius: 11px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--muted); font-size: 12px; font-weight: 700; font-family: inherit;
+  transition: color .12s ease, border-color .12s ease;
+}
+.sheet-close:hover { color: var(--text); border-color: var(--accent-soft); }
+.sheet-close .ui-icon { width: 13px; height: 13px; }
+
+.sheet-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+
+.chip-comp {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-soft) 30%, transparent);
+  color: var(--accent-soft);
+  font-size: 10.5px; font-weight: 800;
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.chip-comp .chip-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-soft);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) {
+  .chip-comp .chip-dot { animation: none; }
+}
+
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  margin-top: 10px; padding: 11px 13px;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.meta-item { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+.meta-item .ui-icon { color: var(--accent-soft); }
+.meta-item b { color: var(--text); font-weight: 700; }
+
+.match-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px; padding: 14px;
+}
+.match-box-title {
+  margin: 0 0 12px; text-align: center;
+  font-size: 9.5px; font-weight: 800; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+.match-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 8px; }
+.team-side { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+
+/* Il cerchio resta cerchio anche con loghi non quadrati (es. 362x512):
+   il riquadro e' quadrato e l'immagine riempie un quadrato, quindi il
+   border-radius non puo' produrre un'ellisse. */
+.logo-ring {
+  display: grid; place-items: center;
+  width: 64px; height: 64px; aspect-ratio: 1 / 1;
+  border-radius: 50%; padding: 6px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 2px solid var(--accent);
+}
+.logo-ring img {
+  width: 100%; height: auto; aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 50%; background: #fff;
+}
+.logo-fallback {
+  display: grid; place-items: center;
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 50%;
+  background: var(--surface-2); color: var(--accent-soft);
+  font-size: 14px; font-weight: 800;
+}
+
+.sheet-team-name {
+  font-size: 11.5px; font-weight: 800; line-height: 1.25;
+  text-align: center; color: var(--text);
+  overflow-wrap: anywhere;
+}
+.sheet-team-name.ours { color: var(--accent-soft); }
+
+.score-side { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 6px; }
+.detail-result {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 27px; font-weight: 800; letter-spacing: .06em;
+  color: var(--text); line-height: 1.1;
+}
+.detail-result.vs { font-size: 20px; color: var(--muted); }
+.detail-result.annullata { color: var(--muted); }
+
+.esito {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+}
+.esito .ui-icon { width: 11px; height: 11px; }
+.esito.finale { color: var(--win); background: color-mix(in srgb, var(--win) 14%, transparent); }
+.esito.dagiocare { color: var(--fipav); background: color-mix(in srgb, var(--fipav) 14%, transparent); }
+.esito.annullata { color: var(--loss); background: color-mix(in srgb, var(--loss) 14%, transparent); }
+
+.score-side .set-chips { margin: 4px 0 0; gap: 4px; }
+.score-side .set-chip {
+  padding: 2px 6px; font-size: 10px;
+  background: var(--surface-2); border-color: var(--line); color: var(--muted);
+}
+
+.info-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px; border-radius: 16px;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  border: 1px solid var(--line);
+}
+.info-icon { color: var(--accent-soft); display: grid; place-items: center; }
+.info-icon .ui-icon { width: 20px; height: 20px; }
+.info-text { flex: 1 1 auto; min-width: 0; }
+.info-text h4 { margin: 0; font-size: 13.5px; font-weight: 800; color: var(--text); }
+.info-text p { margin: 3px 0 0; font-size: 12px; line-height: 1.4; color: var(--muted); }
+.btn-mappa {
+  display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto;
+  padding: 8px 12px; border-radius: 11px;
+  background: var(--accent); color: var(--on-accent);
+  font-size: 11.5px; font-weight: 800; text-decoration: none;
+  transition: filter .12s ease;
+}
+.btn-mappa:hover { filter: brightness(1.12); }
+.btn-mappa .ui-icon { width: 13px; height: 13px; }
+
+.sheet-actions { padding-top: 4px; border-top: 1px solid var(--line); }
+.btn-share {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px; border: 0; border-radius: 16px; cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: var(--on-accent);
+  font-family: inherit; font-size: 12px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  transition: transform .1s ease, filter .12s ease;
+}
+.btn-share:hover { filter: brightness(1.08); }
+.btn-share:active { transform: scale(.985); }
+.btn-share .ui-icon { width: 15px; height: 15px; }
+
+.sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sheet-foot .badge { margin: 0; }
+.foot-giornata { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+@media (max-width: 420px) {
+  .modal { padding: 10px; }
+  .sheet-body { padding: 14px; gap: 13px; }
+  .match-grid { gap: 4px; }
+  .logo-ring { width: 56px; height: 56px; }
+  .detail-result { font-size: 24px; }
+  .sheet-team-name { font-size: 10.5px; }
+  .btn-mappa span { display: none; }
+  .btn-mappa { padding: 9px; }
+}
+
+
 .match { cursor: pointer; }
 .match:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
 
