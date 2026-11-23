@@ -7,14 +7,15 @@ prima volta sceglie il proprio nome dall'elenco; da quel momento il telefono se 
 ricorda e non lo chiede piu'. Niente account, niente password, niente link
 personali da mandare a 20 persone una per una.
 
-Si prenota **solo il refertista, un posto per partita**. L'addetto all'arbitro lo
-assegna la dirigenza a mano nel foglio: puo' essere una persona esterna al gruppo
-e non deve prenotare. Nella pagina la riga "Addetto arbitro" si vede lo stesso,
-per sapere chi c'e', ma non ha bottoni.
+Si prenota **solo il refertista, un posto per partita**. L'addetto all'arbitro
+riguarda la dirigenza, che lo assegna a mano nel foglio: chi prenota non lo vede
+e non lo tocca. La pagina mostra solo la partita, il giorno e il posto da
+refertista.
 
-**Sulle partite della FLAT la riga non compare affatto**: la Flat l'addetto lo
-mette per conto suo, e una riga sempre vuota farebbe solo pensare a un turno
-scoperto. La regola e' in `serveAddetto()` in `site/prenota/prenota.js`.
+I turni sono divisi **per mese**: si apre la pagina, si vedono le card dei mesi
+con quante partite hanno e quanti posti restano, e si entra solo in quello che
+interessa. Cosi' a gennaio non si scorre tutta la stagione. La card e' verde se
+il mese e' tutto libero, gialla se e' misto, grigia se e' tutto preso.
 
 ## Come funziona (e perche' cosi')
 
@@ -88,6 +89,12 @@ in elenco puo' comunque scrivere il proprio nome a mano.
   che decide davvero, il sito serve solo a mostrare i posti liberi.
 - **L'addetto arbitro non si prenota.** Il backend rifiuta la richiesta con "Da
   qui si prenota solo il refertista", anche se qualcuno la inviasse a mano.
+- **La scheda si aggiorna subito dopo la prenotazione.** Il backend scrive il
+  foglio all'istante, ma il CSV pubblicato da Google si allinea con qualche
+  minuto di ritardo. Rileggendo solo il CSV, la partita appena prenotata
+  tornava vuota e sembrava non fosse successo niente. La pagina tiene memoria
+  della propria prenotazione finche' il foglio non la conferma: se il CSV resta
+  indietro, comanda la memoria locale.
 - **Si puo' lasciare un turno**, ma solo il proprio: il nome deve corrispondere.
 - **Il doppio tocco non duplica**: chi e' gia' dentro non viene riaggiunto.
 
@@ -149,9 +156,10 @@ tocco, maiuscole e accenti, posto unico con rifiuto nominando chi l'ha preso,
 addetto rifiutato, rinuncia e riprenotazione, riga sbagliata, partita
 inesistente, nomi con virgola.
 
-Pagina (27 test, Chromium su viewport telefono): lista fissa con ordine
-alfabetico, chi non ha mai prenotato compare, addetto visibile ma senza bottone,
-nessuna riga addetto sulle partite Flat, tag in casa/trasferta, turni pieni con
+Pagina (31 test, Chromium su viewport telefono): lista fissa con ordine
+alfabetico, chi non ha mai prenotato compare, addetto mai mostrato, nessun badge
+in casa/trasferta, card dei mesi con conteggi e colori, apertura e ritorno ai
+mesi, scheda che si aggiorna anche col CSV in ritardo, turni pieni con
 bottone disabilitato, payload POST senza ruolo, nota dopo il cambio nome,
 memoria del telefono, console pulita.
 

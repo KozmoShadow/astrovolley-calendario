@@ -265,6 +265,82 @@
   color: #c8f5dd;
 }
 
+/* ---------- elenco dei mesi ---------- */
+
+.prn-mesi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.prn-mese-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface));
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.18s, transform 0.12s;
+}
+.prn-mese-card:hover,
+.prn-mese-card:focus-visible {
+  border-color: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.prn-mese-libero { border-left-color: #4ec97a; }
+.prn-mese-parziale { border-left-color: #e0b341; }
+.prn-mese-pieno { border-left-color: #6b5c78; }
+
+.prn-mese-nome {
+  font-family: "Bebas", sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.prn-mese-n {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+}
+.prn-mese-prima {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.prn-mese-stato {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.prn-mese-libero .prn-mese-stato { color: #4ec97a; }
+.prn-mese-parziale .prn-mese-stato { color: #e0b341; }
+.prn-mese-pieno .prn-mese-stato { color: #9b8aa9; }
+
+.prn-indietro {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--accent-soft);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.prn-indietro:hover,
+.prn-indietro:focus-visible {
+  border-color: var(--accent-soft);
+}
+
 /* ---------- mesi ---------- */
 
 .prn-mese {
@@ -372,23 +448,6 @@
   color: #6b5a79;
 }
 
-.prn-tag-away {
-  background: rgba(255, 180, 78, 0.14);
-  color: var(--warn);
-}
-
-.prn-tag {
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 100px;
-  white-space: nowrap;
-  background: rgba(78, 201, 122, 0.16);
-  color: var(--win);
-}
-
 /* ---------- lato destro: chi c'e', e il bottone ---------- */
 
 .prn-side {
@@ -449,28 +508,6 @@
   color: var(--win);
 }
 
-/* ---------- addetto: riga a parte, non prenotabile ---------- */
-
-.prn-addetto {
-  grid-column: 2 / -1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding-top: 10px;
-  margin-top: 2px;
-  border-top: 1px solid rgba(58, 58, 68, 0.55);
-  font-size: 12.5px;
-  color: var(--muted);
-}
-.prn-addetto-tit {
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: #9b8aa9;
-}
-
 /* ---------- stati ---------- */
 
 .prn-loading,
@@ -479,21 +516,6 @@
   color: var(--muted);
   font-size: 0.9rem;
   padding: 30px 10px;
-}
-
-.prn-persona {
-  padding: 2px 10px;
-  border-radius: 100px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--line);
-  font-size: 12px;
-  color: var(--text);
-}
-
-.prn-vuoto {
-  color: #8f7c9e;
-  font-style: italic;
-  font-size: 0.82rem;
 }
 
 .prn-footer {
@@ -523,8 +545,7 @@
     grid-template-columns: 52px 1fr;
     grid-template-areas:
       "data info"
-      "side side"
-      "add  add";
+      "side side";
     gap: 10px 14px;
     padding: 13px 14px;
   }
@@ -538,10 +559,6 @@
     grid-area: side;
     justify-content: space-between;
     padding-top: 2px;
-  }
-  .prn-addetto {
-    grid-area: add;
-    grid-column: auto;
   }
   .prn-btn {
     flex: 1;

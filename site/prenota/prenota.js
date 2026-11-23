@@ -202,27 +202,6 @@ function tinta(nome) {
   return `hsl(${h} 52% 38%)`;
 }
 
-/**
- * Squadre per cui il turno e' in casa. Il foglio elenca solo le partite nostre,
- * ma la colonna "casa" puo' contenere l'avversaria: il tag va dedotto, non
- * scritto fisso, altrimenti dice "in casa" anche quando non lo e'.
- */
-const SQUADRE_CASA = ["astrovolley", "flat sport"];
-
-function eInCasa(casa) {
-  const c = impronta(casa);
-  return SQUADRE_CASA.some((n) => c.includes(n));
-}
-
-/**
- * Per le partite della Flat l'addetto all'arbitro non serve: la Flat lo mette
- * per conto suo. Meglio non mostrare una riga che resterebbe sempre vuota e
- * farebbe pensare a un turno scoperto.
- */
-function serveAddetto(turno) {
-  return !impronta(turno.casa).includes("flat");
-}
-
 function iniziali(nome) {
   const parti = String(nome || "").trim().split(/\s+/).filter(Boolean);
   if (!parti.length) return "?";
@@ -241,6 +220,27 @@ function messaggioBanner(testo, tipo = "errore") {
   b.className = `prn-banner prn-banner-${tipo}`;
   mostra(b);
 }
+
+/**
+ * Mese aperto nell'elenco. Vuoto = si vedono le card dei mesi.
+ * Vive fuori dal DOM perche' ogni prenotazione ridisegna tutto: senza questa
+ * variabile si tornerebbe sempre all'elenco dopo aver toccato "Ci sono".
+ */
+let meseAperto = "";
+
+/** Ultimi turni letti: servono a ridisegnare cambiando mese, senza rifetch. */
+let turniCorrenti = [];
+
+/**
+ * Prenotazioni fatte da questo telefono che il CSV non mostra ancora.
+ *
+ * Il backend scrive il foglio subito, ma il CSV pubblicato da Google si
+ * allinea con minuti di ritardo. Rileggendo solo il CSV, la scheda tornava
+ * vuota dopo la prenotazione: il messaggio diceva "prenotato" e la partita
+ * sembrava libera. Qui si tiene il dato finche' il foglio non lo conferma.
+ */
+const modificheLocali = new Map();
+const DURATA_MODIFICA = 10 * 60 * 1000;
 
 /** Vero se il turno e' prenotato a questo nome. L'addetto non si prenota qui. */
 function eMio(turno, nome) {
@@ -271,24 +271,6 @@ function schedaHtml(turno, nome) {
     bottone = `<button class="prn-btn" data-azione="prenota" data-chiave="${escapeHtml(turno.chiave)}" type="button">Ci sono</button>`;
   }
 
-  // L'addetto all'arbitro si vede ma non si prenota: lo assegna la dirigenza,
-  // e puo' essere una persona esterna al gruppo dei refertisti.
-  //
-  // Qui il nome va scritto per esteso, non come avatar: le iniziali su un
-  // telefono non bastano a capire chi e', e non c'e' un passaggio del mouse per
-  // leggere il nome completo.
-  const rigaAddetto = serveAddetto(turno)
-    ? `<div class="prn-addetto">
-        <span class="prn-addetto-tit">Addetto arbitro</span>
-        ${(turno.addetti || []).length
-          ? (turno.addetti || []).map((n) => `<span class="prn-persona">${escapeHtml(n)}</span>`).join("")
-          : `<span class="prn-vuoto">lo assegna la dirigenza</span>`}
-      </div>`
-    : "";
-
-  const casa = eInCasa(turno.casa);
-  const tag = `<span class="prn-tag${casa ? "" : " prn-tag-away"}">${casa ? "in casa" : "trasferta"}</span>`;
-
   return `
     <article class="${classi.join(" ")}">
       <div class="prn-data">
@@ -297,9 +279,7 @@ function schedaHtml(turno, nome) {
         <span class="w">${escapeHtml(d.sett.slice(0, 3))}</span>
       </div>
       <div class="prn-info">
-        <h3>${escapeHtml(turno.casa)} – ${escapeHtml(turno.trasferta)}
-          ${tag}
-        </h3>
+        <h3>${escapeHtml(turno.casa)} – ${escapeHtml(turno.trasferta)}</h3>
         <div class="prn-meta">
           <span>${escapeHtml(d.sett)} ${escapeHtml(d.g)} ${escapeHtml(d.mese)} · ${escapeHtml(d.ora)}</span>
           <span class="dot">·</span>
@@ -310,8 +290,61 @@ function schedaHtml(turno, nome) {
         <div class="prn-stack">${stack}</div>
         ${bottone}
       </div>
-      ${rigaAddetto}
     </article>`;
+}
+
+/** Sovrappone al CSV le prenotazioni locali non ancora pubblicate. */
+function applicaModifiche(turni) {
+  const adesso = Date.now();
+  for (const [chiave, m] of modificheLocali) {
+    const t = turni.find((x) => x.chiave === chiave);
+    // Scaduta, oppure la partita non c'e' piu': la memoria non serve.
+    if (adesso - m.quando > DURATA_MODIFICA || !t) {
+      modificheLocali.delete(chiave);
+      continue;
+    }
+    const nelFoglio = (n) => t.refertisti.some((x) => impronta(x) === impronta(n));
+    // Il foglio ha gia' lo stato voluto: da qui in poi comanda lui.
+    const allineato = m.refertisti.length
+      ? m.refertisti.every(nelFoglio)
+      : t.refertisti.length === 0;
+    if (allineato) {
+      modificheLocali.delete(chiave);
+      continue;
+    }
+    t.refertisti = m.refertisti.slice();
+    t.postiRefertista = Math.max(0, POSTI_REFERTISTA - t.refertisti.length);
+  }
+  return turni;
+}
+
+/** Ricorda l'esito di una prenotazione, per non mostrarla annullata. */
+function ricordaModifica(azione, chiave, nome) {
+  const t = turniCorrenti.find((x) => x.chiave === chiave);
+  if (!t) return;
+  const altri = (t.refertisti || []).filter((x) => impronta(x) !== impronta(nome));
+  modificheLocali.set(chiave, {
+    refertisti: azione === "libera" ? altri : [...altri, nome],
+    quando: Date.now(),
+  });
+}
+
+/**
+ * Card di un mese nell'elenco. Il colore del bordo dice se resta qualcosa da
+ * prendere: e' l'informazione che serve per capire dove andare, senza aprire.
+ */
+function cardMese(chiave, lista, nome) {
+  const liberi = lista.filter((t) => eMio(t, nome) || t.postiRefertista > 0).length;
+  const primo = dataParti(lista[0].data);
+  const stato = liberi === 0 ? "pieno" : liberi === lista.length ? "libero" : "parziale";
+  const testo = liberi === 0 ? "tutto preso" : liberi === 1 ? "1 posto libero" : `${liberi} posti liberi`;
+  return `
+    <button class="prn-mese-card prn-mese-${stato}" type="button" data-mese="${escapeHtml(chiave)}">
+      <span class="prn-mese-nome">${escapeHtml(nomeMese(chiave))}</span>
+      <span class="prn-mese-n">${lista.length === 1 ? "1 partita" : `${lista.length} partite`}</span>
+      <span class="prn-mese-prima">prima: ${escapeHtml(primo.sett)} ${escapeHtml(primo.g)} · ${escapeHtml(primo.ora)}</span>
+      <span class="prn-mese-stato">${escapeHtml(testo)}</span>
+    </button>`;
 }
 
 function render(turni, nome) {
@@ -336,19 +369,28 @@ function render(turni, nome) {
     perMese.get(k).push(t);
   });
 
-  let html = "";
-  for (const [k, lista] of perMese) {
+  // Se il mese aperto non esiste piu' (foglio cambiato) si torna all'elenco.
+  if (meseAperto && !perMese.has(meseAperto)) meseAperto = "";
+
+  if (!meseAperto) {
+    $("prn-lista").innerHTML = `<div class="prn-mesi">${[...perMese.entries()]
+      .map(([k, lista]) => cardMese(k, lista, nome))
+      .join("")}</div>`;
+    $("prn-sub").textContent =
+      `${futuri.length} partite in casa, da ${nomeMese(meseDi(futuri[0].data))}. Scegli il mese.`;
+  } else {
+    const lista = perMese.get(meseAperto);
     const liberi = lista.filter((t) => eMio(t, nome) || t.postiRefertista > 0).length;
-    html += `
+    $("prn-lista").innerHTML = `
+      <button class="prn-indietro" type="button" data-mesi-tutti>← tutti i mesi</button>
       <section class="prn-mese">
-        <h3 class="prn-mese-tit">${escapeHtml(nomeMese(k))}
+        <h3 class="prn-mese-tit">${escapeHtml(nomeMese(meseAperto))}
           <span class="prn-mese-conta">${lista.length === 1 ? "1 partita" : `${lista.length} partite`}${liberi ? ` · ${liberi} con posti` : ""}</span>
         </h3>
         ${lista.map((t) => schedaHtml(t, nome)).join("")}
       </section>`;
+    $("prn-sub").textContent = `${nomeMese(meseAperto)}: ${lista.length === 1 ? "1 partita" : `${lista.length} partite`}, ${liberi} con posti.`;
   }
-  $("prn-lista").innerHTML = html;
-  $("prn-sub").textContent = `${futuri.length} partite in casa, da ${nomeMese(meseDi(futuri[0].data))}.`;
   mostra($("prn-turni"));
   nascondi($("prn-empty"));
 }
@@ -362,7 +404,8 @@ function render(turni, nome) {
 async function aggiorna(nome, opzioni = {}) {
   try {
     if (opzioni.pulisci) messaggioBanner("");
-    const turni = await caricaTurni();
+    const turni = applicaModifiche(await caricaTurni());
+    turniCorrenti = turni;
     render(turni, nome);
   } catch (err) {
     nascondi($("prn-loading"));
@@ -439,6 +482,21 @@ function bind() {
     const scelta = ev.target.closest("[data-nome]");
     if (scelta) { impostaNome(scelta.dataset.nome); return; }
 
+    const card = ev.target.closest("[data-mese]");
+    if (card) {
+      meseAperto = card.dataset.mese;
+      render(turniCorrenti, localStorage.getItem(CHIAVE_NOME) || "");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (ev.target.closest("[data-mesi-tutti]")) {
+      meseAperto = "";
+      render(turniCorrenti, localStorage.getItem(CHIAVE_NOME) || "");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     const bottone = ev.target.closest("[data-azione]");
     if (!bottone) return;
     const nome = localStorage.getItem(CHIAVE_NOME);
@@ -453,6 +511,7 @@ function bind() {
         chiave: bottone.dataset.chiave,
       });
       messaggioBanner(esito.messaggio || "Fatto.", "ok");
+      ricordaModifica(bottone.dataset.azione, bottone.dataset.chiave, nome);
       // Rilegge dal foglio invece di fidarsi della risposta: cosi' si vede lo
       // stato vero, anche se qualcun altro ha prenotato nello stesso momento.
       await aggiorna(nome);
