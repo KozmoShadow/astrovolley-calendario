@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: pages
@@ -26,5 +27,24 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+      # L'API degli artefatti e' a consistenza differita: subito dopo l'upload
+      # `deploy-pages` puo' ancora rispondere "Found 0 artifact(s)" e fallire.
+      # Si aspetta che l'artefatto sia davvero elencato prima di deployare.
+      - name: Attende che l'artefatto sia visibile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 30); do
+            n=$(gh api "repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
+                  --jq '[.artifacts[] | select(.name=="github-pages")] | length')
+            if [ "$n" = "1" ]; then
+              echo "artefatto visibile dopo ${i} tentativi"
+              exit 0
+            fi
+            echo "tentativo $i: artefatti github-pages = $n, riprovo"
+            sleep 2
+          done
+          echo "::error::l'artefatto github-pages non e' mai diventato visibile"
+          exit 1
       - id: deployment
         uses: actions/deploy-pages@v4
