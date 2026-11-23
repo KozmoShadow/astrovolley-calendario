@@ -117,6 +117,16 @@ vuota lascia la partita rossa come se non ci fosse.
 La pagina e' pubblica come il resto del sito, ma `noindex`: chi ha il link la
 vede. Non c'e' nulla di riservato oltre ai turni.
 
+### Prenotazione dei turni
+
+C'e' una pagina per far prenotare i turni ai refertisti senza passare dal foglio:
+`site/prenota/`. Un solo link da mettere nel gruppo WhatsApp; la prima volta si
+sceglie il nome, poi il telefono se lo ricorda.
+
+Legge il foglio dal CSV pubblicato (CORS aperto) e scrive tramite una web app Apps
+Script, perche' una GET verso `script.google.com` e' bloccata da CORS mentre un
+POST con `text/plain` passa. Installazione e regole: `foglio/README-prenotazioni.md`.
+
 ### Le partite nuove arrivano da sole
 
 Il foglio non contiene l'elenco delle partite: quello lo genera l'importer.

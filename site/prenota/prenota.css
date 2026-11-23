@@ -1,0 +1,381 @@
+/* Prenotazione turni. Usa le variabili di styles.css; qui solo struttura e
+   misure della pagina. Mobile prima di tutto: si usa dal telefono. */
+
+.prn-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.prn-hero {
+  padding: 22px 18px 26px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(160, 96, 192, 0.16), transparent);
+  border-bottom: 1px solid var(--line);
+}
+
+.prn-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.prn-brand img {
+  border-radius: 50%;
+  display: block;
+}
+
+.prn-hero h1 {
+  margin: 14px 0 4px;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.prn-tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.prn-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 18px 14px 40px;
+}
+
+.prn-h2 {
+  margin: 0 0 6px;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.15rem;
+}
+
+.prn-sub,
+.prn-hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.prn-hint-small {
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* --- scelta del nome --- */
+
+.prn-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.prn-nomi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.prn-nome {
+  padding: 13px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+.prn-nome:hover,
+.prn-nome:focus-visible {
+  border-color: var(--accent);
+  background: rgba(160, 96, 192, 0.14);
+  outline: none;
+}
+
+.prn-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.prn-input {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 12px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+}
+.prn-input::placeholder {
+  color: var(--muted);
+}
+.prn-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* --- barra "stai prenotando come" --- */
+
+.prn-io {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 11px 14px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  background: rgba(160, 96, 192, 0.12);
+  border: 1px solid rgba(160, 96, 192, 0.35);
+  font-size: 0.86rem;
+}
+.prn-io-label {
+  color: var(--muted);
+}
+.prn-io-nome {
+  font-size: 0.95rem;
+}
+
+.prn-link {
+  background: none;
+  border: none;
+  color: var(--accent-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+}
+
+/* --- avvisi --- */
+
+.prn-banner {
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0 0 16px;
+}
+.prn-banner-errore {
+  background: rgba(224, 87, 106, 0.14);
+  border: 1px solid rgba(224, 87, 106, 0.45);
+  color: #ffd6db;
+}
+.prn-banner-ok {
+  background: rgba(35, 178, 109, 0.14);
+  border: 1px solid rgba(35, 178, 109, 0.45);
+  color: #c8f5dd;
+}
+
+/* --- mesi e turni --- */
+
+.prn-mese {
+  margin-bottom: 26px;
+}
+
+.prn-mese-tit {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 10px;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1rem;
+  color: var(--accent-soft);
+}
+
+.prn-mese-conta {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.prn-turno {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  margin-bottom: 10px;
+}
+
+.prn-turno-mio {
+  border-left-color: var(--win);
+  background: rgba(35, 178, 109, 0.07);
+}
+
+.prn-turno-pieno {
+  opacity: 0.72;
+}
+
+.prn-turno-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.prn-turno-data {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.prn-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(35, 178, 109, 0.2);
+  color: #9ff0c4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.prn-turno-partita {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.prn-ruoli {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 11px;
+}
+
+.prn-ruolo {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 0.84rem;
+}
+
+.prn-ruolo-tit {
+  color: var(--muted);
+  min-width: 108px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.prn-ruolo-nomi {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.prn-persona {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+  font-size: 0.82rem;
+}
+
+.prn-vuoto {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+.prn-azioni {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --- bottoni --- */
+
+.prn-btn {
+  padding: 11px 15px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+.prn-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.prn-btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.prn-btn-primary:hover:not(:disabled) {
+  background: var(--accent-soft);
+}
+
+.prn-btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+}
+.prn-btn-outline:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.prn-btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--line);
+}
+.prn-btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--loss);
+}
+
+/* --- stati --- */
+
+.prn-loading,
+.prn-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 26px 10px;
+}
+
+.prn-footer {
+  padding: 22px 18px 30px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.prn-footer p {
+  margin: 0 0 6px;
+}
+.prn-footer-small {
+  font-size: 0.76rem;
+  opacity: 0.85;
+}
+
+@media (min-width: 620px) {
+  .prn-hero h1 {
+    font-size: 1.8rem;
+  }
+  .prn-ruolo-tit {
+    min-width: 130px;
+  }
+}

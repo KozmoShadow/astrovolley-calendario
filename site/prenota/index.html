@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prenota il turno — ASD Astrovolley</title>
+  <meta name="description" content="Prenotazione dei turni come refertista o addetto all'arbitro per le partite in casa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="prenota.css" />
+</head>
+<body class="prn-page">
+  <header class="prn-hero">
+    <a class="prn-brand" href="../" aria-label="Torna al sito">
+      <img src="../demo/restyle3/logo-tondo.png" alt="" width="44" height="44" />
+      <span>ASD Astrovolley</span>
+    </a>
+    <h1>Prenota il tuo turno</h1>
+    <p class="prn-tagline">Partite in casa. Refertista e addetto all'arbitro.</p>
+  </header>
+
+  <main class="prn-main">
+    <!-- Chi sei: compare solo la prima volta -->
+    <section class="prn-card" id="prn-identita" hidden>
+      <h2 class="prn-h2">Chi sei?</h2>
+      <p class="prn-hint">Lo chiediamo una volta sola: il telefono se lo ricorda.</p>
+      <div class="prn-nomi" id="prn-nomi"></div>
+      <p class="prn-hint prn-hint-small">
+        Se il tuo nome non c'è, scrivilo qui sotto. Poi avvisa la dirigenza.
+      </p>
+      <form class="prn-form" id="prn-form-nome">
+        <input class="prn-input" id="prn-nome-libero" type="text" placeholder="Nome e cognome"
+               autocomplete="name" maxlength="60" required />
+        <button class="prn-btn prn-btn-primary" type="submit">Sono io</button>
+      </form>
+    </section>
+
+    <!-- Barra identità: dopo la scelta -->
+    <div class="prn-io" id="prn-io" hidden>
+      <span class="prn-io-label">Stai prenotando come</span>
+      <strong class="prn-io-nome" id="prn-io-nome"></strong>
+      <button class="prn-link" id="prn-cambia" type="button">non sei tu?</button>
+    </div>
+
+    <p class="prn-banner" id="prn-banner" hidden></p>
+
+    <!-- Elenco turni -->
+    <section id="prn-turni" hidden>
+      <div class="prn-head">
+        <h2 class="prn-h2">Turni disponibili</h2>
+        <p class="prn-sub" id="prn-sub"></p>
+      </div>
+      <div class="prn-lista" id="prn-lista"></div>
+      <p class="prn-empty" id="prn-empty" hidden></p>
+    </section>
+
+    <p class="prn-loading" id="prn-loading">Carico i turni…</p>
+  </main>
+
+  <footer class="prn-footer">
+    <p>ASD Astrovolley · area interna</p>
+    <p class="prn-footer-small">
+      I turni prenotati finiscono nel foglio della dirigenza. Se qualcosa non torna,
+      scrivi nel gruppo.
+    </p>
+  </footer>
+
+  <script type="module" src="prenota.js"></script>
+</body>
+</html>
