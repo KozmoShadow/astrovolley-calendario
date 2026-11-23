@@ -252,12 +252,19 @@ function nascondiAvvisoAggiorna() {
 /** Fa partire il controllo periodico, una volta sola. */
 function avviaControllo() {
   if (timerControllo) return;
+
+  const pausa = () => {
+    const fermo = Date.now() - ultimaAttivita;
+    return fermo < DURATA_INATTIVITA ? INTERVALLO_CONTROLLO : INTERVALLO_LENTO;
+  };
+
   const giro = async () => {
+    const fermo = Date.now() - ultimaAttivita;
+    const spento = document.hidden || fermo > DURATA_MASSIMA;
     // Con la pagina in secondo piano i telefoni rallentano i timer e il
     // controllo non serve a nessuno: si risparmia quota Apps Script.
-    const attivo = !document.hidden && Date.now() - ultimaAttivita < DURATA_INATTIVITA;
-    if (attivo) await controllaAggiornamenti();
-    timerControllo = setTimeout(giro, INTERVALLO_CONTROLLO);
+    if (!spento) await controllaAggiornamenti();
+    timerControllo = setTimeout(giro, spento ? INTERVALLO_LENTO : pausa());
   };
   timerControllo = setTimeout(giro, INTERVALLO_CONTROLLO);
 
@@ -269,6 +276,7 @@ function avviaControllo() {
     controllaAggiornamenti();
   });
   const tocca = () => {
+    // Un tocco riporta il ritmo svelto: la persona e' tornata a guardare.
     ultimaAttivita = Date.now();
   };
   document.addEventListener("click", tocca);
@@ -452,8 +460,27 @@ const DURATA_LETTURA = 30 * 1000;
  */
 const INTERVALLO_CONTROLLO = 15 * 1000;
 
-/** Dopo quanto si smette di controllare, se nessuno tocca lo schermo. */
+/**
+ * Dopo quanto si rallenta il controllo, se nessuno tocca lo schermo.
+ *
+ * La finestra iniziale e' quella in cui si prenota davvero: pagina aperta da
+ * poco, dito sullo schermo. Passati questi minuti la pagina e' quasi sempre
+ * lasciata li', e continuare a chiedere ogni quindici secondi consumerebbe la
+ * quota di Apps Script per niente.
+ */
 const DURATA_INATTIVITA = 10 * 60 * 1000;
+
+/** Intervallo dopo DURATA_INATTIVITA: rallentato di proposito. */
+const INTERVALLO_LENTO = 60 * 1000;
+
+/**
+ * Oltre questo si smette del tutto.
+ *
+ * Senza limite una pagina dimenticata aperta tutto il giorno terrebbe il
+ * controllo acceso per ore: e' il caso che, moltiplicato per sedici telefoni,
+ * esaurisce la quota e ferma le prenotazioni.
+ */
+const DURATA_MASSIMA = 60 * 60 * 1000;
 
 let timerControllo = null;
 let ultimaAttivita = Date.now();

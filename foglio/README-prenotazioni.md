@@ -148,9 +148,14 @@ Quindi il controllo e' stato progettato per costare poco:
   controllano nello stesso minuto pagano una sola lettura del foglio. Ogni
   scrittura svuota la copia e ci mette subito lo stato appena letto, cosi' chi
   ha appena prenotato vede il proprio risultato senza attendere.
-- **Controllo ogni quindici secondi**, solo con la pagina visibile, e si ferma
-  dopo dieci minuti senza tocchi. Con la pagina in secondo piano non parte
-  niente: i telefoni rallentano i timer e non servirebbe a nessuno.
+- **Controllo ogni quindici secondi**, solo con la pagina visibile. Con la
+  pagina in secondo piano non parte niente: i telefoni rallentano i timer e non
+  servirebbe a nessuno.
+- **Poi rallenta e si ferma.** Passati dieci minuti senza tocchi il controllo
+  passa a un minuto, e dopo un'ora si spegne. Serve perche' una pagina
+  dimenticata aperta non deve continuare a chiedere per ore: con sedici
+  telefoni cosi' si arriva a circa cinque minuti di esecuzione al giorno invece
+  di cinquanta. Un tocco riporta il ritmo svelto.
 - **Controllo immediato al ritorno sulla pagina**, che e' il momento in cui il
   rischio di guardare dati vecchi e' piu' alto.
 
