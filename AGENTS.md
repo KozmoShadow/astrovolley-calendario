@@ -282,6 +282,18 @@ regola: meglio un turno da riassegnare a mano che un refertista sulla partita
 sbagliata. Con due partite lo stesso giorno contro lo stesso avversario (non
 esiste in pratica) il livello 3 non scatta, perche' la chiave non e' unica.
 
+### Tab Turni: aggiunta in blocco
+`foglio/aggiungi-turni.gs` e' uno script Apps Script che gira **dentro** il foglio
+dell'utente (non nel repo). Legge il tab Partite, confronta le chiavi con il tab
+Turni e appende in fondo solo le righe mancanti, con refertisti vuoti. Non tocca,
+non riordina e non riscrive le righe esistenti: e' il motivo per cui esiste, perche'
+copiare e incollare righe intere sovrascriverebbe i nomi.
+
+La chiave di confronto e' la stessa del sito: `impronta(data)|impronta(casa)|
+impronta(trasferta)`. Attenzione a `dataInTesto()`: Sheets puo' restituire la data
+come oggetto `Date`, e senza conversione la chiave diventerebbe
+`Sat Nov 08 2026 18:00:00 GMT+0100` invece di `2026-11-08 18:00`.
+
 **Trappola:** con `societa_id` vuoto la pagina FIPAV elenca tutto il comitato (59
 competizioni). `fetch_society_matches()` solleva `ValueError` invece di importare
 mezzo campionato: non togliere quel controllo.

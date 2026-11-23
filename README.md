@@ -132,16 +132,23 @@ Quando parte un campionato nuovo le righe compaiono senza copiarle a mano. Il ta
 Partite e' **generato**: si riscrive a ogni aggiornamento, quindi non va compilato.
 I nomi si scrivono nel tab Turni, che resta l'unico tab da toccare a mano.
 
+Per aggiungere in blocco le partite nuove al tab Turni, senza copiare e incollare
+(che sovrascriverebbe le colonne dei refertisti), c'e' uno script da installare una
+volta sola nel foglio: vedi `foglio/README.md`.
+
 Il CSV contiene anche le gare in casa dell'altra societa', cosi' anche i suoi
 referti hanno una riga da cui partire. Resta pero' a **tre colonne**: aggiungerne
 una sposterebbe i dati nel foglio e sovrascriverebbe le colonne dei refertisti,
 che sono scritte a mano. Per lo stesso motivo non va riordinato a mano il tab
 Partite: si rigenera da solo.
 
-Se `IMPORTDATA` risponde "Risorsa all'url indicato non trovata", di solito e' la
-cache di Google che ripete un errore letto quando il file non c'era ancora: cambiare
-l'URL (`...csv?v=1`) la scavalca. In alternativa jsDelivr serve lo stesso file come
-`text/csv`, senza i limiti di frequenza di GitHub, ma con cache di 12 ore:
+Se `IMPORTDATA` risponde "Risorsa all'url indicato non trovata", o mostra ancora il
+file vecchio, e' la cache di Google che ripete una risposta precedente: cambiare
+l'URL (`...csv?v=1`, poi `?v=2`) la scavalca. Riscrivere la formula nella cella
+funziona altrettanto bene.
+
+**Non usare jsDelivr per questo**, nonostante serva lo stesso file: ha cache di 12
+ore, quindi il problema peggiora. Riferimento storico:
 
 ```
 =IMPORTDATA("https://cdn.jsdelivr.net/gh/KozmoShadow/astrovolley-calendario@main/site/data/partite-casa.csv")
