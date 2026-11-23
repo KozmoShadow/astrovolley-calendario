@@ -448,6 +448,13 @@
   color: #6b5a79;
 }
 
+/* La palestra e' un'informazione pratica: si legge, ma non ruba l'occhio
+   alla partita. Va a capo da sola sui telefoni stretti. */
+.prn-palestra {
+  color: var(--fg);
+  opacity: 0.82;
+}
+
 /* ---------- lato destro: chi c'e', e il bottone ---------- */
 
 .prn-side {

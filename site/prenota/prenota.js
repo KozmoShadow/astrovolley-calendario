@@ -17,6 +17,7 @@
 
 import { URL_BACKEND, URL_CSV } from "./config.js";
 import { NOMI_REFERTISTI } from "./nomi.js";
+import { PALESTRE } from "./palestre.js";
 
 const CHIAVE_NOME = "astrovolley.nome";
 
@@ -123,8 +124,46 @@ function turniDaCsv(testo, postiRefertista) {
   return elenco;
 }
 
-/** Legge il foglio. cache-buster perche' Google tiene 5 minuti di cache. */
+/**
+ * Legge i turni.
+ *
+ * Prima dal backend, che legge il foglio in quel momento. Il CSV pubblicato
+ * arriva da istantanee che Google tiene separate: due letture ravvicinate
+ * possono cadere su istantanee diverse e far ballare la pagina tra "sei
+ * prenotato" e "non sei prenotato". Il backend non ha questo problema.
+ * Il CSV resta come riserva, per quando la web app non risponde.
+ */
 async function caricaTurni() {
+  if (URL_BACKEND) {
+    try {
+      return await turniDaBackend();
+    } catch (err) {
+      if (!URL_CSV) throw err;
+    }
+  }
+  return turniDaCsvPubblicato();
+}
+
+async function turniDaBackend() {
+  const url = `${URL_BACKEND}?azione=turni&_=${Date.now()}`;
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error("Il backend non risponde (" + res.status + ").");
+  const dati = await res.json();
+  if (!dati || !dati.ok || !Array.isArray(dati.turni)) {
+    throw new Error((dati && dati.errore) || "Il backend ha risposto in modo strano.");
+  }
+  return dati.turni.map((t) => ({
+    chiave: t.chiave || chiavePartita(t.data, t.casa, t.trasferta),
+    data: t.data,
+    casa: t.casa,
+    trasferta: t.trasferta,
+    refertisti: (t.refertisti || []).filter(Boolean),
+    addetti: (t.addetti || []).filter(Boolean),
+    postiRefertista: Math.max(0, POSTI_REFERTISTA - (t.refertisti || []).length),
+  }));
+}
+
+async function turniDaCsvPubblicato() {
   if (!URL_CSV) throw new Error("Indirizzo del foglio mancante in config.js.");
   const url = `${URL_CSV}${URL_CSV.includes("?") ? "&" : "?"}_=${Date.now()}`;
   const res = await fetch(url, { cache: "no-store" });
@@ -262,6 +301,8 @@ function schedaHtml(turno, nome) {
     ? avatar(turno.refertisti[0], "sm")
     : `<span class="prn-slot"></span>`;
 
+  const palestra = PALESTRE[turno.chiave] || "";
+
   let bottone;
   if (mio) {
     bottone = `<button class="prn-btn prn-btn-on" data-azione="libera" data-chiave="${escapeHtml(turno.chiave)}" type="button">Ci sono ✓</button>`;
@@ -282,8 +323,8 @@ function schedaHtml(turno, nome) {
         <h3>${escapeHtml(turno.casa)} – ${escapeHtml(turno.trasferta)}</h3>
         <div class="prn-meta">
           <span>${escapeHtml(d.sett)} ${escapeHtml(d.g)} ${escapeHtml(d.mese)} · ${escapeHtml(d.ora)}</span>
-          <span class="dot">·</span>
-          <span>Refertista</span>
+          ${palestra ? `<span class="dot">·</span>
+          <span class="prn-palestra">${escapeHtml(palestra)}</span>` : ""}
         </div>
       </div>
       <div class="prn-side">

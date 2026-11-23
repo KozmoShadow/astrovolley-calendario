@@ -52,12 +52,17 @@ jobs:
       - name: Importa calendario e classifiche
         run: python importer/import_schedule.py
 
+      - name: Aggiorna le palestre della pagina prenota
+        # La pagina prenota mostra la palestra accanto a data e ora. Il nome sta
+        # nel calendario, quindi va rigenerato ogni volta che cambia.
+        run: python scripts/genera_palestre.py
+
       - name: Commit se ci sono cambiamenti
         id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/data/schedule.json site/data/partite-casa.csv site/data/partite-altra-societa.json site/assets/loghi data/asi
+          git add site/data/schedule.json site/data/partite-casa.csv site/data/partite-altra-societa.json site/assets/loghi data/asi site/prenota/palestre.js
           if git diff --cached --quiet; then
             echo "Nessun cambiamento."
           else

@@ -93,8 +93,20 @@ in elenco puo' comunque scrivere il proprio nome a mano.
   foglio all'istante, ma il CSV pubblicato da Google si allinea con qualche
   minuto di ritardo. Rileggendo solo il CSV, la partita appena prenotata
   tornava vuota e sembrava non fosse successo niente. La pagina tiene memoria
-  della propria prenotazione finche' il foglio non la conferma: se il CSV resta
-  indietro, comanda la memoria locale.
+  della propria prenotazione finche' il foglio non la conferma: se la fonte
+  resta indietro, comanda la memoria locale.
+- **I turni si leggono dal backend, non dal CSV.** Il CSV pubblicato non e' una
+  fotografia sola: Google tiene piu' istantanee e due letture ravvicinate
+  possono cadere su istantanee diverse. Da li' veniva la pagina che, ricaricando,
+  diceva "sei prenotato" e poi "non sei prenotato". Il backend legge il foglio
+  in quel momento, quindi e' coerente. Il CSV resta come riserva per quando la
+  web app non risponde.
+- **La palestra sta accanto a data e ora.** Non e' nel foglio dei turni: si
+  prende da `site/data/schedule.json` e da `site/data/partite-altra-societa.json`
+  con `scripts/genera_palestre.py`, che scrive `site/prenota/palestre.js`. Il
+  workflow del calendario lo rigenera a ogni aggiornamento, quindi non va
+  toccato a mano. Se una partita non ha la palestra, la riga mostra solo data e
+  ora, senza lasciare un buco.
 - **Si puo' lasciare un turno**, ma solo il proprio: il nome deve corrispondere.
 - **Il doppio tocco non duplica**: chi e' gia' dentro non viene riaggiunto.
 
@@ -156,10 +168,12 @@ tocco, maiuscole e accenti, posto unico con rifiuto nominando chi l'ha preso,
 addetto rifiutato, rinuncia e riprenotazione, riga sbagliata, partita
 inesistente, nomi con virgola.
 
-Pagina (31 test, Chromium su viewport telefono): lista fissa con ordine
+Pagina (35 test, Chromium su viewport telefono): lista fissa con ordine
 alfabetico, chi non ha mai prenotato compare, addetto mai mostrato, nessun badge
 in casa/trasferta, card dei mesi con conteggi e colori, apertura e ritorno ai
-mesi, scheda che si aggiorna anche col CSV in ritardo, turni pieni con
+mesi, palestra al posto di "Refertista", scheda che si aggiorna anche con la
+fonte in ritardo, nessuna oscillazione con due istantanee del CSV diverse,
+turni pieni con
 bottone disabilitato, payload POST senza ruolo, nota dopo il cambio nome,
 memoria del telefono, console pulita.
 
