@@ -672,12 +672,29 @@ def main() -> int:
         if pattern_altra and pattern_altra in (m.get("casa") or "").lower()
     ]
 
+    # Se FIPAV non risponde (o restituisce zero gare, che per una societa' con un
+    # campionato in corso vuol dire che qualcosa non torna) il CSV perderebbe le
+    # sue righe e i turni gia' scritti nel foglio resterebbero orfani. Si tengono
+    # quelle dell'ultimo giro buono: meglio un dato vecchio che un buco.
+    altra_path = ROOT / altra_cfg.get("output", "site/data/partite-altra-societa.json")
+    if altra_id and not gare_casa_altra:
+        try:
+            precedenti = json.loads(altra_path.read_text(encoding="utf-8"))
+            gare_casa_altra = precedenti.get("partite") or []
+        except Exception:  # noqa: BLE001 - nessun file precedente: si prosegue
+            gare_casa_altra = []
+        if gare_casa_altra:
+            print(
+                f"Altra societa' non disponibile: tengo le {len(gare_casa_altra)} "
+                "partite dell'ultimo aggiornamento buono.",
+                file=sys.stderr,
+            )
+
     csv_path = ROOT / config.get("output_casa_csv", "site/data/partite-casa.csv")
     n_casa = scrivi_csv_casa(competitions, pattern, csv_path, extra=gare_casa_altra)
     print(f"CSV partite in casa: {n_casa} righe -> {csv_path}", file=sys.stderr)
 
     if altra_id and gare_altra:
-        altra_path = ROOT / altra_cfg.get("output", "site/data/partite-altra-societa.json")
         n_altra = scrivi_altra_societa(gare_altra, pattern_altra, altra_path, nome_altra)
         print(
             f"Altra societa' ({nome_altra or altra_id}): {n_altra} partite in casa -> {altra_path}",
