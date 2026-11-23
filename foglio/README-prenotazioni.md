@@ -85,6 +85,17 @@ E' l'unico modo per far comparire chi non ha ancora mai prenotato. Se lo lasci
 vuoto la pagina ripiega sui nomi gia' presenti nei turni del foglio, ma chi non
 ha mai prenotato non compare.
 
+L'ordine nel file non conta: la pagina li ordina per **cognome**, perche' con
+sedici nomi e' il cognome quello che si cerca. Non usare virgole dentro il nome
+(spezzerebbero la cella del foglio) e scrivili come devono comparire nel foglio
+Turni: il confronto ignora maiuscole e spazi doppi, ma non abbreviazioni.
+
+Con sedici voci l'elenco su un telefono starebbe su due schermate, con il campo
+"scrivi il tuo nome" in fondo: su schermo stretto le pillole vanno quindi su due
+colonne, compatte, e il suggerimento in cima si nasconde. Se l'elenco cresce
+molto (oltre una trentina) conviene passare a un campo di ricerca invece delle
+pillole.
+
 L'ordine del file non conta: la pagina li mostra in ordine alfabetico. Chi non e'
 in elenco puo' comunque scrivere il proprio nome a mano.
 

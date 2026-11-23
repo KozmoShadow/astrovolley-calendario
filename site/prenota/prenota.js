@@ -505,6 +505,20 @@ function chiediNome(persone) {
 }
 
 /**
+ * Ordina per cognome. Con sedici nomi, cercare "Maiella" a occhio in un elenco
+ * ordinato per nome non funziona: il cognome e' quello che si ricorda.
+ */
+function perCognome(a, b) {
+  const parti = (n) => {
+    const p = String(n || "").trim().split(/\s+/).filter(Boolean);
+    return p.length > 1 ? [p[p.length - 1], p[0]] : [p[0] || "", ""];
+  };
+  const [ca, na] = parti(a);
+  const [cb, nb] = parti(b);
+  return ca.localeCompare(cb, "it") || na.localeCompare(nb, "it");
+}
+
+/**
  * Elenco dei nomi da proporre.
  *
  * Quello fisso di nomi.js ha la precedenza: e' l'unico modo per far comparire
@@ -513,7 +527,7 @@ function chiediNome(persone) {
  */
 function personeDaProporre(turni) {
   if (NOMI_REFERTISTI && NOMI_REFERTISTI.length) {
-    return NOMI_REFERTISTI.slice().sort((a, b) => a.localeCompare(b, "it"));
+    return NOMI_REFERTISTI.slice().sort(perCognome);
   }
   const visti = new Set();
   const nomi = [];
@@ -523,7 +537,7 @@ function personeDaProporre(turni) {
       if (k && !visti.has(k)) { visti.add(k); nomi.push(n); }
     });
   });
-  return nomi.sort((a, b) => a.localeCompare(b, "it"));
+  return nomi.sort(perCognome);
 }
 
 async function avvia() {

@@ -577,7 +577,27 @@
     flex: none;
   }
 
+  /* Sedici nomi in colonna sarebbero un muro alto due schermate, e il campo
+     "scrivi il tuo nome" finirebbe sotto. Due colonne, pillole strette e
+     niente suggerimento in cima: cosi' il campo resta nella prima schermata
+     anche su un telefono da 360px, che e' il caso peggiore. */
   .prn-nomi {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+  .prn-nome {
+    padding: 4px 8px 4px 4px;
+    font-size: 0.78rem;
+    min-height: 34px;
+    line-height: 1.15;
+    gap: 6px;
+  }
+  .prn-nome .prn-av {
+    width: 22px;
+    height: 22px;
+    font-size: 0.62rem;
+  }
+  #prn-identita .prn-hint {
+    display: none;
   }
 }

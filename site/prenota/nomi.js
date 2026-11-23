@@ -1,8 +1,8 @@
 // Elenco fisso dei refertisti che possono prenotare.
 //
 // Scrivere un nome per riga, tra virgolette, separati da virgola. L'ordine qui
-// sotto e' l'ordine in cui compaiono nella pagina: conviene metterli in ordine
-// alfabetico di cognome, cosi' si trovano in fretta.
+// sotto non conta: la pagina li ordina per cognome. Conviene comunque tenerli
+// in ordine, cosi' si controlla a occhio che non manchi nessuno.
 //
 // Regole:
 //  - usare nome e cognome veri, come devono comparire nel foglio Turni
@@ -15,6 +15,20 @@
 // lo stesso.
 
 export const NOMI_REFERTISTI = [
-  // "Mario Rossi",
-  // "Anna Bianchi",
+  "Francesca Avizzano",
+  "Diego Beato",
+  "Antonio Caliendo",
+  "Lucrezia Cardinale",
+  "Enrico Cioccia",
+  "Anna Esposito",
+  "Lorenzo Esposito",
+  "Maria Facciolli",
+  "Francesco Ferro",
+  "Alberta Guida",
+  "Antonio Liguoro",
+  "Francesca Maiella",
+  "Luigi Maiello",
+  "Simona Salierno",
+  "Iolanda Starita",
+  "Francesco Zaza",
 ];
