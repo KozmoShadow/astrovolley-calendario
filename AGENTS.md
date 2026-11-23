@@ -258,6 +258,23 @@ il calendario nel sito pubblico.
 - `dirigenza.js` le unisce alle nostre con il flag `_altra` e mostra il badge
   "Referto <nome>". Arrivano gia' filtrate in casa, quindi non passa da `isAltraSquadra`.
 
+### Turni non agganciati: come si recuperano
+`riallineaTurni()` in `dirigenza.js` prova tre livelli, dal piu' certo al meno:
+
+1. **data+ora+casa+trasferta** esatti (confronto con `impronta`, che ignora
+   maiuscole, accenti e spazi doppi);
+2. **data+ora+casa**, trasferta scritta in altro modo: si aggancia se quella
+   coppia e' unica;
+3. **giorno+casa+trasferta**, ora diversa: si aggancia perche' una squadra non
+   gioca due volte lo stesso giorno contro lo stesso avversario. Il turno viene
+   agganciato **e** segnalato, con l'ora giusta nel messaggio.
+
+Se resta ambiguo (piu' partite in casa lo stesso giorno **e** avversario non
+riconoscibile) non si aggancia niente e l'avviso dice gli orari in gioco. La
+regola: meglio un turno da riassegnare a mano che un refertista sulla partita
+sbagliata. Con due partite lo stesso giorno contro lo stesso avversario (non
+esiste in pratica) il livello 3 non scatta, perche' la chiave non e' unica.
+
 **Trappola:** con `societa_id` vuoto la pagina FIPAV elenca tutto il comitato (59
 competizioni). `fetch_society_matches()` solleva `ValueError` invece di importare
 mezzo campionato: non togliere quel controllo.

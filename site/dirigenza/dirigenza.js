@@ -299,18 +299,35 @@ const impronta = (s) =>
     .replace(/\s+/g, " ")
     .trim();
 
-// Riallinea le chiavi del foglio alle partite vere. Se la data e la squadra di
-// casa combaciano ma la trasferta e' scritta in altro modo, il turno si aggancia
-// lo stesso: e' l'errore di battitura piu' probabile. Le voci che restano fuori
-// vengono restituite, per poterle segnalare invece di perderle in silenzio.
+// Il giorno senza l'ora, per capire se una partita esiste ma a un altro orario.
+const giornoDi = (data) => impronta(data).slice(0, 10);
+
+function aggiungiA(mappa, chiave, valore) {
+  if (!mappa.has(chiave)) mappa.set(chiave, []);
+  mappa.get(chiave).push(valore);
+}
+
+// Riallinea le chiavi del foglio alle partite vere. Il foglio lo compila una
+// persona, quindi si recuperano gli errori di battitura piu' probabili, uno alla
+// volta e solo quando la partita resta certa:
+//   1. stessa data e ora, trasferta scritta in altro modo;
+//   2. stesso giorno e stesse squadre, ora diversa: una squadra non gioca due
+//      volte lo stesso giorno contro lo stesso avversario, quindi la partita e'
+//      quella. Si aggancia e si segnala l'ora sbagliata, invece di lasciare il
+//      turno appeso.
+// Se la partita non si identifica con certezza non si indovina niente: la voce
+// torna fra le segnalazioni, con il motivo, perche' un refertista attribuito
+// alla partita sbagliata e' peggio di uno da riassegnare a mano.
 function riallineaTurni(turniFoglio, partite) {
   const perChiave = new Map();
   const perDataCasa = new Map();
+  const perGiornoSquadre = new Map();
+  const perGiornoCasa = new Map();
   for (const m of partite) {
     perChiave.set(impronta(`${m.data}|${m.casa}|${m.trasferta}`), m._key);
-    const dc = `${impronta(m.data)}|${impronta(m.casa)}`;
-    if (!perDataCasa.has(dc)) perDataCasa.set(dc, []);
-    perDataCasa.get(dc).push(m);
+    aggiungiA(perDataCasa, `${impronta(m.data)}|${impronta(m.casa)}`, m);
+    aggiungiA(perGiornoSquadre, `${giornoDi(m.data)}|${impronta(m.casa)}|${impronta(m.trasferta)}`, m);
+    aggiungiA(perGiornoCasa, `${giornoDi(m.data)}|${impronta(m.casa)}`, m);
   }
 
   const allineati = new Map();
@@ -322,11 +339,34 @@ function riallineaTurni(turniFoglio, partite) {
       allineati.set(diretto, v);
       continue;
     }
-    // Ripiego su data+casa, ma solo se quella coppia e' unica: con due partite
-    // in casa lo stesso giorno non si puo' indovinare quale sia.
+
     const candidate = perDataCasa.get(`${impronta(data)}|${impronta(casa)}`) || [];
-    if (candidate.length === 1) allineati.set(candidate[0]._key, v);
-    else orfani.push({ data, casa, trasferta });
+    if (candidate.length === 1) {
+      allineati.set(candidate[0]._key, v);
+      continue;
+    }
+
+    const stesse = perGiornoSquadre.get(`${giornoDi(data)}|${impronta(casa)}|${impronta(trasferta)}`) || [];
+    if (stesse.length === 1) {
+      allineati.set(stesse[0]._key, v);
+      orfani.push({
+        data, casa, trasferta, motivo: "ora", agganciata: true,
+        atteso: [stesse[0].data],
+      });
+      continue;
+    }
+
+    // Qui non si aggancia. Il motivo serve a dire cosa correggere: se quel
+    // giorno in casa gioca piu' di una squadra, l'ora e' l'unico modo per
+    // distinguerle e va scritta esatta.
+    const stessoGiorno = perGiornoCasa.get(`${giornoDi(data)}|${impronta(casa)}`) || [];
+    orfani.push({
+      data,
+      casa,
+      trasferta,
+      motivo: stessoGiorno.length ? "ambiguo" : "assente",
+      atteso: stessoGiorno.map((m) => m.data),
+    });
   }
   return { allineati, orfani };
 }
@@ -562,15 +602,36 @@ function mostraAvvisoFoglio(motivo) {
 // Turni scritti nel foglio che non corrispondono a nessuna partita: quasi sempre
 // un nome squadra o una data diversi da schedule.json. Meglio dirlo che far
 // sparire il turno senza spiegazioni.
+// Descrive una voce del foglio che non combacia alla lettera, dicendo cosa
+// correggere. Un avviso generico costringe a ricontrollare tutto a mano.
+function motivoOrfano(o) {
+  if (o.motivo === "ora") {
+    const giusta = (o.atteso || [])[0];
+    const oraGiusta = giusta ? giusta.slice(11, 16) : "";
+    const oraScritta = o.data.slice(11, 16);
+    // Il turno e' agganciato lo stesso: va detto, altrimenti sembra perso.
+    return oraGiusta
+      ? `turno agganciato lo stesso, ma nel foglio c'e' ${oraScritta} invece di ${oraGiusta}`
+      : "turno agganciato lo stesso, ma l'ora non torna";
+  }
+  if (o.motivo === "ambiguo") {
+    const orari = (o.atteso || []).map((d) => d.slice(11, 16)).join(", ");
+    return orari
+      ? `non agganciato: quel giorno in casa giocano piu' squadre (${orari}), l'ora deve essere esatta`
+      : "non agganciato: quel giorno ci sono piu' partite in casa, l'ora deve essere esatta";
+  }
+  return "non agganciato: partita non trovata nel calendario";
+}
+
 function mostraTurniOrfani(orfani) {
   const el = $("#turni-nota");
   if (!el) return;
   const elenco = orfani
-    .map((o) => `${o.data} ${o.casa} - ${o.trasferta}`)
+    .map((o) => `${o.data} ${o.casa} - ${o.trasferta} (${motivoOrfano(o)})`)
     .join("; ");
   el.textContent =
-    `${orfani.length === 1 ? "1 turno del foglio non trova la partita" : `${orfani.length} turni del foglio non trovano la partita`}` +
-    ` (${elenco}). Controlla data e nomi squadra.`;
+    `${orfani.length === 1 ? "1 voce del foglio da controllare" : `${orfani.length} voci del foglio da controllare`}` +
+    `: ${elenco}.`;
   el.classList.add("turni-nota-avviso");
 }
 

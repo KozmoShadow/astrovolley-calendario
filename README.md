@@ -141,6 +141,21 @@ l'URL (`...csv?v=1`) la scavalca. In alternativa jsDelivr serve lo stesso file c
 =IMPORTDATA("https://cdn.jsdelivr.net/gh/KozmoShadow/astrovolley-calendario@main/site/data/partite-casa.csv")
 ```
 
+### Se un turno non viene agganciato
+
+Il foglio si compila a mano, quindi gli errori di battitura capitano. La pagina
+recupera i due casi piu' probabili da sola:
+
+- **avversario scritto in altro modo** (maiuscole, accenti, spazi): il turno si
+  aggancia lo stesso, se data e ora sono giuste;
+- **ora sbagliata**: il turno si aggancia lo stesso, perche' una squadra non gioca
+  due volte lo stesso giorno contro lo stesso avversario. Compare un avviso con
+  l'ora corretta.
+
+Quando invece la partita resta ambigua, la pagina **non indovina**: scrive un
+avviso con gli orari in gioco e lascia la partita rossa. Un refertista sulla
+partita sbagliata sarebbe peggio di uno da riassegnare a mano.
+
 ### Partite di un'altra societa'
 
 Se curiamo i referti anche di un'altra societa', le sue partite in casa compaiono in
