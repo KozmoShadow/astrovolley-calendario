@@ -31,4 +31,5 @@ export const NOMI_REFERTISTI = [
   "Simona Salierno",
   "Iolanda Starita",
   "Francesco Zaza",
+  "Ciro Sansone",
 ];
