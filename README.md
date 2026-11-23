@@ -108,8 +108,38 @@ Due chip in cima cambiano cosa si vede: "Solo in casa" (predefinito) e "Tutte le
 partite". Lo stato passa nell'indirizzo, quindi `?filtro=tutte&mese=2027-01` si
 puo' salvare tra i preferiti.
 
+Le partite in trasferta compaiono solo con "Tutte le partite" e restano **neutre**:
+niente verde/rosso e nessun blocco turni. Il colore dice "manca il refertista", e in
+trasferta il referto non lo curiamo, quindi colorarle sarebbe un allarme falso. Il
+verde arriva **solo** dal nome del refertista: una riga nel foglio con la colonna
+vuota lascia la partita rossa come se non ci fosse.
+
 La pagina e' pubblica come il resto del sito, ma `noindex`: chi ha il link la
 vede. Non c'e' nulla di riservato oltre ai turni.
+
+### Le partite nuove arrivano da sole
+
+Il foglio non contiene l'elenco delle partite: quello lo genera l'importer.
+`importer/import_schedule.py` scrive `site/data/partite-casa.csv` (le sole gare in
+casa, 45 oggi) a ogni aggiornamento, e il workflow lo committa. Il tab "Partite" del
+foglio lo importa con una riga sola:
+
+```
+=IMPORTDATA("https://raw.githubusercontent.com/KozmoShadow/astrovolley-calendario/main/site/data/partite-casa.csv")
+```
+
+Quando parte un campionato nuovo le righe compaiono senza copiarle a mano. Il tab
+Partite e' **generato**: si riscrive a ogni aggiornamento, quindi non va compilato.
+I nomi si scrivono nel tab Turni, che resta l'unico tab da toccare a mano.
+
+Se `IMPORTDATA` risponde "Risorsa all'url indicato non trovata", di solito e' la
+cache di Google che ripete un errore letto quando il file non c'era ancora: cambiare
+l'URL (`...csv?v=1`) la scavalca. In alternativa jsDelivr serve lo stesso file come
+`text/csv`, senza i limiti di frequenza di GitHub, ma con cache di 12 ore:
+
+```
+=IMPORTDATA("https://cdn.jsdelivr.net/gh/KozmoShadow/astrovolley-calendario@main/site/data/partite-casa.csv")
+```
 
 ## Deploy (gratuito)
 

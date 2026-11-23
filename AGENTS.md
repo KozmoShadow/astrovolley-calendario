@@ -13,13 +13,14 @@ dell'ASD Astrovolley (FIPAV + ASI) e classifiche dei gironi.
 - `config.json` — società, comitati, stagione, pattern di match
 - `data/manual.json` — competizioni extra inserite a mano (oggi vuoto)
 - `data/asi/` — campionati ASI: `<id>.calendario.json` (dal PDF) + `<id>.risultati.json` (a mano)
-- `importer/import_schedule.py` — genera `site/data/schedule.json`
+- `importer/import_schedule.py` — genera `site/data/schedule.json` e `site/data/partite-casa.csv`
 - `importer/asi_pdf.py` — estrae il calendario ASI dal PDF (richiede `pdfplumber`)
 - `site/` — frontend statico (index.html, styles.css, app.js, assets/, data/)
 - `site/data/squadre.json` — squadre del club: slug per i link diretti e nomi usati nei calendari
 - `site/dirigenza/` — area dirigenza, sola lettura (vedi sotto)
 - `site/data/turni.json` — refertisti e addetti arbitro per partita
 - `site/data/dirigenza.json` — configurazione dell'area dirigenza
+- `site/data/partite-casa.csv` — gare in casa, generato dall'importer per il tab "Partite" del foglio
 - `site/assets/logo.webp` — logo società nell'header, 192px WebP (vedi «Loghi»)
 
 ## Fonti dati
@@ -213,6 +214,32 @@ ogni voce si aggancia con `data` + `casa` + `trasferta` scritti come in `schedul
 Le voci senza partita vengono ignorate, quindi un rinvio non rompe la pagina.
 Il file e' ancora vuoto: finche' il foglio non e' compilato la pagina mostra "da
 assegnare".
+
+**Il verde lo da' solo il nome.** `coperta(m)` e' `turniDi(m._key).refertisti.length > 0`:
+una riga nel foglio con data e squadre ma refertisti vuoti viene scartata in lettura
+(`if (!refertisti.length && !addetti.length) continue`) e la partita resta rossa. Quindi
+copiare una partita nel foglio non basta a coprirla, e non serve a farla comparire: le
+righe le disegna `schedule.json`, non il foglio.
+
+**Le trasferte sono neutre.** Con `filtro=tutte` compaiono anche le gare fuori casa, con
+classe `.partita-riga.esterna`: nessun verde/rosso e nessun blocco turni, perche' in
+trasferta il referto non si cura e il colore sarebbe un allarme falso. Per lo stesso
+motivo i contatori dei mesi escludono le trasferte da "scoperte", e un mese di sole
+trasferte usa `.mese-card.mese-neutro` invece di `mese-ko`.
+
+### Tab "Partite" del foglio: generato, non compilato
+`importer/import_schedule.py` → `scrivi_csv_casa()` scrive `site/data/partite-casa.csv`
+con le sole gare in casa (45 oggi), ordinate per data, e il workflow lo committa insieme
+a `schedule.json`. Il foglio lo importa con `=IMPORTDATA("<url raw>")`.
+
+Due trappole gia' pagate:
+- il CSV si scrive **prima** del controllo "nessun cambiamento nei dati", che esce con
+  `return 0`: se lo si mettesse dopo, alla prima esecuzione non verrebbe mai creato;
+- `IMPORTDATA` mette in cache anche gli **errori**. Se il foglio ha letto l'URL quando il
+  file non esisteva, continua a dire "Risorsa all'url indicato non trovata" anche dopo il
+  push: si scavalca cambiando l'URL (`?v=1`). jsDelivr
+  (`cdn.jsdelivr.net/gh/<owner>/<repo>@main/<path>`) e' l'alternativa: serve `text/csv` e
+  non ha i limiti di frequenza di GitHub, ma tiene cache 12 ore.
 
 ## Trappole gia' pagate (leggere prima di toccare le viste)
 - **Una sola lista di partite.** Fino alla vista Calendario esistevano due
