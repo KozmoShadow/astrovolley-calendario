@@ -484,29 +484,45 @@ def scan_spike_fallback(config: dict, pattern: str) -> list[dict]:
     return competitions
 
 
-def scrivi_csv_casa(competitions: list, pattern: str, out_path: Path) -> int:
+def scrivi_csv_casa(competitions: list, pattern: str, out_path: Path,
+                    extra: list | None = None) -> int:
     """CSV delle sole partite in casa, per il tab "Partite" del Google Sheet.
 
     Il foglio lo importa con =IMPORTDATA(...) e si tiene aggiornato da solo: quando
     parte un campionato nuovo le righe compaiono senza che nessuno le copi a mano.
     Le trasferte restano fuori: il referto lo curiamo solo in casa.
+
+    `extra` sono le gare in casa dell'altra societa': il tab "Partite" e' l'unico
+    posto da cui si copiano le righe su cui scrivere i turni, quindi senza di loro
+    i suoi referti non si potrebbero assegnare. Restano fuori da schedule.json.
+
+    Il CSV resta a tre colonne: aggiungerne una sposterebbe i dati nel foglio e
+    sovrascriverebbe le colonne dei refertisti, scritte a mano.
     """
     righe = []
     visti = set()
+
+    def aggiungi(data: str, casa: str, trasferta: str) -> None:
+        if not data or not casa:
+            return
+        chiave = (data, casa.lower(), trasferta.lower())
+        if chiave in visti:
+            return
+        visti.add(chiave)
+        righe.append((data, casa, trasferta))
+
     for comp in competitions:
         for m in comp.get("matches", []):
-            data = (m.get("data") or "").strip()
             casa = (m.get("casa") or "").strip()
-            trasferta = (m.get("trasferta") or "").strip()
-            if not data or not casa:
-                continue
             if pattern not in casa.lower():
                 continue
-            chiave = (data, casa.lower(), trasferta.lower())
-            if chiave in visti:
-                continue
-            visti.add(chiave)
-            righe.append((data, casa, trasferta))
+            aggiungi((m.get("data") or "").strip(), casa,
+                     (m.get("trasferta") or "").strip())
+
+    for m in extra or []:
+        aggiungi((m.get("data") or "").strip(), (m.get("casa") or "").strip(),
+                 (m.get("trasferta") or "").strip())
+
     righe.sort()
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -627,35 +643,46 @@ def main() -> int:
         "competitions": competitions,
     }
 
-    csv_path = ROOT / config.get("output_casa_csv", "site/data/partite-casa.csv")
-    n_casa = scrivi_csv_casa(competitions, pattern, csv_path)
-    print(f"CSV partite in casa: {n_casa} righe -> {csv_path}", file=sys.stderr)
-
     # L'altra societa' si legge a parte, dalla sua pagina FIPAV: le sue partite
-    # non devono finire in schedule.json (il sito pubblico mostra solo le nostre).
+    # non devono finire in schedule.json (il sito pubblico mostra solo le nostre),
+    # ma devono entrare nel CSV perche' e' da li' che il foglio prende le righe su
+    # cui si scrivono i turni.
     altra_cfg = config.get("altra_societa") or {}
     altra_id = str(altra_cfg.get("societa_id") or "").strip()
+    gare_altra: list[dict] = []
+    nome_altra = ""
+    pattern_altra = ""
     if altra_id:
         try:
-            gare = fipav_napoli.fetch_society_matches(
+            gare_altra = fipav_napoli.fetch_society_matches(
                 {
                     **config["fipav_napoli"],
                     "societa_id": altra_id,
                     "timeout": altra_cfg.get("timeout", 40),
                 }
             )
-            nome = next((m["_societa"] for m in gare if m.get("_societa")), "")
-            pattern_altra = (altra_cfg.get("pattern") or nome or "").lower()
-            altra_path = ROOT / altra_cfg.get(
-                "output", "site/data/partite-altra-societa.json"
-            )
-            n_altra = scrivi_altra_societa(gare, pattern_altra, altra_path, nome)
-            print(
-                f"Altra societa' ({nome or altra_id}): {n_altra} partite in casa -> {altra_path}",
-                file=sys.stderr,
-            )
+            nome_altra = next((m["_societa"] for m in gare_altra if m.get("_societa")), "")
+            pattern_altra = (altra_cfg.get("pattern") or nome_altra or "").lower()
         except Exception as exc:  # noqa: BLE001 - non blocca il resto del sito
             print(f"Altra societa' non disponibile ({exc}).", file=sys.stderr)
+
+    # Solo le sue gare in casa: le trasferte non si refertano.
+    gare_casa_altra = [
+        m for m in gare_altra
+        if pattern_altra and pattern_altra in (m.get("casa") or "").lower()
+    ]
+
+    csv_path = ROOT / config.get("output_casa_csv", "site/data/partite-casa.csv")
+    n_casa = scrivi_csv_casa(competitions, pattern, csv_path, extra=gare_casa_altra)
+    print(f"CSV partite in casa: {n_casa} righe -> {csv_path}", file=sys.stderr)
+
+    if altra_id and gare_altra:
+        altra_path = ROOT / altra_cfg.get("output", "site/data/partite-altra-societa.json")
+        n_altra = scrivi_altra_societa(gare_altra, pattern_altra, altra_path, nome_altra)
+        print(
+            f"Altra societa' ({nome_altra or altra_id}): {n_altra} partite in casa -> {altra_path}",
+            file=sys.stderr,
+        )
 
     out_path = ROOT / config["output"]
     out_path.parent.mkdir(parents=True, exist_ok=True)

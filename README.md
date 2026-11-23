@@ -121,8 +121,8 @@ vede. Non c'e' nulla di riservato oltre ai turni.
 
 Il foglio non contiene l'elenco delle partite: quello lo genera l'importer.
 `importer/import_schedule.py` scrive `site/data/partite-casa.csv` (le sole gare in
-casa, 45 oggi) a ogni aggiornamento, e il workflow lo committa. Il tab "Partite" del
-foglio lo importa con una riga sola:
+casa, 63 oggi: 45 nostre piu' 18 di FLAT SPORT) a ogni aggiornamento, e il workflow
+lo committa. Il tab "Partite" del foglio lo importa con una riga sola:
 
 ```
 =IMPORTDATA("https://raw.githubusercontent.com/KozmoShadow/astrovolley-calendario/main/site/data/partite-casa.csv")
@@ -131,6 +131,12 @@ foglio lo importa con una riga sola:
 Quando parte un campionato nuovo le righe compaiono senza copiarle a mano. Il tab
 Partite e' **generato**: si riscrive a ogni aggiornamento, quindi non va compilato.
 I nomi si scrivono nel tab Turni, che resta l'unico tab da toccare a mano.
+
+Il CSV contiene anche le gare in casa dell'altra societa', cosi' anche i suoi
+referti hanno una riga da cui partire. Resta pero' a **tre colonne**: aggiungerne
+una sposterebbe i dati nel foglio e sovrascriverebbe le colonne dei refertisti,
+che sono scritte a mano. Per lo stesso motivo non va riordinato a mano il tab
+Partite: si rigenera da solo.
 
 Se `IMPORTDATA` risponde "Risorsa all'url indicato non trovata", di solito e' la
 cache di Google che ripete un errore letto quando il file non c'era ancora: cambiare

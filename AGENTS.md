@@ -230,6 +230,9 @@ trasferte usa `.mese-card.mese-neutro` invece di `mese-ko`.
 
 ### Tab "Partite" del foglio: generato, non compilato
 `importer/import_schedule.py` → `scrivi_csv_casa()` scrive `site/data/partite-casa.csv`
+(include le gare in casa dell'altra societa' via `extra`; **non aggiungere colonne**:
+il foglio le importa con IMPORTDATA e una colonna in piu' sposterebbe i dati,
+sovrascrivendo i refertisti scritti a mano)
 con le sole gare in casa (45 oggi), ordinate per data, e il workflow lo committa insieme
 a `schedule.json`. Il foglio lo importa con `=IMPORTDATA("<url raw>")`.
 
@@ -255,6 +258,10 @@ il calendario nel sito pubblico.
 - `import_schedule.scrivi_altra_societa()` tiene solo le gare **in casa** e scrive
   `site/data/partite-altra-societa.json`, file separato: queste partite non entrano
   in `schedule.json`, quindi il sito pubblico non le vede.
+- Le stesse gare in casa finiscono **anche** in `partite-casa.csv` (parametro
+  `extra` di `scrivi_csv_casa`): il tab Partite del foglio e' l'unico posto da cui
+  si copiano le righe su cui scrivere i turni, quindi senza di loro i referti
+  dell'altra societa' non si potrebbero assegnare. Il CSV resta a tre colonne.
 - `dirigenza.js` le unisce alle nostre con il flag `_altra` e mostra il badge
   "Referto <nome>". Arrivano gia' filtrate in casa, quindi non passa da `isAltraSquadra`.
 
