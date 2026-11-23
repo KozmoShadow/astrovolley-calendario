@@ -413,6 +413,9 @@ function messaggioBanner(testo, tipo = "errore") {
   b.textContent = testo;
   b.className = `prn-banner prn-banner-${tipo}`;
   mostra(b);
+  // Un tocco lo chiude: essendo fisso in alto coprirebbe la pagina finche'
+  // non arriva un altro messaggio, e non tutti tornano a prenotare.
+  b.onclick = () => messaggioBanner("");
 }
 
 /**

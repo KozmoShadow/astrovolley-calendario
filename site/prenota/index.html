@@ -15,6 +15,17 @@
   <link rel="stylesheet" href="prenota.css" />
 </head>
 <body class="prn-page">
+  <!-- Avvisi che scendono dall'alto. Fuori dal flusso della pagina di
+       proposito: dentro il flusso finirebbero in fondo all'elenco, dove nessuno
+       guarda. Il contenitore li impila, cosi' non si sovrappongono. -->
+  <div class="prn-avvisi" id="prn-avvisi">
+    <p class="prn-banner" id="prn-banner" role="alert" hidden></p>
+    <div class="prn-avviso" id="prn-aggiorna" role="status" hidden>
+      <span class="prn-avviso-testo" id="prn-aggiorna-testo">Turni aggiornati.</span>
+      <button class="prn-avviso-btn" id="prn-aggiorna-btn" type="button">Aggiorna</button>
+    </div>
+  </div>
+
   <header class="prn-hero">
     <a class="prn-brand" href="../" aria-label="Torna al sito">
       <img src="../assets/logo-tondo.png" alt="" width="44" height="44" />
@@ -23,6 +34,7 @@
     <h1>Prenota il tuo turno</h1>
     <p class="prn-tagline">Partite in casa. Refertista e addetto all'arbitro.</p>
   </header>
+
 
   <main class="prn-main">
     <!-- Chi sei: compare solo la prima volta -->
@@ -47,8 +59,6 @@
       </p>
     </div>
 
-    <p class="prn-banner" id="prn-banner" hidden></p>
-
     <!-- Elenco turni -->
     <section id="prn-turni" hidden>
       <div class="prn-head">
@@ -58,12 +68,6 @@
       <div class="prn-lista" id="prn-lista"></div>
       <p class="prn-empty" id="prn-empty" hidden></p>
     </section>
-
-    <!-- Avviso "qualcosa e' cambiato": compare sopra l'elenco, non lo sostituisce -->
-    <div class="prn-aggiorna" id="prn-aggiorna" hidden>
-      <span id="prn-aggiorna-testo">Turni aggiornati.</span>
-      <button class="prn-aggiorna-btn" id="prn-aggiorna-btn" type="button">Aggiorna</button>
-    </div>
 
     <p class="prn-loading" id="prn-loading">Carico i turni…</p>
   </main>
