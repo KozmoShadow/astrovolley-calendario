@@ -105,6 +105,33 @@ dell'elenco: chi non c'e' lo deve far aggiungere dalla dirigenza, che modifica
 scritti in modi diversi ("Antonio", "Antonio Liguoro", "T. Liguoro") che poi
 spezzano il conteggio delle prenotazioni per persona.
 
+## Perche' si apre in fretta (o no)
+
+Il collo di bottiglia e' il backend: ogni chiamata rilegge tutto il foglio e
+impiega **1,5-2 secondi**, sia a freddo sia a caldo. Non e' la rete e non e'
+l'avvio di Apps Script: misurato, non ipotizzato. Quindi la pagina evita di
+chiamarlo quando non serve.
+
+- **La scelta del nome non aspetta il foglio.** I sedici nomi stanno in
+  `nomi.js`: la schermata compare in ~50 ms e la lettura dei turni parte in
+  sottofondo. Prima si aspettavano due secondi per mostrare nomi che erano gia'
+  nel telefono.
+- **Una lettura alla volta.** Se una lettura e' gia' in corso, chi la chiede
+  dopo aspetta quella, non ne apre una seconda.
+- **Copia valida 30 secondi.** Due letture ravvicinate riusano la stessa.
+  Volutamente breve: i turni li prende anche altra gente.
+- **La prenotazione usa la risposta del POST.** La web app restituisce gia' i
+  turni aggiornati, letti dentro il lock subito dopo la scrittura. Prima il
+  sito li buttava e rifaceva una GET da altri 1,5-2 secondi: il giro completo
+  era POST + GET, ora e' solo POST.
+
+Quello che **non** e' stato fatto, e perche': una cache lato backend
+(CacheService) o una lettura parziale del foglio sarebbero i veri
+guadagni, ma cambiano il backend e possono mostrare dati vecchi a chi prenota
+mentre un altro ha appena preso il posto. Con un solo refertista per partita e
+poche decine di partite non vale il rischio: la copia di 30 secondi lato sito
+copre il caso reale, cioe' aprire la pagina e toccare un turno.
+
 ## Regole
 
 - **Un solo refertista per partita.** Si cambia in cima a `foglio/prenotazioni.gs`

@@ -133,7 +133,23 @@ function turniDaCsv(testo, postiRefertista) {
  * prenotato" e "non sei prenotato". Il backend non ha questo problema.
  * Il CSV resta come riserva, per quando la web app non risponde.
  */
-async function caricaTurni() {
+function caricaTurni(opzioni = {}) {
+  const fresca = ultimaLettura.turni && Date.now() - ultimaLettura.quando < DURATA_LETTURA;
+  if (fresca && !opzioni.saltaCache) return Promise.resolve(ultimaLettura.turni);
+  if (!letturaInCorso) {
+    letturaInCorso = leggiTurni()
+      .then((turni) => {
+        ultimaLettura = { quando: Date.now(), turni };
+        return turni;
+      })
+      .finally(() => {
+        letturaInCorso = null;
+      });
+  }
+  return letturaInCorso;
+}
+
+async function leggiTurni() {
   if (URL_BACKEND) {
     try {
       return await turniDaBackend();
@@ -152,7 +168,12 @@ async function turniDaBackend() {
   if (!dati || !dati.ok || !Array.isArray(dati.turni)) {
     throw new Error((dati && dati.errore) || "Il backend ha risposto in modo strano.");
   }
-  return dati.turni.map((t) => ({
+  return dati.turni.map(normalizzaTurno);
+}
+
+/** Stessa forma per GET e POST: la web app risponde con lo stesso elenco. */
+function normalizzaTurno(t) {
+  return {
     chiave: t.chiave || chiavePartita(t.data, t.casa, t.trasferta),
     data: t.data,
     casa: t.casa,
@@ -160,7 +181,7 @@ async function turniDaBackend() {
     refertisti: (t.refertisti || []).filter(Boolean),
     addetti: (t.addetti || []).filter(Boolean),
     postiRefertista: Math.max(0, POSTI_REFERTISTA - (t.refertisti || []).length),
-  }));
+  };
 }
 
 async function turniDaCsvPubblicato() {
@@ -271,6 +292,28 @@ let meseAperto = "";
 let turniCorrenti = [];
 
 /**
+ * Lettura gia' partita ma non ancora arrivata.
+ *
+ * Il backend impiega 1,5-2 secondi a rispondere, quindi la pagina lancia la
+ * lettura appena possibile e la riusa quando serve. Senza questa variabile la
+ * prima chiamata (fatta per mostrare i nomi) veniva buttata e la seconda
+ * ripartiva da zero: due attese in fila per lo stesso dato.
+ */
+let letturaInCorso = null;
+
+/**
+ * Ultima lettura riuscita e quando e' arrivata.
+ *
+ * Il backend rilegge il foglio a ogni chiamata e ci mette 1,5-2 secondi, quindi
+ * due letture ravvicinate sono tempo buttato: si riusa quella appena presa. La
+ * scadenza e' breve di proposito, perche' i turni li prende anche altra gente.
+ * Le prenotazioni non si fidano di questa copia: dopo un POST si usa lo stato
+ * che il backend restituisce, letto dentro il lock.
+ */
+let ultimaLettura = { quando: 0, turni: null };
+const DURATA_LETTURA = 30 * 1000;
+
+/**
  * Prenotazioni fatte da questo telefono che il CSV non mostra ancora.
  *
  * Il backend scrive il foglio subito, ma il CSV pubblicato da Google si
@@ -337,8 +380,12 @@ function schedaHtml(turno, nome) {
 /** Sovrappone al CSV le prenotazioni locali non ancora pubblicate. */
 function applicaModifiche(turni) {
   const adesso = Date.now();
+  // Copia, non modifica sul posto: gli stessi oggetti stanno nella cache delle
+  // letture, e scriverci sopra una prenotazione locale la sporcherebbe.
+  const risultato = turni.slice();
   for (const [chiave, m] of modificheLocali) {
-    const t = turni.find((x) => x.chiave === chiave);
+    const i = risultato.findIndex((x) => x.chiave === chiave);
+    const t = i < 0 ? null : risultato[i];
     // Scaduta, oppure la partita non c'e' piu': la memoria non serve.
     if (adesso - m.quando > DURATA_MODIFICA || !t) {
       modificheLocali.delete(chiave);
@@ -353,10 +400,13 @@ function applicaModifiche(turni) {
       modificheLocali.delete(chiave);
       continue;
     }
-    t.refertisti = m.refertisti.slice();
-    t.postiRefertista = Math.max(0, POSTI_REFERTISTA - t.refertisti.length);
+    risultato[i] = {
+      ...t,
+      refertisti: m.refertisti.slice(),
+      postiRefertista: Math.max(0, POSTI_REFERTISTA - m.refertisti.length),
+    };
   }
-  return turni;
+  return risultato;
 }
 
 /** Ricorda l'esito di una prenotazione, per non mostrarla annullata. */
@@ -469,7 +519,8 @@ function render(turni, nome) {
 async function aggiorna(nome, opzioni = {}) {
   try {
     if (opzioni.pulisci) messaggioBanner("");
-    const turni = applicaModifiche(await caricaTurni());
+    const letti = opzioni.turni || (await caricaTurni(opzioni));
+    const turni = applicaModifiche(letti);
     turniCorrenti = turni;
     render(turni, nome);
   } catch (err) {
@@ -499,9 +550,20 @@ function chiediNome(persone) {
   nascondi($("prn-loading"));
   nascondi($("prn-turni"));
   mostra($("prn-identita"));
-  $("prn-nomi").innerHTML = (persone || [])
+  const elenco = persone || [];
+  $("prn-nomi").innerHTML = elenco
     .map((n) => `<button class="prn-nome" data-nome="${escapeHtml(n)}" type="button">${avatar(n)}${escapeHtml(n)}</button>`)
     .join("");
+  // Senza campo libero un elenco vuoto bloccherebbe chiunque: meglio dirlo, e
+  // togliere il suggerimento normale che a quel punto sarebbe un doppione.
+  const suggerimento = document.querySelector("#prn-identita > .prn-hint-small");
+  if (!elenco.length) {
+    $("prn-nomi").innerHTML =
+      '<p class="prn-hint prn-hint-small">Nessun nome disponibile: ' +
+      "l'elenco non si e' caricato. Ricarica la pagina; se resta vuoto, " +
+      "avvisa la dirigenza.</p>";
+  }
+  if (suggerimento) suggerimento.hidden = !elenco.length;
 }
 
 /**
@@ -546,6 +608,20 @@ async function avvia() {
     impostaNome(salvato);
     return;
   }
+
+  // Con l'elenco fisso dei nomi la schermata di scelta non dipende dal foglio:
+  // si mostra subito, mentre la lettura dei turni viaggia in sottofondo. Prima
+  // si aspettavano due secondi per mostrare sedici nomi che sono in un file
+  // locale.
+  if (NOMI_REFERTISTI && NOMI_REFERTISTI.length) {
+    chiediNome(personeDaProporre([]));
+    // Parte ora, non quando si tocca il nome: la lettura e' condivisa, quindi
+    // impostaNome() la trova gia' in corso e aspetta solo quel che manca.
+    caricaTurni().catch(() => {});
+    return;
+  }
+
+  // Senza elenco fisso i nomi vanno dedotti dai turni: qui il foglio serve.
   try {
     const turni = await caricaTurni();
     chiediNome(personeDaProporre(turni));
@@ -591,9 +667,17 @@ function bind() {
       });
       messaggioBanner(esito.messaggio || "Fatto.", "ok");
       ricordaModifica(bottone.dataset.azione, bottone.dataset.chiave, nome);
-      // Rilegge dal foglio invece di fidarsi della risposta: cosi' si vede lo
-      // stato vero, anche se qualcun altro ha prenotato nello stesso momento.
-      await aggiorna(nome);
+      // La web app restituisce gia' i turni aggiornati, letti dentro il lock
+      // subito dopo la scrittura: sono lo stato vero, e usarli evita una
+      // seconda lettura da 1,5-2 secondi. Se per qualche motivo non ci sono,
+      // si rilegge come prima.
+      if (Array.isArray(esito.turni)) {
+        const turni = esito.turni.map(normalizzaTurno);
+        ultimaLettura = { quando: Date.now(), turni };
+        await aggiorna(nome, { turni });
+      } else {
+        await aggiorna(nome, { saltaCache: true });
+      }
     } catch (err) {
       messaggioBanner(err.message, "errore");
       bottone.disabled = false;
