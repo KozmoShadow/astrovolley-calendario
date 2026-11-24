@@ -155,14 +155,23 @@ mostra un avviso. Senza `id` la pagina legge solo il file.
 - `generato_il` è UTC **con** il fuso (`+00:00`): va passato intero a `new Date()`.
   Troncarlo (`.slice(0,19)`) lo fa leggere come ora locale e in Italia il dato sembra
   vecchio di un'ora appena scritto.
-- **Nomi propri scritti a mano**: `site/formato-nomi.js` raccoglie `normName`,
-  `titolaNome` e `slugify`, condivisi da `app.js` e `prenota.js`. `titolaNome` si applica
+- **Nomi propri scritti a mano**: `site/comune.js` raccoglie `impronta`, `titolaNome`,
+  `slugify`, `escapeHtml`, `escapeAttr`, `parseDate`, i formattatori di data e i nomi di
+  mesi e giorni, condivisi da `app.js`, `prenota.js` e `dirigenza.js`. `titolaNome` si applica
   **solo al rendering**: i dati grezzi restano quelli federali/del foglio, perche' le
   chiavi delle prenotazioni (`data|casa|trasferta`, vedi `site/prenota/palestre.js`) sono
   costruite sui nomi originali. Formattare il dato invece della sua resa romperebbe
-  l'abbinamento con i turni gia' prenotati. Il modulo sta fuori da `app.js` perche' due
-  copie divergerebbero; non va confuso con `site/prenota/nomi.js`, che e' l'elenco dei
-  refertisti.
+  l'abbinamento con i turni gia' prenotati. Il modulo sta fuori dalle singole pagine
+  perche' due copie divergono in silenzio: e' successo davvero con la normalizzazione
+  degli accenti (vedi sotto). Non va confuso con `site/prenota/nomi.js`, che e' l'elenco
+  dei refertisti.
+- **`impronta()` esiste in tre lingue e deve restare identica**: `site/comune.js` (sito),
+  `scripts/genera_palestre.py` (generatore delle chiavi) e `foglio/prenotazioni.gs`
+  (backend). Se una copia smette di togliere gli accenti, la pagina non da' errore:
+  semplicemente non trova piu' i dati. E' il modo in cui 30 partite hanno perso la
+  palestra per mesi. `node scripts/verifica.mjs` controlla che le tre copie siano
+  allineate e che ogni chiave di `palestre.js` sia raggiungibile: gira in CI prima del
+  deploy e va lanciato a mano dopo aver rigenerato i dati.
 - `app.js` è un **modulo ES** (`<script type="module">`), quindi `file://` non funziona:
   serve un server HTTP.
 
@@ -444,7 +453,7 @@ mezzo campionato: non togliere quel controllo.
 - Uno slug sconosciuto non e' un errore: si apre il calendario normale. Se
   `squadre.json` manca o e' rotto, il sito funziona con i nomi "astro".
 - `nomi` accetta tutte le grafie con cui la stessa squadra compare nei
-  calendari. Il confronto ignora maiuscole, accenti e spazi (`normName`).
+  calendari. Il confronto ignora maiuscole, accenti e spazi (`impronta`).
 - **`ASD ASTROVOLLEY` (Under 19) e `ASD Astrovolley` (Open Misto Elite) sono due
   squadre diverse**, non due grafie della stessa: e' per questo che ogni voce
   dichiara il proprio `campionato`.

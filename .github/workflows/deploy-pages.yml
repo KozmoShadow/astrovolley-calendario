@@ -22,6 +22,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Ferma il deploy se le chiavi delle partite o i nomi a schermo sono
+      # incoerenti: sono errori che non si vedono come pagina rotta, ma come
+      # dati che spariscono.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/verifica.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -9,6 +9,7 @@ calendario per leggere un nome.
     python3 scripts/genera_palestre.py
 """
 import json
+import unicodedata
 from pathlib import Path
 
 RADICE = Path(__file__).resolve().parent.parent
@@ -28,11 +29,20 @@ export const PALESTRE = {
 """
 
 
+def impronta(valore) -> str:
+    """Forma canonica di un nome: minuscolo, senza accenti, spazi compattati.
+
+    Deve restare identica a impronta() in site/comune.js e in
+    foglio/prenotazioni.gs. Se divergono, la pagina prenota cerca una chiave che
+    nel file non esiste e la palestra sparisce senza errori.
+    """
+    s = unicodedata.normalize("NFD", str(valore or "").lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return " ".join(s.split())
+
+
 def chiave(data, casa, trasferta):
-    """Stessa normalizzazione di chiavePartita() in site/prenota/prenota.js."""
-    return "|".join(
-        " ".join(str(v or "").lower().split()) for v in (data, casa, trasferta)
-    )
+    return "|".join(impronta(v) for v in (data, casa, trasferta))
 
 
 def leggi():

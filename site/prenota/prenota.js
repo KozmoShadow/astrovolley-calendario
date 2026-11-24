@@ -18,7 +18,7 @@
 import { URL_BACKEND, URL_CSV } from "./config.js";
 import { NOMI_REFERTISTI } from "./nomi.js";
 import { PALESTRE } from "./palestre.js";
-import { titolaNome } from "../formato-nomi.js";
+import { titolaNome, impronta, chiavePartita, escapeHtml, MESI, GIORNI } from "../comune.js";
 
 const CHIAVE_NOME = "astrovolley.nome";
 
@@ -30,25 +30,6 @@ let nomePrecedente = null;
 const $ = (id) => document.getElementById(id);
 const mostra = (el) => { if (el) el.hidden = false; };
 const nascondi = (el) => { if (el) el.hidden = true; };
-
-function escapeHtml(s) {
-  return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-  }[c]));
-}
-
-function impronta(valore) {
-  return String(valore == null ? "" : valore)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function chiavePartita(data, casa, trasferta) {
-  return `${impronta(data)}|${impronta(casa)}|${impronta(trasferta)}`;
-}
 
 /** Stessa regola del sito: virgola, punto e virgola o a capo. */
 function separaNomi(cella) {
@@ -353,10 +334,6 @@ async function chiama(azione, corpo) {
   if (!dati.ok) throw new Error(dati.errore || "Operazione non riuscita.");
   return dati;
 }
-
-const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
-  "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-const GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
 
 /**
  * Spezza "YYYY-MM-DD HH:MM" nei pezzi che servono alla scheda: numero del

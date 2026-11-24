@@ -1,6 +1,10 @@
 import { fetchLiveFipav, fetchLiveFipavMobile } from "./fipav-live.js";
 import { fetchLiveAsi } from "./asi-live.js";
-import { normName, titolaNome, slugify } from "./formato-nomi.js";
+import {
+  impronta, titolaNome, slugify,
+  escapeHtml, escapeAttr, parseDate,
+  fmtDay, fmtShortDay, fmtTime, MESI, MESI_BREVI,
+} from "./comune.js";
 
 const OUR_PATTERN = "astro";
 const DATA_URL = "data/schedule.json";
@@ -24,25 +28,6 @@ const state = {
 
 const $ = (sel) => document.querySelector(sel);
 
-const dayFmt = new Intl.DateTimeFormat("it-IT", {
-  weekday: "short",
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-});
-
-function parseDate(value) {
-  if (!value) return null;
-  const d = new Date(value.replace(" ", "T"));
-  return isNaN(d) ? null : d;
-}
-
-const fmtDay = (d) => dayFmt.format(d);
-const shortDayFmt = new Intl.DateTimeFormat("it-IT", { weekday: "short", day: "2-digit", month: "short" });
-const fmtShortDay = (d) => shortDayFmt.format(d);
-const fmtTime = (d) => d.toTimeString().slice(0, 5);
-// Mese in tre lettere per la barretta del quadratino calendario.
-const MESI = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
 const isOurs = (name) => (name || "").toLowerCase().includes(OUR_PATTERN);
 const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 
@@ -53,9 +38,9 @@ const matchIsOurs = (m) => isOurs(m.casa) || isOurs(m.trasferta);
 function ourSide(m) {
   const cfg = state.team ? teamConfig(state.team) : null;
   if (cfg) {
-    const nomi = (cfg.nomi || []).map(normName);
-    if (nomi.includes(normName(m.casa))) return "casa";
-    if (nomi.includes(normName(m.trasferta))) return "trasferta";
+    const nomi = (cfg.nomi || []).map(impronta);
+    if (nomi.includes(impronta(m.casa))) return "casa";
+    if (nomi.includes(impronta(m.trasferta))) return "trasferta";
   }
   if (isOurs(m.casa)) return "casa";
   if (isOurs(m.trasferta)) return "trasferta";
@@ -78,14 +63,6 @@ function esitoOf(m, parts) {
   const loro = lato === "casa" ? b : a;
   return nostri > loro ? "esito-win" : "esito-loss";
 }
-
-function escapeHtml(s) {
-  return String(s ?? "").replace(/[&<>"']/g, (ch) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])
-  );
-}
-
-const escapeAttr = (s) => (s ? escapeHtml(s) : "");
 
 // Il sito FIPAV blocca l'hotlink dei loghi: al browser serve un placeholder
 // identico per tutti. I loghi veri vengono scaricati dall'importer in
@@ -127,13 +104,13 @@ function teamConfig(slug) {
 // squadre omonime in campionati diversi restano distinte.
 function matchBelongsToTeam(m, cfg) {
   if (!cfg) return false;
-  const casa = normName(m.casa);
-  const trasferta = normName(m.trasferta);
-  const nomi = (cfg.nomi || []).map(normName);
+  const casa = impronta(m.casa);
+  const trasferta = impronta(m.trasferta);
+  const nomi = (cfg.nomi || []).map(impronta);
   if (!nomi.includes(casa) && !nomi.includes(trasferta)) return false;
   if (!cfg.campionato) return true;
-  const titolo = normName(m._comp?.titolo || m.campionato || "");
-  return titolo.includes(normName(cfg.campionato));
+  const titolo = impronta(m._comp?.titolo || m.campionato || "");
+  return titolo.includes(impronta(cfg.campionato));
 }
 
 // Le squadre del club, prese da data/squadre.json. Una squadra compare solo se
@@ -149,7 +126,7 @@ function ourTeams() {
   for (const cfg of state.squadre || []) {
     const partite = rows.filter((m) => matchBelongsToTeam(m, cfg));
     if (!partite.length) continue;
-    (cfg.nomi || []).forEach((n) => coperti.add(normName(n)));
+    (cfg.nomi || []).forEach((n) => coperti.add(impronta(n)));
     out.push({
       slug: cfg.slug,
       nome: cfg.nome || cfg.slug,
@@ -161,7 +138,7 @@ function ourTeams() {
   const extra = new Map();
   for (const m of rows) {
     for (const name of [m.casa, m.trasferta]) {
-      if (!isOurs(name) || coperti.has(normName(name))) continue;
+      if (!isOurs(name) || coperti.has(impronta(name))) continue;
       extra.set(name, (extra.get(name) || 0) + 1);
     }
   }
@@ -200,8 +177,8 @@ function teamMatcher(slug) {
   if (cfg) return (m) => matchBelongsToTeam(m, cfg);
   const t = ourTeams().find((x) => x.slug === slug);
   if (!t) return () => false;
-  const nome = normName(t.nome);
-  return (m) => normName(m.casa) === nome || normName(m.trasferta) === nome;
+  const nome = impronta(t.nome);
+  return (m) => impronta(m.casa) === nome || impronta(m.trasferta) === nome;
 }
 
 function teamName(slug) {
@@ -301,7 +278,7 @@ function roundMatchCard(m, idx) {
   // dicembre, quindi l'anno sta nella barretta.
   const quando = d
     ? `<div class="cal">
-         <span class="m" aria-hidden="true">${MESI[d.getMonth()]} ${String(d.getFullYear()).slice(2)}</span>
+         <span class="m" aria-hidden="true">${MESI_BREVI[d.getMonth()]} ${String(d.getFullYear()).slice(2)}</span>
          <span class="g" aria-hidden="true">${String(d.getDate()).padStart(2, "0")}</span>
          <span class="t" aria-hidden="true">${fmtTime(d)}</span>
          <span class="sr-only">${escapeHtml(fmtDay(d))}, ore ${fmtTime(d)}</span>
@@ -350,8 +327,6 @@ function roundMatchCard(m, idx) {
    corso. E' una vista della stessa pagina, non un sito a parte: cambia solo
    cosa si vede, e l'indirizzo (?vista=calendario) la rende condivisibile.
    --------------------------------------------------------------------------- */
-
-const MESI_BREVI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
 
 // Annullata e disputata si escludono: una gara saltata non si e' giocata e non
 // si giochera', quindi non sta in nessuno dei due gruppi.
@@ -412,7 +387,7 @@ function fixtureRow(m, idx, prossimaKey) {
              aria-label="${inCasa ? "In casa" : "In trasferta"} contro ${escapeAttr(titolaNome(avversario))}: dettagli partita">
       <div class="round-col">
         <div class="round-num">${escapeHtml(String(m.giornata || "—"))}</div>
-        <div class="round-date">${d ? `${String(d.getDate()).padStart(2, "0")} ${MESI_BREVI[d.getMonth()]}` : "—"}</div>
+        <div class="round-date">${d ? `${String(d.getDate()).padStart(2, "0")} ${MESI[d.getMonth()].slice(0, 3)}` : "—"}</div>
       </div>
       <div class="ha-tag ${inCasa ? "in-casa" : "in-trasferta"}"
            title="${inCasa ? "In casa" : "In trasferta"}">
@@ -1083,10 +1058,10 @@ function isHighlighted(nome, comp) {
   if (state.team) {
     const cfg = teamConfig(state.team);
     if (cfg) {
-      const cercato = normName(nome);
-      if (!(cfg.nomi || []).map(normName).includes(cercato)) return false;
-      const titolo = normName(comp?.titolo || "");
-      return !cfg.campionato || titolo.includes(normName(cfg.campionato));
+      const cercato = impronta(nome);
+      if (!(cfg.nomi || []).map(impronta).includes(cercato)) return false;
+      const titolo = impronta(comp?.titolo || "");
+      return !cfg.campionato || titolo.includes(impronta(cfg.campionato));
     }
   }
   return isOurs(nome);
@@ -1095,10 +1070,10 @@ function isHighlighted(nome, comp) {
 // Logo di una squadra qualsiasi del campionato (non solo delle nostre): si
 // guardano le partite del girone e si prende il lato in cui compare.
 function logoInComp(comp, nome) {
-  const cercato = normName(nome);
+  const cercato = impronta(nome);
   for (const m of comp.matches || []) {
-    if (normName(m.casa) === cercato && m.logo_casa) return m.logo_casa;
-    if (normName(m.trasferta) === cercato && m.logo_trasferta) return m.logo_trasferta;
+    if (impronta(m.casa) === cercato && m.logo_casa) return m.logo_casa;
+    if (impronta(m.trasferta) === cercato && m.logo_trasferta) return m.logo_trasferta;
   }
   return "";
 }
@@ -1255,9 +1230,9 @@ function teamLogo(slug) {
   for (const m of allMatches()) {
     if (!match(m)) continue;
     const cfg = teamConfig(slug);
-    const nomi = (cfg?.nomi || []).map(normName);
-    const casa = normName(m.casa);
-    const trasferta = normName(m.trasferta);
+    const nomi = (cfg?.nomi || []).map(impronta);
+    const casa = impronta(m.casa);
+    const trasferta = impronta(m.trasferta);
     // Si prende il logo del lato in cui gioca la nostra squadra: quello
     // avversario sarebbe la maglia sbagliata.
     if (nomi.includes(casa) && m.logo_casa) return m.logo_casa;
@@ -1272,12 +1247,12 @@ function teamLogo(slug) {
 // prenderebbe la prima che capita.
 function teamRank(slug) {
   const cfg = teamConfig(slug);
-  const nomi = (cfg?.nomi || []).map(normName);
+  const nomi = (cfg?.nomi || []).map(impronta);
   const match = teamMatcher(slug);
   const comps = state.competitions.filter((c) => c.matches.some(match));
   for (const c of comps) {
     const rows = c.standings || [];
-    const i = rows.findIndex((s) => nomi.includes(normName(s.squadra)));
+    const i = rows.findIndex((s) => nomi.includes(impronta(s.squadra)));
     if (i >= 0) return { pos: i + 1, tot: rows.length, punti: rows[i].punti };
   }
   return null;

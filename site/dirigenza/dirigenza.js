@@ -8,17 +8,17 @@
 // Legge solo lo snapshot delle partite: qui contano i turni, non i risultati, e
 // il live FIPAV riporta le sole partite della nostra societa', quindi
 // scarterebbe quelle dell'altra societa' di cui curiamo il referto.
+import {
+  escapeHtml, escapeAttr, parseDate, fmtTime, fmtShortDay, fmtDataLunga,
+  MESI_LUNGHI, impronta, titolaNome, chiavePartita,
+} from "../comune.js";
+
 const DATA_URL = "../data/schedule.json";
 const CONFIG_URL = "../data/dirigenza.json";
 const TURNI_URL = "../data/turni.json";
 const ALTRA_URL = "../data/partite-altra-societa.json";
 
 const FOGLIO_TIMEOUT = 8000;
-
-const MESI_LUNGHI = [
-  "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
-];
 
 const state = {
   competitions: [],
@@ -32,41 +32,18 @@ const state = {
 
 const $ = (sel) => document.querySelector(sel);
 
-const norm = (s) => (s || "").toLowerCase();
-
-function escapeHtml(s) {
-  return String(s ?? "").replace(/[&<>"']/g, (ch) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])
-  );
-}
-const escapeAttr = (s) => (s ? escapeHtml(s) : "");
-
-function parseDate(value) {
-  if (!value) return null;
-  const d = new Date(value.replace(" ", "T"));
-  return isNaN(d) ? null : d;
-}
-
-const fmtTime = (d) => d.toTimeString().slice(0, 5);
-const fmtGiorno = (d) =>
-  new Intl.DateTimeFormat("it-IT", { weekday: "short", day: "2-digit", month: "short" }).format(d);
-const fmtDataLunga = (d) =>
-  new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long" }).format(d);
-
 // Chiave di una partita. Serve a due cose: agganciare i turni e non contare
 // due volte la stessa partita.
-function matchKey(m) {
-  return `${m.data}|${norm(m.casa)}|${norm(m.trasferta)}`;
-}
+const matchKey = (m) => chiavePartita(m.data, m.casa, m.trasferta);
 
 function isOurTeam(name) {
-  const n = norm(name);
+  const n = impronta(name);
   return state.config.societa.some((p) => p && n.includes(p));
 }
 
 function isAltraSquadra(name) {
   const p = state.config.altraSocieta.pattern;
-  return Boolean(p) && norm(name).includes(p);
+  return Boolean(p) && impronta(name).includes(p);
 }
 
 // Partita in casa: gioca in casa una squadra nostra, oppure quella di cui
@@ -128,12 +105,12 @@ async function loadJson(url, etichetta) {
 }
 
 function leggiConfig(cfg) {
-  const societa = (cfg.societa || ["astro"]).map(norm).filter(Boolean);
+  const societa = (cfg.societa || ["astro"]).map(impronta).filter(Boolean);
   const altra = cfg.altra_societa || {};
   const foglio = cfg.foglio_turni || {};
   return {
     societa: societa.length ? societa : ["astro"],
-    altraSocieta: { nome: altra.nome || "", pattern: norm(altra.pattern) },
+    altraSocieta: { nome: altra.nome || "", pattern: impronta(altra.pattern) },
     foglio: { id: foglio.id || "", gid: foglio.gid ?? "0", nome: foglio.nome || "" },
   };
 }
@@ -141,7 +118,7 @@ function leggiConfig(cfg) {
 function leggiTurni(doc) {
   const mappa = new Map();
   for (const t of doc.turni || []) {
-    const key = `${t.data}|${norm(t.casa)}|${norm(t.trasferta)}`;
+    const key = chiavePartita(t.data, t.casa, t.trasferta);
     mappa.set(key, {
       refertisti: (t.refertisti || []).filter(Boolean),
       addetti: (t.addetti_arbitro || []).filter(Boolean),
@@ -212,7 +189,7 @@ function separaNomi(cella) {
 // L'intestazione si cerca per nome, non per posizione: cosi' il foglio si puo'
 // riordinare o allargare senza rompere la pagina.
 function indiceColonne(intestazione) {
-  const normCol = (s) => norm(s).replace(/[^a-z0-9]/g, "");
+  const normCol = (s) => impronta(s).replace(/[^a-z0-9]/g, "");
   const idx = {};
   intestazione.forEach((nome, i) => {
     const n = normCol(nome);
@@ -242,7 +219,7 @@ function turniDaCsv(testo) {
     const refertisti = idx.refertisti !== undefined ? separaNomi(r[idx.refertisti]) : [];
     const addetti = idx.addetti !== undefined ? separaNomi(r[idx.addetti]) : [];
     if (!refertisti.length && !addetti.length) continue;
-    mappa.set(`${data}|${norm(casa)}|${norm(trasferta)}`, { refertisti, addetti });
+    mappa.set(chiavePartita(data, casa, trasferta), { refertisti, addetti });
   }
   return mappa;
 }
@@ -290,15 +267,6 @@ async function caricaTurniDaFoglio(foglio) {
   }
 }
 
-// Il foglio lo compila una persona, quindi i nomi possono differire per maiuscole,
-// spazi doppi o accenti. Per l'aggancio si confronta una forma ripulita.
-const impronta = (s) =>
-  norm(s)
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
 // Il giorno senza l'ora, per capire se una partita esiste ma a un altro orario.
 const giornoDi = (data) => impronta(data).slice(0, 10);
 
@@ -324,7 +292,7 @@ function riallineaTurni(turniFoglio, partite) {
   const perGiornoSquadre = new Map();
   const perGiornoCasa = new Map();
   for (const m of partite) {
-    perChiave.set(impronta(`${m.data}|${m.casa}|${m.trasferta}`), m._key);
+    perChiave.set(chiavePartita(m.data, m.casa, m.trasferta), m._key);
     aggiungiA(perDataCasa, `${impronta(m.data)}|${impronta(m.casa)}`, m);
     aggiungiA(perGiornoSquadre, `${giornoDi(m.data)}|${impronta(m.casa)}|${impronta(m.trasferta)}`, m);
     aggiungiA(perGiornoCasa, `${giornoDi(m.data)}|${impronta(m.casa)}`, m);
@@ -334,7 +302,7 @@ function riallineaTurni(turniFoglio, partite) {
   const orfani = [];
   for (const [k, v] of turniFoglio) {
     const [data, casa, trasferta] = k.split("|");
-    const diretto = perChiave.get(impronta(`${data}|${casa}|${trasferta}`));
+    const diretto = perChiave.get(chiavePartita(data, casa, trasferta));
     if (diretto) {
       allineati.set(diretto, v);
       continue;
@@ -374,7 +342,7 @@ function riallineaTurni(turniFoglio, partite) {
 // ------------------------------------------------------------------- rendering
 
 function chipEnte(fonte) {
-  const f = norm(fonte);
+  const f = impronta(fonte);
   // Anche l'altra societa' viene da FIPAV: il chip non deve dire "Manuale".
   const etichetta = f === "fipav" || f === "altra" ? "FIPAV" : f === "asi" ? "ASI" : "Manuale";
   const classe = f === "altra" ? "fipav" : f || "manuale";
@@ -436,7 +404,7 @@ function renderMesi() {
         <button class="mese-card mese-${stato}" type="button" data-mese="${escapeAttr(k)}">
           <span class="mese-nome">${escapeHtml(nomeMese(k))}</span>
           <span class="mese-conteggio">${partite.length} ${partite.length === 1 ? "partita" : "partite"}</span>
-          <span class="mese-prima">${d ? `${escapeHtml(fmtGiorno(d))} · ${escapeHtml(fmtTime(d))}` : "—"}</span>
+          <span class="mese-prima">${d ? `${escapeHtml(fmtShortDay(d))} · ${escapeHtml(fmtTime(d))}` : "—"}</span>
           <span class="mese-stato ${stato}">${testo}</span>
         </button>`;
     })
@@ -473,18 +441,18 @@ function rigaPartita(m) {
       </div>
       <div class="pr-incontro">
         <div class="pr-squadre">
-          <span class="pr-casa">${escapeHtml(m.casa)}</span>
+          <span class="pr-casa">${escapeHtml(titolaNome(m.casa))}</span>
           <span class="pr-vs">${risultato ? escapeHtml(risultato) : "vs"}</span>
-          <span class="pr-trasferta">${escapeHtml(m.trasferta)}</span>
+          <span class="pr-trasferta">${escapeHtml(titolaNome(m.trasferta))}</span>
         </div>
         <div class="pr-meta">
           ${chipEnte(m._comp.fonte)}
-          <span class="pr-comp">${escapeHtml(m.campionato || m._comp.titolo || "")}</span>
+          <span class="pr-comp">${escapeHtml(titolaNome(m.campionato || m._comp.titolo || ""))}</span>
           ${trasferta ? `<span class="dir-esterna">trasferta</span>` : ""}
           ${etichettaAltra(m)}
           ${annullata ? `<span class="dir-annullata">annullata</span>` : ""}
         </div>
-        ${m.palestra ? `<p class="pr-palestra">${escapeHtml(m.palestra)}</p>` : ""}
+        ${m.palestra ? `<p class="pr-palestra">${escapeHtml(titolaNome(m.palestra))}</p>` : ""}
       </div>
       ${
         trasferta
