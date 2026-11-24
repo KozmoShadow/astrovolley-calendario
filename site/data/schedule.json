@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-22T22:14:29+00:00",
+  "generato_il": "2026-11-24T03:06:24+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -4341,12 +4341,12 @@
           "data": "2026-11-18 21:30",
           "casa": "Volley Mugnano Thunder",
           "trasferta": "La Fenice",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-17 25-18 25-17",
           "palestra": "SMS \"Illuminato - Cirino\"",
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "808",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-153.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
@@ -4413,12 +4413,12 @@
           "data": "2026-11-23 22:00",
           "casa": "La Fenice",
           "trasferta": "ASD Astrovolley",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-19 25-19 25-18",
           "palestra": "Palasport Fuorigrotta",
           "indirizzo": "Via Pomponio Gaurico, 40, Napoli",
           "gara": "813",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-169.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-149.webp"
         },
@@ -6517,6 +6517,17 @@
           "ps": 203
         },
         {
+          "squadra": "Volley Mugnano Thunder",
+          "punti": 6,
+          "pg": 3,
+          "pv": 2,
+          "pp": 1,
+          "sf": 7,
+          "ss": 3,
+          "pf": 227,
+          "ps": 211
+        },
+        {
           "squadra": "Libertas Sorrento",
           "punti": 6,
           "pg": 3,
@@ -6572,17 +6583,6 @@
           "ps": 143
         },
         {
-          "squadra": "Volley Mugnano Thunder",
-          "punti": 3,
-          "pg": 2,
-          "pv": 1,
-          "pp": 1,
-          "sf": 4,
-          "ss": 3,
-          "pf": 152,
-          "ps": 159
-        },
-        {
           "squadra": "Volley Mugnano Flame",
           "punti": 3,
           "pg": 2,
@@ -6592,6 +6592,17 @@
           "ss": 3,
           "pf": 137,
           "ps": 134
+        },
+        {
+          "squadra": "La Fenice",
+          "punti": 3,
+          "pg": 4,
+          "pv": 1,
+          "pp": 3,
+          "sf": 3,
+          "ss": 9,
+          "pf": 220,
+          "ps": 281
         },
         {
           "squadra": "Ziosta Suri Sport",
@@ -6605,26 +6616,15 @@
           "ps": 225
         },
         {
-          "squadra": "La Fenice",
-          "punti": 0,
-          "pg": 2,
-          "pv": 0,
-          "pp": 2,
-          "sf": 0,
-          "ss": 6,
-          "pf": 93,
-          "ps": 150
-        },
-        {
           "squadra": "ASD Astrovolley",
           "punti": 0,
-          "pg": 3,
+          "pg": 4,
           "pv": 0,
-          "pp": 3,
+          "pp": 4,
           "sf": 0,
-          "ss": 9,
-          "pf": 139,
-          "ps": 225
+          "ss": 12,
+          "pf": 195,
+          "ps": 300
         }
       ]
     }
