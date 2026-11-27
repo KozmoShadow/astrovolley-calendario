@@ -303,11 +303,11 @@
       "data": "2026-11-25 21:00",
       "casa": "Smile Team",
       "trasferta": "Volley Meta",
-      "risultato": "",
-      "parziali": "",
+      "risultato": "0 - 3",
+      "parziali": "16-25 13-25 13-25",
       "palestra": "SMS \"M. Schipa\"",
       "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
-      "stato": "pending",
+      "stato": "completed",
       "logo_casa": "assets/loghi/asi/squadra-147.webp",
       "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
     },
@@ -331,11 +331,11 @@
       "data": "2026-11-26 21:30",
       "casa": "Volley Mugnano Flame",
       "trasferta": "CS Volley FQL",
-      "risultato": "",
-      "parziali": "",
+      "risultato": "0 - 3",
+      "parziali": "13-25 9-25 16-25",
       "palestra": "SMS \"Illuminato - Cirino\"",
       "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
-      "stato": "pending",
+      "stato": "completed",
       "logo_casa": "assets/loghi/asi/squadra-152.webp",
       "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
     },
@@ -452,20 +452,6 @@
       "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
     },
     {
-      "gara": "821",
-      "giornata": "5",
-      "data": "2026-12-09 21:00",
-      "casa": "Libertas Sorrento",
-      "trasferta": "La Fenice",
-      "risultato": "",
-      "parziali": "",
-      "palestra": "LS \"G. Salvemini\"",
-      "indirizzo": "Via Sant'Antonio, 2, Sorrento",
-      "stato": "pending",
-      "logo_casa": "assets/loghi/asi/squadra-146.webp",
-      "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
-    },
-    {
       "gara": "826",
       "giornata": "6",
       "data": "2026-12-09 21:00",
@@ -506,6 +492,20 @@
       "stato": "pending",
       "logo_casa": "assets/loghi/asi/squadra-156.webp",
       "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
+    },
+    {
+      "gara": "821",
+      "giornata": "5",
+      "data": "2026-12-11 21:30",
+      "casa": "Libertas Sorrento",
+      "trasferta": "La Fenice",
+      "risultato": "",
+      "parziali": "",
+      "palestra": "LS \"G. Salvemini\"",
+      "indirizzo": "Via Sant'Antonio, 2, Sorrento",
+      "stato": "pending",
+      "logo_casa": "assets/loghi/asi/squadra-146.webp",
+      "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
     },
     {
       "gara": "824",

@@ -1,7 +1,7 @@
 {
   "societa": "ASD ASTROVOLLEY",
   "stagione": "2026/27",
-  "generato_il": "2026-11-26T00:47:05+00:00",
+  "generato_il": "2026-11-27T00:52:45+00:00",
   "fonte_primaria": "fipav_napoli",
   "live": {
     "base_url": "https://www.fipavnapoli.it",
@@ -2548,8 +2548,8 @@
           "giornata": "3",
           "casa": "VOLLEY WORD",
           "trasferta": "CALVIZZANO VOLLEY BLU",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "3 - 0",
+          "parziali": "25-18 25-14 25-15",
           "palestra": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO",
           "impianto": "PALESTRA ITAS V. EMANUELE II - CAMPO PICCOLO NAPOLI NA VIA BARBAGALLO 32",
           "indirizzo": "VIA BARBAGALLO 32, NAPOLI NA",
@@ -2966,6 +2966,17 @@
           "ps": 179
         },
         {
+          "squadra": "VOLLEY WORD",
+          "punti": 3,
+          "pg": 3,
+          "pv": 1,
+          "pp": 2,
+          "sf": 4,
+          "ss": 6,
+          "pf": 201,
+          "ps": 224
+        },
+        {
           "squadra": "ASD ASTROVOLLEY",
           "punti": 3,
           "pg": 3,
@@ -2977,26 +2988,15 @@
           "ps": 208
         },
         {
-          "squadra": "VOLLEY WORD",
-          "punti": 0,
-          "pg": 2,
-          "pv": 0,
-          "pp": 2,
-          "sf": 1,
-          "ss": 6,
-          "pf": 126,
-          "ps": 177
-        },
-        {
           "squadra": "CALVIZZANO VOLLEY BLU",
           "punti": 0,
-          "pg": 2,
+          "pg": 3,
           "pv": 0,
-          "pp": 2,
+          "pp": 3,
           "sf": 0,
-          "ss": 6,
-          "pf": 92,
-          "ps": 150
+          "ss": 9,
+          "pf": 139,
+          "ps": 225
         }
       ]
     },
@@ -4449,12 +4449,12 @@
           "data": "2026-11-25 21:00",
           "casa": "Smile Team",
           "trasferta": "Volley Meta",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "16-25 13-25 13-25",
           "palestra": "SMS \"M. Schipa\"",
           "indirizzo": "Plesso Troise - Vico Troise, ang. C.so V. Emanuele, Napoli",
           "gara": "814",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-147.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
         },
@@ -4485,12 +4485,12 @@
           "data": "2026-11-26 21:30",
           "casa": "Volley Mugnano Flame",
           "trasferta": "CS Volley FQL",
-          "risultato": "",
-          "parziali": "",
+          "risultato": "0 - 3",
+          "parziali": "13-25 9-25 16-25",
           "palestra": "SMS \"Illuminato - Cirino\"",
           "indirizzo": "Via Cesare Pavese, Trav. I, 4, Mugnano di Napoli",
           "gara": "817",
-          "stato": "pending",
+          "stato": "completed",
           "logo_casa": "assets/loghi/asi/squadra-152.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-159.webp"
         },
@@ -4643,24 +4643,6 @@
           "campionato_id": "asi-open-misto-elite",
           "campionato": "Open Misto Élite - Girone Unico",
           "girone": "Open Misto Élite - Girone Unico",
-          "giornata": "5",
-          "data": "2026-12-09 21:00",
-          "casa": "Libertas Sorrento",
-          "trasferta": "La Fenice",
-          "risultato": "",
-          "parziali": "",
-          "palestra": "LS \"G. Salvemini\"",
-          "indirizzo": "Via Sant'Antonio, 2, Sorrento",
-          "gara": "821",
-          "stato": "pending",
-          "logo_casa": "assets/loghi/asi/squadra-146.webp",
-          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
-        },
-        {
-          "fonte": "asi",
-          "campionato_id": "asi-open-misto-elite",
-          "campionato": "Open Misto Élite - Girone Unico",
-          "girone": "Open Misto Élite - Girone Unico",
           "giornata": "6",
           "data": "2026-12-09 21:00",
           "casa": "Smile Team",
@@ -4709,6 +4691,24 @@
           "stato": "pending",
           "logo_casa": "assets/loghi/asi/squadra-156.webp",
           "logo_trasferta": "assets/loghi/asi/squadra-157.webp"
+        },
+        {
+          "fonte": "asi",
+          "campionato_id": "asi-open-misto-elite",
+          "campionato": "Open Misto Élite - Girone Unico",
+          "girone": "Open Misto Élite - Girone Unico",
+          "giornata": "5",
+          "data": "2026-12-11 21:30",
+          "casa": "Libertas Sorrento",
+          "trasferta": "La Fenice",
+          "risultato": "",
+          "parziali": "",
+          "palestra": "LS \"G. Salvemini\"",
+          "indirizzo": "Via Sant'Antonio, 2, Sorrento",
+          "gara": "821",
+          "stato": "pending",
+          "logo_casa": "assets/loghi/asi/squadra-146.webp",
+          "logo_trasferta": "assets/loghi/asi/squadra-169.webp"
         },
         {
           "fonte": "asi",
@@ -6496,14 +6496,14 @@
       "standings": [
         {
           "squadra": "Volley Meta",
-          "punti": 9,
-          "pg": 3,
-          "pv": 3,
+          "punti": 12,
+          "pg": 4,
+          "pv": 4,
           "pp": 0,
-          "sf": 9,
+          "sf": 12,
           "ss": 1,
-          "pf": 245,
-          "ps": 187
+          "pf": 320,
+          "ps": 229
         },
         {
           "squadra": "Kleos Volley",
@@ -6515,6 +6515,17 @@
           "ss": 2,
           "pf": 263,
           "ps": 203
+        },
+        {
+          "squadra": "CS Volley FQL",
+          "punti": 9,
+          "pg": 4,
+          "pv": 3,
+          "pp": 1,
+          "sf": 10,
+          "ss": 4,
+          "pf": 329,
+          "ps": 262
         },
         {
           "squadra": "Volley Mugnano Thunder",
@@ -6539,17 +6550,6 @@
           "ps": 158
         },
         {
-          "squadra": "CS Volley FQL",
-          "punti": 6,
-          "pg": 3,
-          "pv": 2,
-          "pp": 1,
-          "sf": 7,
-          "ss": 4,
-          "pf": 254,
-          "ps": 224
-        },
-        {
           "squadra": "Volley Pimonte",
           "punti": 5,
           "pg": 3,
@@ -6563,24 +6563,13 @@
         {
           "squadra": "Smile Team",
           "punti": 4,
-          "pg": 2,
+          "pg": 3,
           "pv": 1,
-          "pp": 1,
+          "pp": 2,
           "sf": 5,
-          "ss": 3,
-          "pf": 170,
-          "ps": 161
-        },
-        {
-          "squadra": "Volley Mugnano Flame",
-          "punti": 3,
-          "pg": 2,
-          "pv": 1,
-          "pp": 1,
-          "sf": 3,
-          "ss": 3,
-          "pf": 137,
-          "ps": 134
+          "ss": 6,
+          "pf": 212,
+          "ps": 236
         },
         {
           "squadra": "Oplontis",
@@ -6592,6 +6581,17 @@
           "ss": 6,
           "pf": 239,
           "ps": 238
+        },
+        {
+          "squadra": "Volley Mugnano Flame",
+          "punti": 3,
+          "pg": 3,
+          "pv": 1,
+          "pp": 2,
+          "sf": 3,
+          "ss": 6,
+          "pf": 175,
+          "ps": 209
         },
         {
           "squadra": "La Fenice",
